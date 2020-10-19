@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Splatting on ROOSTECH</title>
+    <link>http://test.roostech.se/tags/splatting/</link>
+    <description>Recent content in Splatting on ROOSTECH</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 21 Feb 2017 14:14:00 +0200</lastBuildDate><atom:link href="http://test.roostech.se/tags/splatting/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Invoke-RestMethod with anti-forgery tokens in header and cookie</title>
+      <link>http://test.roostech.se/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/</link>
+      <pubDate>Tue, 21 Feb 2017 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/</guid>
+      <description>To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell cmdlet Invoke-RestMethod. I have seen some people suggesting that Invoke-RestMethod does not have support for this, which is not true. It&amp;rsquo;s just a little bit more complicated than expected.
+What&amp;rsquo;s needed is basically a custom header and a cookie.</description>
+    </item>
+    
+    <item>
+      <title>How to use splatting in PowerShell</title>
+      <link>http://test.roostech.se/posts/how-to-use-splatting-in-powershell/</link>
+      <pubDate>Thu, 09 Jul 2015 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/how-to-use-splatting-in-powershell/</guid>
+      <description>I still hear a lot of people who don&amp;rsquo;t know how splatting works in Powershell. Splatting was introduced in Powershell 2.0 so it has been around for a while and it can make scripts look more clean and easy to read. This is how Microsoft explains splatting:
+ Splatting is a method of passing a collection of parameter values to a command as unit. Windows PowerShell associates each value in the collection with a command parameter.</description>
+    </item>
+    
+  </channel>
+</rss>

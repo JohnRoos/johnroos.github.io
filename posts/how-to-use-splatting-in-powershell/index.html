@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    
+    
+    <title>ROOSTECH | How to use splatting in PowerShell</title>
+    <meta name="description" content="I still hear a lot of people who don&rsquo;t know how splatting works in Powershell. Splatting was introduced in Powershell 2.0 so it has been around for a while and it can make scripts look more clean and easy to read. This is how Microsoft explains splatting:
+ Splatting is a method of passing a collection of parameter values to a command as unit. Windows PowerShell associates each value in the collection with a command parameter."/>
+</head><body>
+        <div class="container">
+
+<nav class="navbar navbar-expand-lg navbar-dark ">
+    <a class="navbar-brand" href="/">
+        <div class="logo">RoosTech.se</div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+   
+
+
+        
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/"> Home</a>
+              </li>
+            
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/gists/"> Gists</a>
+              </li>
+            
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/parameter-validation/"> Parameter validation</a>
+              </li>
+            
+        
+
+      </ul>
+
+      <ul class="navbar-nav mr-right">
+
+        
+        
+            
+                <li class="nav-item navbar-right ">
+                <a class="nav-link" href="/about/"> About me</a>
+                </li>
+            
+        
+
+        
+      </ul>
+    </div>
+  </nav>
+
+<div class="row">
+                <div class="col-sm-9 blog-main section" id="blogposts">
+
+    
+    
+    <time class="postdate" datetime="2015-07-09">Jul 9, 2015</time>
+
+<h1>How to use splatting in PowerShell</h1>
+<p>I still hear a lot of people who don&rsquo;t know how splatting works in Powershell. Splatting was introduced in Powershell 2.0 so it has been around for a while and it can make scripts look more clean and easy to read. This is how Microsoft explains splatting:</p>
+<blockquote>
+<p>Splatting is a method of passing a collection of parameter values to a command as unit. Windows PowerShell associates each value in the collection with a command parameter.</p>
+</blockquote>
+<p>I will give some examples on how to use splatting and show why it can be useful. Splatting can be used either with arrays or hashtables. Arrays are used for commands that have positional parameters and hash tables are used when named parameters are needed.</p>
+<h2 id="array-splatting">Array splatting</h2>
+<p>Lets start with an example and splat parameters into an array. First you need a command that accepts positional parameters (parameters you can use without naming them). I will use Invoke-Command in this example, which has two positional parameters (ComputerName and ScriptBlock) and can be used in the following way:</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Invoke-Command</span> <span class="n">Server01</span> <span class="s1">&#39;C:\script.ps1&#39;</span>
+</code></pre></div><p>If we want to use splatting on this we would add these two parameter values to an array first and then add the array to the command instead of the parameters.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$params</span> <span class="p">=</span> <span class="s1">&#39;Server01&#39;</span><span class="p">,</span> <span class="s1">&#39;C:\script.ps1&#39;</span>
+<span class="nb">Invoke-Command</span> <span class="nv">@params</span>
+</code></pre></div><p>If you look closely you can see that the variable $params starts with a dollar symbol, but when its used in splatting the &ldquo;@&rdquo; symbol is used. The &ldquo;@&rdquo; symbol tells PowerShell that this variable is a collection of parameters and should be treated as parameters. If a dollar symbol was used PowerShell would just consider it to be an array of values to the first positional parameter and that&rsquo;s not what we want in this case.</p>
+<p>You can also mix this technique with regular parameters if needed:</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$params</span> <span class="p">=</span> <span class="s1">&#39;Server01&#39;</span><span class="p">,</span> <span class="s1">&#39;C:\script.ps1&#39;</span>
+<span class="nb">Invoke-Command</span> <span class="nv">@params</span> <span class="n">-ErrorVariable</span> <span class="n">Err</span>
+</code></pre></div><h2 id="hash-table-splatting">Hash table splatting</h2>
+<p>Not all parameters are positional and using positional parameters can make the code harder to read. I prefer to use named parameters as often as possible, even if it means more letters to punch in. If we want to use splatting with named parameters we need to use a hash table instead of an array.</p>
+<p>I will go straight to examples which probably explains this better than words. I will use my own cmdlet, Write-ObjectToSQL, which I wrote about some time back. This cmdlet has quite a few parameters which makes it a good candidate, since the command line can get quite long as you can see in the example below.</p>
+<p>The command below will get all the processes running on the machine and write all the information to a database table. Exactly what it does is not important for this topic. You can read more details about this cmdlet here.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="n">-Server</span> <span class="n">localhost</span><span class="p">\</span><span class="n">sqlexpress</span> <span class="n">-Database</span> <span class="n">MyDB</span> <span class="n">-TableName</span> <span class="n">MyTable</span> <span class="n">-ReportEveryXObject</span> <span class="n">100</span>
+</code></pre></div><p>Now lets use splatting with a hash table where every key/value pair represents a named parameter.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$params</span> <span class="p">=</span> <span class="p">@{</span>
+    <span class="s1">&#39;Server&#39;</span>             <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
+    <span class="s1">&#39;Database&#39;</span>           <span class="p">=</span> <span class="s1">&#39;MyDB&#39;</span>
+    <span class="s1">&#39;TableName&#39;</span>          <span class="p">=</span> <span class="s1">&#39;MyTable&#39;</span>
+    <span class="s1">&#39;ReportEveryXObject&#39;</span> <span class="p">=</span> <span class="n">100</span>
+<span class="p">}</span>
+<span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="nv">@params</span>
+</code></pre></div><p>Again, the &ldquo;@&rdquo; symbol on the last line is the magic here, just like when using an array. This works with all kinds of parameters, including switch parameters and common parameters:</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$params</span> <span class="p">=</span> <span class="p">@{</span>
+    <span class="s1">&#39;Server&#39;</span>             <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
+    <span class="s1">&#39;Database&#39;</span>           <span class="p">=</span> <span class="s1">&#39;MyDB&#39;</span>
+    <span class="s1">&#39;TableName&#39;</span>          <span class="p">=</span> <span class="s1">&#39;MyTable&#39;</span>
+    <span class="s1">&#39;ReportEveryXObject&#39;</span> <span class="p">=</span> <span class="n">100</span>
+    <span class="s1">&#39;DoNotCreateTable&#39;</span>   <span class="p">=</span> <span class="nv">$true</span>
+    <span class="s1">&#39;ErrorVariable&#39;</span>      <span class="p">=</span> <span class="s1">&#39;err&#39;</span>
+<span class="p">}</span>
+<span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="nv">@params</span>
+</code></pre></div><p>You can mix with regular parameters as well.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$params</span> <span class="p">=</span> <span class="p">@{</span>
+    <span class="s1">&#39;Server&#39;</span>             <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
+    <span class="s1">&#39;Database&#39;</span>           <span class="p">=</span> <span class="s1">&#39;MyDB&#39;</span>
+    <span class="s1">&#39;TableName&#39;</span>          <span class="p">=</span> <span class="s1">&#39;MyTable&#39;</span>
+    <span class="s1">&#39;ReportEveryXObject&#39;</span> <span class="p">=</span> <span class="n">100</span>
+    <span class="s1">&#39;DoNotCreateTable&#39;</span>   <span class="p">=</span> <span class="nv">$true</span>
+    <span class="s1">&#39;ErrorVariable&#39;</span>      <span class="p">=</span> <span class="s1">&#39;err&#39;</span>
+<span class="p">}</span>
+<span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="nv">@params</span> <span class="n">-Verbose</span>
+</code></pre></div><p>However, you cannot add the same parameter more than once.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$params</span> <span class="p">=</span> <span class="p">@{</span>
+    <span class="s1">&#39;Server&#39;</span>             <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
+    <span class="s1">&#39;Database&#39;</span>           <span class="p">=</span> <span class="s1">&#39;MyDB&#39;</span>
+    <span class="s1">&#39;TableName&#39;</span>          <span class="p">=</span> <span class="s1">&#39;MyTable&#39;</span>
+<span class="p">}</span>
+<span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="nv">@params</span> <span class="n">-TableName</span> <span class="n">MyOtherTable</span>
+<span class="c">#Error: Cannot bind parameter because parameter TableName is specified more than once</span>
+</code></pre></div><p>To read more about this topic write &ldquo;Get-Help about_splatting&rdquo; in the PowerShell console or read the web version here.</p>
+
+<div class="blog-post-meta-bottom">
+  
+      Posted by: John<br />
+  
+  
+      Tags: 
+              PowerShell
+          
+              Splatting
+          
+              Parameters
+          
+  
+</div>
+
+                </div>
+                <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
+    
+    <div class="author">
+        <img width="120" height="120" alt="John Roos" src="/img/face.jpg"><br>
+        <a title="About John Roos" href="http://test.roostech.se/about">John Roos</a>
+    </div>
+    
+    <div id="recentPosts">
+            <div class="recentposts">
+                <div class="recentposts-header">RECENT POSTS</div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h1>
+                    Pester 5 was released a couple of days ago which brings a lot of new features and changes to how we write tests. One of the major changes in Pester 5 is the Discovery phase. In this post I will attempt to explain how Discover...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/create-and-use-azure-table-storage-with-powershell/">Create and use Azure Table storage with PowerShell</a></h1>
+                    Azure Table storage is a quick and easy way to store data in the cloud. If you have an Azure subscription you can play around with you are up and running within minutes. Here is a short example on how to get started.
+Create t...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/">Use Edit-Command to discover the code behind built-in cmdlets</a></h1>
+                    Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When y...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h1>
+                    To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h1>
+                    Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources ...
+                </div>
+            
+            </div>
+    </div>
+
+</div></div>
+            </div>
+            <footer class="footer"><div class="feet">
+<p class="footer text-center">Copyright (c) 2020 John Roos</p>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</footer>
+        </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>

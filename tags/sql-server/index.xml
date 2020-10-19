@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SQL Server on ROOSTECH</title>
+    <link>http://test.roostech.se/tags/sql-server/</link>
+    <description>Recent content in SQL Server on ROOSTECH</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 14 Jul 2015 14:14:00 +0200</lastBuildDate><atom:link href="http://test.roostech.se/tags/sql-server/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Simple select from database with PowerShell</title>
+      <link>http://test.roostech.se/posts/simple-select-from-database-with-powershell/</link>
+      <pubDate>Tue, 14 Jul 2015 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/simple-select-from-database-with-powershell/</guid>
+      <description>There are a few ways of getting data from SQL Server in PowerShell. This is one way of doing it which is quite simple and does not require the SQL Server module. The sample below shows how to get started. If you are planning on creating a script for serious use you need to add error handling and investigate a bit more what each line actually does so that you are in full control.</description>
+    </item>
+    
+  </channel>
+</rss>

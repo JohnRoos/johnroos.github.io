@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    
+    
+    <title>ROOSTECH | Invoke-WebReqyest</title>
+    <meta name="description" content="A blog about PowerShell, automation and technology in general."/>
+</head><body>
+        <div class="container">
+
+<nav class="navbar navbar-expand-lg navbar-dark ">
+    <a class="navbar-brand" href="/">
+        <div class="logo">RoosTech.se</div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+   
+
+
+        
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/"> Home</a>
+              </li>
+            
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/gists/"> Gists</a>
+              </li>
+            
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/parameter-validation/"> Parameter validation</a>
+              </li>
+            
+        
+
+      </ul>
+
+      <ul class="navbar-nav mr-right">
+
+        
+        
+            
+                <li class="nav-item navbar-right ">
+                <a class="nav-link" href="/about/"> About me</a>
+                </li>
+            
+        
+
+        
+      </ul>
+    </div>
+  </nav>
+
+<div class="row">
+                <div class="col-sm-9 blog-main section" id="blogposts">
+    
+    <div class="blog-post">
+        <span class="blog-post-meta">
+            
+    
+    
+    <time class="postdate" datetime="2020-05-29">May 29, 2020</time>
+
+        </span>
+        <h1 class="blog-post-title">
+            <a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a>
+        </h1>
+        <div class="blog-post-body">
+            Pester 5 was released a couple of days ago which brings a lot of new features and changes to how we write tests. One of the major changes in Pester 5 is the Discovery phase. In this post I will attempt to explain how Discovery works and how to use it to generate test cases.
+Tests are executed in two phases Whenever you run tests with Pester 5 there will always be two phases, the Discovery phase and the Run phase.
+        </div>
+        <div>
+            <a class="title" href="/posts/pester-5-discovery-and-testcases/">Read more »</a>
+        </div>
+        <div class="blog-post-meta-bottom">
+            
+                Posted by: John<br />
+            
+            
+                Tags: 
+                        PowerShell
+                    
+                        Pester
+                    
+                        Unit test
+                    
+            
+        </div>
+    </div>
+    
+    <div class="blog-post">
+        <span class="blog-post-meta">
+            
+    
+    
+    <time class="postdate" datetime="2020-03-11">Mar 11, 2020</time>
+
+        </span>
+        <h1 class="blog-post-title">
+            <a class="title" href="/posts/create-and-use-azure-table-storage-with-powershell/">Create and use Azure Table storage with PowerShell</a>
+        </h1>
+        <div class="blog-post-body">
+            Azure Table storage is a quick and easy way to store data in the cloud. If you have an Azure subscription you can play around with you are up and running within minutes. Here is a short example on how to get started.
+Create table To create an Azure Table we need to first have a resource group. Lets create one that is called &ldquo;MyAwesomeResourceGroup&rdquo; and place it in &ldquo;West Europe&rdquo;.
+        </div>
+        <div>
+            <a class="title" href="/posts/create-and-use-azure-table-storage-with-powershell/">Read more »</a>
+        </div>
+        <div class="blog-post-meta-bottom">
+            
+                Posted by: John<br />
+            
+            
+                Tags: 
+                        PowerShell
+                    
+                        Azure Tables
+                    
+            
+        </div>
+    </div>
+    
+    <div class="blog-post">
+        <span class="blog-post-meta">
+            
+    
+    
+    <time class="postdate" datetime="2017-02-22">Feb 22, 2017</time>
+
+        </span>
+        <h1 class="blog-post-title">
+            <a class="title" href="/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/">Use Edit-Command to discover the code behind built-in cmdlets</a>
+        </h1>
+        <div class="blog-post-body">
+            Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When you run Get-Command you get all kinds of details about the commands you are looking for. One of the properties in the output is called ScriptBlock. Thats where the code is, if its written in PowerShell.
+        </div>
+        <div>
+            <a class="title" href="/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/">Read more »</a>
+        </div>
+        <div class="blog-post-meta-bottom">
+            
+                Posted by: John<br />
+            
+            
+                Tags: 
+                        PowerShell
+                    
+                        Edit-Command
+                    
+                        Get started
+                    
+                        Get-Command
+                    
+                        Get-Verb
+                    
+                        PowerShell ISE
+                    
+            
+        </div>
+    </div>
+    
+    <div class="blog-post">
+        <span class="blog-post-meta">
+            
+    
+    
+    <time class="postdate" datetime="2017-02-21">Feb 21, 2017</time>
+
+        </span>
+        <h1 class="blog-post-title">
+            <a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a>
+        </h1>
+        <div class="blog-post-body">
+            To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell cmdlet Invoke-RestMethod. I have seen some people suggesting that Invoke-RestMethod does not have support for this, which is not true. It&rsquo;s just a little bit more complicated than expected.
+What&rsquo;s needed is basically a custom header and a cookie.
+        </div>
+        <div>
+            <a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Read more »</a>
+        </div>
+        <div class="blog-post-meta-bottom">
+            
+                Posted by: John<br />
+            
+            
+                Tags: 
+                        Invoke-RestMethod
+                    
+                        Invoke-WebReqyest
+                    
+                        PowerShell
+                    
+                        REST
+                    
+                        Splatting
+                    
+            
+        </div>
+    </div>
+    
+    <div class="blog-post">
+        <span class="blog-post-meta">
+            
+    
+    
+    <time class="postdate" datetime="2016-04-23">Apr 23, 2016</time>
+
+        </span>
+        <h1 class="blog-post-title">
+            <a class="title" href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a>
+        </h1>
+        <div class="blog-post-body">
+            Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources to contain as little code as possible I prefer to create cmdlets outside of the resource which I can call from within the resource. In this way I can also use the cmdlets in scripts and the console which is a nice bonus.
+        </div>
+        <div>
+            <a class="title" href="/posts/introducing-the-inimanager-module/">Read more »</a>
+        </div>
+        <div class="blog-post-meta-bottom">
+            
+                Posted by: John<br />
+            
+            
+                Tags: 
+                        DSC
+                    
+                        Ini file
+                    
+                        Module
+                    
+                        PowerShell
+                    
+            
+        </div>
+    </div>
+    
+    <div class="blog-post">
+        <span class="blog-post-meta">
+            
+    
+    
+    <time class="postdate" datetime="2016-02-06">Feb 6, 2016</time>
+
+        </span>
+        <h1 class="blog-post-title">
+            <a class="title" href="/posts/use-powershell-jobs-to-ping-many-from-many-with-log/">Use PowerShell jobs to ping many from many with log</a>
+        </h1>
+        <div class="blog-post-body">
+            Once in a while you want to check how stable a connection is between computers. You might want to ping one or two machines from several others to find out if there is some issues with the network somewhere. You could use the built-in cmdlet Test-Connection and log the results to a log file but then you will not be able to log timeouts since the cmdlet returns an error when timeouts occur.
+        </div>
+        <div>
+            <a class="title" href="/posts/use-powershell-jobs-to-ping-many-from-many-with-log/">Read more »</a>
+        </div>
+        <div class="blog-post-meta-bottom">
+            
+                Posted by: John<br />
+            
+            
+                Tags: 
+                        Error handling
+                    
+                        Jobs
+                    
+                        Ping
+                    
+                        PowerShell
+                    
+                        Test-Connection
+                    
+                        Write-ObjectToSQL
+                    
+            
+        </div>
+    </div>
+    
+    <div class="blog-post">
+        <span class="blog-post-meta">
+            
+    
+    
+    <time class="postdate" datetime="2015-07-27">Jul 27, 2015</time>
+
+        </span>
+        <h1 class="blog-post-title">
+            <a class="title" href="/posts/powershell-logo-made-with-css3/">PowerShell logo made with CSS3</a>
+        </h1>
+        <div class="blog-post-body">
+            If you are following this blog you might have noticed some small changes here and there. I have been playing around with CSS in search of something that I like. While playing with CSS I started to wonder how hard it would be to create the PowerShell logo with only CSS, and it turned out it was not that hard. Unfortunately it requires some CSS3 components which not all browsers support, so depending on your browser the logo in the end of this post might or might not show properly.
+        </div>
+        <div>
+            <a class="title" href="/posts/powershell-logo-made-with-css3/">Read more »</a>
+        </div>
+        <div class="blog-post-meta-bottom">
+            
+                Posted by: John<br />
+            
+            
+                Tags: 
+                        CSS
+                    
+                        Off topic
+                    
+                        PowerShell
+                    
+            
+        </div>
+    </div>
+    
+    <div class="blog-post">
+        <span class="blog-post-meta">
+            
+    
+    
+    <time class="postdate" datetime="2015-07-24">Jul 24, 2015</time>
+
+        </span>
+        <h1 class="blog-post-title">
+            <a class="title" href="/posts/what-is-this-here-string-people-are-talking-about/">What is this here-string people are talking about?</a>
+        </h1>
+        <div class="blog-post-body">
+            When long strings need to be generated it could sometimes be cumbersome to keep adding strings together, especially if you want the string to contain several lines, tabs and special characters. Here-string can solve that problem and is very easy to use.
+Lets first look at a simple example of how regular strings work with variables, new lines and tabs. After that we look at an example of how to use here-string instead to make the code easier to read.
+        </div>
+        <div>
+            <a class="title" href="/posts/what-is-this-here-string-people-are-talking-about/">Read more »</a>
+        </div>
+        <div class="blog-post-meta-bottom">
+            
+                Posted by: John<br />
+            
+            
+                Tags: 
+                        Here-string
+                    
+                        PowerShell
+                    
+            
+        </div>
+    </div>
+    
+    <div class="blog-post">
+        <span class="blog-post-meta">
+            
+    
+    
+    <time class="postdate" datetime="2015-07-21">Jul 21, 2015</time>
+
+        </span>
+        <h1 class="blog-post-title">
+            <a class="title" href="/posts/dynamic-parameters-in-powershell-executes-before-you-know-it/">Dynamic parameters in PowerShell executes before you know it</a>
+        </h1>
+        <div class="blog-post-body">
+            When creating script cmdlets in PowerShell you can use dynamic parameters to create some advanced parameters. A few months back I was playing around a bit with dynamic parameters to see how it works and I noticed that the logic for the dynamic parameters is executed as soon as the verb is written in the console within PowerShell ISE.
+Let&rsquo;s create a cmdlet to prove this theory. The cmdlet below will simply open a text file in the PowerShell ISE from the folder C:\temp.
+        </div>
+        <div>
+            <a class="title" href="/posts/dynamic-parameters-in-powershell-executes-before-you-know-it/">Read more »</a>
+        </div>
+        <div class="blog-post-meta-bottom">
+            
+                Posted by: John<br />
+            
+            
+                Tags: 
+                        PowerShell
+                    
+                        Parameters
+                    
+            
+        </div>
+    </div>
+    
+    <div class="blog-post">
+        <span class="blog-post-meta">
+            
+    
+    
+    <time class="postdate" datetime="2015-07-14">Jul 14, 2015</time>
+
+        </span>
+        <h1 class="blog-post-title">
+            <a class="title" href="/posts/making-powershell-expressions-easier/">Making PowerShell expressions easier</a>
+        </h1>
+        <div class="blog-post-body">
+            Expressions in PowerShell have a weird syntax and can quickly become complicated and hard to read. I thought about a way to make the syntax a bit easier to read and came up with a solution that might work for some cases. This solution contains two classes which can be used when piping to Select-Object for example. The first class describes the actual expression.
+class Xpression { [string]$Name [scriptblock]$Expression [hashtable] getExpression() { return @{ Name = $this.
+        </div>
+        <div>
+            <a class="title" href="/posts/making-powershell-expressions-easier/">Read more »</a>
+        </div>
+        <div class="blog-post-meta-bottom">
+            
+                Posted by: John<br />
+            
+            
+                Tags: 
+                        Classes
+                    
+                        PowerShell
+                    
+                        Expressions
+                    
+            
+        </div>
+    </div>
+    
+    <div class="blog-post">
+        <span class="blog-post-meta">
+            
+    
+    
+    <time class="postdate" datetime="2015-07-14">Jul 14, 2015</time>
+
+        </span>
+        <h1 class="blog-post-title">
+            <a class="title" href="/posts/simple-select-from-database-with-powershell/">Simple select from database with PowerShell</a>
+        </h1>
+        <div class="blog-post-body">
+            There are a few ways of getting data from SQL Server in PowerShell. This is one way of doing it which is quite simple and does not require the SQL Server module. The sample below shows how to get started. If you are planning on creating a script for serious use you need to add error handling and investigate a bit more what each line actually does so that you are in full control.
+        </div>
+        <div>
+            <a class="title" href="/posts/simple-select-from-database-with-powershell/">Read more »</a>
+        </div>
+        <div class="blog-post-meta-bottom">
+            
+                Posted by: John<br />
+            
+            
+                Tags: 
+                        PowerShell
+                    
+                        SQL Server
+                    
+            
+        </div>
+    </div>
+    
+    <div class="blog-post">
+        <span class="blog-post-meta">
+            
+    
+    
+    <time class="postdate" datetime="2015-07-09">Jul 9, 2015</time>
+
+        </span>
+        <h1 class="blog-post-title">
+            <a class="title" href="/posts/how-to-use-splatting-in-powershell/">How to use splatting in PowerShell</a>
+        </h1>
+        <div class="blog-post-body">
+            I still hear a lot of people who don&rsquo;t know how splatting works in Powershell. Splatting was introduced in Powershell 2.0 so it has been around for a while and it can make scripts look more clean and easy to read. This is how Microsoft explains splatting:
+ Splatting is a method of passing a collection of parameter values to a command as unit. Windows PowerShell associates each value in the collection with a command parameter.
+        </div>
+        <div>
+            <a class="title" href="/posts/how-to-use-splatting-in-powershell/">Read more »</a>
+        </div>
+        <div class="blog-post-meta-bottom">
+            
+                Posted by: John<br />
+            
+            
+                Tags: 
+                        PowerShell
+                    
+                        Splatting
+                    
+                        Parameters
+                    
+            
+        </div>
+    </div>
+    
+
+                </div>
+                <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
+    
+    <div class="author">
+        <img width="120" height="120" alt="John Roos" src="/img/face.jpg"><br>
+        <a title="About John Roos" href="http://test.roostech.se/about">John Roos</a>
+    </div>
+    
+    <div id="recentPosts">
+            <div class="recentposts">
+                <div class="recentposts-header">RECENT POSTS</div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h1>
+                    Pester 5 was released a couple of days ago which brings a lot of new features and changes to how we write tests. One of the major changes in Pester 5 is the Discovery phase. In this post I will attempt to explain how Discover...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/create-and-use-azure-table-storage-with-powershell/">Create and use Azure Table storage with PowerShell</a></h1>
+                    Azure Table storage is a quick and easy way to store data in the cloud. If you have an Azure subscription you can play around with you are up and running within minutes. Here is a short example on how to get started.
+Create t...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/">Use Edit-Command to discover the code behind built-in cmdlets</a></h1>
+                    Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When y...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h1>
+                    To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h1>
+                    Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources ...
+                </div>
+            
+            </div>
+    </div>
+
+</div></div>
+            </div>
+            <footer class="footer"><div class="feet">
+<p class="footer text-center">Copyright (c) 2020 John Roos</p>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</footer>
+        </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>

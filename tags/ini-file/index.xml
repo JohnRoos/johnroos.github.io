@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ini file on ROOSTECH</title>
+    <link>http://test.roostech.se/tags/ini-file/</link>
+    <description>Recent content in Ini file on ROOSTECH</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 23 Apr 2016 14:14:00 +0200</lastBuildDate><atom:link href="http://test.roostech.se/tags/ini-file/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introducing the IniManager module</title>
+      <link>http://test.roostech.se/posts/introducing-the-inimanager-module/</link>
+      <pubDate>Sat, 23 Apr 2016 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/introducing-the-inimanager-module/</guid>
+      <description>Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources to contain as little code as possible I prefer to create cmdlets outside of the resource which I can call from within the resource. In this way I can also use the cmdlets in scripts and the console which is a nice bonus.</description>
+    </item>
+    
+  </channel>
+</rss>

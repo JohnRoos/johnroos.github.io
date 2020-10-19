@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Off topic on ROOSTECH</title>
+    <link>http://test.roostech.se/tags/off-topic/</link>
+    <description>Recent content in Off topic on ROOSTECH</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 27 Jul 2015 14:14:00 +0200</lastBuildDate><atom:link href="http://test.roostech.se/tags/off-topic/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PowerShell logo made with CSS3</title>
+      <link>http://test.roostech.se/posts/powershell-logo-made-with-css3/</link>
+      <pubDate>Mon, 27 Jul 2015 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/powershell-logo-made-with-css3/</guid>
+      <description>If you are following this blog you might have noticed some small changes here and there. I have been playing around with CSS in search of something that I like. While playing with CSS I started to wonder how hard it would be to create the PowerShell logo with only CSS, and it turned out it was not that hard. Unfortunately it requires some CSS3 components which not all browsers support, so depending on your browser the logo in the end of this post might or might not show properly.</description>
+    </item>
+    
+  </channel>
+</rss>

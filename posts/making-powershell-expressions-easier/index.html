@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    
+    
+    <title>ROOSTECH | Making PowerShell expressions easier</title>
+    <meta name="description" content="Expressions in PowerShell have a weird syntax and can quickly become complicated and hard to read. I thought about a way to make the syntax a bit easier to read and came up with a solution that might work for some cases. This solution contains two classes which can be used when piping to Select-Object for example. The first class describes the actual expression.
+class Xpression { [string]$Name [scriptblock]$Expression [hashtable] getExpression() { return @{ Name = $this."/>
+</head><body>
+        <div class="container">
+
+<nav class="navbar navbar-expand-lg navbar-dark ">
+    <a class="navbar-brand" href="/">
+        <div class="logo">RoosTech.se</div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+   
+
+
+        
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/"> Home</a>
+              </li>
+            
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/gists/"> Gists</a>
+              </li>
+            
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/parameter-validation/"> Parameter validation</a>
+              </li>
+            
+        
+
+      </ul>
+
+      <ul class="navbar-nav mr-right">
+
+        
+        
+            
+                <li class="nav-item navbar-right ">
+                <a class="nav-link" href="/about/"> About me</a>
+                </li>
+            
+        
+
+        
+      </ul>
+    </div>
+  </nav>
+
+<div class="row">
+                <div class="col-sm-9 blog-main section" id="blogposts">
+
+    
+    
+    <time class="postdate" datetime="2015-07-14">Jul 14, 2015</time>
+
+<h1>Making PowerShell expressions easier</h1>
+<p>Expressions in PowerShell have a weird syntax and can quickly become complicated and hard to read. I thought about a way to make the syntax a bit easier to read and came up with a solution that might work for some cases. This solution contains two classes which can be used when piping to Select-Object for example. The first class describes the actual expression.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">class</span> <span class="n">Xpression</span>
+<span class="p">{</span>
+    <span class="no">[string]</span><span class="nv">$Name</span>
+    <span class="no">[scriptblock]</span><span class="nv">$Expression</span>
+    <span class="no">[hashtable]</span> <span class="n">getExpression</span><span class="p">()</span> <span class="p">{</span> 
+        <span class="k">return</span> <span class="p">@{</span> <span class="n">Name</span> <span class="p">=</span> <span class="nv">$this</span><span class="p">.</span><span class="n">Name</span><span class="p">;</span> <span class="n">Expression</span> <span class="p">=</span> <span class="nv">$this</span><span class="p">.</span><span class="n">Expression</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>The second class is an array of the first class. This class also have overloaded methods for adding expressions or property names. The Get() method returns all expressions and properties (converted to expressions).</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">class</span> <span class="n">XpressionArray</span>
+<span class="p">{</span>
+    <span class="no">[Xpression[]]</span><span class="nv">$Expression</span>
+    <span class="no">[array]</span> <span class="n">Get</span><span class="p">()</span> <span class="p">{</span> 
+        <span class="k">return</span> <span class="nv">$this</span><span class="p">.</span><span class="n">Expression</span><span class="p">.</span><span class="n">getExpression</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="n">Add</span><span class="p">(</span><span class="no">[string]</span><span class="nv">$n</span><span class="p">,</span> <span class="no">[scriptblock]</span><span class="nv">$x</span><span class="p">)</span> <span class="p">{</span> 
+        <span class="nv">$temp</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">Xpression</span>
+        <span class="nv">$temp</span><span class="p">.</span><span class="n">Name</span> <span class="p">=</span> <span class="nv">$n</span>
+        <span class="nv">$temp</span><span class="p">.</span><span class="n">Expression</span> <span class="p">=</span> <span class="nv">$x</span>
+        <span class="nv">$this</span><span class="p">.</span><span class="n">Expression</span> <span class="p">+=</span> <span class="nv">$temp</span>
+    <span class="p">}</span>
+    <span class="n">Add</span><span class="p">(</span><span class="no">[string]</span><span class="nv">$n</span><span class="p">)</span> <span class="p">{</span> 
+        <span class="nv">$temp</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">Xpression</span>
+        <span class="nv">$temp</span><span class="p">.</span><span class="n">Name</span> <span class="p">=</span> <span class="nv">$n</span>
+        <span class="nv">$temp</span><span class="p">.</span><span class="n">Expression</span> <span class="p">=</span> <span class="no">[Scriptblock]</span><span class="p">::</span><span class="n">Create</span><span class="p">(</span><span class="s1">&#39;$_.&#39;</span> <span class="p">+</span> <span class="nv">$n</span> <span class="p">)</span> 
+        <span class="nv">$this</span><span class="p">.</span><span class="n">Expression</span> <span class="p">+=</span> <span class="nv">$temp</span>
+         
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>So how can we use this? Its quite easy actually. First create an object with TypeName &ldquo;XpressionArray&rdquo;.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$exp</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">XpressionArray</span>
+</code></pre></div><p>Then add the properties or expressions you need using the Add() method.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$exp</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">)</span>
+<span class="nv">$exp</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s1">&#39;Id&#39;</span><span class="p">)</span>
+<span class="nv">$exp</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s1">&#39;KB&#39;</span><span class="p">,{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">WorkingSet</span> <span class="p">/</span> <span class="n">1Kb</span> <span class="p">})</span>
+<span class="nv">$exp</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s1">&#39;MB&#39;</span><span class="p">,{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">WorkingSet</span> <span class="p">/</span> <span class="n">1Mb</span> <span class="p">})</span>
+</code></pre></div><p>Now lets see if this works. Run the following command to use the method Get() in the pipeline.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Get-Process</span> <span class="n">-Name</span> <span class="n">powershell</span><span class="p">*</span> <span class="p">|</span> <span class="nb">select </span><span class="nv">$exp</span><span class="p">.</span><span class="n">Get</span><span class="p">()</span> <span class="p">|</span> <span class="nb">Format-Table</span>
+<span class="nb">Get-Process</span> <span class="n">-Name</span> <span class="n">powershell</span><span class="p">*</span> <span class="p">|</span> <span class="nb">select </span><span class="nv">$exp</span><span class="p">.</span><span class="n">Get</span><span class="p">()</span> <span class="p">|</span> <span class="nb">Get-Member</span>
+</code></pre></div><p>And it works! These classes can make the code look a bit more clean in some cases so try it for yourself to see if it fits your scenarios.</p>
+
+<div class="blog-post-meta-bottom">
+  
+      Posted by: John<br />
+  
+  
+      Tags: 
+              Classes
+          
+              PowerShell
+          
+              Expressions
+          
+  
+</div>
+
+                </div>
+                <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
+    
+    <div class="author">
+        <img width="120" height="120" alt="John Roos" src="/img/face.jpg"><br>
+        <a title="About John Roos" href="http://test.roostech.se/about">John Roos</a>
+    </div>
+    
+    <div id="recentPosts">
+            <div class="recentposts">
+                <div class="recentposts-header">RECENT POSTS</div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h1>
+                    Pester 5 was released a couple of days ago which brings a lot of new features and changes to how we write tests. One of the major changes in Pester 5 is the Discovery phase. In this post I will attempt to explain how Discover...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/create-and-use-azure-table-storage-with-powershell/">Create and use Azure Table storage with PowerShell</a></h1>
+                    Azure Table storage is a quick and easy way to store data in the cloud. If you have an Azure subscription you can play around with you are up and running within minutes. Here is a short example on how to get started.
+Create t...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/">Use Edit-Command to discover the code behind built-in cmdlets</a></h1>
+                    Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When y...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h1>
+                    To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h1>
+                    Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources ...
+                </div>
+            
+            </div>
+    </div>
+
+</div></div>
+            </div>
+            <footer class="footer"><div class="feet">
+<p class="footer text-center">Copyright (c) 2020 John Roos</p>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</footer>
+        </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>

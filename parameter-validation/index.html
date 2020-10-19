@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    
+    
+    <title>ROOSTECH | Parameter Validation</title>
+    <meta name="description" content="Choose a filter:  Free text filter: --  Navigation     Choose a filter:  Free text filter: --  var jsondata; $.getJSON(&#39;https://raw.githubusercontent.com/JohnRoos/PowerShell/master/Modules/Get-ParamHelp/data.json&#39;) .success(function(data) { jsondata = data[0].ParamHelp; $(&#39;#headerlinks&#39;).html(&#39;&#39;); $(&#39;#headerlinks&#39;).append(&#39;&#39;); jQuery.each(data[0].ParamHelp, function() { //$(&#39;#myselect&#39;).append(&#39;&#39; &#43; this.Name &#43; &#39;&#39;); $(&#39;#headerlinks&#39;).append(&#39;&#39; &#43; this.Name &#43; &#39;&#39;); buildParameter(this); }); $(&#39;#headerlinks&#39;).append(&#39;&#39;); setTimeout(function(){ if (location.hash != &#39;&#39;) { var myhash = location.hash location.hash = &#39;&#39;; location.hash = myhash; } }, 1000); }) ."/>
+</head><body>
+        <div class="container">
+
+<nav class="navbar navbar-expand-lg navbar-dark ">
+    <a class="navbar-brand" href="/">
+        <div class="logo">RoosTech.se</div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+   
+
+
+        
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/"> Home</a>
+              </li>
+            
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/gists/"> Gists</a>
+              </li>
+            
+        
+            
+              <li class="nav-item active">
+                <a class="nav-link" href="/parameter-validation/"> Parameter validation</a>
+              </li>
+            
+        
+
+      </ul>
+
+      <ul class="navbar-nav mr-right">
+
+        
+        
+            
+                <li class="nav-item navbar-right ">
+                <a class="nav-link" href="/about/"> About me</a>
+                </li>
+            
+        
+
+        
+      </ul>
+    </div>
+  </nav>
+
+<div class="row">
+                <div class="col-sm-9 blog-main section" id="blogposts">
+
+<h1>Parameter Validation</h1>
+
+<!--
+Select: <select id="myselect" onchange="change_myselect(this.value)">
+    <option value="_none_" selected="selected">Choose a filter:</option>
+</select>
+
+Free text filter: <input type="text" class="search"/>
+-->
+<br />
+<div>
+<h3 style="font-size: 18px;">
+Navigation</h3>
+</div>
+<div id="headerlinks" style="padding-left: 10px;">
+</div>
+<div id="mydiv">
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<!--
+Select: <select id="myselect" onchange="change_myselect(this.value)">
+    <option value="_none_" selected="selected">Choose a filter:</option>
+</select>
+
+Free text filter: <input type="text" class="search"/>
+-->
+
+<script>  
+var jsondata;             
+$.getJSON('https://raw.githubusercontent.com/JohnRoos/PowerShell/master/Modules/Get-ParamHelp/data.json')
+     .success(function(data) {
+        jsondata = data[0].ParamHelp;
+        $('#headerlinks').html('');
+        $('#headerlinks').append('<ul>');
+        jQuery.each(data[0].ParamHelp, function() {
+            //$('#myselect').append('<option value="' + this.Name + '">' + this.Name + '</option>');
+            $('#headerlinks').append('<li><a href="#' + this.Name + '">' + this.Name + '</a></li>');
+            
+            buildParameter(this);
+        });
+        $('#headerlinks').append('</ul>');
+
+        setTimeout(function(){
+            if (location.hash != '') {
+                var myhash = location.hash
+                location.hash = '';
+                location.hash = myhash;
+            }
+        }, 1000);
+
+
+    })
+    .error(function(e) { console.error(e); })
+
+function change_myselect(sel) {
+    $('#mydiv').html('');
+    jQuery.each(jsondata, function() {
+        if(this.Name == sel || sel == '_none_') {
+            buildParameter(this);
+        }   
+    });    
+}
+
+function change_wildcard_filter(sel) {
+    $('#mydiv').html('');
+    $('#myselect option').prop('selected', function() {
+        return this.defaultSelected;
+    });
+    jQuery.each(jsondata, function() {
+        if(this.Name == sel) {
+                buildParameter(this);
+        }    
+    });
+}
+
+$('.search').keyup(function(){
+    var filter=$(this).val().toLowerCase();    
+     $.getJSON('https://raw.githubusercontent.com/JohnRoos/PowerShell/master/Modules/Get-ParamHelp/data.json')
+        .success(function(data) {
+            $('#mydiv').html('');
+            jQuery.each(data, function() {
+                if(this.Name.toLowerCase().indexOf(filter)!=-1) {
+                    buildParameter(this);
+                }    
+            });
+        })
+        .error(function(e) { console.error(e); })
+ });
+ 
+ function buildParameter (data) {
+    parametername = data.Name;
+    $('#mydiv').append('<h1 style="font-size: 30px" id="' + parametername + '"><br>' + parametername + '</h1>');
+    $('#mydiv').append('<p>' + data.Description + '</p>');
+    
+    jQuery.each(data.Examples, function(i) {
+        //$('#mydiv').append('<h3 style="font-size: 16px">Example ' + (i+1) + '</h3>');
+        $('#mydiv').append('<h3 style="font-size: 16px">Example ' + this.Id + '</h3>');
+        $('#mydiv').append('<p>' + this.Description + '</p>');
+        $('#mydiv').append('<pre style="background-color: #f6f6f6; padding: 5px;">' + this.Example + '</pre>');
+    });
+    
+    len = data.Links.length;
+    if (len > 0) {
+        $('#mydiv').append('Links: ');
+        jQuery.each(data.Links, function(index) {
+            $('#mydiv').append('<a href="' + this.Uri + '">' + this.Description + '</a>');
+            if (index === len - 1) {
+            } else {
+                $('#mydiv').append(', ');
+            }
+        });
+    }
+ }
+
+
+</script>
+
+<div class="blog-post-meta-bottom">
+  
+  
+</div>
+
+                </div>
+                <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
+    
+    <div class="author">
+        <img width="120" height="120" alt="John Roos" src="/img/face.jpg"><br>
+        <a title="About John Roos" href="http://test.roostech.se/about">John Roos</a>
+    </div>
+    
+    <div id="recentPosts">
+            <div class="recentposts">
+                <div class="recentposts-header">RECENT POSTS</div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h1>
+                    Pester 5 was released a couple of days ago which brings a lot of new features and changes to how we write tests. One of the major changes in Pester 5 is the Discovery phase. In this post I will attempt to explain how Discover...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/create-and-use-azure-table-storage-with-powershell/">Create and use Azure Table storage with PowerShell</a></h1>
+                    Azure Table storage is a quick and easy way to store data in the cloud. If you have an Azure subscription you can play around with you are up and running within minutes. Here is a short example on how to get started.
+Create t...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/">Use Edit-Command to discover the code behind built-in cmdlets</a></h1>
+                    Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When y...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h1>
+                    To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h1>
+                    Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources ...
+                </div>
+            
+            </div>
+    </div>
+
+</div></div>
+            </div>
+            <footer class="footer"><div class="feet">
+<p class="footer text-center">Copyright (c) 2020 John Roos</p>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</footer>
+        </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>
