@@ -259,5 +259,23 @@
       <description></description>
     </item>
     
+    <item>
+      <title>Hyper-V</title>
+      <link>http://test.roostech.se/tags/hyper-v/</link>
+      <pubDate>Thu, 30 Aug 2012 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/hyper-v/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RemoteFX</title>
+      <link>http://test.roostech.se/tags/remotefx/</link>
+      <pubDate>Thu, 30 Aug 2012 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/remotefx/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

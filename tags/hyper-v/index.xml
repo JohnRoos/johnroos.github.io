@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hyper-V on RoosTech</title>
+    <link>http://test.roostech.se/tags/hyper-v/</link>
+    <description>Recent content in Hyper-V on RoosTech</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 30 Aug 2012 14:14:00 +0200</lastBuildDate><atom:link href="http://test.roostech.se/tags/hyper-v/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU</title>
+      <link>http://test.roostech.se/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/</link>
+      <pubDate>Thu, 30 Aug 2012 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/</guid>
+      <description>This is for experimenting with RemoteFX in Hyper-V in a lab environment using Windows Server 2012. I wanted to see what I could do with RemoteFX on a slow GPU. To see how far I could get I started off with the Intel HD 2500, which is built into the Intel Core i5 3550 processor (Ivy Bridge). You can go through these steps with any supported hardware, and you probably get better results if you don&amp;rsquo;t use the HD 2500 as I did.</description>
+    </item>
+    
+  </channel>
+</rss>
