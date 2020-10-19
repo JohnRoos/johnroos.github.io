@@ -16,5 +16,14 @@
       <description>Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When you run Get-Command you get all kinds of details about the commands you are looking for. One of the properties in the output is called ScriptBlock. Thats where the code is, if its written in PowerShell.</description>
     </item>
     
+    <item>
+      <title>How to get started with Powershell</title>
+      <link>http://test.roostech.se/posts/how-to-get-started-with-powershell/</link>
+      <pubDate>Sun, 22 Feb 2015 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/how-to-get-started-with-powershell/</guid>
+      <description>Do you want to get started with Powershell but you dont know where to start? To get you started I have collected a bunch of links which has helped a lot of people to get going with Powershell. These links range from the most basic introductions to advanced scripting and history lessons. Lets start with the basic stuff to anyone new to Powershell. These links are also good if you have learned by yourself over the years, since it might help you break bad habbits you dont know you have.</description>
+    </item>
+    
   </channel>
 </rss>

@@ -123,6 +123,54 @@ class Xpression { [string]$Name [scriptblock]$Expression [hashtable] getExpressi
     </item>
     
     <item>
+      <title>Get-IMDBmovie using Invoke-WebRequest</title>
+      <link>http://test.roostech.se/posts/get-imdbmovie-using-invoke-webrequest/</link>
+      <pubDate>Wed, 04 Mar 2015 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/get-imdbmovie-using-invoke-webrequest/</guid>
+      <description>Some time ago I was playing around a bit with Invoke-WebRequest and wanted to know a bit more about what I could do with that cmdlet. I ended up creating a cmdlet to get movie information from IMDB.com. I thought I would share how that script since the same principles can be applied in many situations.
+PS C:\&amp;gt; Get-ImdbMovie -Title &amp;#39;Star Trek&amp;#39; Title : Star Trek Into Darkness Directors : J.</description>
+    </item>
+    
+    <item>
+      <title>Classes in Powershell 5.0</title>
+      <link>http://test.roostech.se/posts/classes-in-powershell-5.0/</link>
+      <pubDate>Sun, 01 Mar 2015 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/classes-in-powershell-5.0/</guid>
+      <description>One of the big new features in Powershell 5.0 is classes. You can now define your own classes and create objects based on those custom classes. You can even create your own version of an existing class using inheritance.
+In previous version of Powershell it was actually possible to create classes, but you had to write code in other languages like C# or Visual basic and then use that piece of code as the definition of the class.</description>
+    </item>
+    
+    <item>
+      <title>How to get started with Powershell</title>
+      <link>http://test.roostech.se/posts/how-to-get-started-with-powershell/</link>
+      <pubDate>Sun, 22 Feb 2015 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/how-to-get-started-with-powershell/</guid>
+      <description>Do you want to get started with Powershell but you dont know where to start? To get you started I have collected a bunch of links which has helped a lot of people to get going with Powershell. These links range from the most basic introductions to advanced scripting and history lessons. Lets start with the basic stuff to anyone new to Powershell. These links are also good if you have learned by yourself over the years, since it might help you break bad habbits you dont know you have.</description>
+    </item>
+    
+    <item>
+      <title>Powershell script: Find hotfix status</title>
+      <link>http://test.roostech.se/posts/powershell-script-find-hotfix-status/</link>
+      <pubDate>Sun, 01 Feb 2015 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/powershell-script-find-hotfix-status/</guid>
+      <description>I was browsing around the requests on the Microsoft Script Center the other day and found one request where a user needed a PowerShell script for showing the status of specific hotfixes on multiple machines. I thought it would be a good idea since Get-Hotfix only shows where the hotfix is installed but not directly where its not installed.
+I created a simple small script that would list the patches to check for, along with each server and if its installed or not.</description>
+    </item>
+    
+    <item>
+      <title>Powershell script: Write object to SQL</title>
+      <link>http://test.roostech.se/posts/powershell-script-write-object-to-sql/</link>
+      <pubDate>Sun, 01 Feb 2015 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/powershell-script-write-object-to-sql/</guid>
+      <description>A while ago I was playing around with PowerShell, gathering information from a lot of servers and I felt that I needed to have a simple way of storing that information in a database. I could have written my own T-SQL statements for creating the tables and then do the inserts in the powerShell scripts I was playing around with. But that felt like it would just take time so I started to think about a function that would just accept any object and do the magic of creating a table and then inserting anything I piped to it.</description>
+    </item>
+    
+    <item>
       <title>Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU</title>
       <link>http://test.roostech.se/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/</link>
       <pubDate>Thu, 30 Aug 2012 14:14:00 +0200</pubDate>

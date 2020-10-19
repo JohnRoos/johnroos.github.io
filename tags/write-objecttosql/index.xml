@@ -16,5 +16,14 @@
       <description>Once in a while you want to check how stable a connection is between computers. You might want to ping one or two machines from several others to find out if there is some issues with the network somewhere. You could use the built-in cmdlet Test-Connection and log the results to a log file but then you will not be able to log timeouts since the cmdlet returns an error when timeouts occur.</description>
     </item>
     
+    <item>
+      <title>Powershell script: Write object to SQL</title>
+      <link>http://test.roostech.se/posts/powershell-script-write-object-to-sql/</link>
+      <pubDate>Sun, 01 Feb 2015 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/powershell-script-write-object-to-sql/</guid>
+      <description>A while ago I was playing around with PowerShell, gathering information from a lot of servers and I felt that I needed to have a simple way of storing that information in a database. I could have written my own T-SQL statements for creating the tables and then do the inserts in the powerShell scripts I was playing around with. But that felt like it would just take time so I started to think about a function that would just accept any object and do the magic of creating a table and then inserting anything I piped to it.</description>
+    </item>
+    
   </channel>
 </rss>

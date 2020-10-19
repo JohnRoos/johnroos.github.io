@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    
+    
+    <title>RoosTech | Powershell script: Write object to SQL</title>
+    <meta name="description" content="A while ago I was playing around with PowerShell, gathering information from a lot of servers and I felt that I needed to have a simple way of storing that information in a database. I could have written my own T-SQL statements for creating the tables and then do the inserts in the powerShell scripts I was playing around with. But that felt like it would just take time so I started to think about a function that would just accept any object and do the magic of creating a table and then inserting anything I piped to it."/>
+</head><body>
+        <div class="container">
+
+<nav class="navbar navbar-expand-lg navbar-dark ">
+    <a class="navbar-brand" href="/">
+        <div class="logo">RoosTech.se</div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+   
+
+
+        
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/"> Home</a>
+              </li>
+            
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/gists/"> Gists</a>
+              </li>
+            
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/parameter-validation/"> Parameter validation</a>
+              </li>
+            
+        
+
+      </ul>
+
+      <ul class="navbar-nav mr-right">
+
+        
+        
+            
+                <li class="nav-item navbar-right ">
+                <a class="nav-link" href="/about/"> About me</a>
+                </li>
+            
+        
+
+        
+      </ul>
+    </div>
+  </nav>
+
+<div class="row">
+                <div class="col-sm-9 blog-main section" id="blogposts">
+
+    
+    
+    <time class="postdate" datetime="2015-02-01">Feb 1, 2015</time>
+
+<h1>Powershell script: Write object to SQL</h1>
+<p>A while ago I was playing around with PowerShell, gathering information from a lot of servers and I felt that I needed to have a simple way of storing that information in a database. I could have written my own T-SQL statements for creating the tables and then do the inserts in the powerShell scripts I was playing around with. But that felt like it would just take time so I started to think about a function that would just accept any object and do the magic of creating a table and then inserting anything I piped to it.</p>
+<p>I wrote a <a href="https://gallery.technet.microsoft.com/Write-object-to-database-7be1d3c5">script cmdlet</a> for this and I called it Write-ObjectToSQL. I don&rsquo;t like the name, but I haven&rsquo;t come up with anything better for now.</p>
+<p><img src="/images/writeobjecttosql01.jpg#center" alt="Verbose output from Write-ObjectToSQL"></p>
+<p>This script cmdlet writes an object into a database table. If the table does not exist it will be created based on the properties of the object. For every property of the object a column will be created. The data type for each column will be converted from .Net data types into SQL Server data types. Not all data types are supported. Unsupported data types will be ignored (but can be listed). If several objects are sent through the pipeline only the first object will be used for creating the template for the table.</p>
+<h2 id="piping-objects-to-a-database">Piping objects to a database</h2>
+<p>I find this cmdlet to be very useful. Any time I write a small Powershell script to gather some kind of information I just pipe it to this function and then I have it instantly stored in a table in some database somewhere. Sure, the table doesnt have any indexes and the columns sizes are standardized, but thats ok most of the time. Take this code as an example:</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="n">-Server</span> <span class="n">localhost</span><span class="p">\</span><span class="n">sqlexpress</span> <span class="n">-Database</span> <span class="n">MyDB</span> <span class="n">-TableName</span> <span class="n">ProcessTable</span>
+</code></pre></div><p><img src="/images/writeobjecttosql02.jpg#center" alt="Inserted 85 rows into ProcessTable in 0.76 seconds (111.84 rows per second)"></p>
+<p>This will create a table called ProcessTable. That table will have around 36 columns with the correct (sometimes simplified) data types. It will also insert all the information about the running processes in that table. I had 85 processes running on my machine at this point. I am running Windows 10 Preview when writing this, so the amount of columns might be slightly different on other versions of Windows.</p>
+<p>You could of course pipe any command or cmdlet to this function. As long as you are piping objects with interesting properties you are good to go. You could use Find-Hotfix that I wrote about recently and store that output to a table. In that case you just do it like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="p">.\</span><span class="nb">Find-Hotfix</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Hotfix</span> <span class="s1">&#39;KB2991963&#39;</span> <span class="n">-ComputerName</span> <span class="s1">&#39;server01&#39;</span><span class="p">,</span> <span class="s1">&#39;server02&#39;</span> <span class="p">|</span> 
+                   <span class="nb">Write-ObjectToSQL</span> <span class="n">-Server</span> <span class="n">localhost</span><span class="p">\</span><span class="n">sqlexpress</span> <span class="n">-Database</span> <span class="n">MyDB</span> <span class="n">-TableName</span> <span class="n">Hotfixes</span>
+</code></pre></div><h2 id="ignored-properties">Ignored properties</h2>
+<p>Sometimes when you are piping objects to Write-ObjectToSQL you will notice that some properties are ignored. Thats because that property contains a data type that is unsupported. You could use -verbose to see lots of details about whats happening when you run the script (including sql statements) but you could also use the parameter ShowIgnoredPropertiesOnly. That will show you which properties are being ignored and their data types.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="n">-Server</span> <span class="n">localhost</span><span class="p">\</span><span class="n">sqlexpress</span> <span class="n">-Database</span> <span class="n">MyDB</span> <span class="n">-TableName</span> <span class="n">ProcessTable</span> <span class="n">-ShowIgnoredPropertiesOnly</span>
+</code></pre></div><p><img src="/images/writeobjecttosql03.jpg#center" alt="Console output: Ignored properties"></p>
+<h2 id="progress-status">Progress status</h2>
+<p>This script cmdlet contains lots of useful stuff. Other parameters include ReportEveryXObject which will give you some feedback in case you are piping many thousands of objects and the function runs for a long time. The following example is a little silly, but it shows how the function works at least.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="n">-Server</span> <span class="n">localhost</span><span class="p">\</span><span class="n">sqlexpress</span> <span class="n">-Database</span> <span class="n">MyDB</span> <span class="n">-TableName</span> <span class="n">ProcessTable</span> <span class="n">-ReportEveryXObject</span> <span class="n">20</span>
+</code></pre></div><p><img src="/images/writeobjecttosql04.jpg#center" alt="Console output: Rows inserted over time"></p>
+<p>The script can be downloaded from Microsoft Script Center <a href="https://gallery.technet.microsoft.com/Write-object-to-database-7be1d3c5">here</a>. I also have a project running on <a href="https://github.com/JohnRoos/PowerShell/tree/master/Modules/Write-ObjectToSQL">GitHub</a>. If you are using PowerShell 5.0 its available in the <a href="https://www.powershellgallery.com/packages/Write-ObjectToSQL/">PowerShell Gallery</a> as well.</p>
+
+<div class="blog-post-meta-bottom">
+  
+      Posted by: John<br />
+  
+  
+      Tags: 
+              PowerShell
+          
+              Get-Member
+          
+              Get-Type
+          
+              SQL Server
+          
+              T-SQL
+          
+              Write-ObjectToSQL
+          
+  
+</div>
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-test-roostech-se" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+                </div>
+                <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
+    
+    <div class="author">
+        <img width="120" height="120" alt="John Roos" src="/img/face.jpg"><br>
+        <a title="About John Roos" href="http://test.roostech.se/about">John Roos</a>
+    </div>
+    
+    <div id="recentPosts">
+            <div class="recentposts">
+                <div class="recentposts-header">RECENT POSTS</div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h1>
+                    Pester 5 was released a couple of days ago which brings a lot of new features and changes to how we write tests. One of the major changes in Pester 5 is the Discovery phase. In this post I will attempt to explain how Discover...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/create-and-use-azure-table-storage-with-powershell/">Create and use Azure Table storage with PowerShell</a></h1>
+                    Azure Table storage is a quick and easy way to store data in the cloud. If you have an Azure subscription you can play around with you are up and running within minutes. Here is a short example on how to get started.
+Create t...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/">Use Edit-Command to discover the code behind built-in cmdlets</a></h1>
+                    Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When y...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h1>
+                    To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h1>
+                    Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources ...
+                </div>
+            
+            </div>
+    </div>
+
+</div></div>
+            </div>
+            <footer class="footer"><div class="feet">
+<p class="footer text-center">Copyright (c) 2020 John Roos</p>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</footer>
+        </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>

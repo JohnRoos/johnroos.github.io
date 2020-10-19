@@ -218,6 +218,61 @@
   </url>
   
   <url>
+    <loc>http://test.roostech.se/posts/get-imdbmovie-using-invoke-webrequest/</loc>
+    <lastmod>2015-03-04T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/invoke-webrequest/</loc>
+    <lastmod>2015-03-04T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/posts/classes-in-powershell-5.0/</loc>
+    <lastmod>2015-03-01T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/getting-started/</loc>
+    <lastmod>2015-03-01T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/introduction/</loc>
+    <lastmod>2015-03-01T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/posts/how-to-get-started-with-powershell/</loc>
+    <lastmod>2015-02-22T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/get-member/</loc>
+    <lastmod>2015-02-01T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/get-type/</loc>
+    <lastmod>2015-02-01T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/posts/powershell-script-find-hotfix-status/</loc>
+    <lastmod>2015-02-01T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/posts/powershell-script-write-object-to-sql/</loc>
+    <lastmod>2015-02-01T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/t-sql/</loc>
+    <lastmod>2015-02-01T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://test.roostech.se/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/</loc>
     <lastmod>2012-08-30T14:14:00+02:00</lastmod>
   </url>

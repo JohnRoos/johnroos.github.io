@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    
+    
+    <title>RoosTech | Get-IMDBmovie using Invoke-WebRequest</title>
+    <meta name="description" content="Some time ago I was playing around a bit with Invoke-WebRequest and wanted to know a bit more about what I could do with that cmdlet. I ended up creating a cmdlet to get movie information from IMDB.com. I thought I would share how that script since the same principles can be applied in many situations.
+PS C:\&gt; Get-ImdbMovie -Title &#39;Star Trek&#39; Title : Star Trek Into Darkness Directors : J."/>
+</head><body>
+        <div class="container">
+
+<nav class="navbar navbar-expand-lg navbar-dark ">
+    <a class="navbar-brand" href="/">
+        <div class="logo">RoosTech.se</div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+   
+
+
+        
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/"> Home</a>
+              </li>
+            
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/gists/"> Gists</a>
+              </li>
+            
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/parameter-validation/"> Parameter validation</a>
+              </li>
+            
+        
+
+      </ul>
+
+      <ul class="navbar-nav mr-right">
+
+        
+        
+            
+                <li class="nav-item navbar-right ">
+                <a class="nav-link" href="/about/"> About me</a>
+                </li>
+            
+        
+
+        
+      </ul>
+    </div>
+  </nav>
+
+<div class="row">
+                <div class="col-sm-9 blog-main section" id="blogposts">
+
+    
+    
+    <time class="postdate" datetime="2015-03-04">Mar 4, 2015</time>
+
+<h1>Get-IMDBmovie using Invoke-WebRequest</h1>
+<p>Some time ago I was playing around a bit with Invoke-WebRequest and wanted to know a bit more about what I could do with that cmdlet. I ended up creating a cmdlet to get movie information from IMDB.com. I thought I would share how that script since the same principles can be applied in many situations.</p>
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">PS C:\&gt; Get-ImdbMovie -Title &#39;Star Trek&#39;
+
+ Title       : Star Trek Into Darkness
+ Directors   : J.J. Abrams 
+ Year        : 2013
+ Rating      : 7.8 
+ Description : After the crew of the Enterprise find an unstoppable force of terror from within their
+               own organization, Captain Kirk leads a manhunt to a war-zone world to capture a one-man
+               weapon of mass destruction.
+ Writers     : Roberto Orci, Alex Kurtzman, 2 more credits 
+ Stars       : Chris Pine, Zachary Quinto, Zoe Saldana 
+ Link        : http://www.imdb.com/title/tt1408101/
+
+PS C:\&gt;
+</code></pre></div><p>This script will first send a web request to the search page on IMBD and then parse it for results. If any results are returned then the script will pick up the link to the first movie in the result. The movie link will be used in a second request to get all the details about the movie. The complete script can be found at the bottom of this post.</p>
+<h2 id="advanced-function">Advanced function</h2>
+<p>So lets get started. First we want to create an advanced function so that we can use it like a cmdlet. The parameter Title need to be required.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="k">function</span> <span class="nb">Get-ImdbMovie</span>
+<span class="p">{</span>
+    <span class="p">[</span><span class="k">CmdletBinding</span><span class="p">()]</span>
+    <span class="k">Param</span>
+    <span class="p">(</span>
+        <span class="c"># Enter the title of the movie you want to get information about</span>
+        <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">=</span><span class="nv">$true</span><span class="p">,</span>
+                   <span class="k">ValueFromPipelineByPropertyName</span><span class="p">=</span><span class="nv">$true</span><span class="p">,</span>
+                   <span class="k">Position</span><span class="p">=</span><span class="n">0</span><span class="p">)]</span>
+        <span class="p">[</span><span class="n">ValidateNotNullorEmpty</span><span class="p">()]</span>
+        <span class="no">[string]</span><span class="nv">$Title</span>
+    <span class="p">)</span>
+    <span class="k">Process</span> <span class="p">{</span> 
+        <span class="c">#this is where the rest of the code goes</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>Replace any spaces with %20 so that we can use it in an URL. Other special characters could be replaced as well, but in this case we only handle spaces</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$searchTitle</span> <span class="p">=</span> <span class="nv">$Title</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;%20&#39;</span><span class="p">)</span>
+</code></pre></div><h2 id="parse-search-results">Parse search results</h2>
+<p>Now lets fetch the search page on IMDB.com with the title in the URL.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$imdbURL</span> <span class="p">=</span> <span class="s2">&#34;http://www.imdb.com/search/title?title=$searchTitle&amp;title_type=feature&#34;</span>
+<span class="nv">$moviesearch</span> <span class="p">=</span> <span class="nb">Invoke-WebRequest</span> <span class="nv">$imdbURL</span>
+</code></pre></div><p>The entire web page is now stored in the $moviesearch variable. In the HTML on the IMDB site there is a class called &ldquo;title&rdquo; which we want to get.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$titleclassarray</span> <span class="p">=</span> <span class="nv">$moviesearch</span><span class="p">.</span><span class="n">AllElements</span> <span class="p">|</span> <span class="nb">where </span><span class="n">Class</span> <span class="o">-eq</span> <span class="s1">&#39;title&#39;</span> <span class="p">|</span> <span class="nb">select </span><span class="n">-First</span> <span class="n">1</span>
+</code></pre></div><p>If the search did not match any movies, then the &ldquo;title&rdquo; class shouldnt exist and the $titleclassarray will be empty. Check if the array contains anything useful. If it does, then we can continue, otherwise just break the script. Lets double check just to be sure.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="k">try</span> <span class="p">{</span>
+       <span class="nv">$titleclass</span> <span class="p">=</span> <span class="nv">$titleclassarray</span><span class="p">[</span><span class="n">0</span><span class="p">]</span>
+<span class="p">}</span>
+<span class="k">catch</span> <span class="p">{</span>
+      <span class="nb">Write-Warning</span> <span class="s2">&#34;No movie found matching that title.
+</span><span class="s2">      break
+</span><span class="s2">}
+</span><span class="s2">         
+</span><span class="s2">if (!($titleclass)){
+</span><span class="s2">      Write-Warning &#34;</span><span class="n">No</span> <span class="n">movie</span> <span class="n">found</span> <span class="n">matching</span> <span class="n">that</span> <span class="n">title</span><span class="p">.</span>
+      <span class="k">break</span>
+<span class="p">}</span>
+</code></pre></div><p>Now we want to get the link to the main page for the first movie in the search result. First we use some regular expression to parse the HTML to find all links. The regexp expression filters out all href tags and gets the URL in those tags. All the links found will be stored in the $linksfound variable.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$regex</span> <span class="p">=</span> <span class="s2">&#34;&lt;\s*a\s*[^&gt;]*?href\s*=\s*[</span><span class="se">`&#34;</span><span class="s2">&#39;]*([^</span><span class="se">`&#34;</span><span class="s2">&#39;&gt;]+)[^&gt;]*?&gt;&#34;</span>
+<span class="nv">$linksFound</span> <span class="p">=</span> <span class="no">[Regex]</span><span class="p">::</span><span class="n">Matches</span><span class="p">(</span><span class="nv">$titleclass</span><span class="p">.</span><span class="n">innerHTML</span><span class="p">,</span> <span class="nv">$regex</span><span class="p">,</span> <span class="s2">&#34;IgnoreCase&#34;</span><span class="p">)</span>
+</code></pre></div><p>Any link to a movie page will contain the string &ldquo;/title/&rdquo; in the URL, so lets parse through all the links to see if we can find any link with that string. The results will be saved in the variable $titlelink.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$titlelink</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">ArrayList</span>
+<span class="k">foreach</span><span class="p">(</span><span class="nv">$link</span> <span class="k">in</span> <span class="nv">$linksFound</span><span class="p">)</span>
+<span class="p">{</span>
+     <span class="nv">$trimmedlink</span> <span class="p">=</span> <span class="nv">$link</span><span class="p">.</span><span class="n">Groups</span><span class="p">[</span><span class="n">1</span><span class="p">].</span><span class="n">Value</span><span class="p">.</span><span class="n">Trim</span><span class="p">()</span>
+     <span class="k">if</span> <span class="p">(</span><span class="nv">$trimmedlink</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s1">&#39;/title/&#39;</span><span class="p">))</span> 
+     <span class="p">{</span>
+           <span class="no">[void]</span> <span class="nv">$titlelink</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="nv">$trimmedlink</span><span class="p">)</span>
+     <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="parse-movie-page">Parse movie page</h2>
+<p>Next we want to fetch the real movie page from IMDB. The first string in $titlelink will be added to <a href="http://www.imdb.com">www.imdb.com</a>. Lets fetch it in english, to make it easier. Change this to any language you want.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$movieURL</span> <span class="p">=</span> <span class="s2">&#34;http://www.imdb.com</span><span class="p">$(</span><span class="nv">$titlelink</span><span class="p">[</span><span class="n">0</span><span class="p">])</span><span class="s2">&#34;</span>
+<span class="nv">$moviehtml</span> <span class="p">=</span> <span class="nb">Invoke-WebRequest</span> <span class="nv">$movieURL</span> <span class="n">-Headers</span> <span class="p">@{</span><span class="s2">&#34;Accept-Language&#34;</span><span class="p">=</span><span class="s2">&#34;en-US,en;&#34;</span><span class="p">}</span>
+</code></pre></div><p>Now the html for the movie page is stored in $moviehtml variable. Again we need to parse through the html to get the information we want. Next, create the movie object. This is what will be returned to the pipeline in the end.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$movie</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">psobject</span>
+</code></pre></div><p>Search through the HTML for a tag which uses the class called &lsquo;itemprop&rsquo;. If we use the innerText method we will get the text within that tab. This is where the title is. Add the title to the $movie object.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Add-Member</span> <span class="n">-InputObject</span> <span class="nv">$movie</span> <span class="p">`</span>
+            <span class="n">-MemberType</span> <span class="s1">&#39;NoteProperty&#39;</span> <span class="p">`</span>
+            <span class="n">-Name</span> <span class="s2">&#34;Title&#34;</span> <span class="n">-Value</span> <span class="p">`</span>
+            <span class="p">(</span><span class="nv">$moviehtml</span><span class="p">.</span><span class="n">AllElements</span> <span class="p">|</span> <span class="nb">where </span><span class="n">Class</span> <span class="o">-eq</span> <span class="s1">&#39;itemprop&#39;</span> <span class="p">|</span> <span class="nb">select </span><span class="n">-First</span> <span class="n">1</span><span class="p">).</span><span class="n">innerText</span>
+</code></pre></div><p>Continue to search through the html for the other information that we want.
+Directors is a bit more tricky. Its in a tag using the class &ldquo;txt-block&rdquo; but that class is used in more places so we need to dig a bit deeper and try to find a H4 tag with the class &ldquo;inline&rdquo; which actually contains the text &ldquo;Director:&rdquo;. Then we need to remove some html tags around the text that we want to save.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="k">foreach</span> <span class="p">(</span><span class="nv">$line</span> <span class="k">in</span> <span class="p">(</span><span class="nv">$moviehtml</span><span class="p">.</span><span class="n">AllElements</span> <span class="p">|</span> <span class="nb">where </span><span class="n">Class</span> <span class="o">-eq</span> <span class="s1">&#39;txt-block&#39;</span><span class="p">).</span><span class="n">InnerHTML</span> <span class="n">-split</span> <span class="s2">&#34;</span><span class="se">`n</span><span class="s2">&#34;</span><span class="p">){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$line</span> <span class="o">-like</span> <span class="s1">&#39;*Director:*&#39;</span><span class="p">){</span>
+        <span class="nv">$line</span> <span class="p">=</span> <span class="nv">$line</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s1">&#39;&lt;/SPAN&gt;&lt;/A&gt;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">Add-Member</span> <span class="n">-InputObject</span> <span class="nv">$movie</span> <span class="p">`</span>
+                   <span class="n">-MemberType</span> <span class="s1">&#39;NoteProperty&#39;</span> <span class="p">`</span>
+                   <span class="n">-Name</span> <span class="s2">&#34;Directors&#34;</span> <span class="p">`</span>
+                   <span class="n">-Value</span> <span class="nv">$line</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">0</span><span class="p">,</span><span class="nv">$line</span><span class="p">.</span><span class="n">LastIndexOf</span><span class="p">(</span><span class="s1">&#39;&gt;&#39;</span><span class="p">)+</span><span class="n">1</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>We continue like this to parse out what we need for the rest of the information.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Year can be found in the tag using a class called &#34;nobr&#34; where we select the first result</span>
+<span class="c"># and then remove some parantheses.</span>
+<span class="nb">Add-Member</span> <span class="n">-InputObject</span> <span class="nv">$movie</span> <span class="p">`</span>
+           <span class="n">-MemberType</span> <span class="s1">&#39;NoteProperty&#39;</span> <span class="p">`</span>
+           <span class="n">-Name</span> <span class="s2">&#34;Year&#34;</span> <span class="p">`</span>
+           <span class="n">-Value</span> <span class="p">((</span><span class="nv">$moviehtml</span><span class="p">.</span><span class="n">AllElements</span> <span class="p">|</span> 
+                    <span class="nb">where </span><span class="n">Class</span> <span class="o">-eq</span> <span class="s1">&#39;nobr&#39;</span> <span class="p">|</span> 
+                    <span class="nb">select </span><span class="n">-First</span> <span class="n">1</span><span class="p">).</span><span class="n">innerText</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+ 
+<span class="c"># Rating can be found in the tag using the class &#34;titlePageSprite star-box-giga-star&#34;</span>
+<span class="nb">Add-Member</span> <span class="n">-InputObject</span> <span class="nv">$movie</span> <span class="p">`</span>
+           <span class="n">-MemberType</span> <span class="s1">&#39;NoteProperty&#39;</span> <span class="p">`</span>
+           <span class="n">-Name</span> <span class="s2">&#34;Rating&#34;</span>
+           <span class="n">-Value</span> <span class="p">(</span><span class="nv">$moviehtml</span><span class="p">.</span><span class="n">AllElements</span> <span class="p">|</span> 
+                    <span class="nb">where </span><span class="n">Class</span> <span class="o">-eq</span> <span class="s1">&#39;titlePageSprite star-box-giga-star&#39;</span> <span class="p">|</span> 
+                    <span class="nb">select </span><span class="n">-First</span> <span class="n">1</span><span class="p">).</span><span class="n">innerText</span>
+ 
+<span class="c"># Description can be found in the tag using the class &#34;description&#34;</span>
+<span class="nb">Add-Member</span> <span class="n">-InputObject</span> <span class="nv">$movie</span> <span class="p">`</span>
+           <span class="n">-MemberType</span> <span class="s1">&#39;NoteProperty&#39;</span> <span class="p">`</span>
+           <span class="n">-Name</span> <span class="s2">&#34;Description&#34;</span> <span class="p">`</span>
+           <span class="n">-Value</span> <span class="p">(</span><span class="nv">$moviehtml</span><span class="p">.</span><span class="n">AllElements</span> <span class="p">|</span> 
+                    <span class="nb">where </span><span class="n">itemprop</span> <span class="o">-eq</span> <span class="s1">&#39;description&#39;</span> <span class="p">|</span> 
+                    <span class="nb">select </span><span class="n">-first</span> <span class="n">1</span><span class="p">).</span><span class="n">InnerText</span>
+ 
+<span class="c"># Writers</span>
+<span class="nb">Add-Member</span> <span class="n">-InputObject</span> <span class="nv">$movie</span> <span class="p">`</span>
+           <span class="n">-MemberType</span> <span class="s1">&#39;NoteProperty&#39;</span> <span class="p">`</span>
+           <span class="n">-Name</span> <span class="s2">&#34;Writers&#34;</span> <span class="p">`</span>
+           <span class="n">-Value</span> <span class="p">(</span><span class="nv">$moviehtml</span><span class="p">.</span><span class="n">AllElements</span> <span class="p">|</span> 
+                    <span class="nb">where </span><span class="n">itemprop</span> <span class="o">-eq</span> <span class="s1">&#39;creator&#39;</span> <span class="p">|</span> 
+                    <span class="nb">select </span><span class="n">-first</span> <span class="n">1</span><span class="p">).</span><span class="n">InnerText</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s1">&#39;Writers:&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s1">&#39; »&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+ 
+<span class="c"># Stars</span>
+<span class="nb">Add-Member</span> <span class="n">-InputObject</span> <span class="nv">$movie</span> <span class="p">`</span>
+           <span class="n">-MemberType</span> <span class="s1">&#39;NoteProperty&#39;</span> <span class="p">`</span>
+           <span class="n">-Name</span> <span class="s2">&#34;Stars&#34;</span> <span class="p">`</span>
+           <span class="n">-Value</span> <span class="p">(</span><span class="nv">$moviehtml</span><span class="p">.</span><span class="n">AllElements</span> <span class="p">|</span> 
+                    <span class="nb">where </span><span class="n">itemprop</span> <span class="o">-eq</span> <span class="s1">&#39;actors&#39;</span><span class="p">).</span><span class="n">InnerText</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span>
+                             <span class="s1">&#39;Stars:&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s1">&#39; | See full cast and crew »&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</code></pre></div><p>The last thing we want to add to the object is the link to the page where the information comes from. After that the object can be returned to the pipeline.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Add-Member</span> <span class="n">-InputObject</span> <span class="nv">$movie</span> <span class="n">-MemberType</span> <span class="s1">&#39;NoteProperty&#39;</span> <span class="n">-Name</span> <span class="s2">&#34;Link&#34;</span> <span class="n">-Value</span> <span class="nv">$movieURL</span>
+<span class="nv">$movie</span>
+</code></pre></div><h2 id="complete-cmdlet-with-verbose-output">Complete cmdlet with verbose output</h2>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="cm">&lt;#
+</span><span class="cm"></span><span class="sd">.Synopsis</span><span class="cm">
+</span><span class="cm">   This scripts will get some basic information from IMDB about a movie by parcing the html code on the website.
+</span><span class="cm"></span><span class="sd">.DESCRIPTION</span><span class="cm">
+</span><span class="cm">   This scripts will get some basic information from IMDB about a movie by parcing the html code on the website.
+</span><span class="cm"></span><span class="sd">.EXAMPLE</span><span class="cm">
+</span><span class="cm">   Get-ImdbMovie -Title &#39;star trek&#39;
+</span><span class="cm"></span><span class="sd">.EXAMPLE</span><span class="cm">
+</span><span class="cm">   Get-ImdbMovie -Title &#39;star trek&#39; -verbose
+</span><span class="cm"></span><span class="sd">.NOTES</span><span class="cm">
+</span><span class="cm">   Created by John Roos
+</span><span class="cm">   http://blog.roostech.se
+</span><span class="cm">#&gt;</span>
+<span class="k">function</span> <span class="nb">Get-ImdbMovie</span>
+<span class="p">{</span>
+    <span class="p">[</span><span class="k">CmdletBinding</span><span class="p">()]</span>
+    <span class="k">Param</span>
+    <span class="p">(</span>
+        <span class="c"># Enter the title of the movie you want to get information about</span>
+        <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">=</span><span class="nv">$true</span><span class="p">,</span>
+                   <span class="k">ValueFromPipelineByPropertyName</span><span class="p">=</span><span class="nv">$true</span><span class="p">,</span>
+                   <span class="k">Position</span><span class="p">=</span><span class="n">0</span><span class="p">)]</span>
+        <span class="p">[</span><span class="n">ValidateNotNullorEmpty</span><span class="p">()]</span>
+        <span class="no">[string]</span><span class="nv">$Title</span>
+    <span class="p">)</span>
+ 
+    <span class="k">Process</span>
+    <span class="p">{</span>
+        <span class="nv">$searchTitle</span> <span class="p">=</span> <span class="nv">$Title</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;%20&#39;</span><span class="p">)</span>
+ 
+        <span class="nb">Write-Verbose</span> <span class="s2">&#34;Fetching search results&#34;</span>
+        <span class="nv">$moviesearch</span> <span class="p">=</span> <span class="nb">Invoke-WebRequest</span> <span class="s2">&#34;http://www.imdb.com/search/title?title=$searchTitle&amp;title_type=feature&#34;</span>
+         
+        <span class="nb">Write-Verbose</span> <span class="s2">&#34;Moving html elements into variable&#34;</span>
+        <span class="nv">$titleclassarray</span> <span class="p">=</span> <span class="nv">$moviesearch</span><span class="p">.</span><span class="n">AllElements</span> <span class="p">|</span> <span class="nb">where </span><span class="n">Class</span> <span class="o">-eq</span> <span class="s1">&#39;title&#39;</span> <span class="p">|</span> <span class="nb">select </span><span class="n">-First</span> <span class="n">1</span>
+         
+        <span class="nb">Write-Verbose</span> <span class="s2">&#34;Checking if result contains movies&#34;</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="nv">$titleclass</span> <span class="p">=</span> <span class="nv">$titleclassarray</span><span class="p">[</span><span class="n">0</span><span class="p">]</span>
+        <span class="p">}</span>
+        <span class="k">catch</span> <span class="p">{</span>
+            <span class="nb">Write-Warning</span> <span class="s2">&#34;No movie found matching that title http://www.imdb.com/search/title?title=$searchTitle&amp;title_type=feature&#34;</span>
+            <span class="k">break</span>
+        <span class="p">}</span>
+         
+        <span class="k">if</span> <span class="p">(!(</span><span class="nv">$titleclass</span><span class="p">)){</span>
+            <span class="nb">Write-Warning</span> <span class="s2">&#34;No movie found matching that title http://www.imdb.com/search/title?title=$searchTitle&amp;title_type=feature&#34;</span>
+            <span class="k">break</span>
+        <span class="p">}</span>
+         
+        <span class="nb">Write-Verbose</span> <span class="s2">&#34;Result contains movies.&#34;</span>
+         
+        <span class="nb">Write-Verbose</span> <span class="s2">&#34;Parcing HTML for movie link.&#34;</span>
+        <span class="nv">$regex</span> <span class="p">=</span> <span class="s2">&#34;&lt;\s*a\s*[^&gt;]*?href\s*=\s*[</span><span class="se">`&#34;</span><span class="s2">&#39;]*([^</span><span class="se">`&#34;</span><span class="s2">&#39;&gt;]+)[^&gt;]*?&gt;&#34;</span>
+        <span class="nv">$linksFound</span> <span class="p">=</span> <span class="no">[Regex]</span><span class="p">::</span><span class="n">Matches</span><span class="p">(</span><span class="nv">$titleclass</span><span class="p">.</span><span class="n">innerHTML</span><span class="p">,</span> <span class="nv">$regex</span><span class="p">,</span> <span class="s2">&#34;IgnoreCase&#34;</span><span class="p">)</span>
+         
+        <span class="nv">$titlelink</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">ArrayList</span>
+        <span class="k">foreach</span><span class="p">(</span><span class="nv">$link</span> <span class="k">in</span> <span class="nv">$linksFound</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nv">$trimmedlink</span> <span class="p">=</span> <span class="nv">$link</span><span class="p">.</span><span class="n">Groups</span><span class="p">[</span><span class="n">1</span><span class="p">].</span><span class="n">Value</span><span class="p">.</span><span class="n">Trim</span><span class="p">()</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$trimmedlink</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s1">&#39;/title/&#39;</span><span class="p">))</span> <span class="p">{</span>
+                <span class="no">[void]</span> <span class="nv">$titlelink</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="nv">$trimmedlink</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="nb">Write-Verbose</span> <span class="s2">&#34;Movie link found.&#34;</span>
+ 
+        <span class="nv">$movieURL</span> <span class="p">=</span> <span class="s2">&#34;http://www.imdb.com</span><span class="p">$(</span><span class="nv">$titlelink</span><span class="p">[</span><span class="n">0</span><span class="p">])</span><span class="s2">&#34;</span>
+        <span class="nb">Write-Verbose</span> <span class="s2">&#34;Fetching movie page.&#34;</span>
+        <span class="nv">$moviehtml</span> <span class="p">=</span> <span class="nb">Invoke-WebRequest</span> <span class="nv">$movieURL</span> <span class="n">-Headers</span> <span class="p">@{</span><span class="s2">&#34;Accept-Language&#34;</span><span class="p">=</span><span class="s2">&#34;en-US,en;&#34;</span><span class="p">}</span>
+        <span class="nb">Write-Verbose</span> <span class="s2">&#34;Movie page fetched.&#34;</span>
+ 
+        <span class="nv">$movie</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">psobject</span>
+ 
+        <span class="nb">Write-Verbose</span> <span class="s2">&#34;Parcing for title.&#34;</span>
+        <span class="nb">Add-Member</span> <span class="n">-InputObject</span> <span class="nv">$movie</span> <span class="n">-MemberType</span> <span class="s1">&#39;NoteProperty&#39;</span> <span class="n">-Name</span> <span class="s2">&#34;Title&#34;</span> <span class="n">-Value</span> <span class="p">(</span><span class="nv">$moviehtml</span><span class="p">.</span><span class="n">AllElements</span> <span class="p">|</span> <span class="nb">where </span><span class="n">Class</span> <span class="o">-eq</span> <span class="s1">&#39;itemprop&#39;</span> <span class="p">|</span> <span class="nb">select </span><span class="n">-First</span> <span class="n">1</span><span class="p">).</span><span class="n">innerText</span>
+ 
+        <span class="nb">Write-Verbose</span> <span class="s2">&#34;Parcing for directors.&#34;</span>
+        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$line</span> <span class="k">in</span> <span class="p">(</span><span class="nv">$moviehtml</span><span class="p">.</span><span class="n">AllElements</span> <span class="p">|</span> <span class="nb">where </span><span class="n">Class</span> <span class="o">-eq</span> <span class="s1">&#39;txt-block&#39;</span><span class="p">).</span><span class="n">InnerHTML</span> <span class="n">-split</span> <span class="s2">&#34;</span><span class="se">`n</span><span class="s2">&#34;</span><span class="p">){</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$line</span> <span class="o">-like</span> <span class="s1">&#39;*Director:*&#39;</span><span class="p">){</span>
+                <span class="nv">$line</span> <span class="p">=</span> <span class="nv">$line</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s1">&#39;&lt;/SPAN&gt;&lt;/A&gt;&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="nb">Add-Member</span> <span class="n">-InputObject</span> <span class="nv">$movie</span> <span class="n">-MemberType</span> <span class="s1">&#39;NoteProperty&#39;</span> <span class="n">-Name</span> <span class="s2">&#34;Directors&#34;</span> <span class="n">-Value</span> <span class="nv">$line</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">0</span><span class="p">,</span><span class="nv">$line</span><span class="p">.</span><span class="n">LastIndexOf</span><span class="p">(</span><span class="s1">&#39;&gt;&#39;</span><span class="p">)+</span><span class="n">1</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+ 
+        <span class="nb">Write-Verbose</span> <span class="s2">&#34;Parcing for year.&#34;</span>
+        <span class="nb">Add-Member</span> <span class="n">-InputObject</span> <span class="nv">$movie</span> <span class="n">-MemberType</span> <span class="s1">&#39;NoteProperty&#39;</span> <span class="n">-Name</span> <span class="s2">&#34;Year&#34;</span> <span class="n">-Value</span> <span class="p">((</span><span class="nv">$moviehtml</span><span class="p">.</span><span class="n">AllElements</span> <span class="p">|</span> <span class="nb">where </span><span class="n">Class</span> <span class="o">-eq</span> <span class="s1">&#39;nobr&#39;</span> <span class="p">|</span> <span class="nb">select </span><span class="n">-First</span> <span class="n">1</span><span class="p">).</span><span class="n">innerText</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+ 
+        <span class="nb">Write-Verbose</span> <span class="s2">&#34;Parcing for rating.&#34;</span>
+        <span class="nb">Add-Member</span> <span class="n">-InputObject</span> <span class="nv">$movie</span> <span class="n">-MemberType</span> <span class="s1">&#39;NoteProperty&#39;</span> <span class="n">-Name</span> <span class="s2">&#34;Rating&#34;</span> <span class="n">-Value</span> <span class="p">(</span><span class="nv">$moviehtml</span><span class="p">.</span><span class="n">AllElements</span> <span class="p">|</span> <span class="nb">where </span><span class="n">Class</span> <span class="o">-eq</span> <span class="s1">&#39;titlePageSprite star-box-giga-star&#39;</span> <span class="p">|</span> <span class="nb">select </span><span class="n">-First</span> <span class="n">1</span><span class="p">).</span><span class="n">innerText</span>
+ 
+        <span class="nb">Write-Verbose</span> <span class="s2">&#34;Parcing for description.&#34;</span>
+        <span class="nb">Add-Member</span> <span class="n">-InputObject</span> <span class="nv">$movie</span> <span class="n">-MemberType</span> <span class="s1">&#39;NoteProperty&#39;</span> <span class="n">-Name</span> <span class="s2">&#34;Description&#34;</span> <span class="n">-Value</span> <span class="p">(</span><span class="nv">$moviehtml</span><span class="p">.</span><span class="n">AllElements</span> <span class="p">|</span> <span class="nb">where </span><span class="n">itemprop</span> <span class="o">-eq</span> <span class="s1">&#39;description&#39;</span> <span class="p">|</span> <span class="nb">select </span><span class="n">-first</span> <span class="n">1</span><span class="p">).</span><span class="n">InnerText</span>
+ 
+        <span class="nb">Write-Verbose</span> <span class="s2">&#34;Parcing for writers.&#34;</span>
+        <span class="nb">Add-Member</span> <span class="n">-InputObject</span> <span class="nv">$movie</span> <span class="n">-MemberType</span> <span class="s1">&#39;NoteProperty&#39;</span> <span class="n">-Name</span> <span class="s2">&#34;Writers&#34;</span> <span class="n">-Value</span> <span class="p">(</span><span class="nv">$moviehtml</span><span class="p">.</span><span class="n">AllElements</span> <span class="p">|</span> <span class="nb">where </span><span class="n">itemprop</span> <span class="o">-eq</span> <span class="s1">&#39;creator&#39;</span> <span class="p">|</span> <span class="nb">select </span><span class="n">-first</span> <span class="n">1</span><span class="p">).</span><span class="n">InnerText</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s1">&#39;Writers:&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s1">&#39; »&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+ 
+        <span class="nb">Write-Verbose</span> <span class="s2">&#34;Parcing for stars.&#34;</span>
+        <span class="nb">Add-Member</span> <span class="n">-InputObject</span> <span class="nv">$movie</span> <span class="n">-MemberType</span> <span class="s1">&#39;NoteProperty&#39;</span> <span class="n">-Name</span> <span class="s2">&#34;Stars&#34;</span> <span class="n">-Value</span> <span class="p">(</span><span class="nv">$moviehtml</span><span class="p">.</span><span class="n">AllElements</span> <span class="p">|</span> <span class="nb">where </span><span class="n">itemprop</span> <span class="o">-eq</span> <span class="s1">&#39;actors&#39;</span><span class="p">).</span><span class="n">InnerText</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s1">&#39;Stars:&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s1">&#39; | See full cast and crew »&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+ 
+        <span class="nb">Write-Verbose</span> <span class="s2">&#34;Adding the link.&#34;</span>
+        <span class="nb">Add-Member</span> <span class="n">-InputObject</span> <span class="nv">$movie</span> <span class="n">-MemberType</span> <span class="s1">&#39;NoteProperty&#39;</span> <span class="n">-Name</span> <span class="s2">&#34;Link&#34;</span> <span class="n">-Value</span> <span class="nv">$movieURL</span>
+ 
+        <span class="nb">Write-Verbose</span> <span class="s2">&#34;Returning object.&#34;</span>
+        <span class="nv">$movie</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="blog-post-meta-bottom">
+  
+      Posted by: John<br />
+  
+  
+      Tags: 
+              PowerShell
+          
+              Invoke-WebRequest
+          
+  
+</div>
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-test-roostech-se" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+                </div>
+                <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
+    
+    <div class="author">
+        <img width="120" height="120" alt="John Roos" src="/img/face.jpg"><br>
+        <a title="About John Roos" href="http://test.roostech.se/about">John Roos</a>
+    </div>
+    
+    <div id="recentPosts">
+            <div class="recentposts">
+                <div class="recentposts-header">RECENT POSTS</div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h1>
+                    Pester 5 was released a couple of days ago which brings a lot of new features and changes to how we write tests. One of the major changes in Pester 5 is the Discovery phase. In this post I will attempt to explain how Discover...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/create-and-use-azure-table-storage-with-powershell/">Create and use Azure Table storage with PowerShell</a></h1>
+                    Azure Table storage is a quick and easy way to store data in the cloud. If you have an Azure subscription you can play around with you are up and running within minutes. Here is a short example on how to get started.
+Create t...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/">Use Edit-Command to discover the code behind built-in cmdlets</a></h1>
+                    Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When y...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h1>
+                    To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h1>
+                    Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources ...
+                </div>
+            
+            </div>
+    </div>
+
+</div></div>
+            </div>
+            <footer class="footer"><div class="feet">
+<p class="footer text-center">Copyright (c) 2020 John Roos</p>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</footer>
+        </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>

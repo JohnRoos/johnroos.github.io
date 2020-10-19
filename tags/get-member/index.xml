@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Get-Member on RoosTech</title>
+    <link>http://test.roostech.se/tags/get-member/</link>
+    <description>Recent content in Get-Member on RoosTech</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 01 Feb 2015 14:14:00 +0200</lastBuildDate><atom:link href="http://test.roostech.se/tags/get-member/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Powershell script: Write object to SQL</title>
+      <link>http://test.roostech.se/posts/powershell-script-write-object-to-sql/</link>
+      <pubDate>Sun, 01 Feb 2015 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/powershell-script-write-object-to-sql/</guid>
+      <description>A while ago I was playing around with PowerShell, gathering information from a lot of servers and I felt that I needed to have a simple way of storing that information in a database. I could have written my own T-SQL statements for creating the tables and then do the inserts in the powerShell scripts I was playing around with. But that felt like it would just take time so I started to think about a function that would just accept any object and do the magic of creating a table and then inserting anything I piped to it.</description>
+    </item>
+    
+  </channel>
+</rss>
