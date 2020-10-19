@@ -33,7 +33,7 @@ Create table To create an Azure Table we need to first have a resource group. Le
       <pubDate>Wed, 22 Feb 2017 14:14:00 +0200</pubDate>
       
       <guid>http://test.roostech.se/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/</guid>
-      <description>Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When you run Get-Command you get all kinds of details about the commands you are looking for. One of the properties in the output is called ScriptBlock. Thats where the code is, if its written in PowerShell.</description>
+      <description>Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When you run Get-Command you get all kinds of details about the commands you are looking for. One of the properties in the output is called ScriptBlock. That&amp;rsquo;s where the code is, if its written in PowerShell.</description>
     </item>
     
     <item>

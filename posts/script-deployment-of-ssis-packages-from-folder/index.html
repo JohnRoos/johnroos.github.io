@@ -66,13 +66,14 @@
 
 <div class="row">
                 <div class="col-sm-9 blog-main section" id="blogposts">
-
+<div class="blog-post">
+  
     
     
     <time class="postdate" datetime="2012-03-08">Mar 8, 2012</time>
 
-<h1>Script deployment of SSIS packages from folder</h1>
-<p>This is a very easy way to automate something which can take quite some time to do manually if you have lots of environments. Its made as easy as possible in this example rather than fancy and complicated. This script will create a SQL Server Agent Job which will execute a number of SSIS packages (dtsx files). The script will look for dtsx files in the selected folder DTSVirtualPath and also a config file (dtsConfig). Each file will get its own step in the job in alphabetical order. If you want to have a different order you could just rename the files with a number in the front or rearrange it manually afterwards in the job properties.</p>
+  <h1>Script deployment of SSIS packages from folder</h1>
+  <p>This is a very easy way to automate something which can take quite some time to do manually if you have lots of environments. Its made as easy as possible in this example rather than fancy and complicated. This script will create a SQL Server Agent Job which will execute a number of SSIS packages (dtsx files). The script will look for dtsx files in the selected folder DTSVirtualPath and also a config file (dtsConfig). Each file will get its own step in the job in alphabetical order. If you want to have a different order you could just rename the files with a number in the front or rearrange it manually afterwards in the job properties.</p>
 <p>To make it as easy and quick as possible I got the base for the script by using one of the jobs which was already configured. Just right click on a job which already exist and select Script Job as, Create to, New Query Editor Window. I then edited the script to make it a bit dynamic. I included two schedules for the job in case schedules are needed. Just edit the highlighted lines to adapt to your environment and give it a go. I have only tested this on SQL Server 2008 R2 but it will probably work on 2005 with a few or no tweaks.</p>
 <p>Before running the script you need to enable xp_cmdshell. This is because the script is running the dir command to get the file names for the dtsx files. To enable xp_cmdshell run the following:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- Enable advanced configuration options
@@ -236,20 +237,40 @@
  
 <span class="k">GO</span>
 </code></pre></div>
-<div class="blog-post-meta-bottom">
+  <div class="blog-post-meta-bottom">
+    
+        Posted by: John<br />
+    
+    
+        Tags: 
+                SQL Server
+            
+                SSIS
+            
+                SQL Server Agent
+            
+    
+  </div>
+
   
-      Posted by: John<br />
-  
-  
-      Tags: 
-              SQL Server
-          
-              SSIS
-          
-              SQL Server Agent
-          
+    <div class="related-posts">
+      
+      
+      <h3>Related posts</h3>
+      <ul>
+        
+        <li><a href="/posts/dynamic-deploy-of-ssrs-reports-using-rs.exe/">Dynamic deploy of SSRS reports using rs.exe</a></li>
+        
+        <li><a href="/posts/remove-headers-in-excel-exports-to-fix-column-alignment/">Remove headers in Excel exports to fix column alignment</a></li>
+        
+        <li><a href="/posts/using-executionlog2-for-statistics-and-monitoring/">Using ExecutionLog2 for statistics and monitoring</a></li>
+        
+      </ul>
+    </div>
+    
   
 </div>
+
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">

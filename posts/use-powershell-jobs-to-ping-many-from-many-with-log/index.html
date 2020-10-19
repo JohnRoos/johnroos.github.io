@@ -66,13 +66,14 @@
 
 <div class="row">
                 <div class="col-sm-9 blog-main section" id="blogposts">
-
+<div class="blog-post">
+  
     
     
     <time class="postdate" datetime="2016-02-06">Feb 6, 2016</time>
 
-<h1>Use PowerShell jobs to ping many from many with log</h1>
-<p>Once in a while you want to check how stable a connection is between computers. You might want to ping one or two machines from several others to find out if there is some issues with the network somewhere. You could use the built-in cmdlet Test-Connection and log the results to a log file but then you will not be able to log timeouts since the cmdlet returns an error when timeouts occur. A few lines of code is all you need to get around that.</p>
+  <h1>Use PowerShell jobs to ping many from many with log</h1>
+  <p>Once in a while you want to check how stable a connection is between computers. You might want to ping one or two machines from several others to find out if there is some issues with the network somewhere. You could use the built-in cmdlet Test-Connection and log the results to a log file but then you will not be able to log timeouts since the cmdlet returns an error when timeouts occur. A few lines of code is all you need to get around that.</p>
 <h2 id="use-powershell-jobs-for-ping">Use PowerShell jobs for ping</h2>
 <p>I wrote a small script for this which can come in handy. You can use this script to ping several machines from multiple machines and store the results to logfiles in csv format. If a ping gets a timeout then the response time will be set to 9999.</p>
 <div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$sources</span> <span class="p">=</span> <span class="s1">&#39;server1&#39;</span><span class="p">,</span> <span class="s1">&#39;server2&#39;</span><span class="p">,</span> <span class="s1">&#39;server3&#39;</span>
@@ -119,26 +120,50 @@
 <div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$csv</span> <span class="p">=</span> <span class="nb">Import-Csv</span> <span class="n">-Path</span> <span class="n">C:</span><span class="p">\</span><span class="n">Ping_logs</span><span class="p">\</span><span class="n">Server1_Server2_2016</span><span class="p">-</span><span class="n">02</span><span class="p">-</span><span class="n">06</span><span class="p">.</span><span class="n">log</span>
 <span class="nb">Write-ObjectToSQL</span> <span class="nv">$csv</span> <span class="n">-Server</span> <span class="n">localhost</span> <span class="n">-Database</span> <span class="n">PingDB</span> <span class="n">-TableName</span> <span class="n">PingLog</span>
 </code></pre></div>
-<div class="blog-post-meta-bottom">
+  <div class="blog-post-meta-bottom">
+    
+        Posted by: John<br />
+    
+    
+        Tags: 
+                Error handling
+            
+                Jobs
+            
+                Ping
+            
+                PowerShell
+            
+                Test-Connection
+            
+                Write-ObjectToSQL
+            
+    
+  </div>
+
   
-      Posted by: John<br />
-  
-  
-      Tags: 
-              Error handling
-          
-              Jobs
-          
-              Ping
-          
-              PowerShell
-          
-              Test-Connection
-          
-              Write-ObjectToSQL
-          
+    <div class="related-posts">
+      
+      
+      <h3>Related posts</h3>
+      <ul>
+        
+        <li><a href="/posts/powershell-script-write-object-to-sql/">Powershell script: Write object to SQL</a></li>
+        
+        <li><a href="/posts/powershell-logo-made-with-css3/">PowerShell logo made with CSS3</a></li>
+        
+        <li><a href="/posts/what-is-this-here-string-people-are-talking-about/">What is this here-string people are talking about?</a></li>
+        
+        <li><a href="/posts/dynamic-parameters-in-powershell-executes-before-you-know-it/">Dynamic parameters in PowerShell executes before you know it</a></li>
+        
+        <li><a href="/posts/making-powershell-expressions-easier/">Making PowerShell expressions easier</a></li>
+        
+      </ul>
+    </div>
+    
   
 </div>
+
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">

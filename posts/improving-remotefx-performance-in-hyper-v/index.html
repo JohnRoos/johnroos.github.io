@@ -66,13 +66,14 @@
 
 <div class="row">
                 <div class="col-sm-9 blog-main section" id="blogposts">
-
+<div class="blog-post">
+  
     
     
     <time class="postdate" datetime="2012-09-25">Sep 25, 2012</time>
 
-<h1>Improving RemoteFX performance in Hyper-V</h1>
-<p>As I <a href="http://test.roostech.se/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/">wrote earlier</a> its possible to run RemoteFX on some of the slowest GPU´s you can buy today (on a regular CPU actually), but you might not get the performance you need to get anywhere. This time I will go through some of the options you have for getting it to work a bit better. Keep in mind that I am writing this with a really poor GPU in mind (yes, the Intel HD 2500 is not good for anything else than browsing).</p>
+  <h1>Improving RemoteFX performance in Hyper-V</h1>
+  <p>As I <a href="http://test.roostech.se/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/">wrote earlier</a> its possible to run RemoteFX on some of the slowest GPU´s you can buy today (on a regular CPU actually), but you might not get the performance you need to get anywhere. This time I will go through some of the options you have for getting it to work a bit better. Keep in mind that I am writing this with a really poor GPU in mind (yes, the Intel HD 2500 is not good for anything else than browsing).</p>
 <h2 id="the-basics">The basics</h2>
 <p>First some basic things. For a slow GPU you want to make sure the GPU is the actual bottleneck so don&rsquo;t be cheap when you assign memory. I used 4 GB on the VM. Use higher if you want and then lower it until you find a good sweet spot in case you want the memory back. Assign more than one core to the VM to start with.</p>
 <p>Use RemoteFX over a wired LAN (100 Mbit or more). Avoid using WiFi since a lot of bandwidth is needed to get good quality, especially if you configure the group policies to get the highest quality with no compression.</p>
@@ -86,20 +87,36 @@
 <p>Here are some settings you can play around with to get the performance better, depending on what you will use it for. I played around with the settings and after a while the performance became a bit better with the Intel HD 2500 but I did not see any great improvement. The new GUI (which until recently was called Metro) in Windows 8 worked great with all the animations and everything, but that kind of worked even without RemoteFX so not a huge difference there. Movies played better in smaller windows than before, but frames were sometimes lost. Full screen videos, especially HD, was crap to be honest. I did not expect much from this hardware, but I was hoping for a bit better performance.</p>
 <p>I would expect that tweaking these settings on a proper GPU will probably give better results compared to what I got. I will not post my settings right now because I don&rsquo;t think they are useful for anyone else. I will instead get back to this when I have used a better GPU and can give some examples of what could help. My suggestion here would be that you should play around with the settings and see what you can get.</p>
 
-<div class="blog-post-meta-bottom">
+  <div class="blog-post-meta-bottom">
+    
+        Posted by: John<br />
+    
+    
+        Tags: 
+                Hyper-V
+            
+                RemoteFX
+            
+                Performance
+            
+    
+  </div>
+
   
-      Posted by: John<br />
-  
-  
-      Tags: 
-              Hyper-V
-          
-              RemoteFX
-          
-              Performance
-          
+    <div class="related-posts">
+      
+      
+      <h3>Related posts</h3>
+      <ul>
+        
+        <li><a href="/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/">Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU</a></li>
+        
+      </ul>
+    </div>
+    
   
 </div>
+
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">

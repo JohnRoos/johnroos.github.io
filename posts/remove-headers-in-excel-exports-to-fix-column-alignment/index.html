@@ -67,13 +67,14 @@ As long as the header design follows the rest of the design when it comes to col
 
 <div class="row">
                 <div class="col-sm-9 blog-main section" id="blogposts">
-
+<div class="blog-post">
+  
     
     
     <time class="postdate" datetime="2011-12-14">Dec 14, 2011</time>
 
-<h1>Remove headers in Excel exports to fix column alignment</h1>
-<p>Reports with headers in Reporting Services works great as long as you are just rendering the reports in HTML. If you would try to export the report to Excel you might stumble into some problems.</p>
+  <h1>Remove headers in Excel exports to fix column alignment</h1>
+  <p>Reports with headers in Reporting Services works great as long as you are just rendering the reports in HTML. If you would try to export the report to Excel you might stumble into some problems.</p>
 <p>As long as the header design follows the rest of the design when it comes to columns you could be fine. However, often headers contain very different information and design than the actual content of the report and column alignment might in these cases become a problem. You might find merged columns here and there which could be hard to work around when working with the exported Excel file.</p>
 <p>There is however a quite easy fix for this, but it has its drawbacks.</p>
 <p>You can configure exports to Excel in Reporting Services so that headers will not be displayed in the cell grid and will instead be saved in the actual header section of the Excel sheet. The file you need to edit is the following: <em>C:\Program Files\Microsoft SQL Server\MSRS10_50.MSSQLSERVER\Reporting Services\ReportServer\rsreportserver.config</em></p>
@@ -102,20 +103,36 @@ As long as the header design follows the rest of the design when it comes to col
 </span><span class="s">    Microsoft.ReportingServices.ExcelRendering&#34;</span> <span class="na">visible</span><span class="o">=</span><span class="s">&#34;false&#34;</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">extension</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
 </code></pre></div>
-<div class="blog-post-meta-bottom">
+  <div class="blog-post-meta-bottom">
+    
+        Posted by: John<br />
+    
+    
+        Tags: 
+                SQL Server
+            
+                SSRS
+            
+                Excel
+            
+    
+  </div>
+
   
-      Posted by: John<br />
-  
-  
-      Tags: 
-              SQL Server
-          
-              SSRS
-          
-              Excel
-          
+    <div class="related-posts">
+      
+      
+      <h3>Related posts</h3>
+      <ul>
+        
+        <li><a href="/posts/using-executionlog2-for-statistics-and-monitoring/">Using ExecutionLog2 for statistics and monitoring</a></li>
+        
+      </ul>
+    </div>
+    
   
 </div>
+
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">

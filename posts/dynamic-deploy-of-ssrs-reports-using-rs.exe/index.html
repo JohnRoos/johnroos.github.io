@@ -66,13 +66,14 @@
 
 <div class="row">
                 <div class="col-sm-9 blog-main section" id="blogposts">
-
+<div class="blog-post">
+  
     
     
     <time class="postdate" datetime="2012-03-01">Mar 1, 2012</time>
 
-<h1>Dynamic deploy of SSRS reports using rs.exe</h1>
-<p>This script will search for reports in the local folder SOURCEREPORTFOLDER and then deploy them in the RS folder TARGETRSFOLDER, creating subfolders if needed. If any of the reports already exists in RS it will first do a backup of the existing report into the local folder BACKUPLOCATION. The target folder in RS will contain the same file structure as the source folder. Subfolders will be created if they don&rsquo;t already exists and so on. All actions are logged to a log file for each deploy.</p>
+  <h1>Dynamic deploy of SSRS reports using rs.exe</h1>
+  <p>This script will search for reports in the local folder SOURCEREPORTFOLDER and then deploy them in the RS folder TARGETRSFOLDER, creating subfolders if needed. If any of the reports already exists in RS it will first do a backup of the existing report into the local folder BACKUPLOCATION. The target folder in RS will contain the same file structure as the source folder. Subfolders will be created if they don&rsquo;t already exists and so on. All actions are logged to a log file for each deploy.</p>
 <p>This script expects only one datasource for all reports. If the datasource has a different name in the target environment than where it was developed you will get an error in the log when the report first is deployed, but the script will after that set the proper data source and it will work anyway. The reason for this is that the report expects a data source with a certain name and the script can only set the correct data source after the report has been deployed. If you are confident that the script works (after extensive testing) you can suppress these messages by setting the variable SuppressWarnings to true in the rss file but I am not sure if thats a good idea.</p>
 <p>I tried to create a unique log file name for each deploy but since date and time is acting a bit weird when running batch scripts I resorted to having a random number in the end of the log file. Not pretty but it works. All you need to do to test the script is to modify the the beginning of the batch script. The variables need to be set according to your needs.</p>
 <p>How to test the scripts:</p>
@@ -442,18 +443,36 @@
 <li>DevEx: <a href="http://www.devx.com/dotnet/Article/22014/0/page/1">Automating Smart-Client Report Deployments</a></li>
 </ul>
 
-<div class="blog-post-meta-bottom">
+  <div class="blog-post-meta-bottom">
+    
+        Posted by: John<br />
+    
+    
+        Tags: 
+                SQL Server
+            
+                SSRS
+            
+    
+  </div>
+
   
-      Posted by: John<br />
-  
-  
-      Tags: 
-              SQL Server
-          
-              SSRS
-          
+    <div class="related-posts">
+      
+      
+      <h3>Related posts</h3>
+      <ul>
+        
+        <li><a href="/posts/remove-headers-in-excel-exports-to-fix-column-alignment/">Remove headers in Excel exports to fix column alignment</a></li>
+        
+        <li><a href="/posts/using-executionlog2-for-statistics-and-monitoring/">Using ExecutionLog2 for statistics and monitoring</a></li>
+        
+      </ul>
+    </div>
+    
   
 </div>
+
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">

@@ -67,13 +67,14 @@ PS C:\&gt; Get-ImdbMovie -Title &#39;Star Trek&#39; Title : Star Trek Into Darkn
 
 <div class="row">
                 <div class="col-sm-9 blog-main section" id="blogposts">
-
+<div class="blog-post">
+  
     
     
     <time class="postdate" datetime="2015-03-04">Mar 4, 2015</time>
 
-<h1>Get-IMDBmovie using Invoke-WebRequest</h1>
-<p>Some time ago I was playing around a bit with Invoke-WebRequest and wanted to know a bit more about what I could do with that cmdlet. I ended up creating a cmdlet to get movie information from IMDB.com. I thought I would share how that script since the same principles can be applied in many situations.</p>
+  <h1>Get-IMDBmovie using Invoke-WebRequest</h1>
+  <p>Some time ago I was playing around a bit with Invoke-WebRequest and wanted to know a bit more about what I could do with that cmdlet. I ended up creating a cmdlet to get movie information from IMDB.com. I thought I would share how that script since the same principles can be applied in many situations.</p>
 <div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">PS C:\&gt; Get-ImdbMovie -Title &#39;Star Trek&#39;
 
  Title       : Star Trek Into Darkness
@@ -315,18 +316,42 @@ Directors is a bit more tricky. Its in a tag using the class &ldquo;txt-block&rd
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<div class="blog-post-meta-bottom">
+  <div class="blog-post-meta-bottom">
+    
+        Posted by: John<br />
+    
+    
+        Tags: 
+                PowerShell
+            
+                Invoke-WebRequest
+            
+    
+  </div>
+
   
-      Posted by: John<br />
-  
-  
-      Tags: 
-              PowerShell
-          
-              Invoke-WebRequest
-          
+    <div class="related-posts">
+      
+      
+      <h3>Related posts</h3>
+      <ul>
+        
+        <li><a href="/posts/classes-in-powershell-5.0/">Classes in Powershell 5.0</a></li>
+        
+        <li><a href="/posts/how-to-get-started-with-powershell/">How to get started with Powershell</a></li>
+        
+        <li><a href="/posts/powershell-script-write-object-to-sql/">Powershell script: Write object to SQL</a></li>
+        
+        <li><a href="/posts/powershell-script-find-hotfix-status/">Powershell script: Find hotfix status</a></li>
+        
+        <li><a href="/posts/get-type-alternative-for-null-values/">Get-Type alternative for $null values</a></li>
+        
+      </ul>
+    </div>
+    
   
 </div>
+
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">

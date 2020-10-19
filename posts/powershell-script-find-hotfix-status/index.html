@@ -67,13 +67,14 @@ I created a simple small script that would list the patches to check for, along 
 
 <div class="row">
                 <div class="col-sm-9 blog-main section" id="blogposts">
-
+<div class="blog-post">
+  
     
     
     <time class="postdate" datetime="2015-02-01">Feb 1, 2015</time>
 
-<h1>Powershell script: Find hotfix status</h1>
-<p>I was browsing around the requests on the <a href="https://gallery.technet.microsoft.com/scriptcenter/site/requests">Microsoft Script Center</a> the other day and found one request where a user needed a PowerShell script for showing the status of specific hotfixes on multiple machines. I thought it would be a good idea since Get-Hotfix only shows where the hotfix is installed but not directly where its not installed.</p>
+  <h1>Powershell script: Find hotfix status</h1>
+  <p>I was browsing around the requests on the <a href="https://gallery.technet.microsoft.com/scriptcenter/site/requests">Microsoft Script Center</a> the other day and found one request where a user needed a PowerShell script for showing the status of specific hotfixes on multiple machines. I thought it would be a good idea since Get-Hotfix only shows where the hotfix is installed but not directly where its not installed.</p>
 <p>I created a simple small script that would list the patches to check for, along with each server and if its installed or not. The output looks something like this:</p>
 <div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">ComputerName    Hotfix       Status
 ------------    ------       ------
@@ -87,16 +88,40 @@ server02        KB2923423    Not installed
 <div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="p">.\</span><span class="nb">Find-Hotfix</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Hotfix_FilePath</span> <span class="s1">&#39;c:\hotfixes.txt&#39;</span> <span class="n">-ComputerName_FilePath</span> <span class="s1">&#39;c:\servers.txt&#39;</span>
 </code></pre></div><p>The script can be downloaded from Microsoft Script Center <a href="https://gallery.technet.microsoft.com/Powershell-Find-hotfix-312a7bc2">here</a>.</p>
 
-<div class="blog-post-meta-bottom">
+  <div class="blog-post-meta-bottom">
+    
+        Posted by: John<br />
+    
+    
+        Tags: 
+                PowerShell
+            
+    
+  </div>
+
   
-      Posted by: John<br />
-  
-  
-      Tags: 
-              PowerShell
-          
+    <div class="related-posts">
+      
+      
+      <h3>Related posts</h3>
+      <ul>
+        
+        <li><a href="/posts/powershell-script-write-object-to-sql/">Powershell script: Write object to SQL</a></li>
+        
+        <li><a href="/posts/get-type-alternative-for-null-values/">Get-Type alternative for $null values</a></li>
+        
+        <li><a href="/posts/compress-files-to-zip-with-powershell/">Compress files to Zip with Powershell</a></li>
+        
+        <li><a href="/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/">Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU</a></li>
+        
+        <li><a href="/posts/sqlps-and-its-limitations/">SQLPS and its limitations</a></li>
+        
+      </ul>
+    </div>
+    
   
 </div>
+
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">

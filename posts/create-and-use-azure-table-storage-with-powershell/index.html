@@ -67,13 +67,14 @@ Create table To create an Azure Table we need to first have a resource group. Le
 
 <div class="row">
                 <div class="col-sm-9 blog-main section" id="blogposts">
-
+<div class="blog-post">
+  
     
     
     <time class="postdate" datetime="2020-03-11">Mar 11, 2020</time>
 
-<h1>Create and use Azure Table storage with PowerShell</h1>
-<p>Azure Table storage is a quick and easy way to store data in the cloud. If you have an Azure subscription you can play around with you are up and running within minutes. Here is a short example on how to get started.</p>
+  <h1>Create and use Azure Table storage with PowerShell</h1>
+  <p>Azure Table storage is a quick and easy way to store data in the cloud. If you have an Azure subscription you can play around with you are up and running within minutes. Here is a short example on how to get started.</p>
 <h2 id="create-table">Create table</h2>
 <p>To create an Azure Table we need to first have a resource group. Lets create one that is called &ldquo;MyAwesomeResourceGroup&rdquo; and place it in &ldquo;West Europe&rdquo;. When the resource group is created we need to create a storage account. In this example I have set it to use locally redundant storage since its cheap and for lab purposes.</p>
 <div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">New-AzResourceGroup</span> <span class="n">-Name</span> <span class="s1">&#39;MyAwesomeResourceGroup&#39;</span> <span class="p">`</span> 
@@ -122,18 +123,42 @@ Create table To create an Azure Table we need to first have a resource group. Le
 <span class="nb">Remove-AzTableRow</span> <span class="n">-entity</span> <span class="nv">$rows</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span>
 </code></pre></div><p>Thats it. This is a very quick introduction to how to create a table and manage the data in it.</p>
 
-<div class="blog-post-meta-bottom">
+  <div class="blog-post-meta-bottom">
+    
+        Posted by: John<br />
+    
+    
+        Tags: 
+                PowerShell
+            
+                Azure Tables
+            
+    
+  </div>
+
   
-      Posted by: John<br />
-  
-  
-      Tags: 
-              PowerShell
-          
-              Azure Tables
-          
+    <div class="related-posts">
+      
+      
+      <h3>Related posts</h3>
+      <ul>
+        
+        <li><a href="/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/">Use Edit-Command to discover the code behind built-in cmdlets</a></li>
+        
+        <li><a href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></li>
+        
+        <li><a href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></li>
+        
+        <li><a href="/posts/use-powershell-jobs-to-ping-many-from-many-with-log/">Use PowerShell jobs to ping many from many with log</a></li>
+        
+        <li><a href="/posts/powershell-logo-made-with-css3/">PowerShell logo made with CSS3</a></li>
+        
+      </ul>
+    </div>
+    
   
 </div>
+
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">

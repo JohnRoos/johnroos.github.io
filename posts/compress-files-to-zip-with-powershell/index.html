@@ -68,13 +68,14 @@ There is however a pretty simple way of doing this with only PowerShell. This is
 
 <div class="row">
                 <div class="col-sm-9 blog-main section" id="blogposts">
-
+<div class="blog-post">
+  
     
     
     <time class="postdate" datetime="2014-12-15">Dec 15, 2014</time>
 
-<h1>Compress files to Zip with Powershell</h1>
-<p>I have seen a lot of people writing PowerShell scripts to compress files or folders by using external file compression programs. Often Winrar, 7-Zip or something similar is used since PowerShell does not have any built in cmdlet to do this (not until version 5 at least).</p>
+  <h1>Compress files to Zip with Powershell</h1>
+  <p>I have seen a lot of people writing PowerShell scripts to compress files or folders by using external file compression programs. Often Winrar, 7-Zip or something similar is used since PowerShell does not have any built in cmdlet to do this (not until version 5 at least).</p>
 <p>There is however a pretty simple way of doing this with only PowerShell. This is how.</p>
 <div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># First we add the .Net framework class needed for file compression.</span>
 <span class="nb">Add-Type</span> <span class="o">-As</span> <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">Compression</span><span class="p">.</span><span class="n">FileSystem</span>
@@ -104,20 +105,38 @@ There is however a pretty simple way of doing this with only PowerShell. This is
 <span class="nv">$ziparchive</span><span class="p">.</span><span class="n">Dispose</span><span class="p">()</span>
 </code></pre></div><p>Read more about these features at <a href="http://msdn.microsoft.com/en-us/library/System.IO.Compression(v=vs.110).aspx">MSDN</a>.</p>
 
-<div class="blog-post-meta-bottom">
+  <div class="blog-post-meta-bottom">
+    
+        Posted by: John<br />
+    
+    
+        Tags: 
+                PowerShell
+            
+                Compression
+            
+                Zip
+            
+    
+  </div>
+
   
-      Posted by: John<br />
-  
-  
-      Tags: 
-              PowerShell
-          
-              Compression
-          
-              Zip
-          
+    <div class="related-posts">
+      
+      
+      <h3>Related posts</h3>
+      <ul>
+        
+        <li><a href="/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/">Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU</a></li>
+        
+        <li><a href="/posts/sqlps-and-its-limitations/">SQLPS and its limitations</a></li>
+        
+      </ul>
+    </div>
+    
   
 </div>
+
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">

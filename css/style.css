@@ -296,4 +296,21 @@ img[src$='#floatright']
     max-width: 100%;
 }
 
+.page-item.active .page-link {
+    color: #fff;
+    background-color: #B42509;
+    border-color: #ffffff;    
+}
+.page-link:hover {
+    text-decoration: none;
+}
 
+.page-link {
+    color: #B42509;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+
+.related-posts {
+    margin-top: 40px;  
+}

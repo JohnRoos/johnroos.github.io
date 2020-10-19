@@ -8,7 +8,7 @@
     
     
     <title>RoosTech | Use Edit-Command to discover the code behind built-in cmdlets</title>
-    <meta name="description" content="Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When you run Get-Command you get all kinds of details about the commands you are looking for. One of the properties in the output is called ScriptBlock. Thats where the code is, if its written in PowerShell."/>
+    <meta name="description" content="Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When you run Get-Command you get all kinds of details about the commands you are looking for. One of the properties in the output is called ScriptBlock. That&rsquo;s where the code is, if its written in PowerShell."/>
 </head><body>
         <div class="container">
 
@@ -66,20 +66,21 @@
 
 <div class="row">
                 <div class="col-sm-9 blog-main section" id="blogposts">
-
+<div class="blog-post">
+  
     
     
     <time class="postdate" datetime="2017-02-22">Feb 22, 2017</time>
 
-<h1>Use Edit-Command to discover the code behind built-in cmdlets</h1>
-<p>Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When you run Get-Command you get all kinds of details about the commands you are looking for. One of the properties in the output is called ScriptBlock. Thats where the code is, if its written in PowerShell.</p>
-<p>Lets take a quick example. First check how many commands are available, and then how many of those have a scriptblock attached to them.</p>
+  <h1>Use Edit-Command to discover the code behind built-in cmdlets</h1>
+  <p>Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When you run Get-Command you get all kinds of details about the commands you are looking for. One of the properties in the output is called ScriptBlock. That&rsquo;s where the code is, if its written in PowerShell.</p>
+<p>Lets take a quick example. First check how many commands are available, and then how many of those have a script block attached to them.</p>
 <div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">PS </span><span class="n">C:</span><span class="p">\&gt;</span> <span class="p">(</span><span class="nb">Get-Command</span><span class="p">).</span><span class="n">count</span>
 <span class="n">1861</span>
 
 <span class="nb">PS </span><span class="n">C:</span><span class="p">\&gt;</span> <span class="p">(</span><span class="nb">Get-Command</span> <span class="p">|</span> <span class="p">?</span> <span class="n">scriptblock</span><span class="p">).</span><span class="n">count</span>
 <span class="n">955</span>
-</code></pre></div><p>In this system I have a total of 1861 commands, and 955 of those are written in PowerShell. Thats cool. Get-Verb is one of those commands. Lets have a look at that and expand the scriptblock property.</p>
+</code></pre></div><p>In this system I have a total of 1861 commands, and 955 of those are written in PowerShell. That&rsquo;s cool. Get-Verb is one of those commands. Lets have a look at that and expand the script block property.</p>
 <div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">PS </span><span class="n">C:</span><span class="p">\&gt;</span> <span class="nb">Get-Command</span> <span class="n">-Name</span> <span class="nb">Get-Verb</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-ExpandProperty</span> <span class="n">scriptblock</span>
 
 <span class="k">param</span><span class="p">(</span>
@@ -112,7 +113,7 @@
 <span class="c"># </span><span class="sd">.Link</span>
 <span class="c"># http://go.microsoft.com/fwlink/?LinkID=160712</span>
 <span class="c"># </span><span class="sd">.ExternalHelp</span><span class="c"> System.Management.Automation.dll-help.xml</span>
-</code></pre></div><p>But why not add the result to a new tab in the PowerShell ISE? I wrote a simple cmdlet for that, called Edit-Command. When you run Edit-Command it will check if the command have a scriptblock and in that case open a new tab in ISE with the content from the scriptblock. In the top of the new tab it will add some meta data about the command, like name, type, version and source.</p>
+</code></pre></div><p>But why not add the result to a new tab in the PowerShell ISE? I wrote a simple cmdlet for that, called Edit-Command. When you run Edit-Command it will check if the command have a script block and in that case open a new tab in ISE with the content from the script block. In the top of the new tab it will add some meta data about the command, like name, type, version and source.</p>
 <div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">PS </span><span class="n">C:</span><span class="p">\&gt;</span> <span class="nb">Edit-Command</span> <span class="n">-Name</span> <span class="nb">Get-Verb</span>
 </code></pre></div><p>Pretty neat. Below is the code for Edit-Command if you want to try it yourself.</p>
 <h2 id="edit-command">Edit-Command</h2>
@@ -158,33 +159,57 @@
     <span class="nv">$displayname</span> <span class="p">=</span> <span class="nv">$psISE</span><span class="p">.</span><span class="n">CurrentPowerShellTab</span><span class="p">.</span><span class="n">Files</span><span class="p">.</span><span class="n">Add</span><span class="p">().</span><span class="n">DisplayName</span>
     <span class="nv">$openfile</span> <span class="p">=</span> <span class="nv">$psISE</span><span class="p">.</span><span class="n">PowerShellTabs</span><span class="p">.</span><span class="n">files</span> <span class="p">|</span> 
         <span class="nb">Where-Object</span> <span class="n">DisplayName</span> <span class="o">-eq</span> <span class="nv">$displayname</span> <span class="p">|</span> 
-        <span class="nb">Select-Object</span> <span class="n">-First</span> <span class="n">1</span> 
-         
+        <span class="nb">Select-Object</span> <span class="n">-First</span> <span class="n">1</span>
+
     <span class="nv">$openfile</span><span class="p">.</span><span class="n">Editor</span><span class="p">.</span><span class="n">Text</span> <span class="p">+=</span> <span class="nv">$code</span>
     <span class="nv">$openfile</span><span class="p">.</span><span class="n">Editor</span><span class="p">.</span><span class="n">SetCaretPosition</span><span class="p">(</span><span class="n">1</span><span class="p">,</span><span class="n">1</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div><p>This code is also available on <a href="https://github.com/JohnRoos/PowerShell/tree/master/Modules/Edit-Command">GitHub</a>.</p>
 
-<div class="blog-post-meta-bottom">
+  <div class="blog-post-meta-bottom">
+    
+        Posted by: John<br />
+    
+    
+        Tags: 
+                PowerShell
+            
+                Edit-Command
+            
+                Get started
+            
+                Get-Command
+            
+                Get-Verb
+            
+                PowerShell ISE
+            
+    
+  </div>
+
   
-      Posted by: John<br />
-  
-  
-      Tags: 
-              PowerShell
-          
-              Edit-Command
-          
-              Get started
-          
-              Get-Command
-          
-              Get-Verb
-          
-              PowerShell ISE
-          
+    <div class="related-posts">
+      
+      
+      <h3>Related posts</h3>
+      <ul>
+        
+        <li><a href="/posts/how-to-get-started-with-powershell/">How to get started with Powershell</a></li>
+        
+        <li><a href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></li>
+        
+        <li><a href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></li>
+        
+        <li><a href="/posts/use-powershell-jobs-to-ping-many-from-many-with-log/">Use PowerShell jobs to ping many from many with log</a></li>
+        
+        <li><a href="/posts/powershell-logo-made-with-css3/">PowerShell logo made with CSS3</a></li>
+        
+      </ul>
+    </div>
+    
   
 </div>
+
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">

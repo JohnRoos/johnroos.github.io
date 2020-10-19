@@ -67,13 +67,14 @@ Then you run in to the problem that I had recently: You expect a series of objec
 
 <div class="row">
                 <div class="col-sm-9 blog-main section" id="blogposts">
-
+<div class="blog-post">
+  
     
     
     <time class="postdate" datetime="2014-12-20">Dec 20, 2014</time>
 
-<h1>Get-Type alternative for $null values</h1>
-<p>Sometimes its useful to get information about object properties in PowerShell. You might be writing a script where you want to extract information from a series of objects and you need to know what data type a property contains. Often this is not a big problem since you can use the GetType function that most objects have.</p>
+  <h1>Get-Type alternative for $null values</h1>
+  <p>Sometimes its useful to get information about object properties in PowerShell. You might be writing a script where you want to extract information from a series of objects and you need to know what data type a property contains. Often this is not a big problem since you can use the GetType function that most objects have.</p>
 <p>Then you run in to the problem that I had recently: You expect a series of objects and you check the types on the properties and suddenly a few of them doesn&rsquo;t have the function GetType for some reason. What I realized was that if a property is Null then a lot of features for that property doesn&rsquo;t work anymore. I did figure out a workaround for this, even if its not very pretty. I thought I share this in case more people stumble on the same issue.</p>
 <p>So what is the problem? Well, it seems like PowerShell considers a property with a null value to not exist, kind of. Let me do an example with Get-Process.</p>
 <p>Lets start with how it usually works, when there is no problem: Get-Process for Internet Explorer. Get-Process returns one object per process as usual. Lets pick a property that we want to examine. I pick StartTime which I expect is when the process started, but I haven&rsquo;t checked. It doesn&rsquo;t matter what it means for this example.
@@ -126,20 +127,40 @@ I would prefer the first option to use the GetType so why not use that one first
 <p>That&rsquo;s a workaround at least. I know this example with the Idle process is not really close to real life, but the concept is true for a lot of objects. Using Idle was just to prove the point. You can try these commands on your own machine. They should work on any machine, as long as Internet Explorer is running.
 For some reason the custom objects that I have tried this on doesn&rsquo;t work with this workaround. For me it has worked with the objects returned from several built-in cmdlets, so give it a try. It might just work.</p>
 
-<div class="blog-post-meta-bottom">
+  <div class="blog-post-meta-bottom">
+    
+        Posted by: John<br />
+    
+    
+        Tags: 
+                PowerShell
+            
+                Get-Type
+            
+                Null
+            
+    
+  </div>
+
   
-      Posted by: John<br />
-  
-  
-      Tags: 
-              PowerShell
-          
-              Get-Type
-          
-              Null
-          
+    <div class="related-posts">
+      
+      
+      <h3>Related posts</h3>
+      <ul>
+        
+        <li><a href="/posts/compress-files-to-zip-with-powershell/">Compress files to Zip with Powershell</a></li>
+        
+        <li><a href="/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/">Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU</a></li>
+        
+        <li><a href="/posts/sqlps-and-its-limitations/">SQLPS and its limitations</a></li>
+        
+      </ul>
+    </div>
+    
   
 </div>
+
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">

@@ -67,13 +67,14 @@ Lets first look at a simple example of how regular strings work with variables, 
 
 <div class="row">
                 <div class="col-sm-9 blog-main section" id="blogposts">
-
+<div class="blog-post">
+  
     
     
     <time class="postdate" datetime="2015-07-24">Jul 24, 2015</time>
 
-<h1>What is this here-string people are talking about?</h1>
-<p>When long strings need to be generated it could sometimes be cumbersome to keep adding strings together, especially if you want the string to contain several lines, tabs and special characters. Here-string can solve that problem and is very easy to use.</p>
+  <h1>What is this here-string people are talking about?</h1>
+  <p>When long strings need to be generated it could sometimes be cumbersome to keep adding strings together, especially if you want the string to contain several lines, tabs and special characters. Here-string can solve that problem and is very easy to use.</p>
 <p>Lets first look at a simple example of how regular strings work with variables, new lines and tabs. After that we look at an example of how to use here-string instead to make the code easier to read.
 PowerShell here-string
 The following code example generates a regular string with seven lines including special characters and variables.</p>
@@ -104,18 +105,42 @@ Here-strings starts with the @ symbol and ends with the @ symbol. The first line
 <span class="nb">Write-Host</span> <span class="nv">$str</span>
 </code></pre></div><p>This give the same output as the first example. As you can see I don&rsquo;t need to use <code> `n</code> for new lines and no <code>`t</code> for tabs so the code is a bit easier to read. Even quotes are accepted in the middle of the string so all that clutter is gone. This can be extra useful if you want to generate html pages. If you have tried <a href="http://www.poshserver.net/">PowerShell Web Server</a> you might have noticed that its using here-strings quite a lot when generating HTML pages and now you know why.</p>
 
-<div class="blog-post-meta-bottom">
+  <div class="blog-post-meta-bottom">
+    
+        Posted by: John<br />
+    
+    
+        Tags: 
+                Here-string
+            
+                PowerShell
+            
+    
+  </div>
+
   
-      Posted by: John<br />
-  
-  
-      Tags: 
-              Here-string
-          
-              PowerShell
-          
+    <div class="related-posts">
+      
+      
+      <h3>Related posts</h3>
+      <ul>
+        
+        <li><a href="/posts/dynamic-parameters-in-powershell-executes-before-you-know-it/">Dynamic parameters in PowerShell executes before you know it</a></li>
+        
+        <li><a href="/posts/making-powershell-expressions-easier/">Making PowerShell expressions easier</a></li>
+        
+        <li><a href="/posts/simple-select-from-database-with-powershell/">Simple select from database with PowerShell</a></li>
+        
+        <li><a href="/posts/how-to-use-splatting-in-powershell/">How to use splatting in PowerShell</a></li>
+        
+        <li><a href="/posts/get-imdbmovie-using-invoke-webrequest/">Get-IMDBmovie using Invoke-WebRequest</a></li>
+        
+      </ul>
+    </div>
+    
   
 </div>
+
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">
