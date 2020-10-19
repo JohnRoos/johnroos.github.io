@@ -171,6 +171,27 @@ I created a simple small script that would list the patches to check for, along 
     </item>
     
     <item>
+      <title>Get-Type alternative for $null values</title>
+      <link>http://test.roostech.se/posts/get-type-alternative-for-null-values/</link>
+      <pubDate>Sat, 20 Dec 2014 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/get-type-alternative-for-null-values/</guid>
+      <description>Sometimes its useful to get information about object properties in PowerShell. You might be writing a script where you want to extract information from a series of objects and you need to know what data type a property contains. Often this is not a big problem since you can use the GetType function that most objects have.
+Then you run in to the problem that I had recently: You expect a series of objects and you check the types on the properties and suddenly a few of them doesn&amp;rsquo;t have the function GetType for some reason.</description>
+    </item>
+    
+    <item>
+      <title>Compress files to Zip with Powershell</title>
+      <link>http://test.roostech.se/posts/compress-files-to-zip-with-powershell/</link>
+      <pubDate>Mon, 15 Dec 2014 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/compress-files-to-zip-with-powershell/</guid>
+      <description>I have seen a lot of people writing PowerShell scripts to compress files or folders by using external file compression programs. Often Winrar, 7-Zip or something similar is used since PowerShell does not have any built in cmdlet to do this (not until version 5 at least).
+There is however a pretty simple way of doing this with only PowerShell. This is how.
+# First we add the .Net framework class needed for file compression.</description>
+    </item>
+    
+    <item>
       <title>Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU</title>
       <link>http://test.roostech.se/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/</link>
       <pubDate>Thu, 30 Aug 2012 14:14:00 +0200</pubDate>

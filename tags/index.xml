@@ -314,6 +314,33 @@
     </item>
     
     <item>
+      <title>Null</title>
+      <link>http://test.roostech.se/tags/null/</link>
+      <pubDate>Sat, 20 Dec 2014 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/null/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Compression</title>
+      <link>http://test.roostech.se/tags/compression/</link>
+      <pubDate>Mon, 15 Dec 2014 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/compression/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Zip</title>
+      <link>http://test.roostech.se/tags/zip/</link>
+      <pubDate>Mon, 15 Dec 2014 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/zip/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Hyper-V</title>
       <link>http://test.roostech.se/tags/hyper-v/</link>
       <pubDate>Thu, 30 Aug 2012 14:14:00 +0200</pubDate>

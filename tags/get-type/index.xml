@@ -16,5 +16,15 @@
       <description>A while ago I was playing around with PowerShell, gathering information from a lot of servers and I felt that I needed to have a simple way of storing that information in a database. I could have written my own T-SQL statements for creating the tables and then do the inserts in the powerShell scripts I was playing around with. But that felt like it would just take time so I started to think about a function that would just accept any object and do the magic of creating a table and then inserting anything I piped to it.</description>
     </item>
     
+    <item>
+      <title>Get-Type alternative for $null values</title>
+      <link>http://test.roostech.se/posts/get-type-alternative-for-null-values/</link>
+      <pubDate>Sat, 20 Dec 2014 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/get-type-alternative-for-null-values/</guid>
+      <description>Sometimes its useful to get information about object properties in PowerShell. You might be writing a script where you want to extract information from a series of objects and you need to know what data type a property contains. Often this is not a big problem since you can use the GetType function that most objects have.
+Then you run in to the problem that I had recently: You expect a series of objects and you check the types on the properties and suddenly a few of them doesn&amp;rsquo;t have the function GetType for some reason.</description>
+    </item>
+    
   </channel>
 </rss>

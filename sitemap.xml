@@ -273,6 +273,31 @@
   </url>
   
   <url>
+    <loc>http://test.roostech.se/posts/get-type-alternative-for-null-values/</loc>
+    <lastmod>2014-12-20T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/null/</loc>
+    <lastmod>2014-12-20T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/posts/compress-files-to-zip-with-powershell/</loc>
+    <lastmod>2014-12-15T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/compression/</loc>
+    <lastmod>2014-12-15T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/zip/</loc>
+    <lastmod>2014-12-15T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://test.roostech.se/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/</loc>
     <lastmod>2012-08-30T14:14:00+02:00</lastmod>
   </url>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Zip on RoosTech</title>
+    <link>http://test.roostech.se/tags/zip/</link>
+    <description>Recent content in Zip on RoosTech</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 15 Dec 2014 14:14:00 +0200</lastBuildDate><atom:link href="http://test.roostech.se/tags/zip/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Compress files to Zip with Powershell</title>
+      <link>http://test.roostech.se/posts/compress-files-to-zip-with-powershell/</link>
+      <pubDate>Mon, 15 Dec 2014 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/compress-files-to-zip-with-powershell/</guid>
+      <description>I have seen a lot of people writing PowerShell scripts to compress files or folders by using external file compression programs. Often Winrar, 7-Zip or something similar is used since PowerShell does not have any built in cmdlet to do this (not until version 5 at least).
+There is however a pretty simple way of doing this with only PowerShell. This is how.
+# First we add the .Net framework class needed for file compression.</description>
+    </item>
+    
+  </channel>
+</rss>
