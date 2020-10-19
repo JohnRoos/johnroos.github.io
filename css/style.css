@@ -1,0 +1,299 @@
+body {
+    background-color: #DDD;
+    margin-top: 0px; 
+}
+
+h1 {
+    font-family: "Segoe UI", "Open Sans", "Arial";
+    color: #B42509;
+    display: block;
+    font-weight: 400;
+    letter-spacing: -1.5px;
+    margin-top: 10px;  
+}
+
+h3 {
+    font-family: "Segoe UI", "Open Sans", "Arial";  
+    font-size: 24px;
+}
+
+.footer {
+    color: #FFF;
+}
+.recentposts-header {
+    font-family: "Segoe UI", "Open Sans", "Arial";
+    background-color: #3f7ba9;
+    font-weight: 400;
+    font-size: 130%;
+    color: #FFFFFF;
+    padding: 5px;
+    text-transform: uppercase;
+    margin: 20px -5px 10px -5px;
+    border-radius: 4px;
+    border: 1px solid #3f7ba9;
+}
+
+.recent {
+    font-size: 14px;
+    margin-bottom: 20px;   
+}
+
+.recent h1 {  
+    font-size: 20px;
+    margin-bottom: 4px;    
+}
+
+.navbar-nav > li > a {
+    color: #FFFFFF;
+    text-transform: uppercase;
+    letter-spacing: 0px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+}
+
+h1 a:hover, h1 a:focus {
+    text-decoration: none;   
+}
+
+a {
+    color: #B42509;
+    font-weight: 400;  
+}
+
+
+h1 a {
+    font-family: "Segoe UI", "Open Sans", "Arial";
+    display: block;
+    letter-spacing: -1.5px;
+    margin-top: 10px;  
+}
+
+.author {
+    margin-top: 20px;
+    width: 100%;  
+    text-align: center;
+    font-size: 28px;
+    font-family: "Segoe UI", "Open Sans", "Arial";
+    color: #B42509;
+    display: block;
+    font-weight: 400;
+    letter-spacing: -1.5px;
+
+}
+
+.author img {
+    border-radius: 80px;
+    height: 120px;
+    width: 120px;
+    border: 2px solid white;
+}
+
+.navbar {
+    background-color: #3f7ba9;
+    border-color: #3f7ba9;  
+    margin: 0px;
+    padding: 0px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.navbar-brand {
+    padding-top: 0px;
+    margin-right: 0px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+}
+
+.navbar a {
+    margin-top: 0px;
+}
+
+.postdate {
+    font-size: 14px;    
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #FFF;
+}
+
+.nav-item {
+    color: #FFF;
+}
+
+.nav>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;  
+}
+
+a.nav-link {
+    color: #FFF;
+}
+
+.nav-item.active {
+    background-color: #B42509;
+}
+
+.nav-item {
+    color: #FFFFFF;
+    font-family: "Segoe UI", "Open Sans", "Arial";
+    text-transform: uppercase; 
+    height: 50px;
+    padding-top: 6px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.header-logo {
+    width: 20vw;   
+    
+}
+
+.logo {
+    background-image: url("/img/logo.png");
+    background-repeat: no-repeat;
+    padding: 0px;
+    margin-right: 15px;
+    margin-top: 9px;
+    width: 200px;
+    height: 31px;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.blog-sidebar {
+    border-right: 1px solid #CCC;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+
+.container {
+    background-color: white;
+    padding-left: 0px;
+    padding-right: 0px;
+    border: 0px, 0px, 0px, 0px solid #CCC;
+    margin-top: 0px;
+    margin-bottom: 0px;  
+}
+
+.row {
+    background-color: #EEE;
+    padding: 0px;
+    margin: 0px;
+}
+
+.blog-post {
+    padding-bottom: 40px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #CCCCCC; 
+}
+
+.blog-post-body {
+    margin-bottom: 15px;
+}
+
+.blog-post-meta-bottom {
+    color: #999999;
+    padding-top: 15px;
+    text-transform: uppercase;
+    font-size: 80%;
+}
+
+.blog-main {
+    padding-bottom: 40px;
+    padding-top: 20px;
+    border-bottom: 1px solid #CCCCCC; 
+    border-right: 1px solid #CCC;
+    border-left: 1px solid #CCC;
+    background-color: #FFF;  
+}
+  
+.blog-post img {
+    max-width: 95%; }
+
+.feet {
+    margin-top: 0px;
+    background-color: #687377;
+    padding: 22px;
+    text-align: center;
+    color: lightgray;
+}
+
+/* Syntax highlight */
+
+.chroma {
+    padding-top: 5px;
+    padding-right: 8px;
+    padding-bottom: 5px;
+    padding-left: 8px;
+    border-radius: 3px;
+    background-color: #1e1e1e;  
+}
+
+.language-powershell { 
+    color: #d4d4d4; 
+    font-family: Consolas, "Courier New", monospace; 
+    font-size: 14px; 
+    line-height: 19px;
+}
+
+.language-powershell .c {
+    color: #87c26c;
+}
+
+.language-powershell .o {
+    color: #f8f8f2;
+}
+
+.language-powershell .nv {
+    color: #9cdcfe;
+}
+
+.language-powershell .k {
+    color: #c586c0;
+}
+
+.language-powershell .nb {
+    color: #dcdcaa;
+}
+
+.language-powershell .no {
+    color: #569cd6;
+}
+
+.language-powershell .se {
+    color: #d7ba7d;
+}
+
+.language-powershell .s1 {
+    color:#ce9178;
+}
+
+.language-powershell .s2 {
+    color:#ce9178;
+}
+
+img[src$='#center']
+{
+    display: block;
+    margin: 0.7rem auto;  
+    max-width: 100%;
+}
+
+img[src$='#floatleft']
+{
+    float:left;
+    margin: 0.7rem;
+    max-width: 100%;
+}
+
+img[src$='#floatright']
+{
+    float:right;
+    margin: 0.7rem;
+    max-width: 100%;
+}
+
+

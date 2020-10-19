@@ -1,19 +1,154 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>My New Hugo Site</title>
-    <link>http://johnroos.github.io/</link>
-    <description>Recent content on My New Hugo Site</description>
+    <title>ROOSTECH</title>
+    <link>http://test.roostech.se/</link>
+    <description>Recent content on ROOSTECH</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 04 Oct 2020 22:12:58 +0200</lastBuildDate><atom:link href="http://johnroos.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 29 May 2020 14:14:00 +0200</lastBuildDate><atom:link href="http://test.roostech.se/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>My First Post</title>
-      <link>http://johnroos.github.io/posts/my-first-post/</link>
-      <pubDate>Sun, 04 Oct 2020 22:12:58 +0200</pubDate>
+      <title>Pester 5: Discovery and TestCases</title>
+      <link>http://test.roostech.se/posts/pester-5-discovery-and-testcases/</link>
+      <pubDate>Fri, 29 May 2020 14:14:00 +0200</pubDate>
       
-      <guid>http://johnroos.github.io/posts/my-first-post/</guid>
-      <description></description>
+      <guid>http://test.roostech.se/posts/pester-5-discovery-and-testcases/</guid>
+      <description>Pester 5 was released a couple of days ago which brings a lot of new features and changes to how we write tests. One of the major changes in Pester 5 is the Discovery phase. In this post I will attempt to explain how Discovery works and how to use it to generate test cases.
+Tests are executed in two phases Whenever you run tests with Pester 5 there will always be two phases, the Discovery phase and the Run phase.</description>
+    </item>
+    
+    <item>
+      <title>Create and use Azure Table storage with PowerShell</title>
+      <link>http://test.roostech.se/posts/create-and-use-azure-table-storage-with-powershell/</link>
+      <pubDate>Wed, 11 Mar 2020 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/create-and-use-azure-table-storage-with-powershell/</guid>
+      <description>Azure Table storage is a quick and easy way to store data in the cloud. If you have an Azure subscription you can play around with you are up and running within minutes. Here is a short example on how to get started.
+Create table To create an Azure Table we need to first have a resource group. Lets create one that is called &amp;ldquo;MyAwesomeResourceGroup&amp;rdquo; and place it in &amp;ldquo;West Europe&amp;rdquo;.</description>
+    </item>
+    
+    <item>
+      <title>Use Edit-Command to discover the code behind built-in cmdlets</title>
+      <link>http://test.roostech.se/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/</link>
+      <pubDate>Wed, 22 Feb 2017 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/</guid>
+      <description>Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When you run Get-Command you get all kinds of details about the commands you are looking for. One of the properties in the output is called ScriptBlock. Thats where the code is, if its written in PowerShell.</description>
+    </item>
+    
+    <item>
+      <title>Invoke-RestMethod with anti-forgery tokens in header and cookie</title>
+      <link>http://test.roostech.se/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/</link>
+      <pubDate>Tue, 21 Feb 2017 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/</guid>
+      <description>To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell cmdlet Invoke-RestMethod. I have seen some people suggesting that Invoke-RestMethod does not have support for this, which is not true. It&amp;rsquo;s just a little bit more complicated than expected.
+What&amp;rsquo;s needed is basically a custom header and a cookie.</description>
+    </item>
+    
+    <item>
+      <title>Introducing the IniManager module</title>
+      <link>http://test.roostech.se/posts/introducing-the-inimanager-module/</link>
+      <pubDate>Sat, 23 Apr 2016 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/introducing-the-inimanager-module/</guid>
+      <description>Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources to contain as little code as possible I prefer to create cmdlets outside of the resource which I can call from within the resource. In this way I can also use the cmdlets in scripts and the console which is a nice bonus.</description>
+    </item>
+    
+    <item>
+      <title>Use PowerShell jobs to ping many from many with log</title>
+      <link>http://test.roostech.se/posts/use-powershell-jobs-to-ping-many-from-many-with-log/</link>
+      <pubDate>Sat, 06 Feb 2016 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/use-powershell-jobs-to-ping-many-from-many-with-log/</guid>
+      <description>Once in a while you want to check how stable a connection is between computers. You might want to ping one or two machines from several others to find out if there is some issues with the network somewhere. You could use the built-in cmdlet Test-Connection and log the results to a log file but then you will not be able to log timeouts since the cmdlet returns an error when timeouts occur.</description>
+    </item>
+    
+    <item>
+      <title>PowerShell logo made with CSS3</title>
+      <link>http://test.roostech.se/posts/powershell-logo-made-with-css3/</link>
+      <pubDate>Mon, 27 Jul 2015 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/powershell-logo-made-with-css3/</guid>
+      <description>If you are following this blog you might have noticed some small changes here and there. I have been playing around with CSS in search of something that I like. While playing with CSS I started to wonder how hard it would be to create the PowerShell logo with only CSS, and it turned out it was not that hard. Unfortunately it requires some CSS3 components which not all browsers support, so depending on your browser the logo in the end of this post might or might not show properly.</description>
+    </item>
+    
+    <item>
+      <title>What is this here-string people are talking about?</title>
+      <link>http://test.roostech.se/posts/what-is-this-here-string-people-are-talking-about/</link>
+      <pubDate>Fri, 24 Jul 2015 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/what-is-this-here-string-people-are-talking-about/</guid>
+      <description>When long strings need to be generated it could sometimes be cumbersome to keep adding strings together, especially if you want the string to contain several lines, tabs and special characters. Here-string can solve that problem and is very easy to use.
+Lets first look at a simple example of how regular strings work with variables, new lines and tabs. After that we look at an example of how to use here-string instead to make the code easier to read.</description>
+    </item>
+    
+    <item>
+      <title>Dynamic parameters in PowerShell executes before you know it</title>
+      <link>http://test.roostech.se/posts/dynamic-parameters-in-powershell-executes-before-you-know-it/</link>
+      <pubDate>Tue, 21 Jul 2015 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/dynamic-parameters-in-powershell-executes-before-you-know-it/</guid>
+      <description>When creating script cmdlets in PowerShell you can use dynamic parameters to create some advanced parameters. A few months back I was playing around a bit with dynamic parameters to see how it works and I noticed that the logic for the dynamic parameters is executed as soon as the verb is written in the console within PowerShell ISE.
+Let&amp;rsquo;s create a cmdlet to prove this theory. The cmdlet below will simply open a text file in the PowerShell ISE from the folder C:\temp.</description>
+    </item>
+    
+    <item>
+      <title>Making PowerShell expressions easier</title>
+      <link>http://test.roostech.se/posts/making-powershell-expressions-easier/</link>
+      <pubDate>Tue, 14 Jul 2015 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/making-powershell-expressions-easier/</guid>
+      <description>Expressions in PowerShell have a weird syntax and can quickly become complicated and hard to read. I thought about a way to make the syntax a bit easier to read and came up with a solution that might work for some cases. This solution contains two classes which can be used when piping to Select-Object for example. The first class describes the actual expression.
+class Xpression { [string]$Name [scriptblock]$Expression [hashtable] getExpression() { return @{ Name = $this.</description>
+    </item>
+    
+    <item>
+      <title>Simple select from database with PowerShell</title>
+      <link>http://test.roostech.se/posts/simple-select-from-database-with-powershell/</link>
+      <pubDate>Tue, 14 Jul 2015 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/simple-select-from-database-with-powershell/</guid>
+      <description>There are a few ways of getting data from SQL Server in PowerShell. This is one way of doing it which is quite simple and does not require the SQL Server module. The sample below shows how to get started. If you are planning on creating a script for serious use you need to add error handling and investigate a bit more what each line actually does so that you are in full control.</description>
+    </item>
+    
+    <item>
+      <title>How to use splatting in PowerShell</title>
+      <link>http://test.roostech.se/posts/how-to-use-splatting-in-powershell/</link>
+      <pubDate>Thu, 09 Jul 2015 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/how-to-use-splatting-in-powershell/</guid>
+      <description>I still hear a lot of people who don&amp;rsquo;t know how splatting works in Powershell. Splatting was introduced in Powershell 2.0 so it has been around for a while and it can make scripts look more clean and easy to read. This is how Microsoft explains splatting:
+ Splatting is a method of passing a collection of parameter values to a command as unit. Windows PowerShell associates each value in the collection with a command parameter.</description>
+    </item>
+    
+    <item>
+      <title>About me</title>
+      <link>http://test.roostech.se/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://test.roostech.se/about/</guid>
+      <description>My name is John Roos and I&amp;rsquo;m a PowerShell addict currently living in Stockholm, Sweden.
+You can contact me using Twitter or LinkedIn.
+I will add more information to this page when I have time.</description>
+    </item>
+    
+    <item>
+      <title>Gists</title>
+      <link>http://test.roostech.se/gists/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://test.roostech.se/gists/</guid>
+      <description>Note: This page is still in development. Headers are not showing up at the correct gist.    var username = &#39;JohnRoos&#39; $.getJSON(&#39;https://api.github.com/users/&#39; + username + &#39;/gists&#39;, function (data) { //for (var i = 0; i &#39; + data[i].description + &#39;&#39;; } else { title = &#39;&#39; + Object.keys(data[i].files)[0] + &#39;&#39;; } title = &#39;&#39; + data[i].description + &#39;&#39;; $(&#34;#placeholder&#34;).append(title); $(&#34;#placeholder&#34;).append(&#39;&#39;); var s = document.createElement(&#39;script&#39;); s.setAttribute(&#39;type&#39;, &#39;text/javascript&#39;); s.src = &#39;https://gist.</description>
+    </item>
+    
+    <item>
+      <title>Parameter Validation</title>
+      <link>http://test.roostech.se/parameter-validation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://test.roostech.se/parameter-validation/</guid>
+      <description>Choose a filter:  Free text filter: --  Navigation     Choose a filter:  Free text filter: --  var jsondata; $.getJSON(&#39;https://raw.githubusercontent.com/JohnRoos/PowerShell/master/Modules/Get-ParamHelp/data.json&#39;) .success(function(data) { jsondata = data[0].ParamHelp; $(&#39;#headerlinks&#39;).html(&#39;&#39;); $(&#39;#headerlinks&#39;).append(&#39;&#39;); jQuery.each(data[0].ParamHelp, function() { //$(&#39;#myselect&#39;).append(&#39;&#39; + this.Name + &#39;&#39;); $(&#39;#headerlinks&#39;).append(&#39;&#39; + this.Name + &#39;&#39;); buildParameter(this); }); $(&#39;#headerlinks&#39;).append(&#39;&#39;); setTimeout(function(){ if (location.hash != &#39;&#39;) { var myhash = location.hash location.hash = &#39;&#39;; location.hash = myhash; } }, 1000); }) .</description>
     </item>
     
   </channel>

@@ -3,26 +3,234 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://johnroos.github.io/posts/my-first-post/</loc>
-    <lastmod>2020-10-04T22:12:58+02:00</lastmod>
+    <loc>http://test.roostech.se/tags/pester/</loc>
+    <lastmod>2020-05-29T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://johnroos.github.io/</loc>
-    <lastmod>2020-10-04T22:12:58+02:00</lastmod>
+    <loc>http://test.roostech.se/posts/pester-5-discovery-and-testcases/</loc>
+    <lastmod>2020-05-29T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://johnroos.github.io/posts/</loc>
-    <lastmod>2020-10-04T22:12:58+02:00</lastmod>
+    <loc>http://test.roostech.se/posts/</loc>
+    <lastmod>2020-05-29T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://johnroos.github.io/categories/</loc>
+    <loc>http://test.roostech.se/tags/powershell/</loc>
+    <lastmod>2020-05-29T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://johnroos.github.io/tags/</loc>
+    <loc>http://test.roostech.se/</loc>
+    <lastmod>2020-05-29T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/</loc>
+    <lastmod>2020-05-29T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/unit-test/</loc>
+    <lastmod>2020-05-29T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/azure-tables/</loc>
+    <lastmod>2020-03-11T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/posts/create-and-use-azure-table-storage-with-powershell/</loc>
+    <lastmod>2020-03-11T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/edit-command/</loc>
+    <lastmod>2017-02-22T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/get-started/</loc>
+    <lastmod>2017-02-22T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/get-command/</loc>
+    <lastmod>2017-02-22T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/get-verb/</loc>
+    <lastmod>2017-02-22T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/powershell-ise/</loc>
+    <lastmod>2017-02-22T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/</loc>
+    <lastmod>2017-02-22T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/invoke-restmethod/</loc>
+    <lastmod>2017-02-21T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/</loc>
+    <lastmod>2017-02-21T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/invoke-webreqyest/</loc>
+    <lastmod>2017-02-21T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/rest/</loc>
+    <lastmod>2017-02-21T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/splatting/</loc>
+    <lastmod>2017-02-21T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/dsc/</loc>
+    <lastmod>2016-04-23T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/ini-file/</loc>
+    <lastmod>2016-04-23T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/posts/introducing-the-inimanager-module/</loc>
+    <lastmod>2016-04-23T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/module/</loc>
+    <lastmod>2016-04-23T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/error-handling/</loc>
+    <lastmod>2016-02-06T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/jobs/</loc>
+    <lastmod>2016-02-06T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/ping/</loc>
+    <lastmod>2016-02-06T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/test-connection/</loc>
+    <lastmod>2016-02-06T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/posts/use-powershell-jobs-to-ping-many-from-many-with-log/</loc>
+    <lastmod>2016-02-06T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/write-objecttosql/</loc>
+    <lastmod>2016-02-06T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/css/</loc>
+    <lastmod>2015-07-27T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/off-topic/</loc>
+    <lastmod>2015-07-27T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/posts/powershell-logo-made-with-css3/</loc>
+    <lastmod>2015-07-27T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/here-string/</loc>
+    <lastmod>2015-07-24T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/posts/what-is-this-here-string-people-are-talking-about/</loc>
+    <lastmod>2015-07-24T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/posts/dynamic-parameters-in-powershell-executes-before-you-know-it/</loc>
+    <lastmod>2015-07-21T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/parameters/</loc>
+    <lastmod>2015-07-21T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/classes/</loc>
+    <lastmod>2015-07-14T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/expressions/</loc>
+    <lastmod>2015-07-14T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/posts/making-powershell-expressions-easier/</loc>
+    <lastmod>2015-07-14T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/posts/simple-select-from-database-with-powershell/</loc>
+    <lastmod>2015-07-14T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/sql-server/</loc>
+    <lastmod>2015-07-14T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/posts/how-to-use-splatting-in-powershell/</loc>
+    <lastmod>2015-07-09T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/about/</loc>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/gists/</loc>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/parameter-validation/</loc>
   </url>
   
 </urlset>

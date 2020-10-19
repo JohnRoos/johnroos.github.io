@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    
+    
+    <title>ROOSTECH | Pester 5: Discovery and TestCases</title>
+    <meta name="description" content="Pester 5 was released a couple of days ago which brings a lot of new features and changes to how we write tests. One of the major changes in Pester 5 is the Discovery phase. In this post I will attempt to explain how Discovery works and how to use it to generate test cases.
+Tests are executed in two phases Whenever you run tests with Pester 5 there will always be two phases, the Discovery phase and the Run phase."/>
+</head><body>
+        <div class="container">
+
+<nav class="navbar navbar-expand-lg navbar-dark ">
+    <a class="navbar-brand" href="/">
+        <div class="logo">RoosTech.se</div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+   
+
+
+        
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/"> Home</a>
+              </li>
+            
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/gists/"> Gists</a>
+              </li>
+            
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/parameter-validation/"> Parameter validation</a>
+              </li>
+            
+        
+
+      </ul>
+
+      <ul class="navbar-nav mr-right">
+
+        
+        
+            
+                <li class="nav-item navbar-right ">
+                <a class="nav-link" href="/about/"> About me</a>
+                </li>
+            
+        
+
+        
+      </ul>
+    </div>
+  </nav>
+
+<div class="row">
+                <div class="col-sm-9 blog-main section" id="blogposts">
+
+    
+    
+    <time class="postdate" datetime="2020-05-29">May 29, 2020</time>
+
+<h1>Pester 5: Discovery and TestCases</h1>
+<p>Pester 5 was released a couple of days ago which brings a lot of new features and changes to how we write tests. One of the major changes in Pester 5 is the Discovery phase. In this post I will attempt to explain how Discovery works and how to use it to generate test cases.</p>
+<h2 id="tests-are-executed-in-two-phases">Tests are executed in two phases</h2>
+<p>Whenever you run tests with Pester 5 there will always be two phases, the <strong>Discovery</strong> phase and the <strong>Run</strong> phase. The Discovery phase, as the name implies, tries to discover which tests to run and prepare those tests so that they are ready when the next phase starts. The Run phase will execute the actual tests and evaluate the results.</p>
+<h2 id="phase-isolation">Phase isolation</h2>
+<p>Its important to understand that each of these phases are isolated from each other. Variables generated in the Discovery phase, for example, are not generally available in the Run phase. This is what stumbles a lot of people when they are getting started with Pester 5. Think of the two phases as two separate scripts which has little to do with each other. That&rsquo;s a very simplified way of explaining it, and Mr Jareš would probably say that its wrong, but thinking in that way makes it easier (at least for me) to understand it in the beginning. Once you wrap your mind around it, it makes a lot of sense.</p>
+<h2 id="what-discovery-does">What Discovery does</h2>
+<p>When you run a test, Pester will first start the discovery of your test script. During discovery Pester tries to figure out which tests should be executed. Once it has figured out which tests the next phase should run, it stores all the relevant script blocks from <strong>BeforeAll</strong>, <strong>BeforeEach</strong>, <strong>It</strong>, <strong>AfterAll</strong> and <strong>AfterEach</strong>. Now Pester is ready to execute the Run phase where the actual tests are processed.</p>
+<h2 id="what-runs-when">What runs when</h2>
+<p>All code within the script blocks for BeforeAll, BeforeEach, It, AfterAll and AfterEach will be executed during the Run phase and not during Discovery. Notice that I mentioned script blocks? That&rsquo;s right, everything else will be executed during Discovery. Lets do an example.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">Describe</span> <span class="s1">&#39;Discovery example&#39;</span> <span class="p">{</span>
+    <span class="n">Context</span> <span class="s1">&#39;Some tests&#39;</span> <span class="p">{</span>
+        <span class="n">BeforeAll</span> <span class="p">{</span>
+            <span class="nv">$ExpectedResult</span> <span class="p">=</span> <span class="s1">&#39;true&#39;</span>
+        <span class="p">}</span>
+        <span class="nv">$MyVariable</span> <span class="p">=</span> <span class="s1">&#39;true&#39;</span>
+        <span class="n">It</span> <span class="s2">&#34;$MyVariable is true&#34;</span> <span class="p">{</span>
+            <span class="s1">&#39;true&#39;</span> <span class="p">|</span> <span class="n">Should</span> <span class="n">-Be</span> <span class="nv">$ExpectedResult</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>This example would kind of look like this from a Discovery point of view:</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">Describe</span> <span class="s1">&#39;Discovery example&#39;</span> <span class="p">{</span>
+    <span class="n">Context</span> <span class="s1">&#39;Some tests&#39;</span> <span class="p">{</span>
+        <span class="n">BeforeAll</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+        <span class="nv">$MyVariable</span> <span class="p">=</span> <span class="s1">&#39;true&#39;</span>
+        <span class="n">It</span> <span class="s2">&#34;$MyVariable is true&#34;</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>The content of the script blocks for BeforeAll and It will not be executed, but everything else will. This has some interesting consequences. The variable <strong>$MyVariable</strong> will be processed during discovery. So will the name of the It block. The test itself will fail, because the <strong>$MyVariable</strong> has not been set inside either BeforeAll or It.</p>
+<p>When discovery is completed, you could say that the remaining script to run for the Run phase would be the following:</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">Describe</span> <span class="s1">&#39;Discovery example&#39;</span> <span class="p">{</span>
+    <span class="n">Context</span> <span class="s1">&#39;Some tests&#39;</span> <span class="p">{</span>
+        <span class="n">BeforeAll</span> <span class="p">{</span>
+            <span class="nv">$ExpectedResult</span> <span class="p">=</span> <span class="s1">&#39;true&#39;</span>
+        <span class="p">}</span>
+        <span class="n">It</span> <span class="s2">&#34;true is true&#34;</span> <span class="p">{</span>
+            <span class="s1">&#39;true&#39;</span> <span class="p">|</span> <span class="n">Should</span> <span class="n">-Be</span> <span class="nv">$ExpectedResult</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="will-this-execute-in-discovery-or-run">Will this execute in Discovery or Run?</h2>
+<p>The following example shows what parts of a test script runs during the Discovery versus the Run phase.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Discovery</span>
+<span class="n">BeforeAll</span> <span class="p">{</span>
+    <span class="c"># Run</span>
+<span class="p">}</span>
+<span class="n">Describe</span> <span class="s1">&#39;Discovery&#39;</span> <span class="n">-Tag</span> <span class="s1">&#39;Discovery&#39;</span> <span class="n">-Skip</span><span class="err">:</span><span class="nv">$Discovery</span> <span class="p">{</span>
+    <span class="c"># Discovery</span>
+    <span class="n">BeforeAll</span> <span class="p">{</span>
+        <span class="c"># Run</span>
+    <span class="p">}</span>
+    <span class="n">BeforeEach</span> <span class="p">{</span>
+        <span class="c"># Run</span>
+    <span class="p">}</span>
+    <span class="n">Context</span> <span class="s1">&#39;Discovery&#39;</span> <span class="n">-Tag</span> <span class="s1">&#39;Discovery&#39;</span> <span class="n">-Skip</span><span class="err">:</span><span class="nv">$Discovery</span> <span class="p">{</span>
+        <span class="n">BeforeAll</span> <span class="p">{</span>
+            <span class="c"># Run</span>
+        <span class="p">}</span>
+        <span class="n">BeforeEach</span> <span class="p">{</span>
+            <span class="c"># Run</span>
+        <span class="p">}</span>
+        <span class="c"># Discovery</span>
+        <span class="n">It</span> <span class="s2">&#34;Discovery&#34;</span> <span class="n">-Tag</span> <span class="s1">&#39;Discovery&#39;</span> <span class="n">-TestCases</span> <span class="p">@{</span><span class="s1">&#39;Discovery&#39;</span> <span class="p">=</span> <span class="s1">&#39;Discovery&#39;</span><span class="p">}</span> <span class="n">-Skip</span><span class="err">:</span><span class="nv">$Discovery</span> <span class="p">{</span>
+            <span class="c"># Run</span>
+        <span class="p">}</span>
+        <span class="n">AfterEach</span> <span class="p">{</span>
+            <span class="c"># Run</span>
+        <span class="p">}</span>
+        <span class="n">AfterAll</span> <span class="p">{</span>
+            <span class="c"># Run</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">AfterEach</span> <span class="p">{</span>
+        <span class="c"># Run</span>
+    <span class="p">}</span>
+    <span class="n">AfterAll</span> <span class="p">{</span>
+        <span class="c"># Run</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="n">AfterAll</span> <span class="p">{</span>
+    <span class="c"># Run</span>
+<span class="p">}</span>
+<span class="c"># Discovery</span>
+</code></pre></div><h2 id="generating-tests-with-testcases">Generating tests with TestCases</h2>
+<p>If you want to dynamically generate tests in your scripts you have to write the script a bit different compared to Pester 4. Previously we could generate tests like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Pester 4</span>
+<span class="n">Describe</span> <span class="s1">&#39;Pester 4 Example&#39;</span> <span class="p">{</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$number</span> <span class="k">in</span> <span class="n">1</span><span class="p">..</span><span class="n">10</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">It</span> <span class="s2">&#34;$number is a number&#34;</span> <span class="p">{</span>
+            <span class="nv">$number</span> <span class="p">|</span> <span class="n">Should</span> <span class="n">-BeOfType</span> <span class="no">[int]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>This would generate 10 tests in Pester 4 and everything would work. But in Pester 5 this would not work since we now have the discovery phase and the <strong>$number</strong> parameter would not be available inside the It block during the Test phase. Instead you can use the TestCases parameter.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Pester 5</span>
+<span class="n">Describe</span> <span class="s1">&#39;Pester 5 Example&#39;</span> <span class="p">{</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$number</span> <span class="k">in</span> <span class="n">1</span><span class="p">..</span><span class="n">10</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">It</span> <span class="s2">&#34;$number is a number&#34;</span> <span class="n">-TestCases</span> <span class="p">@{</span><span class="s1">&#39;digit&#39;</span> <span class="p">=</span> <span class="nv">$number</span><span class="p">}</span> <span class="p">{</span>
+            <span class="nv">$digit</span> <span class="p">|</span> <span class="n">Should</span> <span class="n">-BeOfType</span> <span class="no">[int]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>The reason for this is that <strong>all the parameters for the It command is evaluated in Discovery, except the script block</strong>. The foreach loop is located directly in the Describe block which means that it will be processed during Discovery as well.</p>
+<h2 id="how-testcases-work">How TestCases work</h2>
+<p>Notice that the variable <strong>$digit</strong> just magically appeared in the script block for It in the last example? Let me try to explain what happened there.</p>
+<p>The TestCases parameter accepts a hash table. When the script block executes Pester will create variables for each key in the hash table. The following example shows how two variables are created from the TestCases parameter.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$tests</span> <span class="p">=</span> <span class="p">@{</span>
+    <span class="s1">&#39;First&#39;</span>  <span class="p">=</span> <span class="s1">&#39;word&#39;</span>
+    <span class="s1">&#39;Second&#39;</span> <span class="p">=</span> <span class="s1">&#39;word&#39;</span>
+<span class="p">}</span>
+
+<span class="n">It</span> <span class="s2">&#34;first and second is the same&#34;</span> <span class="n">-TestCases</span> <span class="nv">$tests</span> <span class="p">{</span>
+    <span class="nv">$First</span> <span class="p">|</span> <span class="n">Should</span> <span class="n">-Be</span> <span class="nv">$Second</span>
+<span class="p">}</span>
+</code></pre></div><p>Understanding discovery is a major part of understanding Pester 5. I hope this post has helped answer a few questions.</p>
+
+<div class="blog-post-meta-bottom">
+  
+      Posted by: John<br />
+  
+  
+      Tags: 
+              PowerShell
+          
+              Pester
+          
+              Unit test
+          
+  
+</div>
+
+                </div>
+                <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
+    
+    <div class="author">
+        <img width="120" height="120" alt="John Roos" src="/img/face.jpg"><br>
+        <a title="About John Roos" href="http://test.roostech.se/about">John Roos</a>
+    </div>
+    
+    <div id="recentPosts">
+            <div class="recentposts">
+                <div class="recentposts-header">RECENT POSTS</div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h1>
+                    Pester 5 was released a couple of days ago which brings a lot of new features and changes to how we write tests. One of the major changes in Pester 5 is the Discovery phase. In this post I will attempt to explain how Discover...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/create-and-use-azure-table-storage-with-powershell/">Create and use Azure Table storage with PowerShell</a></h1>
+                    Azure Table storage is a quick and easy way to store data in the cloud. If you have an Azure subscription you can play around with you are up and running within minutes. Here is a short example on how to get started.
+Create t...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/">Use Edit-Command to discover the code behind built-in cmdlets</a></h1>
+                    Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When y...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h1>
+                    To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h1>
+                    Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources ...
+                </div>
+            
+            </div>
+    </div>
+
+</div></div>
+            </div>
+            <footer class="footer"><div class="feet">
+<p class="footer text-center">Copyright (c) 2020 John Roos</p>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</footer>
+        </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>

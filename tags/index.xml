@@ -1,10 +1,263 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on My New Hugo Site</title>
-    <link>http://johnroos.github.io/tags/</link>
-    <description>Recent content in Tags on My New Hugo Site</description>
+    <title>Tags on ROOSTECH</title>
+    <link>http://test.roostech.se/tags/</link>
+    <description>Recent content in Tags on ROOSTECH</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://johnroos.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Fri, 29 May 2020 14:14:00 +0200</lastBuildDate><atom:link href="http://test.roostech.se/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pester</title>
+      <link>http://test.roostech.se/tags/pester/</link>
+      <pubDate>Fri, 29 May 2020 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/pester/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>PowerShell</title>
+      <link>http://test.roostech.se/tags/powershell/</link>
+      <pubDate>Fri, 29 May 2020 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/powershell/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Unit test</title>
+      <link>http://test.roostech.se/tags/unit-test/</link>
+      <pubDate>Fri, 29 May 2020 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/unit-test/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Azure Tables</title>
+      <link>http://test.roostech.se/tags/azure-tables/</link>
+      <pubDate>Wed, 11 Mar 2020 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/azure-tables/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Edit-Command</title>
+      <link>http://test.roostech.se/tags/edit-command/</link>
+      <pubDate>Wed, 22 Feb 2017 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/edit-command/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Get started</title>
+      <link>http://test.roostech.se/tags/get-started/</link>
+      <pubDate>Wed, 22 Feb 2017 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/get-started/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Get-Command</title>
+      <link>http://test.roostech.se/tags/get-command/</link>
+      <pubDate>Wed, 22 Feb 2017 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/get-command/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Get-Verb</title>
+      <link>http://test.roostech.se/tags/get-verb/</link>
+      <pubDate>Wed, 22 Feb 2017 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/get-verb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>PowerShell ISE</title>
+      <link>http://test.roostech.se/tags/powershell-ise/</link>
+      <pubDate>Wed, 22 Feb 2017 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/powershell-ise/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Invoke-RestMethod</title>
+      <link>http://test.roostech.se/tags/invoke-restmethod/</link>
+      <pubDate>Tue, 21 Feb 2017 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/invoke-restmethod/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Invoke-WebReqyest</title>
+      <link>http://test.roostech.se/tags/invoke-webreqyest/</link>
+      <pubDate>Tue, 21 Feb 2017 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/invoke-webreqyest/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>REST</title>
+      <link>http://test.roostech.se/tags/rest/</link>
+      <pubDate>Tue, 21 Feb 2017 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/rest/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Splatting</title>
+      <link>http://test.roostech.se/tags/splatting/</link>
+      <pubDate>Tue, 21 Feb 2017 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/splatting/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>DSC</title>
+      <link>http://test.roostech.se/tags/dsc/</link>
+      <pubDate>Sat, 23 Apr 2016 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/dsc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ini file</title>
+      <link>http://test.roostech.se/tags/ini-file/</link>
+      <pubDate>Sat, 23 Apr 2016 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/ini-file/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Module</title>
+      <link>http://test.roostech.se/tags/module/</link>
+      <pubDate>Sat, 23 Apr 2016 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/module/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Error handling</title>
+      <link>http://test.roostech.se/tags/error-handling/</link>
+      <pubDate>Sat, 06 Feb 2016 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/error-handling/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Jobs</title>
+      <link>http://test.roostech.se/tags/jobs/</link>
+      <pubDate>Sat, 06 Feb 2016 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/jobs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ping</title>
+      <link>http://test.roostech.se/tags/ping/</link>
+      <pubDate>Sat, 06 Feb 2016 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/ping/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Test-Connection</title>
+      <link>http://test.roostech.se/tags/test-connection/</link>
+      <pubDate>Sat, 06 Feb 2016 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/test-connection/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Write-ObjectToSQL</title>
+      <link>http://test.roostech.se/tags/write-objecttosql/</link>
+      <pubDate>Sat, 06 Feb 2016 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/write-objecttosql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CSS</title>
+      <link>http://test.roostech.se/tags/css/</link>
+      <pubDate>Mon, 27 Jul 2015 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/css/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Off topic</title>
+      <link>http://test.roostech.se/tags/off-topic/</link>
+      <pubDate>Mon, 27 Jul 2015 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/off-topic/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Here-string</title>
+      <link>http://test.roostech.se/tags/here-string/</link>
+      <pubDate>Fri, 24 Jul 2015 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/here-string/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Parameters</title>
+      <link>http://test.roostech.se/tags/parameters/</link>
+      <pubDate>Tue, 21 Jul 2015 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/parameters/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Classes</title>
+      <link>http://test.roostech.se/tags/classes/</link>
+      <pubDate>Tue, 14 Jul 2015 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/classes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Expressions</title>
+      <link>http://test.roostech.se/tags/expressions/</link>
+      <pubDate>Tue, 14 Jul 2015 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/expressions/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SQL Server</title>
+      <link>http://test.roostech.se/tags/sql-server/</link>
+      <pubDate>Tue, 14 Jul 2015 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/sql-server/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
