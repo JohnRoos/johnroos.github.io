@@ -2,190 +2,190 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on RoosTech</title>
-    <link>http://test.roostech.se/posts/</link>
+    <link>http://blog.roostech.se/posts/</link>
     <description>Recent content in Posts on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 29 May 2020 14:14:00 +0200</lastBuildDate><atom:link href="http://test.roostech.se/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 29 May 2020 14:14:00 +0200</lastBuildDate><atom:link href="http://blog.roostech.se/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Pester 5: Discovery and TestCases</title>
-      <link>http://test.roostech.se/posts/pester-5-discovery-and-testcases/</link>
+      <link>http://blog.roostech.se/posts/pester-5-discovery-and-testcases/</link>
       <pubDate>Fri, 29 May 2020 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/pester-5-discovery-and-testcases/</guid>
+      <guid>http://blog.roostech.se/posts/pester-5-discovery-and-testcases/</guid>
       <description>Pester 5 was released a couple of days ago which brings a lot of new features and changes to how we write tests. One of the major changes in Pester 5 is the Discovery phase. In this post I will attempt to explain how Discovery works and how to use it to generate test cases.
 Tests are executed in two phases Whenever you run tests with Pester 5 there will always be two phases, the Discovery phase and the Run phase.</description>
     </item>
     
     <item>
       <title>Create and use Azure Table storage with PowerShell</title>
-      <link>http://test.roostech.se/posts/create-and-use-azure-table-storage-with-powershell/</link>
+      <link>http://blog.roostech.se/posts/create-and-use-azure-table-storage-with-powershell/</link>
       <pubDate>Wed, 11 Mar 2020 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/create-and-use-azure-table-storage-with-powershell/</guid>
+      <guid>http://blog.roostech.se/posts/create-and-use-azure-table-storage-with-powershell/</guid>
       <description>Azure Table storage is a quick and easy way to store data in the cloud. If you have an Azure subscription you can play around with you are up and running within minutes. Here is a short example on how to get started.
 Create table To create an Azure Table we need to first have a resource group. Lets create one that is called &amp;ldquo;MyAwesomeResourceGroup&amp;rdquo; and place it in &amp;ldquo;West Europe&amp;rdquo;.</description>
     </item>
     
     <item>
       <title>Use Edit-Command to discover the code behind built-in cmdlets</title>
-      <link>http://test.roostech.se/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/</link>
+      <link>http://blog.roostech.se/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/</link>
       <pubDate>Wed, 22 Feb 2017 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/</guid>
+      <guid>http://blog.roostech.se/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/</guid>
       <description>Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When you run Get-Command you get all kinds of details about the commands you are looking for. One of the properties in the output is called ScriptBlock. That&amp;rsquo;s where the code is, if its written in PowerShell.</description>
     </item>
     
     <item>
       <title>Invoke-RestMethod with anti-forgery tokens in header and cookie</title>
-      <link>http://test.roostech.se/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/</link>
+      <link>http://blog.roostech.se/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/</link>
       <pubDate>Tue, 21 Feb 2017 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/</guid>
+      <guid>http://blog.roostech.se/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/</guid>
       <description>To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell cmdlet Invoke-RestMethod. I have seen some people suggesting that Invoke-RestMethod does not have support for this, which is not true. It&amp;rsquo;s just a little bit more complicated than expected.
 What&amp;rsquo;s needed is basically a custom header and a cookie.</description>
     </item>
     
     <item>
       <title>Introducing the IniManager module</title>
-      <link>http://test.roostech.se/posts/introducing-the-inimanager-module/</link>
+      <link>http://blog.roostech.se/posts/introducing-the-inimanager-module/</link>
       <pubDate>Sat, 23 Apr 2016 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/introducing-the-inimanager-module/</guid>
+      <guid>http://blog.roostech.se/posts/introducing-the-inimanager-module/</guid>
       <description>Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources to contain as little code as possible I prefer to create cmdlets outside of the resource which I can call from within the resource. In this way I can also use the cmdlets in scripts and the console which is a nice bonus.</description>
     </item>
     
     <item>
       <title>Use PowerShell jobs to ping many from many with log</title>
-      <link>http://test.roostech.se/posts/use-powershell-jobs-to-ping-many-from-many-with-log/</link>
+      <link>http://blog.roostech.se/posts/use-powershell-jobs-to-ping-many-from-many-with-log/</link>
       <pubDate>Sat, 06 Feb 2016 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/use-powershell-jobs-to-ping-many-from-many-with-log/</guid>
+      <guid>http://blog.roostech.se/posts/use-powershell-jobs-to-ping-many-from-many-with-log/</guid>
       <description>Once in a while you want to check how stable a connection is between computers. You might want to ping one or two machines from several others to find out if there is some issues with the network somewhere. You could use the built-in cmdlet Test-Connection and log the results to a log file but then you will not be able to log timeouts since the cmdlet returns an error when timeouts occur.</description>
     </item>
     
     <item>
       <title>PowerShell logo made with CSS3</title>
-      <link>http://test.roostech.se/posts/powershell-logo-made-with-css3/</link>
+      <link>http://blog.roostech.se/posts/powershell-logo-made-with-css3/</link>
       <pubDate>Mon, 27 Jul 2015 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/powershell-logo-made-with-css3/</guid>
+      <guid>http://blog.roostech.se/posts/powershell-logo-made-with-css3/</guid>
       <description>If you are following this blog you might have noticed some small changes here and there. I have been playing around with CSS in search of something that I like. While playing with CSS I started to wonder how hard it would be to create the PowerShell logo with only CSS, and it turned out it was not that hard. Unfortunately it requires some CSS3 components which not all browsers support, so depending on your browser the logo in the end of this post might or might not show properly.</description>
     </item>
     
     <item>
       <title>What is this here-string people are talking about?</title>
-      <link>http://test.roostech.se/posts/what-is-this-here-string-people-are-talking-about/</link>
+      <link>http://blog.roostech.se/posts/what-is-this-here-string-people-are-talking-about/</link>
       <pubDate>Fri, 24 Jul 2015 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/what-is-this-here-string-people-are-talking-about/</guid>
+      <guid>http://blog.roostech.se/posts/what-is-this-here-string-people-are-talking-about/</guid>
       <description>When long strings need to be generated it could sometimes be cumbersome to keep adding strings together, especially if you want the string to contain several lines, tabs and special characters. Here-string can solve that problem and is very easy to use.
 Lets first look at a simple example of how regular strings work with variables, new lines and tabs. After that we look at an example of how to use here-string instead to make the code easier to read.</description>
     </item>
     
     <item>
       <title>Dynamic parameters in PowerShell executes before you know it</title>
-      <link>http://test.roostech.se/posts/dynamic-parameters-in-powershell-executes-before-you-know-it/</link>
+      <link>http://blog.roostech.se/posts/dynamic-parameters-in-powershell-executes-before-you-know-it/</link>
       <pubDate>Tue, 21 Jul 2015 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/dynamic-parameters-in-powershell-executes-before-you-know-it/</guid>
+      <guid>http://blog.roostech.se/posts/dynamic-parameters-in-powershell-executes-before-you-know-it/</guid>
       <description>When creating script cmdlets in PowerShell you can use dynamic parameters to create some advanced parameters. A few months back I was playing around a bit with dynamic parameters to see how it works and I noticed that the logic for the dynamic parameters is executed as soon as the verb is written in the console within PowerShell ISE.
 Let&amp;rsquo;s create a cmdlet to prove this theory. The cmdlet below will simply open a text file in the PowerShell ISE from the folder C:\temp.</description>
     </item>
     
     <item>
       <title>Making PowerShell expressions easier</title>
-      <link>http://test.roostech.se/posts/making-powershell-expressions-easier/</link>
+      <link>http://blog.roostech.se/posts/making-powershell-expressions-easier/</link>
       <pubDate>Tue, 14 Jul 2015 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/making-powershell-expressions-easier/</guid>
+      <guid>http://blog.roostech.se/posts/making-powershell-expressions-easier/</guid>
       <description>Expressions in PowerShell have a weird syntax and can quickly become complicated and hard to read. I thought about a way to make the syntax a bit easier to read and came up with a solution that might work for some cases. This solution contains two classes which can be used when piping to Select-Object for example. The first class describes the actual expression.
 class Xpression { [string]$Name [scriptblock]$Expression [hashtable] getExpression() { return @{ Name = $this.</description>
     </item>
     
     <item>
       <title>Simple select from database with PowerShell</title>
-      <link>http://test.roostech.se/posts/simple-select-from-database-with-powershell/</link>
+      <link>http://blog.roostech.se/posts/simple-select-from-database-with-powershell/</link>
       <pubDate>Tue, 14 Jul 2015 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/simple-select-from-database-with-powershell/</guid>
+      <guid>http://blog.roostech.se/posts/simple-select-from-database-with-powershell/</guid>
       <description>There are a few ways of getting data from SQL Server in PowerShell. This is one way of doing it which is quite simple and does not require the SQL Server module. The sample below shows how to get started. If you are planning on creating a script for serious use you need to add error handling and investigate a bit more what each line actually does so that you are in full control.</description>
     </item>
     
     <item>
       <title>How to use splatting in PowerShell</title>
-      <link>http://test.roostech.se/posts/how-to-use-splatting-in-powershell/</link>
+      <link>http://blog.roostech.se/posts/how-to-use-splatting-in-powershell/</link>
       <pubDate>Thu, 09 Jul 2015 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/how-to-use-splatting-in-powershell/</guid>
+      <guid>http://blog.roostech.se/posts/how-to-use-splatting-in-powershell/</guid>
       <description>I still hear a lot of people who don&amp;rsquo;t know how splatting works in Powershell. Splatting was introduced in Powershell 2.0 so it has been around for a while and it can make scripts look more clean and easy to read. This is how Microsoft explains splatting:
  Splatting is a method of passing a collection of parameter values to a command as unit. Windows PowerShell associates each value in the collection with a command parameter.</description>
     </item>
     
     <item>
       <title>Get-IMDBmovie using Invoke-WebRequest</title>
-      <link>http://test.roostech.se/posts/get-imdbmovie-using-invoke-webrequest/</link>
+      <link>http://blog.roostech.se/posts/get-imdbmovie-using-invoke-webrequest/</link>
       <pubDate>Wed, 04 Mar 2015 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/get-imdbmovie-using-invoke-webrequest/</guid>
+      <guid>http://blog.roostech.se/posts/get-imdbmovie-using-invoke-webrequest/</guid>
       <description>Some time ago I was playing around a bit with Invoke-WebRequest and wanted to know a bit more about what I could do with that cmdlet. I ended up creating a cmdlet to get movie information from IMDB.com. I thought I would share how that script since the same principles can be applied in many situations.
 PS C:\&amp;gt; Get-ImdbMovie -Title &amp;#39;Star Trek&amp;#39; Title : Star Trek Into Darkness Directors : J.</description>
     </item>
     
     <item>
       <title>Classes in Powershell 5.0</title>
-      <link>http://test.roostech.se/posts/classes-in-powershell-5.0/</link>
+      <link>http://blog.roostech.se/posts/classes-in-powershell-5.0/</link>
       <pubDate>Sun, 01 Mar 2015 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/classes-in-powershell-5.0/</guid>
+      <guid>http://blog.roostech.se/posts/classes-in-powershell-5.0/</guid>
       <description>One of the big new features in Powershell 5.0 is classes. You can now define your own classes and create objects based on those custom classes. You can even create your own version of an existing class using inheritance.
 In previous version of Powershell it was actually possible to create classes, but you had to write code in other languages like C# or Visual basic and then use that piece of code as the definition of the class.</description>
     </item>
     
     <item>
       <title>How to get started with Powershell</title>
-      <link>http://test.roostech.se/posts/how-to-get-started-with-powershell/</link>
+      <link>http://blog.roostech.se/posts/how-to-get-started-with-powershell/</link>
       <pubDate>Sun, 22 Feb 2015 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/how-to-get-started-with-powershell/</guid>
+      <guid>http://blog.roostech.se/posts/how-to-get-started-with-powershell/</guid>
       <description>Do you want to get started with Powershell but you dont know where to start? To get you started I have collected a bunch of links which has helped a lot of people to get going with Powershell. These links range from the most basic introductions to advanced scripting and history lessons. Lets start with the basic stuff to anyone new to Powershell. These links are also good if you have learned by yourself over the years, since it might help you break bad habbits you dont know you have.</description>
     </item>
     
     <item>
       <title>Powershell script: Find hotfix status</title>
-      <link>http://test.roostech.se/posts/powershell-script-find-hotfix-status/</link>
+      <link>http://blog.roostech.se/posts/powershell-script-find-hotfix-status/</link>
       <pubDate>Sun, 01 Feb 2015 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/powershell-script-find-hotfix-status/</guid>
+      <guid>http://blog.roostech.se/posts/powershell-script-find-hotfix-status/</guid>
       <description>I was browsing around the requests on the Microsoft Script Center the other day and found one request where a user needed a PowerShell script for showing the status of specific hotfixes on multiple machines. I thought it would be a good idea since Get-Hotfix only shows where the hotfix is installed but not directly where its not installed.
 I created a simple small script that would list the patches to check for, along with each server and if its installed or not.</description>
     </item>
     
     <item>
       <title>Powershell script: Write object to SQL</title>
-      <link>http://test.roostech.se/posts/powershell-script-write-object-to-sql/</link>
+      <link>http://blog.roostech.se/posts/powershell-script-write-object-to-sql/</link>
       <pubDate>Sun, 01 Feb 2015 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/powershell-script-write-object-to-sql/</guid>
+      <guid>http://blog.roostech.se/posts/powershell-script-write-object-to-sql/</guid>
       <description>A while ago I was playing around with PowerShell, gathering information from a lot of servers and I felt that I needed to have a simple way of storing that information in a database. I could have written my own T-SQL statements for creating the tables and then do the inserts in the powerShell scripts I was playing around with. But that felt like it would just take time so I started to think about a function that would just accept any object and do the magic of creating a table and then inserting anything I piped to it.</description>
     </item>
     
     <item>
       <title>Get-Type alternative for $null values</title>
-      <link>http://test.roostech.se/posts/get-type-alternative-for-null-values/</link>
+      <link>http://blog.roostech.se/posts/get-type-alternative-for-null-values/</link>
       <pubDate>Sat, 20 Dec 2014 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/get-type-alternative-for-null-values/</guid>
+      <guid>http://blog.roostech.se/posts/get-type-alternative-for-null-values/</guid>
       <description>Sometimes its useful to get information about object properties in PowerShell. You might be writing a script where you want to extract information from a series of objects and you need to know what data type a property contains. Often this is not a big problem since you can use the GetType function that most objects have.
 Then you run in to the problem that I had recently: You expect a series of objects and you check the types on the properties and suddenly a few of them doesn&amp;rsquo;t have the function GetType for some reason.</description>
     </item>
     
     <item>
       <title>Compress files to Zip with Powershell</title>
-      <link>http://test.roostech.se/posts/compress-files-to-zip-with-powershell/</link>
+      <link>http://blog.roostech.se/posts/compress-files-to-zip-with-powershell/</link>
       <pubDate>Mon, 15 Dec 2014 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/compress-files-to-zip-with-powershell/</guid>
+      <guid>http://blog.roostech.se/posts/compress-files-to-zip-with-powershell/</guid>
       <description>I have seen a lot of people writing PowerShell scripts to compress files or folders by using external file compression programs. Often Winrar, 7-Zip or something similar is used since PowerShell does not have any built in cmdlet to do this (not until version 5 at least).
 There is however a pretty simple way of doing this with only PowerShell. This is how.
 # First we add the .Net framework class needed for file compression.</description>
@@ -193,20 +193,20 @@ There is however a pretty simple way of doing this with only PowerShell. This is
     
     <item>
       <title>Enable real time JMX monitoring in Cognos</title>
-      <link>http://test.roostech.se/posts/enable-real-time-jmx-monitoring-in-cognos/</link>
+      <link>http://blog.roostech.se/posts/enable-real-time-jmx-monitoring-in-cognos/</link>
       <pubDate>Tue, 30 Sep 2014 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/enable-real-time-jmx-monitoring-in-cognos/</guid>
+      <guid>http://blog.roostech.se/posts/enable-real-time-jmx-monitoring-in-cognos/</guid>
       <description>In Cognos BI its possible to enable JMX to be able to monitor the java engine. What IBM provides is not really what I was looking for. I wanted to be able to use for example VisualVM to see what happens in real time. This is how to enable the regular JMX monitoring in Cognos which comes out of the box with Tomcat.
   Open the bootstrap file which is located in the following path: %installpath%\Bin64\bootstrap_winx64.</description>
     </item>
     
     <item>
       <title>Move data or log files for TempDB in SQL Server</title>
-      <link>http://test.roostech.se/posts/move-data-or-log-files-for-tempdb-in-sql-server/</link>
+      <link>http://blog.roostech.se/posts/move-data-or-log-files-for-tempdb-in-sql-server/</link>
       <pubDate>Tue, 30 Sep 2014 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/move-data-or-log-files-for-tempdb-in-sql-server/</guid>
+      <guid>http://blog.roostech.se/posts/move-data-or-log-files-for-tempdb-in-sql-server/</guid>
       <description>Since TempDB is a system database you should not try to move the database with detach/attach or backup/restore. Instead you should move the files with a simple script and after the next restart of the instance the files will be relocated to the new location.
 First check where the files are currently located so that you can easily just copy and paste the name and paths if needed:
 SELECT name, type_desc, physical_name FROM sys.</description>
@@ -214,83 +214,83 @@ SELECT name, type_desc, physical_name FROM sys.</description>
     
     <item>
       <title>Resources for RemoteFX in Windows Server 2012</title>
-      <link>http://test.roostech.se/posts/resources-for-remotefx-in-windows-server-2012/</link>
+      <link>http://blog.roostech.se/posts/resources-for-remotefx-in-windows-server-2012/</link>
       <pubDate>Fri, 26 Oct 2012 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/resources-for-remotefx-in-windows-server-2012/</guid>
+      <guid>http://blog.roostech.se/posts/resources-for-remotefx-in-windows-server-2012/</guid>
       <description>While playing around with my lab machine and writing my previous two posts I found that there are not that much information to be found about RemoteFX in Windows Server 2012 so I thought that I would collect some good links on the subject. Most of the information I could find on TechNet is about Windows Server 2008 so some of the links below are from blogs elsewhere. I would also like to note that the focus here is on using RemoteFX for multimedia and using a virtual GPU.</description>
     </item>
     
     <item>
       <title>RDP 8.0 for Windows 7 SP1</title>
-      <link>http://test.roostech.se/posts/rdp-8.0-for-windows-7-sp1/</link>
+      <link>http://blog.roostech.se/posts/rdp-8.0-for-windows-7-sp1/</link>
       <pubDate>Tue, 16 Oct 2012 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/rdp-8.0-for-windows-7-sp1/</guid>
+      <guid>http://blog.roostech.se/posts/rdp-8.0-for-windows-7-sp1/</guid>
       <description>A few days ago Microsoft finally announced that they will be releasing Remote Desktop Protocol 8.0 for Windows 7 SP1. Earlier it was not clear if this would be released for Windows 7 or if RDP 8.0 would be exclusive for Windows 8 and Windows Server 2012. RDP 8.0 should give some proper improvements when it comes to hardware accelerated graphics in Hyper-V with the RemoteFX capabilities. Among many improvements there are some new compression algorithms which will lower the bandwidth needed for RDP sessions where some parts of the screen might use a different algorithm compared to other parts, and even mixing UDP and TCP on different parts of the screen depending on what&amp;rsquo;s displayed.</description>
     </item>
     
     <item>
       <title>Improving RemoteFX performance in Hyper-V</title>
-      <link>http://test.roostech.se/posts/improving-remotefx-performance-in-hyper-v/</link>
+      <link>http://blog.roostech.se/posts/improving-remotefx-performance-in-hyper-v/</link>
       <pubDate>Tue, 25 Sep 2012 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/improving-remotefx-performance-in-hyper-v/</guid>
+      <guid>http://blog.roostech.se/posts/improving-remotefx-performance-in-hyper-v/</guid>
       <description>As I wrote earlier its possible to run RemoteFX on some of the slowest GPU´s you can buy today (on a regular CPU actually), but you might not get the performance you need to get anywhere. This time I will go through some of the options you have for getting it to work a bit better. Keep in mind that I am writing this with a really poor GPU in mind (yes, the Intel HD 2500 is not good for anything else than browsing).</description>
     </item>
     
     <item>
       <title>Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU</title>
-      <link>http://test.roostech.se/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/</link>
+      <link>http://blog.roostech.se/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/</link>
       <pubDate>Thu, 30 Aug 2012 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/</guid>
+      <guid>http://blog.roostech.se/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/</guid>
       <description>This is for experimenting with RemoteFX in Hyper-V in a lab environment using Windows Server 2012. I wanted to see what I could do with RemoteFX on a slow GPU. To see how far I could get I started off with the Intel HD 2500, which is built into the Intel Core i5 3550 processor (Ivy Bridge). You can go through these steps with any supported hardware, and you probably get better results if you don&amp;rsquo;t use the HD 2500 as I did.</description>
     </item>
     
     <item>
       <title>SQLPS and its limitations</title>
-      <link>http://test.roostech.se/posts/sqlps-and-its-limitations/</link>
+      <link>http://blog.roostech.se/posts/sqlps-and-its-limitations/</link>
       <pubDate>Fri, 15 Jun 2012 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/sqlps-and-its-limitations/</guid>
+      <guid>http://blog.roostech.se/posts/sqlps-and-its-limitations/</guid>
       <description>SQL Server PowerShell (SQLPS) enables some new possibilities when it comes to managing your instances, but it also comes with some limitations. These limitations are not always obvious and can sometimes be worked around. To understand the limitations you must first understand that SQLPS is not PowerShell V1, V2 or V3 but rather a mini shell on its own. It was created by Microsoft as a mini shell based on PowerShell V1 so the cmdlets available are based on V1.</description>
     </item>
     
     <item>
       <title>Script deployment of SSIS packages from folder</title>
-      <link>http://test.roostech.se/posts/script-deployment-of-ssis-packages-from-folder/</link>
+      <link>http://blog.roostech.se/posts/script-deployment-of-ssis-packages-from-folder/</link>
       <pubDate>Thu, 08 Mar 2012 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/script-deployment-of-ssis-packages-from-folder/</guid>
+      <guid>http://blog.roostech.se/posts/script-deployment-of-ssis-packages-from-folder/</guid>
       <description>This is a very easy way to automate something which can take quite some time to do manually if you have lots of environments. Its made as easy as possible in this example rather than fancy and complicated. This script will create a SQL Server Agent Job which will execute a number of SSIS packages (dtsx files). The script will look for dtsx files in the selected folder DTSVirtualPath and also a config file (dtsConfig).</description>
     </item>
     
     <item>
       <title>Dynamic deploy of SSRS reports using rs.exe</title>
-      <link>http://test.roostech.se/posts/dynamic-deploy-of-ssrs-reports-using-rs.exe/</link>
+      <link>http://blog.roostech.se/posts/dynamic-deploy-of-ssrs-reports-using-rs.exe/</link>
       <pubDate>Thu, 01 Mar 2012 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/dynamic-deploy-of-ssrs-reports-using-rs.exe/</guid>
+      <guid>http://blog.roostech.se/posts/dynamic-deploy-of-ssrs-reports-using-rs.exe/</guid>
       <description>This script will search for reports in the local folder SOURCEREPORTFOLDER and then deploy them in the RS folder TARGETRSFOLDER, creating subfolders if needed. If any of the reports already exists in RS it will first do a backup of the existing report into the local folder BACKUPLOCATION. The target folder in RS will contain the same file structure as the source folder. Subfolders will be created if they don&amp;rsquo;t already exists and so on.</description>
     </item>
     
     <item>
       <title>Remove headers in Excel exports to fix column alignment</title>
-      <link>http://test.roostech.se/posts/remove-headers-in-excel-exports-to-fix-column-alignment/</link>
+      <link>http://blog.roostech.se/posts/remove-headers-in-excel-exports-to-fix-column-alignment/</link>
       <pubDate>Wed, 14 Dec 2011 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/remove-headers-in-excel-exports-to-fix-column-alignment/</guid>
+      <guid>http://blog.roostech.se/posts/remove-headers-in-excel-exports-to-fix-column-alignment/</guid>
       <description>Reports with headers in Reporting Services works great as long as you are just rendering the reports in HTML. If you would try to export the report to Excel you might stumble into some problems.
 As long as the header design follows the rest of the design when it comes to columns you could be fine. However, often headers contain very different information and design than the actual content of the report and column alignment might in these cases become a problem.</description>
     </item>
     
     <item>
       <title>Using ExecutionLog2 for statistics and monitoring</title>
-      <link>http://test.roostech.se/posts/using-executionlog2-for-statistics-and-monitoring/</link>
+      <link>http://blog.roostech.se/posts/using-executionlog2-for-statistics-and-monitoring/</link>
       <pubDate>Fri, 28 Oct 2011 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/using-executionlog2-for-statistics-and-monitoring/</guid>
+      <guid>http://blog.roostech.se/posts/using-executionlog2-for-statistics-and-monitoring/</guid>
       <description>When developing reports its often nice to be able to see how the reports are doing when deployed into production. The fact that the reports are displaying the correct data is one thing. Are they performing as expected six months later? Do they scale well after the amount of data has increased? Which are the most common reports the users execute? Are there reports no one is using?
 I wanted to write some simple examples of how to use the internal log to get this kind of information about reports.</description>
     </item>

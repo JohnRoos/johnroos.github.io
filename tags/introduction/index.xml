@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Introduction on RoosTech</title>
-    <link>http://test.roostech.se/tags/introduction/</link>
+    <link>http://blog.roostech.se/tags/introduction/</link>
     <description>Recent content in Introduction on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 01 Mar 2015 14:14:00 +0200</lastBuildDate><atom:link href="http://test.roostech.se/tags/introduction/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 01 Mar 2015 14:14:00 +0200</lastBuildDate><atom:link href="http://blog.roostech.se/tags/introduction/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Classes in Powershell 5.0</title>
-      <link>http://test.roostech.se/posts/classes-in-powershell-5.0/</link>
+      <link>http://blog.roostech.se/posts/classes-in-powershell-5.0/</link>
       <pubDate>Sun, 01 Mar 2015 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/classes-in-powershell-5.0/</guid>
+      <guid>http://blog.roostech.se/posts/classes-in-powershell-5.0/</guid>
       <description>One of the big new features in Powershell 5.0 is classes. You can now define your own classes and create objects based on those custom classes. You can even create your own version of an existing class using inheritance.
 In previous version of Powershell it was actually possible to create classes, but you had to write code in other languages like C# or Visual basic and then use that piece of code as the definition of the class.</description>
     </item>
     
     <item>
       <title>How to get started with Powershell</title>
-      <link>http://test.roostech.se/posts/how-to-get-started-with-powershell/</link>
+      <link>http://blog.roostech.se/posts/how-to-get-started-with-powershell/</link>
       <pubDate>Sun, 22 Feb 2015 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/how-to-get-started-with-powershell/</guid>
+      <guid>http://blog.roostech.se/posts/how-to-get-started-with-powershell/</guid>
       <description>Do you want to get started with Powershell but you dont know where to start? To get you started I have collected a bunch of links which has helped a lot of people to get going with Powershell. These links range from the most basic introductions to advanced scripting and history lessons. Lets start with the basic stuff to anyone new to Powershell. These links are also good if you have learned by yourself over the years, since it might help you break bad habbits you dont know you have.</description>
     </item>
     

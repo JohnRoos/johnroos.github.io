@@ -2,36 +2,36 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>SSRS on RoosTech</title>
-    <link>http://test.roostech.se/tags/ssrs/</link>
+    <link>http://blog.roostech.se/tags/ssrs/</link>
     <description>Recent content in SSRS on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 01 Mar 2012 14:14:00 +0200</lastBuildDate><atom:link href="http://test.roostech.se/tags/ssrs/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 01 Mar 2012 14:14:00 +0200</lastBuildDate><atom:link href="http://blog.roostech.se/tags/ssrs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Dynamic deploy of SSRS reports using rs.exe</title>
-      <link>http://test.roostech.se/posts/dynamic-deploy-of-ssrs-reports-using-rs.exe/</link>
+      <link>http://blog.roostech.se/posts/dynamic-deploy-of-ssrs-reports-using-rs.exe/</link>
       <pubDate>Thu, 01 Mar 2012 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/dynamic-deploy-of-ssrs-reports-using-rs.exe/</guid>
+      <guid>http://blog.roostech.se/posts/dynamic-deploy-of-ssrs-reports-using-rs.exe/</guid>
       <description>This script will search for reports in the local folder SOURCEREPORTFOLDER and then deploy them in the RS folder TARGETRSFOLDER, creating subfolders if needed. If any of the reports already exists in RS it will first do a backup of the existing report into the local folder BACKUPLOCATION. The target folder in RS will contain the same file structure as the source folder. Subfolders will be created if they don&amp;rsquo;t already exists and so on.</description>
     </item>
     
     <item>
       <title>Remove headers in Excel exports to fix column alignment</title>
-      <link>http://test.roostech.se/posts/remove-headers-in-excel-exports-to-fix-column-alignment/</link>
+      <link>http://blog.roostech.se/posts/remove-headers-in-excel-exports-to-fix-column-alignment/</link>
       <pubDate>Wed, 14 Dec 2011 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/remove-headers-in-excel-exports-to-fix-column-alignment/</guid>
+      <guid>http://blog.roostech.se/posts/remove-headers-in-excel-exports-to-fix-column-alignment/</guid>
       <description>Reports with headers in Reporting Services works great as long as you are just rendering the reports in HTML. If you would try to export the report to Excel you might stumble into some problems.
 As long as the header design follows the rest of the design when it comes to columns you could be fine. However, often headers contain very different information and design than the actual content of the report and column alignment might in these cases become a problem.</description>
     </item>
     
     <item>
       <title>Using ExecutionLog2 for statistics and monitoring</title>
-      <link>http://test.roostech.se/posts/using-executionlog2-for-statistics-and-monitoring/</link>
+      <link>http://blog.roostech.se/posts/using-executionlog2-for-statistics-and-monitoring/</link>
       <pubDate>Fri, 28 Oct 2011 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/using-executionlog2-for-statistics-and-monitoring/</guid>
+      <guid>http://blog.roostech.se/posts/using-executionlog2-for-statistics-and-monitoring/</guid>
       <description>When developing reports its often nice to be able to see how the reports are doing when deployed into production. The fact that the reports are displaying the correct data is one thing. Are they performing as expected six months later? Do they scale well after the amount of data has increased? Which are the most common reports the users execute? Are there reports no one is using?
 I wanted to write some simple examples of how to use the internal log to get this kind of information about reports.</description>
     </item>

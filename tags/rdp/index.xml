@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>RDP on RoosTech</title>
-    <link>http://test.roostech.se/tags/rdp/</link>
+    <link>http://blog.roostech.se/tags/rdp/</link>
     <description>Recent content in RDP on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 16 Oct 2012 14:14:00 +0200</lastBuildDate><atom:link href="http://test.roostech.se/tags/rdp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 16 Oct 2012 14:14:00 +0200</lastBuildDate><atom:link href="http://blog.roostech.se/tags/rdp/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>RDP 8.0 for Windows 7 SP1</title>
-      <link>http://test.roostech.se/posts/rdp-8.0-for-windows-7-sp1/</link>
+      <link>http://blog.roostech.se/posts/rdp-8.0-for-windows-7-sp1/</link>
       <pubDate>Tue, 16 Oct 2012 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/rdp-8.0-for-windows-7-sp1/</guid>
+      <guid>http://blog.roostech.se/posts/rdp-8.0-for-windows-7-sp1/</guid>
       <description>A few days ago Microsoft finally announced that they will be releasing Remote Desktop Protocol 8.0 for Windows 7 SP1. Earlier it was not clear if this would be released for Windows 7 or if RDP 8.0 would be exclusive for Windows 8 and Windows Server 2012. RDP 8.0 should give some proper improvements when it comes to hardware accelerated graphics in Hyper-V with the RemoteFX capabilities. Among many improvements there are some new compression algorithms which will lower the bandwidth needed for RDP sessions where some parts of the screen might use a different algorithm compared to other parts, and even mixing UDP and TCP on different parts of the screen depending on what&amp;rsquo;s displayed.</description>
     </item>
     

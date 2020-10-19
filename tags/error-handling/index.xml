@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Error handling on RoosTech</title>
-    <link>http://test.roostech.se/tags/error-handling/</link>
+    <link>http://blog.roostech.se/tags/error-handling/</link>
     <description>Recent content in Error handling on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 06 Feb 2016 14:14:00 +0200</lastBuildDate><atom:link href="http://test.roostech.se/tags/error-handling/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 06 Feb 2016 14:14:00 +0200</lastBuildDate><atom:link href="http://blog.roostech.se/tags/error-handling/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Use PowerShell jobs to ping many from many with log</title>
-      <link>http://test.roostech.se/posts/use-powershell-jobs-to-ping-many-from-many-with-log/</link>
+      <link>http://blog.roostech.se/posts/use-powershell-jobs-to-ping-many-from-many-with-log/</link>
       <pubDate>Sat, 06 Feb 2016 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/use-powershell-jobs-to-ping-many-from-many-with-log/</guid>
+      <guid>http://blog.roostech.se/posts/use-powershell-jobs-to-ping-many-from-many-with-log/</guid>
       <description>Once in a while you want to check how stable a connection is between computers. You might want to ping one or two machines from several others to find out if there is some issues with the network somewhere. You could use the built-in cmdlet Test-Connection and log the results to a log file but then you will not be able to log timeouts since the cmdlet returns an error when timeouts occur.</description>
     </item>
     

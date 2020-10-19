@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Here-string on RoosTech</title>
-    <link>http://test.roostech.se/tags/here-string/</link>
+    <link>http://blog.roostech.se/tags/here-string/</link>
     <description>Recent content in Here-string on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 24 Jul 2015 14:14:00 +0200</lastBuildDate><atom:link href="http://test.roostech.se/tags/here-string/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 24 Jul 2015 14:14:00 +0200</lastBuildDate><atom:link href="http://blog.roostech.se/tags/here-string/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>What is this here-string people are talking about?</title>
-      <link>http://test.roostech.se/posts/what-is-this-here-string-people-are-talking-about/</link>
+      <link>http://blog.roostech.se/posts/what-is-this-here-string-people-are-talking-about/</link>
       <pubDate>Fri, 24 Jul 2015 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/what-is-this-here-string-people-are-talking-about/</guid>
+      <guid>http://blog.roostech.se/posts/what-is-this-here-string-people-are-talking-about/</guid>
       <description>When long strings need to be generated it could sometimes be cumbersome to keep adding strings together, especially if you want the string to contain several lines, tabs and special characters. Here-string can solve that problem and is very easy to use.
 Lets first look at a simple example of how regular strings work with variables, new lines and tabs. After that we look at an example of how to use here-string instead to make the code easier to read.</description>
     </item>

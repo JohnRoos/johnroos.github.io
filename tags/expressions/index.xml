@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Expressions on RoosTech</title>
-    <link>http://test.roostech.se/tags/expressions/</link>
+    <link>http://blog.roostech.se/tags/expressions/</link>
     <description>Recent content in Expressions on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 14 Jul 2015 14:14:00 +0200</lastBuildDate><atom:link href="http://test.roostech.se/tags/expressions/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 14 Jul 2015 14:14:00 +0200</lastBuildDate><atom:link href="http://blog.roostech.se/tags/expressions/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Making PowerShell expressions easier</title>
-      <link>http://test.roostech.se/posts/making-powershell-expressions-easier/</link>
+      <link>http://blog.roostech.se/posts/making-powershell-expressions-easier/</link>
       <pubDate>Tue, 14 Jul 2015 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/making-powershell-expressions-easier/</guid>
+      <guid>http://blog.roostech.se/posts/making-powershell-expressions-easier/</guid>
       <description>Expressions in PowerShell have a weird syntax and can quickly become complicated and hard to read. I thought about a way to make the syntax a bit easier to read and came up with a solution that might work for some cases. This solution contains two classes which can be used when piping to Select-Object for example. The first class describes the actual expression.
 class Xpression { [string]$Name [scriptblock]$Expression [hashtable] getExpression() { return @{ Name = $this.</description>
     </item>

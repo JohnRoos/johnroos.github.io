@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Invoke-WebReqyest on RoosTech</title>
-    <link>http://test.roostech.se/tags/invoke-webreqyest/</link>
+    <link>http://blog.roostech.se/tags/invoke-webreqyest/</link>
     <description>Recent content in Invoke-WebReqyest on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 21 Feb 2017 14:14:00 +0200</lastBuildDate><atom:link href="http://test.roostech.se/tags/invoke-webreqyest/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 21 Feb 2017 14:14:00 +0200</lastBuildDate><atom:link href="http://blog.roostech.se/tags/invoke-webreqyest/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Invoke-RestMethod with anti-forgery tokens in header and cookie</title>
-      <link>http://test.roostech.se/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/</link>
+      <link>http://blog.roostech.se/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/</link>
       <pubDate>Tue, 21 Feb 2017 14:14:00 +0200</pubDate>
       
-      <guid>http://test.roostech.se/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/</guid>
+      <guid>http://blog.roostech.se/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/</guid>
       <description>To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell cmdlet Invoke-RestMethod. I have seen some people suggesting that Invoke-RestMethod does not have support for this, which is not true. It&amp;rsquo;s just a little bit more complicated than expected.
 What&amp;rsquo;s needed is basically a custom header and a cookie.</description>
     </item>

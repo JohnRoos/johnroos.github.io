@@ -73,7 +73,7 @@
     <time class="postdate" datetime="2012-09-25">Sep 25, 2012</time>
 
   <h1>Improving RemoteFX performance in Hyper-V</h1>
-  <p>As I <a href="http://test.roostech.se/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/">wrote earlier</a> its possible to run RemoteFX on some of the slowest GPU´s you can buy today (on a regular CPU actually), but you might not get the performance you need to get anywhere. This time I will go through some of the options you have for getting it to work a bit better. Keep in mind that I am writing this with a really poor GPU in mind (yes, the Intel HD 2500 is not good for anything else than browsing).</p>
+  <p>As I <a href="http://blog.roostech.se/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/">wrote earlier</a> its possible to run RemoteFX on some of the slowest GPU´s you can buy today (on a regular CPU actually), but you might not get the performance you need to get anywhere. This time I will go through some of the options you have for getting it to work a bit better. Keep in mind that I am writing this with a really poor GPU in mind (yes, the Intel HD 2500 is not good for anything else than browsing).</p>
 <h2 id="the-basics">The basics</h2>
 <p>First some basic things. For a slow GPU you want to make sure the GPU is the actual bottleneck so don&rsquo;t be cheap when you assign memory. I used 4 GB on the VM. Use higher if you want and then lower it until you find a good sweet spot in case you want the memory back. Assign more than one core to the VM to start with.</p>
 <p>Use RemoteFX over a wired LAN (100 Mbit or more). Avoid using WiFi since a lot of bandwidth is needed to get good quality, especially if you configure the group policies to get the highest quality with no compression.</p>
@@ -131,7 +131,7 @@
             return;
         }
         var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "https-test-roostech-se" + '.disqus.com/embed.js';
+        s.src = '//' + "blog-roostech-se" + '.disqus.com/embed.js';
         s.setAttribute('data-timestamp', +new Date());
         (d.head || d.body).appendChild(s);
     })();
@@ -147,7 +147,7 @@
     
     <div class="author">
         <img width="120" height="120" alt="John Roos" src="/img/face.jpg"><br>
-        <a title="About John Roos" href="http://test.roostech.se/about">John Roos</a>
+        <a title="About John Roos" href="http://blog.roostech.se/about">John Roos</a>
     </div>
     
     <div id="recentPosts">

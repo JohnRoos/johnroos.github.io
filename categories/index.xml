@@ -2,9 +2,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on RoosTech</title>
-    <link>http://test.roostech.se/categories/</link>
+    <link>http://blog.roostech.se/categories/</link>
     <description>Recent content in Categories on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://test.roostech.se/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="http://blog.roostech.se/categories/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
