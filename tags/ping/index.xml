@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Ping on ROOSTECH</title>
+    <title>Ping on RoosTech</title>
     <link>http://test.roostech.se/tags/ping/</link>
-    <description>Recent content in Ping on ROOSTECH</description>
+    <description>Recent content in Ping on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 06 Feb 2016 14:14:00 +0200</lastBuildDate><atom:link href="http://test.roostech.se/tags/ping/index.xml" rel="self" type="application/rss+xml" />

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>PowerShell on ROOSTECH</title>
+    <title>PowerShell on RoosTech</title>
     <link>http://test.roostech.se/tags/powershell/</link>
-    <description>Recent content in PowerShell on ROOSTECH</description>
+    <description>Recent content in PowerShell on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 29 May 2020 14:14:00 +0200</lastBuildDate><atom:link href="http://test.roostech.se/tags/powershell/index.xml" rel="self" type="application/rss+xml" />
