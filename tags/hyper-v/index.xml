@@ -6,7 +6,34 @@
     <description>Recent content in Hyper-V on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 30 Aug 2012 14:14:00 +0200</lastBuildDate><atom:link href="http://test.roostech.se/tags/hyper-v/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 26 Oct 2012 14:14:00 +0200</lastBuildDate><atom:link href="http://test.roostech.se/tags/hyper-v/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Resources for RemoteFX in Windows Server 2012</title>
+      <link>http://test.roostech.se/posts/resources-for-remotefx-in-windows-server-2012/</link>
+      <pubDate>Fri, 26 Oct 2012 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/resources-for-remotefx-in-windows-server-2012/</guid>
+      <description>While playing around with my lab machine and writing my previous two posts I found that there are not that much information to be found about RemoteFX in Windows Server 2012 so I thought that I would collect some good links on the subject. Most of the information I could find on TechNet is about Windows Server 2008 so some of the links below are from blogs elsewhere. I would also like to note that the focus here is on using RemoteFX for multimedia and using a virtual GPU.</description>
+    </item>
+    
+    <item>
+      <title>RDP 8.0 for Windows 7 SP1</title>
+      <link>http://test.roostech.se/posts/rdp-8.0-for-windows-7-sp1/</link>
+      <pubDate>Tue, 16 Oct 2012 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/rdp-8.0-for-windows-7-sp1/</guid>
+      <description>A few days ago Microsoft finally announced that they will be releasing Remote Desktop Protocol 8.0 for Windows 7 SP1. Earlier it was not clear if this would be released for Windows 7 or if RDP 8.0 would be exclusive for Windows 8 and Windows Server 2012. RDP 8.0 should give some proper improvements when it comes to hardware accelerated graphics in Hyper-V with the RemoteFX capabilities. Among many improvements there are some new compression algorithms which will lower the bandwidth needed for RDP sessions where some parts of the screen might use a different algorithm compared to other parts, and even mixing UDP and TCP on different parts of the screen depending on what&amp;rsquo;s displayed.</description>
+    </item>
+    
+    <item>
+      <title>Improving RemoteFX performance in Hyper-V</title>
+      <link>http://test.roostech.se/posts/improving-remotefx-performance-in-hyper-v/</link>
+      <pubDate>Tue, 25 Sep 2012 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/improving-remotefx-performance-in-hyper-v/</guid>
+      <description>As I wrote earlier its possible to run RemoteFX on some of the slowest GPU´s you can buy today (on a regular CPU actually), but you might not get the performance you need to get anywhere. This time I will go through some of the options you have for getting it to work a bit better. Keep in mind that I am writing this with a really poor GPU in mind (yes, the Intel HD 2500 is not good for anything else than browsing).</description>
+    </item>
+    
     <item>
       <title>Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU</title>
       <link>http://test.roostech.se/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/</link>

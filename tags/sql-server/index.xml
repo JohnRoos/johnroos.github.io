@@ -25,5 +25,63 @@
       <description>A while ago I was playing around with PowerShell, gathering information from a lot of servers and I felt that I needed to have a simple way of storing that information in a database. I could have written my own T-SQL statements for creating the tables and then do the inserts in the powerShell scripts I was playing around with. But that felt like it would just take time so I started to think about a function that would just accept any object and do the magic of creating a table and then inserting anything I piped to it.</description>
     </item>
     
+    <item>
+      <title>Move data or log files for TempDB in SQL Server</title>
+      <link>http://test.roostech.se/posts/move-data-or-log-files-for-tempdb-in-sql-server/</link>
+      <pubDate>Tue, 30 Sep 2014 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/move-data-or-log-files-for-tempdb-in-sql-server/</guid>
+      <description>Since TempDB is a system database you should not try to move the database with detach/attach or backup/restore. Instead you should move the files with a simple script and after the next restart of the instance the files will be relocated to the new location.
+First check where the files are currently located so that you can easily just copy and paste the name and paths if needed:
+SELECT name, type_desc, physical_name FROM sys.</description>
+    </item>
+    
+    <item>
+      <title>SQLPS and its limitations</title>
+      <link>http://test.roostech.se/posts/sqlps-and-its-limitations/</link>
+      <pubDate>Fri, 15 Jun 2012 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/sqlps-and-its-limitations/</guid>
+      <description>SQL Server PowerShell (SQLPS) enables some new possibilities when it comes to managing your instances, but it also comes with some limitations. These limitations are not always obvious and can sometimes be worked around. To understand the limitations you must first understand that SQLPS is not PowerShell V1, V2 or V3 but rather a mini shell on its own. It was created by Microsoft as a mini shell based on PowerShell V1 so the cmdlets available are based on V1.</description>
+    </item>
+    
+    <item>
+      <title>Script deployment of SSIS packages from folder</title>
+      <link>http://test.roostech.se/posts/script-deployment-of-ssis-packages-from-folder/</link>
+      <pubDate>Thu, 08 Mar 2012 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/script-deployment-of-ssis-packages-from-folder/</guid>
+      <description>This is a very easy way to automate something which can take quite some time to do manually if you have lots of environments. Its made as easy as possible in this example rather than fancy and complicated. This script will create a SQL Server Agent Job which will execute a number of SSIS packages (dtsx files). The script will look for dtsx files in the selected folder DTSVirtualPath and also a config file (dtsConfig).</description>
+    </item>
+    
+    <item>
+      <title>Dynamic deploy of SSRS reports using rs.exe</title>
+      <link>http://test.roostech.se/posts/dynamic-deploy-of-ssrs-reports-using-rs.exe/</link>
+      <pubDate>Thu, 01 Mar 2012 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/dynamic-deploy-of-ssrs-reports-using-rs.exe/</guid>
+      <description>This script will search for reports in the local folder SOURCEREPORTFOLDER and then deploy them in the RS folder TARGETRSFOLDER, creating subfolders if needed. If any of the reports already exists in RS it will first do a backup of the existing report into the local folder BACKUPLOCATION. The target folder in RS will contain the same file structure as the source folder. Subfolders will be created if they don&amp;rsquo;t already exists and so on.</description>
+    </item>
+    
+    <item>
+      <title>Remove headers in Excel exports to fix column alignment</title>
+      <link>http://test.roostech.se/posts/remove-headers-in-excel-exports-to-fix-column-alignment/</link>
+      <pubDate>Wed, 14 Dec 2011 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/remove-headers-in-excel-exports-to-fix-column-alignment/</guid>
+      <description>Reports with headers in Reporting Services works great as long as you are just rendering the reports in HTML. If you would try to export the report to Excel you might stumble into some problems.
+As long as the header design follows the rest of the design when it comes to columns you could be fine. However, often headers contain very different information and design than the actual content of the report and column alignment might in these cases become a problem.</description>
+    </item>
+    
+    <item>
+      <title>Using ExecutionLog2 for statistics and monitoring</title>
+      <link>http://test.roostech.se/posts/using-executionlog2-for-statistics-and-monitoring/</link>
+      <pubDate>Fri, 28 Oct 2011 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/using-executionlog2-for-statistics-and-monitoring/</guid>
+      <description>When developing reports its often nice to be able to see how the reports are doing when deployed into production. The fact that the reports are displaying the correct data is one thing. Are they performing as expected six months later? Do they scale well after the amount of data has increased? Which are the most common reports the users execute? Are there reports no one is using?
+I wanted to write some simple examples of how to use the internal log to get this kind of information about reports.</description>
+    </item>
+    
   </channel>
 </rss>

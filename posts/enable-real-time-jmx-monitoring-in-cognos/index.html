@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    
+    
+    <title>RoosTech | Enable real time JMX monitoring in Cognos</title>
+    <meta name="description" content="In Cognos BI its possible to enable JMX to be able to monitor the java engine. What IBM provides is not really what I was looking for. I wanted to be able to use for example VisualVM to see what happens in real time. This is how to enable the regular JMX monitoring in Cognos which comes out of the box with Tomcat.
+  Open the bootstrap file which is located in the following path: %installpath%\Bin64\bootstrap_winx64."/>
+</head><body>
+        <div class="container">
+
+<nav class="navbar navbar-expand-lg navbar-dark ">
+    <a class="navbar-brand" href="/">
+        <div class="logo">RoosTech.se</div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+   
+
+
+        
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/"> Home</a>
+              </li>
+            
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/gists/"> Gists</a>
+              </li>
+            
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/parameter-validation/"> Parameter validation</a>
+              </li>
+            
+        
+
+      </ul>
+
+      <ul class="navbar-nav mr-right">
+
+        
+        
+            
+                <li class="nav-item navbar-right ">
+                <a class="nav-link" href="/about/"> About me</a>
+                </li>
+            
+        
+
+        
+      </ul>
+    </div>
+  </nav>
+
+<div class="row">
+                <div class="col-sm-9 blog-main section" id="blogposts">
+
+    
+    
+    <time class="postdate" datetime="2014-09-30">Sep 30, 2014</time>
+
+<h1>Enable real time JMX monitoring in Cognos</h1>
+<p>In Cognos BI its possible to enable JMX to be able to monitor the java engine. What IBM provides is not really what I was looking for. I wanted to be able to use for example VisualVM to see what happens in real time. This is how to enable the regular JMX monitoring in Cognos which comes out of the box with Tomcat.</p>
+<ol>
+<li>
+<p>Open the bootstrap file which is located in the following path: <strong>%installpath%\Bin64\bootstrap_winx64.xml</strong></p>
+</li>
+<li>
+<p>Add the following lines directly after <strong>&lt;!&ndash; end debug params &ndash;&gt;</strong></p>
+</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">&lt;!-- JMX config start --&gt;
+&lt;param&gt;-Dcom.sun.management.jmxremote&lt;/param&gt;
+&lt;param&gt;-Dcom.sun.management.jmxremote.port=29001&lt;/param&gt;
+&lt;param&gt;-Dcom.sun.management.jmxremote.ssl=false&lt;/param&gt;
+&lt;param&gt;-Dcom.sun.management.jmxremote.authenticate=true&lt;/param&gt;
+&lt;!-- JMX config end --&gt;
+</code></pre></div><p><img src="/images/cognos01.png#center" alt="JMX config"></p>
+<ol start="3">
+<li>
+<p>Save the file.</p>
+</li>
+<li>
+<p>Open the password file located at <strong>%Install Path%\bin\jre64\6.0\lib\management\jmxremote.password</strong>. Uncomment the last two lines and set the passwords for each role.</p>
+</li>
+</ol>
+<p><img src="/images/cognos02.png#center" alt="jmxremote.password"></p>
+<ol start="5">
+<li>
+<p>Set the permissions on the passwords file: Change the owner to the local Administrators group. Disable &ldquo;include inheritable permissions&rdquo; and remove all permission entries for all users except for the local Administrators group. Note: After this has been done you might not be able to open the file normally. If you want to edit or look at the file you need to first start Notepad &ldquo;as Administrator&rdquo; and then open the file from there.</p>
+</li>
+<li>
+<p>Restart Cognos.</p>
+</li>
+<li>
+<p>Test the JMX connection using VisualVM (called jvisualvm.exe in the Java JDK):</p>
+</li>
+</ol>
+<p><img src="/images/cognos03.png#center" alt="Add remote host"></p>
+<p><img src="/images/cognos04.png#center" alt="Add JMX connection"></p>
+
+<div class="blog-post-meta-bottom">
+  
+      Posted by: John<br />
+  
+  
+      Tags: 
+              Cognos
+          
+              JMX
+          
+  
+</div>
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-test-roostech-se" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+                </div>
+                <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
+    
+    <div class="author">
+        <img width="120" height="120" alt="John Roos" src="/img/face.jpg"><br>
+        <a title="About John Roos" href="http://test.roostech.se/about">John Roos</a>
+    </div>
+    
+    <div id="recentPosts">
+            <div class="recentposts">
+                <div class="recentposts-header">RECENT POSTS</div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h1>
+                    Pester 5 was released a couple of days ago which brings a lot of new features and changes to how we write tests. One of the major changes in Pester 5 is the Discovery phase. In this post I will attempt to explain how Discover...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/create-and-use-azure-table-storage-with-powershell/">Create and use Azure Table storage with PowerShell</a></h1>
+                    Azure Table storage is a quick and easy way to store data in the cloud. If you have an Azure subscription you can play around with you are up and running within minutes. Here is a short example on how to get started.
+Create t...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/">Use Edit-Command to discover the code behind built-in cmdlets</a></h1>
+                    Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When y...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h1>
+                    To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h1>
+                    Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources ...
+                </div>
+            
+            </div>
+    </div>
+
+</div></div>
+            </div>
+            <footer class="footer"><div class="feet">
+<p class="footer text-center">Copyright (c) 2020 John Roos</p>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</footer>
+        </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>

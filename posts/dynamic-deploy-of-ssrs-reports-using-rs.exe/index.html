@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    
+    
+    <title>RoosTech | Dynamic deploy of SSRS reports using rs.exe</title>
+    <meta name="description" content="This script will search for reports in the local folder SOURCEREPORTFOLDER and then deploy them in the RS folder TARGETRSFOLDER, creating subfolders if needed. If any of the reports already exists in RS it will first do a backup of the existing report into the local folder BACKUPLOCATION. The target folder in RS will contain the same file structure as the source folder. Subfolders will be created if they don&rsquo;t already exists and so on."/>
+</head><body>
+        <div class="container">
+
+<nav class="navbar navbar-expand-lg navbar-dark ">
+    <a class="navbar-brand" href="/">
+        <div class="logo">RoosTech.se</div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+   
+
+
+        
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/"> Home</a>
+              </li>
+            
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/gists/"> Gists</a>
+              </li>
+            
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/parameter-validation/"> Parameter validation</a>
+              </li>
+            
+        
+
+      </ul>
+
+      <ul class="navbar-nav mr-right">
+
+        
+        
+            
+                <li class="nav-item navbar-right ">
+                <a class="nav-link" href="/about/"> About me</a>
+                </li>
+            
+        
+
+        
+      </ul>
+    </div>
+  </nav>
+
+<div class="row">
+                <div class="col-sm-9 blog-main section" id="blogposts">
+
+    
+    
+    <time class="postdate" datetime="2012-03-01">Mar 1, 2012</time>
+
+<h1>Dynamic deploy of SSRS reports using rs.exe</h1>
+<p>This script will search for reports in the local folder SOURCEREPORTFOLDER and then deploy them in the RS folder TARGETRSFOLDER, creating subfolders if needed. If any of the reports already exists in RS it will first do a backup of the existing report into the local folder BACKUPLOCATION. The target folder in RS will contain the same file structure as the source folder. Subfolders will be created if they don&rsquo;t already exists and so on. All actions are logged to a log file for each deploy.</p>
+<p>This script expects only one datasource for all reports. If the datasource has a different name in the target environment than where it was developed you will get an error in the log when the report first is deployed, but the script will after that set the proper data source and it will work anyway. The reason for this is that the report expects a data source with a certain name and the script can only set the correct data source after the report has been deployed. If you are confident that the script works (after extensive testing) you can suppress these messages by setting the variable SuppressWarnings to true in the rss file but I am not sure if thats a good idea.</p>
+<p>I tried to create a unique log file name for each deploy but since date and time is acting a bit weird when running batch scripts I resorted to having a random number in the end of the log file. Not pretty but it works. All you need to do to test the script is to modify the the beginning of the batch script. The variables need to be set according to your needs.</p>
+<p>How to test the scripts:</p>
+<ol>
+<li>Save both scripts (DeployReports.cmd &amp; DeployReports.rss) into the folder of your choice. In your selected folder, create two subfolders named Reports and Log.</li>
+<li>Put the reports you want to deploy into the Reports folder.</li>
+<li>Create the &ldquo;root&rdquo; folder where the reports should be deployed in RS. Also create the datasource before deploying the reports.</li>
+<li>Edit the bat to adapt the variables to your environment. The lines you need to edit is highlighter below.</li>
+<li>Run the bat file in a command prompt, on the machine where RS is running.</li>
+</ol>
+<p>I added some debug features in the rss script which helped me while developing the script and if you want to turn debug on there is a variable called DebugComments which you can set to true. The scripts should work on both Reporting Services 2005 and 2008.</p>
+<h2 id="deployreportscmd">DeployReports.cmd</h2>
+<div class="highlight"><pre class="chroma"><code class="language-cmd" data-lang="cmd"><span class="p">@</span><span class="k">echo</span> on
+<span class="p">:</span><span class="c1">: ** Script generated by Reporting Services Scripter 2.0.0.17 **</span>
+<span class="p">:</span><span class="c1">: ** Created by Jasper Smith (jas@sqldbatips.com)             **</span>
+<span class="p">:</span><span class="c1">: ** See http://www.sqldbatips.com for help/support           **</span>
+ 
+<span class="p">:</span><span class="c1">:Requires Reports and Log folder to work</span>
+ 
+<span class="p">:</span><span class="c1">:Script Variables</span>
+<span class="k">SET</span> <span class="nv">SOURCEREPORTFOLDER</span><span class="p">=</span>Reports
+<span class="k">SET</span> <span class="nv">ORIGINALDATASOURCE</span><span class="p">=</span>Datasource
+<span class="k">SET</span> <span class="nv">REPORTSERVER</span><span class="p">=</span>http://localhost/ReportServer
+<span class="k">SET</span> <span class="nv">TARGETRSFOLDER</span><span class="p">=</span>LABfolder
+<span class="k">SET</span> <span class="nv">TARGETDATASOURCE</span><span class="p">=</span>Datasource
+ 
+<span class="k">SET</span> <span class="nv">SCRIPTLOCATION</span><span class="p">=</span>DeployReports.rss
+<span class="k">SET</span> <span class="nv">RS</span><span class="p">=</span><span class="s2">&#34;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\rs.exe&#34;</span>
+<span class="k">SET</span> <span class="nv">TIMEOUT</span><span class="p">=</span>60
+ 
+ 
+ 
+<span class="p">:</span><span class="c1">:Generate suffix for log and backup</span>
+<span class="p">@</span><span class="k">For</span> <span class="k">/F</span> <span class="s2">&#34;tokens=1,2,3 delims=/ &#34;</span> <span class="se">%%</span>A <span class="k">in</span> <span class="p">(</span><span class="s1">&#39;Date /t&#39;</span><span class="p">)</span> <span class="k">do</span> <span class="p">@(</span> 
+<span class="k">Set</span> <span class="nv">Day</span><span class="p">=</span><span class="se">%%</span>A
+<span class="k">Set</span> <span class="nv">Month</span><span class="p">=</span><span class="se">%%</span>B
+<span class="k">Set</span> <span class="nv">Year</span><span class="p">=</span><span class="se">%%</span>C
+<span class="k">Set</span> <span class="nv">Dat</span><span class="p">=</span><span class="se">%%</span>C<span class="se">%%</span>B<span class="se">%%</span>A
+<span class="p">)</span>
+<span class="p">@</span><span class="k">For</span> <span class="k">/F</span> <span class="s2">&#34;tokens=1,2 delims=: &#34;</span> <span class="se">%%</span>A <span class="k">in</span> <span class="p">(</span><span class="s1">&#39;time /t&#39;</span><span class="p">)</span> <span class="k">do</span> <span class="p">@(</span> 
+<span class="k">Set</span> <span class="nv">Hour</span><span class="p">=</span><span class="se">%%</span>A
+<span class="k">Set</span> <span class="nv">Minute</span><span class="p">=</span><span class="se">%%</span>B
+<span class="k">Set</span> <span class="nv">tim</span><span class="p">=</span><span class="se">%%</span>A<span class="se">%%</span>B_r<span class="nv">%random%</span>
+<span class="p">)</span>
+ 
+<span class="k">SET</span> <span class="nv">LOGFILE</span><span class="p">=</span><span class="s2">&#34;log\DeployReports_</span><span class="nv">%dat%</span><span class="s2">_</span><span class="nv">%tim%</span><span class="s2">.log&#34;</span>
+<span class="k">SET</span> <span class="nv">BACKUPLOCATION</span><span class="p">=</span>Backup\Bak_<span class="nv">%dat%</span>_<span class="nv">%tim%</span>\\
+ 
+<span class="p">:</span><span class="c1">:Write Log Header</span>
+<span class="k">ECHO</span> Reporting Services Scripter Load Log 2.0.0.17 <span class="p">&gt;&gt;</span><span class="nv">%LOGFILE%</span>
+<span class="k">ECHO</span>. <span class="p">&gt;&gt;</span><span class="nv">%LOGFILE%</span>
+<span class="k">ECHO</span> Starting Load at <span class="nv">%DATE%</span> <span class="nv">%TIME%</span> <span class="p">&gt;&gt;</span><span class="nv">%LOGFILE%</span>
+<span class="k">ECHO</span>. <span class="p">&gt;&gt;</span><span class="nv">%LOGFILE%</span>
+<span class="k">ECHO</span> Variables:
+<span class="k">ECHO</span> SOURCEREPORTFOLDER  = <span class="nv">%SOURCEREPORTFOLDER%</span> <span class="p">&gt;&gt;</span><span class="nv">%LOGFILE%</span>
+<span class="k">ECHO</span> ORIGINALDATASOOURCE = <span class="nv">%ORIGINALDATASOURCE%</span> <span class="p">&gt;&gt;</span><span class="nv">%LOGFILE%</span>
+<span class="k">ECHO</span> REPORTSERVER        = <span class="nv">%REPORTSERVER%</span> <span class="p">&gt;&gt;</span><span class="nv">%LOGFILE%</span>
+<span class="k">ECHO</span> TARGETRSFOLDER      = <span class="nv">%TARGETRSFOLDER%</span> <span class="p">&gt;&gt;</span><span class="nv">%LOGFILE%</span>
+<span class="k">ECHO</span> TARGETDATASOURCE    = <span class="nv">%TARGETDATASOURCE%</span> <span class="p">&gt;&gt;</span><span class="nv">%LOGFILE%</span>
+<span class="k">ECHO</span> SCRIPTLOCATION      = <span class="nv">%SCRIPTLOCATION%</span> <span class="p">&gt;&gt;</span><span class="nv">%LOGFILE%</span>
+<span class="k">ECHO</span> BACKUP              = <span class="nv">%BACKUPLOCATION%</span> <span class="p">&gt;&gt;</span><span class="nv">%LOGFILE%</span>
+<span class="k">ECHO</span> TIMEOUT             = <span class="nv">%TIMEOUT%</span> <span class="p">&gt;&gt;</span><span class="nv">%LOGFILE%</span>
+<span class="k">ECHO</span> RS                  = <span class="nv">%RS%</span> <span class="p">&gt;&gt;</span><span class="nv">%LOGFILE%</span>
+<span class="k">ECHO</span>. <span class="p">&gt;&gt;</span><span class="nv">%LOGFILE%</span>
+ 
+<span class="p">:</span><span class="c1">:Run Scripts</span>
+ 
+ 
+<span class="k">ECHO</span> Running script <span class="s2">&#34;</span><span class="nv">%SCRIPTLOCATION%</span><span class="s2">&#34;</span> <span class="p">&gt;&gt;</span><span class="nv">%LOGFILE%</span>
+<span class="nv">%RS%</span> -i <span class="s2">&#34;</span><span class="nv">%SCRIPTLOCATION%</span><span class="s2">&#34;</span> -s <span class="nv">%REPORTSERVER%</span> -l <span class="nv">%TIMEOUT%</span> -v BACKUPLOCATION=<span class="s2">&#34;</span><span class="nv">%BACKUPLOCATION%</span><span class="s2">&#34;</span> -v vSOURCEREPORTFOLDER=<span class="s2">&#34;</span><span class="nv">%SOURCEREPORTFOLDER%</span><span class="s2">&#34;</span> -v vTARGETRSFOLDER=<span class="s2">&#34;</span><span class="nv">%TARGETRSFOLDER%</span><span class="s2">&#34;</span> -v vTARGETDATASOURCE=<span class="s2">&#34;</span><span class="nv">%TARGETDATASOURCE%</span><span class="s2">&#34;</span> -v vORIGINALDATASOURCE=<span class="s2">&#34;</span><span class="nv">%ORIGINALDATASOOURCE%</span><span class="s2">&#34;</span><span class="p">&gt;&gt;</span><span class="nv">%LOGFILE%</span> <span class="mi">2</span><span class="p">&gt;&amp;</span><span class="mi">1</span>
+<span class="k">ECHO</span>. <span class="p">&gt;&gt;</span><span class="nv">%LOGFILE%</span>
+ 
+<span class="k">ECHO</span>. <span class="p">&gt;&gt;</span><span class="nv">%LOGFILE%</span>
+<span class="k">ECHO</span> Finished Load at <span class="nv">%DATE%</span> <span class="nv">%TIME%</span> <span class="p">&gt;&gt;</span><span class="nv">%LOGFILE%</span>
+<span class="k">ECHO</span>. <span class="p">&gt;&gt;</span><span class="nv">%LOGFILE%</span>
+</code></pre></div><h2 id="deployreportsrss">DeployReports.rss</h2>
+<div class="highlight"><pre class="chroma"><code class="language-vb" data-lang="vb"><span class="c">&#39; Script to publish reports from a local folder, 
+</span><span class="c">&#39; keeping the folder structure in RS as the local folder
+</span><span class="c">&#39;
+</span><span class="c">&#39;&#39;&#39;&#39; Common folder path and data source for all reports
+</span><span class="c">&#39;&#39;&#39;&#39; Target folder and datasource must be configured 
+</span><span class="c">&#39;&#39;&#39;&#39; before publishing any reports
+</span><span class="c"></span> 
+<span class="c">&#39;Where are the reports you want to publish located?
+</span><span class="c"></span><span class="k">Dim</span> <span class="n">SourceReportFolder</span> <span class="ow">As</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">vSOURCEREPORTFOLDER</span>
+<span class="c">&#39; Into what folder in RS do you want the reports to be published? 
+</span><span class="c"></span><span class="k">Dim</span> <span class="n">TargetRSFolder</span> <span class="ow">As</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">vTARGETRSFOLDER</span> 
+<span class="c">&#39;Which datasource should the reports use? 
+</span><span class="c">&#39;Must have been created before deploying!
+</span><span class="c"></span><span class="k">Dim</span> <span class="n">TargetDataSource</span> <span class="ow">As</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">VTARGETDATASOURCE</span> 
+<span class="c">&#39;What is the original datasource of the reports when developing? 
+</span><span class="c">&#39;Should not change that often.
+</span><span class="c"></span><span class="k">Dim</span> <span class="n">OriginalReportDataSource</span> <span class="ow">As</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">vORIGINALDATASOURCE</span> 
+ 
+ 
+<span class="c">&#39;&#39;&#39;&#39; Below this line is static variables and should 
+</span><span class="c">&#39;&#39;&#39;&#39; not be touched when publishing reports
+</span><span class="c">&#39;Debug help
+</span><span class="c"></span><span class="k">Dim</span> <span class="n">SupressWarnings</span> <span class="ow">As</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="k">False</span>
+<span class="k">Dim</span> <span class="n">DebugComments</span> <span class="ow">As</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="k">True</span>
+<span class="c">&#39;Other variables
+</span><span class="c"></span><span class="k">Dim</span> <span class="n">sFolder</span> <span class="ow">As</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">SourceReportFolder</span>
+<span class="k">Dim</span> <span class="n">di</span> <span class="ow">As</span> <span class="k">New</span> <span class="n">DirectoryInfo</span><span class="p">(</span><span class="n">SourceReportFolder</span><span class="p">)</span>
+<span class="k">Dim</span> <span class="n">DirectoryFolders</span> <span class="ow">As</span> <span class="n">DirectoryInfo</span><span class="p">()</span> <span class="o">=</span> <span class="n">di</span><span class="p">.</span><span class="n">GetDirectories</span><span class="p">()</span>
+<span class="k">Dim</span> <span class="n">FilesFoundInFolder</span> <span class="ow">As</span> <span class="n">FileInfo</span><span class="p">()</span> <span class="o">=</span> <span class="n">di</span><span class="p">.</span><span class="n">GetFiles</span><span class="p">()</span>
+<span class="k">Dim</span> <span class="n">Folder</span> <span class="ow">As</span> <span class="n">DirectoryInfo</span>
+<span class="k">Dim</span> <span class="n">CurrentSourceDir</span> <span class="ow">AS</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">SourceReportFolder</span> 
+<span class="k">Dim</span> <span class="n">CurrentTargetDir</span> <span class="ow">As</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">TargetRSFolder</span>
+<span class="k">Dim</span> <span class="n">TotalNumberOfReports</span> <span class="ow">As</span> <span class="kt">Integer</span> <span class="o">=</span> <span class="n">0</span>
+<span class="k">Dim</span> <span class="n">TotalNumberOfFolders</span> <span class="ow">As</span> <span class="kt">Integer</span> <span class="o">=</span> <span class="n">0</span>
+ 
+<span class="k">Public</span> <span class="k">Sub</span> <span class="nf">Main</span><span class="p">()</span>
+ 
+    <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">()</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">()</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="s">&#34;Target folder: /&#34;</span> <span class="o">+</span> <span class="n">TargetRSFolder</span><span class="p">)</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="s">&#34;Target datasource: /&#34;</span> <span class="o">+</span> <span class="n">TargetRSFolder</span> <span class="o">+</span> <span class="s">&#34;/&#34;</span> <span class="o">+</span> <span class="n">TargetDataSource</span><span class="p">)</span>
+ 
+    <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="s">&#34;Processing source folder: &#34;</span> <span class="o">+</span> <span class="n">SourceReportFolder</span><span class="p">)</span>
+    <span class="n">PubReportsAndFolders</span><span class="p">(</span><span class="n">SourceReportFolder</span><span class="p">)</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="s">&#34;Reports published: &#34;</span> <span class="o">&amp;</span> <span class="n">TotalNumberOfReports</span><span class="p">)</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="s">&#34;Subfolders: &#34;</span> <span class="o">&amp;</span> <span class="n">TotalNumberOfFolders</span><span class="p">)</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">()</span>
+ 
+<span class="k">End</span> <span class="k">Sub</span>
+ 
+ 
+ 
+<span class="k">Public</span> <span class="k">Sub</span> <span class="nf">PubReportsAndFolders</span><span class="p">(</span><span class="k">ByVal</span> <span class="n">FolderToParse</span> <span class="ow">As</span> <span class="kt">String</span><span class="p">)</span>
+    <span class="n">CurrentSourceDir</span> <span class="o">=</span> <span class="n">FolderToParse</span>
+    <span class="n">CurrentTargetDir</span> <span class="o">=</span> <span class="n">FolderToParse</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="n">SourceReportFolder</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
+    <span class="n">CurrentTargetDir</span> <span class="o">=</span> <span class="n">CurrentTargetDir</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&#34;\&#34;</span><span class="p">,</span> <span class="s">&#34;/&#34;</span><span class="p">)</span>
+    <span class="k">Dim</span> <span class="n">ParsedFolder</span> <span class="ow">As</span> <span class="k">New</span> <span class="n">DirectoryInfo</span><span class="p">(</span><span class="n">CurrentSourceDir</span><span class="p">)</span>
+    <span class="k">Dim</span> <span class="n">DirectoryFolders</span> <span class="ow">As</span> <span class="n">DirectoryInfo</span><span class="p">()</span> <span class="o">=</span> <span class="n">ParsedFolder</span><span class="p">.</span><span class="n">GetDirectories</span><span class="p">()</span>
+    <span class="k">Dim</span> <span class="n">DirectoryFiles</span> <span class="ow">As</span> <span class="n">FileInfo</span><span class="p">()</span> <span class="o">=</span> <span class="n">ParsedFolder</span><span class="p">.</span><span class="n">GetFiles</span><span class="p">()</span>
+    <span class="k">Dim</span> <span class="n">Folder</span> <span class="ow">As</span> <span class="n">DirectoryInfo</span>
+    <span class="k">Dim</span> <span class="n">FileInFolder</span> <span class="ow">As</span> <span class="n">FileInfo</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="s">&#34; &#34;</span><span class="p">)</span>
+    <span class="n">FilesFoundInFolder</span> <span class="o">=</span> <span class="n">ParsedFolder</span><span class="p">.</span><span class="n">GetFiles</span><span class="p">()</span>
+ 
+    <span class="k">If</span> <span class="n">DebugComments</span> <span class="k">Then</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="s">&#34;Folder start: &#34;</span> <span class="o">+</span> <span class="n">FolderToParse</span><span class="p">)</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="s">&#34;CurrentSourceDir: &#34;</span> <span class="o">+</span> <span class="n">CurrentSourceDir</span><span class="p">)</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="s">&#34;CurrentTargetDir 1: &#34;</span> <span class="o">+</span> <span class="n">CurrentTargetDir</span><span class="p">)</span>
+    <span class="k">End</span> <span class="k">If</span>
+ 
+    <span class="k">For</span> <span class="k">Each</span> <span class="n">FileInFolder</span> <span class="ow">In</span> <span class="n">FilesFoundInFolder</span>
+        <span class="k">If</span> <span class="n">DebugComments</span> <span class="k">Then</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;Deploying report &#34;</span> <span class="o">+</span> <span class="n">FileInFolder</span><span class="p">.</span><span class="n">Name</span> <span class="o">+</span> <span class="s">&#34; start&#34;</span><span class="p">)</span>
+        <span class="k">End</span> <span class="k">If</span>
+        <span class="k">Dim</span> <span class="n">TempName</span> <span class="ow">As</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">FileInFolder</span><span class="p">.</span><span class="n">Name</span>
+        <span class="k">Dim</span> <span class="n">name</span> <span class="ow">As</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">TempName</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&#34;.rdl&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
+        <span class="k">Dim</span> <span class="n">location</span> <span class="ow">As</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">CurrentSourceDir</span> <span class="o">+</span> <span class="s">&#34;\&#34;</span> <span class="o">+</span> <span class="n">TempName</span>
+        <span class="k">Dim</span> <span class="n">parent</span> <span class="ow">As</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">&#34;/&#34;</span> <span class="o">+</span> <span class="n">TargetRSFolder</span> <span class="o">+</span> <span class="n">CurrentTargetDir</span>
+        <span class="k">Dim</span> <span class="n">varDataSourceReference</span> <span class="ow">As</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">&#34;/&#34;</span> <span class="o">+</span> <span class="n">TargetRSFolder</span> <span class="o">+</span> <span class="s">&#34;/&#34;</span> <span class="o">+</span> <span class="n">TargetDataSource</span>
+        <span class="k">Dim</span> <span class="n">fullpath</span> <span class="ow">As</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">parent</span> <span class="o">+</span> <span class="s">&#34;/&#34;</span> <span class="o">+</span> <span class="n">name</span>
+        <span class="k">Dim</span> <span class="n">overwrite</span> <span class="ow">As</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="k">True</span>
+        <span class="k">Dim</span> <span class="n">reportContents</span> <span class="ow">As</span> <span class="kt">Byte</span><span class="p">()</span> <span class="o">=</span> <span class="k">Nothing</span>
+        <span class="k">Dim</span> <span class="n">warnings</span> <span class="ow">As</span> <span class="n">Warning</span><span class="p">()</span> <span class="o">=</span> <span class="k">Nothing</span>
+        <span class="k">Dim</span> <span class="n">descprop</span> <span class="ow">As</span> <span class="k">New</span> <span class="o">[</span><span class="n">Property</span><span class="o">]</span>
+        <span class="n">descprop</span><span class="p">.</span><span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Description&#34;</span>
+        <span class="n">descprop</span><span class="p">.</span><span class="n">Value</span> <span class="o">=</span> <span class="s">&#34;&#34;</span>
+        <span class="k">Dim</span> <span class="n">hiddenprop</span> <span class="ow">As</span> <span class="k">New</span> <span class="o">[</span><span class="n">Property</span><span class="o">]</span>
+        <span class="n">hiddenprop</span><span class="p">.</span><span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Hidden&#34;</span>
+        <span class="n">hiddenprop</span><span class="p">.</span><span class="n">Value</span> <span class="o">=</span> <span class="s">&#34;False&#34;</span>
+        <span class="k">Dim</span> <span class="n">props</span><span class="p">(</span><span class="n">1</span><span class="p">)</span> <span class="ow">As</span> <span class="o">[</span><span class="n">Property</span><span class="o">]</span>
+        <span class="n">props</span><span class="p">(</span><span class="n">0</span><span class="p">)</span> <span class="o">=</span> <span class="n">descprop</span>
+        <span class="n">props</span><span class="p">(</span><span class="n">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">hiddenprop</span>
+ 
+        <span class="k">Dim</span> <span class="n">ReportFound</span> <span class="ow">As</span> <span class="kt">Integer</span> <span class="o">=</span> <span class="n">0</span>
+        <span class="k">Dim</span> <span class="n">srcReportCond</span> <span class="ow">As</span> <span class="k">New</span> <span class="n">SearchCondition</span>
+        <span class="k">With</span> <span class="n">srcReportCond</span>
+            <span class="p">.</span><span class="n">Condition</span> <span class="o">=</span> <span class="n">ConditionEnum</span><span class="p">.</span><span class="n">Equals</span>
+            <span class="p">.</span><span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Name&#34;</span>
+            <span class="p">.</span><span class="n">Value</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">End</span> <span class="k">With</span>
+ 
+        <span class="k">Dim</span> <span class="n">srchReportResults</span> <span class="ow">As</span> <span class="n">CatalogItem</span><span class="p">()</span> <span class="o">=</span> <span class="k">Nothing</span>
+        <span class="n">srchReportResults</span> <span class="o">=</span> <span class="n">rs</span><span class="p">.</span><span class="n">FindItems</span> _
+         <span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">BooleanOperatorEnum</span><span class="p">.</span><span class="n">And</span><span class="p">,</span> _
+        <span class="k">New</span> <span class="n">SearchCondition</span><span class="p">()</span> <span class="p">{</span><span class="n">srcReportCond</span><span class="p">})</span>
+ 
+        <span class="k">Dim</span> <span class="n">srchReportResult</span> <span class="ow">As</span> <span class="n">CatalogItem</span>
+        <span class="k">For</span> <span class="k">Each</span> <span class="n">srchReportResult</span> <span class="ow">In</span> <span class="n">srchReportResults</span>
+            <span class="k">If</span> <span class="n">srchReportResult</span><span class="p">.</span><span class="n">Type</span> <span class="o">=</span> <span class="n">ItemTypeEnum</span><span class="p">.</span><span class="n">Report</span> <span class="k">Then</span>
+                <span class="n">ReportFound</span> <span class="o">=</span> <span class="n">1</span>
+            <span class="k">End</span> <span class="k">If</span>
+        <span class="k">Next</span>
+ 
+        <span class="k">If</span> <span class="n">DebugComments</span> <span class="k">Then</span>
+            <span class="k">If</span> <span class="n">ReportFound</span> <span class="o">=</span> <span class="n">0</span> <span class="k">Then</span>
+                <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="s">&#34;Report NOT found: &#34;</span> <span class="o">+</span> <span class="n">parent</span> <span class="o">+</span> <span class="s">&#34;/&#34;</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">Else</span>
+                <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="s">&#34;Report FOUND: &#34;</span> <span class="o">+</span> <span class="n">parent</span> <span class="o">+</span> <span class="s">&#34;/&#34;</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">End</span> <span class="k">If</span>
+        <span class="k">End</span> <span class="k">If</span>
+ 
+        <span class="k">If</span> <span class="n">DebugComments</span> <span class="k">Then</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="s">&#34;Backup section start: &#34;</span> <span class="o">&amp;</span> <span class="n">fullpath</span><span class="p">)</span>
+        <span class="k">End</span> <span class="k">If</span>
+ 
+        <span class="k">If</span> <span class="p">(</span><span class="n">ReportFound</span> <span class="o">=</span> <span class="n">1</span><span class="p">)</span> <span class="k">Then</span>
+            <span class="k">Try</span>
+                <span class="k">Dim</span> <span class="n">exists</span> <span class="ow">As</span> <span class="o">[</span><span class="n">Property</span><span class="o">]</span><span class="p">()</span> <span class="o">=</span> <span class="n">RS</span><span class="p">.</span><span class="n">GetProperties</span><span class="p">(</span><span class="n">fullpath</span><span class="p">,</span> <span class="k">Nothing</span><span class="p">)</span>
+ 
+                <span class="k">Dim</span> <span class="n">ActualBackupLocation</span> <span class="ow">As</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">BACKUPLOCATION</span>
+                <span class="n">ActualBackupLocation</span> <span class="o">=</span> <span class="n">ActualBackupLocation</span> <span class="o">&amp;</span> <span class="n">FolderToParse</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="n">SourceReportFolder</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
+                <span class="n">ActualBackupLocation</span> <span class="o">=</span> <span class="n">ActualBackupLocation</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&#34;\\&#34;</span><span class="p">,</span> <span class="s">&#34;\&#34;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="s">&#34;\&#34;</span>
+                <span class="n">ActualBackupLocation</span> <span class="o">=</span> <span class="n">ActualBackupLocation</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&#34;\\&#34;</span><span class="p">,</span> <span class="s">&#34;\&#34;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="s">&#34;\&#34;</span> <span class="c">&#39;To always get \\ at the end
+</span><span class="c"></span>                <span class="k">If</span> <span class="n">DebugComments</span> <span class="k">Then</span>
+                    <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="s">&#34;Actual backup location: &#34;</span> <span class="o">&amp;</span> <span class="n">ActualBackupLocation</span><span class="p">)</span>
+                <span class="k">End</span> <span class="k">If</span>
+                <span class="k">If</span> <span class="k">Not</span> <span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">Directory</span><span class="p">.</span><span class="n">Exists</span><span class="p">(</span><span class="n">ActualBackupLocation</span><span class="p">))</span> <span class="k">Then</span>
+                    <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">Directory</span><span class="p">.</span><span class="n">CreateDirectory</span><span class="p">(</span><span class="n">ActualBackupLocation</span><span class="p">)</span>
+                <span class="k">End</span> <span class="k">If</span>
+                <span class="k">Dim</span> <span class="n">fsReport</span> <span class="ow">As</span> <span class="k">New</span> <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">FileStream</span><span class="p">(</span><span class="n">ActualBackupLocation</span> <span class="o">+</span> <span class="n">Path</span><span class="p">.</span><span class="n">GetFileName</span><span class="p">(</span><span class="n">location</span><span class="p">),</span> <span class="n">IO</span><span class="p">.</span><span class="n">FileMode</span><span class="p">.</span><span class="n">Create</span><span class="p">)</span>
+                <span class="k">Dim</span> <span class="n">RepDef</span><span class="p">()</span> <span class="ow">As</span> <span class="kt">Byte</span> <span class="o">=</span> <span class="n">RS</span><span class="p">.</span><span class="n">GetReportDefinition</span><span class="p">(</span><span class="n">fullpath</span><span class="p">)</span>
+                <span class="n">fsReport</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">RepDef</span><span class="p">,</span> <span class="n">0</span><span class="p">,</span> <span class="n">RepDef</span><span class="p">.</span><span class="n">Length</span><span class="p">)</span>
+                <span class="n">fsReport</span><span class="p">.</span><span class="n">Close</span><span class="p">()</span>
+ 
+            <span class="k">Catch</span> <span class="n">e</span> <span class="ow">As</span> <span class="n">SoapException</span>
+                <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;Error : &#34;</span> <span class="o">+</span> <span class="n">e</span><span class="p">.</span><span class="n">Detail</span><span class="p">.</span><span class="n">Item</span><span class="p">(</span><span class="s">&#34;ErrorCode&#34;</span><span class="p">).</span><span class="n">InnerText</span> <span class="o">+</span> <span class="s">&#34; (&#34;</span> <span class="o">+</span> <span class="n">e</span><span class="p">.</span><span class="n">Detail</span><span class="p">.</span><span class="n">Item</span><span class="p">(</span><span class="s">&#34;Message&#34;</span><span class="p">).</span><span class="n">InnerText</span> <span class="o">+</span> <span class="s">&#34;)&#34;</span><span class="p">)</span>
+            <span class="k">End</span> <span class="k">Try</span>
+        <span class="k">Else</span>
+            <span class="k">If</span> <span class="n">DebugComments</span> <span class="k">Then</span>
+                <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="s">&#34;Report do not exist, no backup needed.&#34;</span><span class="p">)</span>
+            <span class="k">End</span> <span class="k">If</span>
+        <span class="k">End</span> <span class="k">If</span>
+ 
+        <span class="k">If</span> <span class="n">DebugComments</span> <span class="k">Then</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="s">&#34;Backup section complete&#34;</span><span class="p">)</span>
+        <span class="k">End</span> <span class="k">If</span>
+ 
+        <span class="k">Try</span>
+            <span class="k">Dim</span> <span class="n">stream</span> <span class="ow">As</span> <span class="n">FileStream</span> <span class="o">=</span> <span class="n">File</span><span class="p">.</span><span class="n">OpenRead</span><span class="p">(</span><span class="n">location</span><span class="p">)</span>
+            <span class="n">reportContents</span> <span class="o">=</span> <span class="k">New</span> <span class="o">[</span><span class="kt">Byte</span><span class="o">]</span><span class="p">(</span><span class="n">stream</span><span class="p">.</span><span class="n">Length</span> <span class="o">-</span> <span class="n">1</span><span class="p">)</span> <span class="p">{}</span>
+            <span class="n">stream</span><span class="p">.</span><span class="n">Read</span><span class="p">(</span><span class="n">reportContents</span><span class="p">,</span> <span class="n">0</span><span class="p">,</span> <span class="k">CInt</span><span class="p">(</span><span class="n">stream</span><span class="p">.</span><span class="n">Length</span><span class="p">))</span>
+            <span class="n">stream</span><span class="p">.</span><span class="n">Close</span><span class="p">()</span>
+ 
+            <span class="n">warnings</span> <span class="o">=</span> <span class="n">RS</span><span class="p">.</span><span class="n">CreateReport</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">,</span> <span class="n">reportContents</span><span class="p">,</span> <span class="n">props</span><span class="p">)</span>
+ 
+            <span class="k">If</span> <span class="k">Not</span> <span class="p">(</span><span class="n">warnings</span> <span class="ow">Is</span> <span class="k">Nothing</span><span class="p">)</span> <span class="k">Then</span>
+                <span class="k">Dim</span> <span class="n">warning</span> <span class="ow">As</span> <span class="n">Warning</span>
+                <span class="k">For</span> <span class="k">Each</span> <span class="n">warning</span> <span class="ow">In</span> <span class="n">warnings</span>
+                    <span class="k">If</span> <span class="n">SupressWarnings</span> <span class="k">Then</span>
+                        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;Report &#34;&#34;{0}&#34;&#34; published&#34;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+                    <span class="k">Else</span>
+                        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;Report &#34;&#34;{0}&#34;&#34; published with warnings&#34;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+                        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;Warning: &#34;</span> <span class="o">+</span> <span class="n">Warning</span><span class="p">.</span><span class="n">Message</span><span class="p">)</span>
+                    <span class="k">End</span> <span class="k">If</span>
+                <span class="k">Next</span> <span class="n">warning</span>
+            <span class="k">Else</span>
+                <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;Report &#34;&#34;{0}&#34;&#34; published successfully with no warnings&#34;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">End</span> <span class="k">If</span>
+ 
+            <span class="k">Dim</span> <span class="n">DataSources</span><span class="p">(</span><span class="n">0</span><span class="p">)</span> <span class="ow">As</span> <span class="n">DataSource</span>
+ 
+            <span class="c">&#39;&#39; DataSourceReference &#34;DataSourceRef&#34; is the same as the name of the datasource in the report
+</span><span class="c"></span>            <span class="c">&#39;&#39; DataSource &#34;DataSrs&#34; is the name of the actual deployed datasource in RS
+</span><span class="c"></span> 
+            <span class="k">Dim</span> <span class="n">DataSourceRef</span> <span class="ow">As</span> <span class="k">New</span> <span class="n">DataSourceReference</span>
+            <span class="n">DataSourceRef</span><span class="p">.</span><span class="n">Reference</span> <span class="o">=</span> <span class="s">&#34;/&#34;</span> <span class="o">+</span> <span class="n">TargetRSFolder</span> <span class="o">+</span> <span class="s">&#34;/&#34;</span> <span class="o">+</span> <span class="n">TargetDataSource</span>
+            <span class="k">Dim</span> <span class="n">DataSrs</span> <span class="ow">As</span> <span class="k">New</span> <span class="n">DataSource</span>
+            <span class="n">DataSrs</span><span class="p">.</span><span class="n">Item</span> <span class="o">=</span> <span class="k">CType</span><span class="p">(</span><span class="n">DataSourceRef</span><span class="p">,</span> <span class="n">DataSourceDefinitionOrReference</span><span class="p">)</span>
+            <span class="n">DataSrs</span><span class="p">.</span><span class="n">Name</span> <span class="o">=</span> <span class="n">OriginalReportDataSource</span>
+            <span class="n">DataSources</span><span class="p">(</span><span class="n">0</span><span class="p">)</span> <span class="o">=</span> <span class="n">DataSrs</span>
+            <span class="n">rs</span><span class="p">.</span><span class="n">SetItemDataSources</span><span class="p">(</span><span class="n">parent</span> <span class="o">+</span> <span class="s">&#34;/&#34;</span> <span class="o">+</span> <span class="n">name</span><span class="p">,</span> <span class="n">DataSources</span><span class="p">)</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;Datasource configured: {0}&#34;</span><span class="p">,</span> <span class="n">DataSourceRef</span><span class="p">.</span><span class="n">Reference</span><span class="p">)</span>
+ 
+            <span class="k">If</span> <span class="n">DebugComments</span> <span class="k">Then</span>
+                <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;DataSrs.Name: &#34;</span> <span class="o">+</span> <span class="n">DataSrs</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span>
+            <span class="k">End</span> <span class="k">If</span>
+ 
+        <span class="k">Catch</span> <span class="n">Excep</span> <span class="ow">As</span> <span class="n">IOException</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">Excep</span><span class="p">.</span><span class="n">Message</span><span class="p">)</span>
+        <span class="k">Catch</span> <span class="n">Excep</span> <span class="ow">As</span> <span class="n">SoapException</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;Error: &#34;</span> <span class="o">+</span> <span class="n">Excep</span><span class="p">.</span><span class="n">Detail</span><span class="p">.</span><span class="n">Item</span><span class="p">(</span><span class="s">&#34;ErrorCode&#34;</span><span class="p">).</span><span class="n">InnerText</span> <span class="o">+</span> <span class="s">&#34; (&#34;</span> <span class="o">+</span> <span class="n">Excep</span><span class="p">.</span><span class="n">Detail</span><span class="p">.</span><span class="n">Item</span><span class="p">(</span><span class="s">&#34;Message&#34;</span><span class="p">).</span><span class="n">InnerText</span> <span class="o">+</span> <span class="s">&#34;)&#34;</span><span class="p">)</span>
+        <span class="k">End</span> <span class="k">Try</span>
+        <span class="n">TotalNumberOfReports</span> <span class="o">=</span> <span class="n">TotalNumberOfReports</span> <span class="o">+</span> <span class="n">1</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="s">&#34; &#34;</span><span class="p">)</span>
+    <span class="k">Next</span>
+ 
+    <span class="k">If</span> <span class="n">DebugComments</span> <span class="k">Then</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="s">&#34;Searching for subfolders in&#39;&#34;</span> <span class="o">+</span> <span class="n">FolderToParse</span> <span class="o">+</span> <span class="s">&#34;&#39;...&#34;</span><span class="p">)</span>
+    <span class="k">End</span> <span class="k">If</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="s">&#34; &#34;</span><span class="p">)</span>
+ 
+    <span class="k">For</span> <span class="k">Each</span> <span class="n">Folder</span> <span class="ow">In</span> <span class="n">DirectoryFolders</span>
+        <span class="n">CurrentTargetDir</span> <span class="o">=</span> <span class="n">FolderToParse</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="n">SourceReportFolder</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
+        <span class="n">CurrentTargetDir</span> <span class="o">=</span> <span class="n">CurrentTargetDir</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&#34;\&#34;</span><span class="p">,</span> <span class="s">&#34;/&#34;</span><span class="p">)</span>
+        <span class="n">CurrentTargetDir</span> <span class="o">=</span> <span class="s">&#34;/&#34;</span> <span class="o">+</span> <span class="n">TargetRSFolder</span> <span class="o">+</span> <span class="n">CurrentTargetDir</span>
+        <span class="k">Dim</span> <span class="n">TargetFolderItems</span> <span class="ow">As</span> <span class="n">CatalogItem</span><span class="p">()</span> <span class="o">=</span> <span class="k">Nothing</span>
+ 
+        <span class="k">If</span> <span class="n">DebugComments</span> <span class="k">Then</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="s">&#34;Local folder to parse: &#34;</span> <span class="o">+</span> <span class="n">FolderToParse</span><span class="p">)</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="s">&#34;Current target dir: &#34;</span> <span class="o">+</span> <span class="n">CurrentTargetDir</span><span class="p">)</span>
+        <span class="k">End</span> <span class="k">If</span>
+ 
+        <span class="n">TargetFolderItems</span> <span class="o">=</span> <span class="n">rs</span><span class="p">.</span><span class="n">ListChildren</span><span class="p">(</span><span class="n">CurrentTargetDir</span><span class="p">,</span> <span class="k">False</span><span class="p">)</span>
+ 
+        <span class="k">If</span> <span class="n">DebugComments</span> <span class="k">Then</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="s">&#34;CurrentTargetDir 2: /&#34;</span> <span class="o">+</span> <span class="n">CurrentTargetDir</span><span class="p">)</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="n">CurrentTargetDir</span><span class="p">)</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="s">&#34;TargetFolderItems count: &#34;</span><span class="p">)</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="n">TargetFolderItems</span><span class="p">.</span><span class="n">Length</span><span class="p">)</span>
+        <span class="k">End</span> <span class="k">If</span>
+ 
+        <span class="k">Dim</span> <span class="n">x</span> <span class="ow">As</span> <span class="kt">Integer</span> <span class="o">=</span> <span class="n">0</span>
+        <span class="k">For</span> <span class="n">i</span> <span class="ow">As</span> <span class="kt">Integer</span> <span class="o">=</span> <span class="n">0</span> <span class="k">To</span> <span class="n">TargetFolderItems</span><span class="p">.</span><span class="n">Length</span> <span class="o">-</span> <span class="n">1</span>
+            <span class="k">If</span> <span class="p">(</span><span class="n">TargetFolderItems</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">Type</span> <span class="o">=</span> <span class="n">1</span><span class="p">)</span> <span class="k">Then</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">1</span>
+            <span class="k">End</span> <span class="k">If</span>
+        <span class="k">Next</span> <span class="n">i</span>
+ 
+        <span class="k">Dim</span> <span class="n">myFolderArray</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">1</span><span class="p">)</span> <span class="ow">As</span> <span class="kt">String</span>
+        <span class="k">For</span> <span class="n">i</span> <span class="ow">As</span> <span class="kt">Integer</span> <span class="o">=</span> <span class="n">0</span> <span class="k">To</span> <span class="n">TargetFolderItems</span><span class="p">.</span><span class="n">Length</span> <span class="o">-</span> <span class="n">1</span>
+            <span class="k">If</span> <span class="p">(</span><span class="n">TargetFolderItems</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">Type</span> <span class="o">=</span> <span class="n">1</span><span class="p">)</span> <span class="k">Then</span>
+                <span class="n">myFolderArray</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">TargetFolderItems</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">Name</span>
+                <span class="k">If</span> <span class="n">DebugComments</span> <span class="k">Then</span>
+                    <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="n">TargetFolderItems</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">Name</span><span class="p">)</span>
+                <span class="k">End</span> <span class="k">If</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">1</span>
+            <span class="k">End</span> <span class="k">If</span>
+        <span class="k">Next</span> <span class="n">i</span>
+ 
+        <span class="k">Dim</span> <span class="n">FolderFound</span> <span class="ow">As</span> <span class="kt">Integer</span> <span class="o">=</span> <span class="n">0</span>
+        <span class="k">Dim</span> <span class="n">srcFolderCond</span> <span class="ow">As</span> <span class="k">New</span> <span class="n">SearchCondition</span>
+        <span class="k">With</span> <span class="n">srcFolderCond</span>
+            <span class="p">.</span><span class="n">Condition</span> <span class="o">=</span> <span class="n">ConditionEnum</span><span class="p">.</span><span class="n">Equals</span>
+            <span class="p">.</span><span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Name&#34;</span>
+            <span class="p">.</span><span class="n">Value</span> <span class="o">=</span> <span class="n">Folder</span><span class="p">.</span><span class="n">Name</span>
+        <span class="k">End</span> <span class="k">With</span>
+ 
+        <span class="k">Dim</span> <span class="n">srchResults</span> <span class="ow">As</span> <span class="n">CatalogItem</span><span class="p">()</span> <span class="o">=</span> <span class="k">Nothing</span>
+        <span class="n">srchResults</span> <span class="o">=</span> <span class="n">rs</span><span class="p">.</span><span class="n">FindItems</span> _
+         <span class="p">(</span><span class="n">CurrentTargetDir</span><span class="p">,</span> <span class="n">BooleanOperatorEnum</span><span class="p">.</span><span class="n">And</span><span class="p">,</span> _
+        <span class="k">New</span> <span class="n">SearchCondition</span><span class="p">()</span> <span class="p">{</span><span class="n">srcFolderCond</span><span class="p">})</span>
+ 
+        <span class="k">Dim</span> <span class="n">srchResult</span> <span class="ow">As</span> <span class="n">CatalogItem</span>
+        <span class="k">For</span> <span class="k">Each</span> <span class="n">srchResult</span> <span class="ow">In</span> <span class="n">srchResults</span>
+            <span class="k">If</span> <span class="n">srchResult</span><span class="p">.</span><span class="n">Type</span> <span class="o">=</span> <span class="n">ItemTypeEnum</span><span class="p">.</span><span class="n">Folder</span> <span class="k">Then</span>
+                <span class="n">FolderFound</span> <span class="o">=</span> <span class="n">1</span>
+            <span class="k">End</span> <span class="k">If</span>
+        <span class="k">Next</span>
+ 
+        <span class="k">If</span> <span class="n">FolderFound</span> <span class="o">=</span> <span class="n">0</span> <span class="k">Then</span>
+            <span class="n">rs</span><span class="p">.</span><span class="n">CreateFolder</span><span class="p">(</span><span class="n">Folder</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">CurrentTargetDir</span><span class="p">,</span> <span class="k">Nothing</span><span class="p">)</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="s">&#34;Created target folder: &#34;</span> <span class="o">+</span> <span class="n">CurrentTargetDir</span> <span class="o">+</span> <span class="s">&#34;/&#34;</span> <span class="o">+</span> <span class="n">Folder</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span>
+        <span class="k">Else</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="s">&#34;Existing target folder found: &#34;</span> <span class="o">+</span> <span class="n">CurrentTargetDir</span> <span class="o">+</span> <span class="s">&#34;/&#34;</span> <span class="o">+</span> <span class="n">Folder</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span>
+        <span class="k">End</span> <span class="k">If</span>
+ 
+        <span class="n">TotalNumberOfFolders</span> <span class="o">=</span> <span class="n">TotalNumberOfFolders</span> <span class="o">+</span> <span class="n">1</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">Writeline</span><span class="p">(</span><span class="s">&#34;Processing source folder: &#34;</span> <span class="o">+</span> <span class="n">FolderToParse</span> <span class="o">+</span> <span class="s">&#34;\&#34;</span> <span class="o">+</span> <span class="n">Folder</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span>
+        <span class="n">PubReportsAndFolders</span><span class="p">(</span><span class="n">FolderToParse</span> <span class="o">+</span> <span class="s">&#34;\&#34;</span> <span class="o">+</span> <span class="n">Folder</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span>
+ 
+    <span class="k">Next</span>
+ 
+<span class="k">End</span> <span class="k">Sub</span>
+</code></pre></div><p>Since VB is not my strongest skill I am sure this can be done in a much more efficient way and the code is far from pretty, but it seems to be working as it should. I based these scripts on the output from <a href="http://www.sqldbatips.com/showarticle.asp?ID=62">Reporting Services Scripter</a>.</p>
+<p>Other web sites that helped me understand how this works (I probably forgot some):</p>
+<ul>
+<li>TechNet: <a href="http://technet.microsoft.com/en-us/library/cc282788(v=sql.100).aspx">ReportingService2005 Class</a></li>
+<li>Database <a href="http://www.databasejournal.com/features/mssql/article.php/3889376/How-to-Automate-Report-Deployment-Using-SSRS-Web-Service.htm">Journal: How to Automate Report Deployment Using SSRS Web Service</a></li>
+<li>The Code Project: <a href="http://www.codeproject.com/Articles/43133/Deploying-Reports-in-Reporting-Services-Programmat">Deploying Reports in Reporting Services Programmatically</a></li>
+<li>Simple-talk: <a href="http://www.simple-talk.com/sql/reporting-services/deploying-reports-using-the-reportingservices2005-class-and-the-rs-utility/">Deploying Reports using the ReportingServices2005 Class and the RS Utility</a></li>
+<li>DevEx: <a href="http://www.devx.com/dotnet/Article/22014/0/page/1">Automating Smart-Client Report Deployments</a></li>
+</ul>
+
+<div class="blog-post-meta-bottom">
+  
+      Posted by: John<br />
+  
+  
+      Tags: 
+              SQL Server
+          
+              SSRS
+          
+  
+</div>
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-test-roostech-se" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+                </div>
+                <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
+    
+    <div class="author">
+        <img width="120" height="120" alt="John Roos" src="/img/face.jpg"><br>
+        <a title="About John Roos" href="http://test.roostech.se/about">John Roos</a>
+    </div>
+    
+    <div id="recentPosts">
+            <div class="recentposts">
+                <div class="recentposts-header">RECENT POSTS</div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h1>
+                    Pester 5 was released a couple of days ago which brings a lot of new features and changes to how we write tests. One of the major changes in Pester 5 is the Discovery phase. In this post I will attempt to explain how Discover...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/create-and-use-azure-table-storage-with-powershell/">Create and use Azure Table storage with PowerShell</a></h1>
+                    Azure Table storage is a quick and easy way to store data in the cloud. If you have an Azure subscription you can play around with you are up and running within minutes. Here is a short example on how to get started.
+Create t...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/">Use Edit-Command to discover the code behind built-in cmdlets</a></h1>
+                    Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When y...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h1>
+                    To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h1>
+                    Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources ...
+                </div>
+            
+            </div>
+    </div>
+
+</div></div>
+            </div>
+            <footer class="footer"><div class="feet">
+<p class="footer text-center">Copyright (c) 2020 John Roos</p>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</footer>
+        </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>

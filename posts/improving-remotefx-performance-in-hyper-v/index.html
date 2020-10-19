@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    
+    
+    <title>RoosTech | Improving RemoteFX performance in Hyper-V</title>
+    <meta name="description" content="As I wrote earlier its possible to run RemoteFX on some of the slowest GPU´s you can buy today (on a regular CPU actually), but you might not get the performance you need to get anywhere. This time I will go through some of the options you have for getting it to work a bit better. Keep in mind that I am writing this with a really poor GPU in mind (yes, the Intel HD 2500 is not good for anything else than browsing)."/>
+</head><body>
+        <div class="container">
+
+<nav class="navbar navbar-expand-lg navbar-dark ">
+    <a class="navbar-brand" href="/">
+        <div class="logo">RoosTech.se</div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+   
+
+
+        
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/"> Home</a>
+              </li>
+            
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/gists/"> Gists</a>
+              </li>
+            
+        
+            
+              <li class="nav-item ">
+                <a class="nav-link" href="/parameter-validation/"> Parameter validation</a>
+              </li>
+            
+        
+
+      </ul>
+
+      <ul class="navbar-nav mr-right">
+
+        
+        
+            
+                <li class="nav-item navbar-right ">
+                <a class="nav-link" href="/about/"> About me</a>
+                </li>
+            
+        
+
+        
+      </ul>
+    </div>
+  </nav>
+
+<div class="row">
+                <div class="col-sm-9 blog-main section" id="blogposts">
+
+    
+    
+    <time class="postdate" datetime="2012-09-25">Sep 25, 2012</time>
+
+<h1>Improving RemoteFX performance in Hyper-V</h1>
+<p>As I <a href="http://test.roostech.se/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/">wrote earlier</a> its possible to run RemoteFX on some of the slowest GPU´s you can buy today (on a regular CPU actually), but you might not get the performance you need to get anywhere. This time I will go through some of the options you have for getting it to work a bit better. Keep in mind that I am writing this with a really poor GPU in mind (yes, the Intel HD 2500 is not good for anything else than browsing).</p>
+<h2 id="the-basics">The basics</h2>
+<p>First some basic things. For a slow GPU you want to make sure the GPU is the actual bottleneck so don&rsquo;t be cheap when you assign memory. I used 4 GB on the VM. Use higher if you want and then lower it until you find a good sweet spot in case you want the memory back. Assign more than one core to the VM to start with.</p>
+<p>Use RemoteFX over a wired LAN (100 Mbit or more). Avoid using WiFi since a lot of bandwidth is needed to get good quality, especially if you configure the group policies to get the highest quality with no compression.</p>
+<p>The maximum resolution is divided into the amount of monitors you select. More monitors, lower resolution. Use one monitor for this test and add more later if you want.</p>
+<h2 id="version-considerations">Version considerations</h2>
+<p>Besides the basic stuff above, the first thing to keep in mind is that you need to use RDP 7.1 to get RemoteFX to work properly when using Windows Server 2012. I believe this was released for Windows 7 in SP1. The client actually reports version 6-something, but if you check the about screen it says if it supports RDP 7.0 or 7.1. RDP and Remote Desktop Connection are not the same thing.</p>
+<p>There are also some fairly big differences between running Windows 7 and Windows 8. As one example, Microsoft have done a lot of work when it comes to reducing the bandwidth when using RemoteFX (and RDP in general) in Windows 8. I did some simple tests on this to see what difference it makes and found that when running Windows 8 it consumed about 30% less network traffic compared to Windows 7 when running the same sequence in a full screen game (Torchlight). According to Microsoft the difference can be much bigger depending on what you are doing on your VM. If you are going to use Windows 7 you need to make sure that SP1 is installed before enabling the RemoteFX GPU. If you add it before that you will run into problems getting it to work, even if you add SP1 afterwards.</p>
+<h2 id="group-policies">Group Policies</h2>
+<p>This is probably the most interesting part of the performance configuration. This is also the main place where Microsoft want you to tweak the environment to suit your purposes.</p>
+<p>Use gpedit.msc and go to Computer Settings, Administrative templates, Windows Components, Remote Desktop Services, Remote Desktop Session Host, Remote Session Environment.</p>
+<p>Here are some settings you can play around with to get the performance better, depending on what you will use it for. I played around with the settings and after a while the performance became a bit better with the Intel HD 2500 but I did not see any great improvement. The new GUI (which until recently was called Metro) in Windows 8 worked great with all the animations and everything, but that kind of worked even without RemoteFX so not a huge difference there. Movies played better in smaller windows than before, but frames were sometimes lost. Full screen videos, especially HD, was crap to be honest. I did not expect much from this hardware, but I was hoping for a bit better performance.</p>
+<p>I would expect that tweaking these settings on a proper GPU will probably give better results compared to what I got. I will not post my settings right now because I don&rsquo;t think they are useful for anyone else. I will instead get back to this when I have used a better GPU and can give some examples of what could help. My suggestion here would be that you should play around with the settings and see what you can get.</p>
+
+<div class="blog-post-meta-bottom">
+  
+      Posted by: John<br />
+  
+  
+      Tags: 
+              Hyper-V
+          
+              RemoteFX
+          
+              Performance
+          
+  
+</div>
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-test-roostech-se" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+                </div>
+                <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
+    
+    <div class="author">
+        <img width="120" height="120" alt="John Roos" src="/img/face.jpg"><br>
+        <a title="About John Roos" href="http://test.roostech.se/about">John Roos</a>
+    </div>
+    
+    <div id="recentPosts">
+            <div class="recentposts">
+                <div class="recentposts-header">RECENT POSTS</div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h1>
+                    Pester 5 was released a couple of days ago which brings a lot of new features and changes to how we write tests. One of the major changes in Pester 5 is the Discovery phase. In this post I will attempt to explain how Discover...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/create-and-use-azure-table-storage-with-powershell/">Create and use Azure Table storage with PowerShell</a></h1>
+                    Azure Table storage is a quick and easy way to store data in the cloud. If you have an Azure subscription you can play around with you are up and running within minutes. Here is a short example on how to get started.
+Create t...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/">Use Edit-Command to discover the code behind built-in cmdlets</a></h1>
+                    Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When y...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h1>
+                    To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell...
+                </div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h1>
+                    Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources ...
+                </div>
+            
+            </div>
+    </div>
+
+</div></div>
+            </div>
+            <footer class="footer"><div class="feet">
+<p class="footer text-center">Copyright (c) 2020 John Roos</p>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</footer>
+        </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>

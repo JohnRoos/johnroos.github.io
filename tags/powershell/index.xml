@@ -200,5 +200,14 @@ There is however a pretty simple way of doing this with only PowerShell. This is
       <description>This is for experimenting with RemoteFX in Hyper-V in a lab environment using Windows Server 2012. I wanted to see what I could do with RemoteFX on a slow GPU. To see how far I could get I started off with the Intel HD 2500, which is built into the Intel Core i5 3550 processor (Ivy Bridge). You can go through these steps with any supported hardware, and you probably get better results if you don&amp;rsquo;t use the HD 2500 as I did.</description>
     </item>
     
+    <item>
+      <title>SQLPS and its limitations</title>
+      <link>http://test.roostech.se/posts/sqlps-and-its-limitations/</link>
+      <pubDate>Fri, 15 Jun 2012 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/sqlps-and-its-limitations/</guid>
+      <description>SQL Server PowerShell (SQLPS) enables some new possibilities when it comes to managing your instances, but it also comes with some limitations. These limitations are not always obvious and can sometimes be worked around. To understand the limitations you must first understand that SQLPS is not PowerShell V1, V2 or V3 but rather a mini shell on its own. It was created by Microsoft as a mini shell based on PowerShell V1 so the cmdlets available are based on V1.</description>
+    </item>
+    
   </channel>
 </rss>

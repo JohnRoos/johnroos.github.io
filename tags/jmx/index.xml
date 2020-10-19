@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JMX on RoosTech</title>
+    <link>http://test.roostech.se/tags/jmx/</link>
+    <description>Recent content in JMX on RoosTech</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 30 Sep 2014 14:14:00 +0200</lastBuildDate><atom:link href="http://test.roostech.se/tags/jmx/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Enable real time JMX monitoring in Cognos</title>
+      <link>http://test.roostech.se/posts/enable-real-time-jmx-monitoring-in-cognos/</link>
+      <pubDate>Tue, 30 Sep 2014 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/posts/enable-real-time-jmx-monitoring-in-cognos/</guid>
+      <description>In Cognos BI its possible to enable JMX to be able to monitor the java engine. What IBM provides is not really what I was looking for. I wanted to be able to use for example VisualVM to see what happens in real time. This is how to enable the regular JMX monitoring in Cognos which comes out of the box with Tomcat.
+  Open the bootstrap file which is located in the following path: %installpath%\Bin64\bootstrap_winx64.</description>
+    </item>
+    
+  </channel>
+</rss>

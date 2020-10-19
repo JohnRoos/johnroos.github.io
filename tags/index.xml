@@ -341,9 +341,27 @@
     </item>
     
     <item>
+      <title>Cognos</title>
+      <link>http://test.roostech.se/tags/cognos/</link>
+      <pubDate>Tue, 30 Sep 2014 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/cognos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>JMX</title>
+      <link>http://test.roostech.se/tags/jmx/</link>
+      <pubDate>Tue, 30 Sep 2014 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/jmx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Hyper-V</title>
       <link>http://test.roostech.se/tags/hyper-v/</link>
-      <pubDate>Thu, 30 Aug 2012 14:14:00 +0200</pubDate>
+      <pubDate>Fri, 26 Oct 2012 14:14:00 +0200</pubDate>
       
       <guid>http://test.roostech.se/tags/hyper-v/</guid>
       <description></description>
@@ -352,9 +370,63 @@
     <item>
       <title>RemoteFX</title>
       <link>http://test.roostech.se/tags/remotefx/</link>
-      <pubDate>Thu, 30 Aug 2012 14:14:00 +0200</pubDate>
+      <pubDate>Fri, 26 Oct 2012 14:14:00 +0200</pubDate>
       
       <guid>http://test.roostech.se/tags/remotefx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RDP</title>
+      <link>http://test.roostech.se/tags/rdp/</link>
+      <pubDate>Tue, 16 Oct 2012 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/rdp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Performance</title>
+      <link>http://test.roostech.se/tags/performance/</link>
+      <pubDate>Tue, 25 Sep 2012 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/performance/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SQL Server Agent</title>
+      <link>http://test.roostech.se/tags/sql-server-agent/</link>
+      <pubDate>Fri, 15 Jun 2012 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/sql-server-agent/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SSIS</title>
+      <link>http://test.roostech.se/tags/ssis/</link>
+      <pubDate>Thu, 08 Mar 2012 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/ssis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SSRS</title>
+      <link>http://test.roostech.se/tags/ssrs/</link>
+      <pubDate>Thu, 01 Mar 2012 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/ssrs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Excel</title>
+      <link>http://test.roostech.se/tags/excel/</link>
+      <pubDate>Wed, 14 Dec 2011 14:14:00 +0200</pubDate>
+      
+      <guid>http://test.roostech.se/tags/excel/</guid>
       <description></description>
     </item>
     

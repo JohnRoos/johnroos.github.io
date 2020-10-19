@@ -298,18 +298,108 @@
   </url>
   
   <url>
+    <loc>http://test.roostech.se/tags/cognos/</loc>
+    <lastmod>2014-09-30T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/posts/enable-real-time-jmx-monitoring-in-cognos/</loc>
+    <lastmod>2014-09-30T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/jmx/</loc>
+    <lastmod>2014-09-30T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/posts/move-data-or-log-files-for-tempdb-in-sql-server/</loc>
+    <lastmod>2014-09-30T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/hyper-v/</loc>
+    <lastmod>2012-10-26T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/remotefx/</loc>
+    <lastmod>2012-10-26T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/posts/resources-for-remotefx-in-windows-server-2012/</loc>
+    <lastmod>2012-10-26T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/rdp/</loc>
+    <lastmod>2012-10-16T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/posts/rdp-8.0-for-windows-7-sp1/</loc>
+    <lastmod>2012-10-16T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/posts/improving-remotefx-performance-in-hyper-v/</loc>
+    <lastmod>2012-09-25T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/performance/</loc>
+    <lastmod>2012-09-25T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://test.roostech.se/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/</loc>
     <lastmod>2012-08-30T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://test.roostech.se/tags/hyper-v/</loc>
-    <lastmod>2012-08-30T14:14:00+02:00</lastmod>
+    <loc>http://test.roostech.se/tags/sql-server-agent/</loc>
+    <lastmod>2012-06-15T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://test.roostech.se/tags/remotefx/</loc>
-    <lastmod>2012-08-30T14:14:00+02:00</lastmod>
+    <loc>http://test.roostech.se/posts/sqlps-and-its-limitations/</loc>
+    <lastmod>2012-06-15T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/posts/script-deployment-of-ssis-packages-from-folder/</loc>
+    <lastmod>2012-03-08T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/ssis/</loc>
+    <lastmod>2012-03-08T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/posts/dynamic-deploy-of-ssrs-reports-using-rs.exe/</loc>
+    <lastmod>2012-03-01T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/ssrs/</loc>
+    <lastmod>2012-03-01T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/tags/excel/</loc>
+    <lastmod>2011-12-14T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/posts/remove-headers-in-excel-exports-to-fix-column-alignment/</loc>
+    <lastmod>2011-12-14T14:14:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://test.roostech.se/posts/using-executionlog2-for-statistics-and-monitoring/</loc>
+    <lastmod>2011-10-28T14:14:00+02:00</lastmod>
   </url>
   
   <url>
