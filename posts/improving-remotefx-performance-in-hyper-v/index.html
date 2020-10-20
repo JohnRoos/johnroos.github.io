@@ -80,14 +80,14 @@ if (!doNotTrack) {
 
 <div class="row">
                 <div class="col-sm-9 blog-main section" id="blogposts">
-<div class="blog-post">
-  
+  <div class="blog-post">
+    
     
     
     <time class="postdate" datetime="2012-09-25">Sep 25, 2012</time>
 
-  <h1>Improving RemoteFX performance in Hyper-V</h1>
-  <p>As I <a href="http://blog.roostech.se/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/">wrote earlier</a> its possible to run RemoteFX on some of the slowest GPU´s you can buy today (on a regular CPU actually), but you might not get the performance you need to get anywhere. This time I will go through some of the options you have for getting it to work a bit better. Keep in mind that I am writing this with a really poor GPU in mind (yes, the Intel HD 2500 is not good for anything else than browsing).</p>
+    <h1>Improving RemoteFX performance in Hyper-V</h1>
+    <p>As I <a href="http://blog.roostech.se/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/">wrote earlier</a> its possible to run RemoteFX on some of the slowest GPU´s you can buy today (on a regular CPU actually), but you might not get the performance you need to get anywhere. This time I will go through some of the options you have for getting it to work a bit better. Keep in mind that I am writing this with a really poor GPU in mind (yes, the Intel HD 2500 is not good for anything else than browsing).</p>
 <h2 id="the-basics">The basics</h2>
 <p>First some basic things. For a slow GPU you want to make sure the GPU is the actual bottleneck so don&rsquo;t be cheap when you assign memory. I used 4 GB on the VM. Use higher if you want and then lower it until you find a good sweet spot in case you want the memory back. Assign more than one core to the VM to start with.</p>
 <p>Use RemoteFX over a wired LAN (100 Mbit or more). Avoid using WiFi since a lot of bandwidth is needed to get good quality, especially if you configure the group policies to get the highest quality with no compression.</p>
@@ -101,38 +101,39 @@ if (!doNotTrack) {
 <p>Here are some settings you can play around with to get the performance better, depending on what you will use it for. I played around with the settings and after a while the performance became a bit better with the Intel HD 2500 but I did not see any great improvement. The new GUI (which until recently was called Metro) in Windows 8 worked great with all the animations and everything, but that kind of worked even without RemoteFX so not a huge difference there. Movies played better in smaller windows than before, but frames were sometimes lost. Full screen videos, especially HD, was crap to be honest. I did not expect much from this hardware, but I was hoping for a bit better performance.</p>
 <p>I would expect that tweaking these settings on a proper GPU will probably give better results compared to what I got. I will not post my settings right now because I don&rsquo;t think they are useful for anyone else. I will instead get back to this when I have used a better GPU and can give some examples of what could help. My suggestion here would be that you should play around with the settings and see what you can get.</p>
 
-  <div class="blog-post-meta-bottom">
+    <div class="blog-post-meta-bottom">
+      
+          Posted by: John<br />
+      
+      
+          Tags: 
+                  Hyper-V
+              
+                  RemoteFX
+              
+                  Performance
+              
+      
+    </div>
+
     
-        Posted by: John<br />
-    
-    
-        Tags: 
-                Hyper-V
-            
-                RemoteFX
-            
-                Performance
-            
+      <div class="related-posts">
+        
+        
+        <h3>Related posts</h3>
+        <ul>
+          
+          <li><a href="/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/">Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU</a></li>
+          
+        </ul>
+      </div>
+      
     
   </div>
 
   
-    <div class="related-posts">
-      
-      
-      <h3>Related posts</h3>
-      <ul>
-        
-        <li><a href="/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/">Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU</a></li>
-        
-      </ul>
-    </div>
-    
-  
-</div>
-
-
-  <div id="disqus_thread"></div>
+    <div class="disqus-section">
+    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -152,9 +153,8 @@ if (!doNotTrack) {
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-
+    </div>
+  
 
                 </div>
                 <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
@@ -167,6 +167,11 @@ if (!doNotTrack) {
     <div id="recentPosts">
             <div class="recentposts">
                 <div class="recentposts-header">RECENT POSTS</div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo</a></h1>
+                    For a while now I have felt that it takes too long time for me to write blog posts. I spend a long time figuring out how to make the post look right, when I should be spending time on the content. In the end this puts me off ...
+                </div>
             
                 <div class="recent">
                     <h1><a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h1>
@@ -187,11 +192,6 @@ Create t...
                 <div class="recent">
                     <h1><a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h1>
                     To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell...
-                </div>
-            
-                <div class="recent">
-                    <h1><a class="title" href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h1>
-                    Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources ...
                 </div>
             
             </div>

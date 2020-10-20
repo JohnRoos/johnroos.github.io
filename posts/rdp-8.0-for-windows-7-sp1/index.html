@@ -80,14 +80,14 @@ if (!doNotTrack) {
 
 <div class="row">
                 <div class="col-sm-9 blog-main section" id="blogposts">
-<div class="blog-post">
-  
+  <div class="blog-post">
+    
     
     
     <time class="postdate" datetime="2012-10-16">Oct 16, 2012</time>
 
-  <h1>RDP 8.0 for Windows 7 SP1</h1>
-  <p>A few days ago Microsoft finally announced that they will be releasing Remote Desktop Protocol 8.0 for Windows 7 SP1. Earlier it was not clear if this would be released for Windows 7 or if RDP 8.0 would be exclusive for Windows 8 and Windows Server 2012. RDP 8.0 should give some proper improvements when it comes to hardware accelerated graphics in Hyper-V with the RemoteFX capabilities. Among many improvements there are some new compression algorithms which will lower the bandwidth needed for RDP sessions where some parts of the screen might use a different algorithm compared to other parts, and even mixing UDP and TCP on different parts of the screen depending on what&rsquo;s displayed.</p>
+    <h1>RDP 8.0 for Windows 7 SP1</h1>
+    <p>A few days ago Microsoft finally announced that they will be releasing Remote Desktop Protocol 8.0 for Windows 7 SP1. Earlier it was not clear if this would be released for Windows 7 or if RDP 8.0 would be exclusive for Windows 8 and Windows Server 2012. RDP 8.0 should give some proper improvements when it comes to hardware accelerated graphics in Hyper-V with the RemoteFX capabilities. Among many improvements there are some new compression algorithms which will lower the bandwidth needed for RDP sessions where some parts of the screen might use a different algorithm compared to other parts, and even mixing UDP and TCP on different parts of the screen depending on what&rsquo;s displayed.</p>
 <p>Here is a short list of some of the features we can expect:</p>
 <ul>
 <li><strong>RemoteFX for WAN</strong>: Enables end users even on WAN to have a fast and fluid experience by employing advanced techniques such as intelligent and adaptive UDP transports, network loss tolerance and recovery, etc.</li>
@@ -100,40 +100,41 @@ if (!doNotTrack) {
 </ul>
 <p>Read more about the update on <a href="http://blogs.msdn.com/b/rds/archive/2012/10/09/remote-desktop-protocol-8-0-update-for-windows-7-sp1-enabling-a-great-wan-user-experience-for-windows-7-sp1-virtual-desktops.aspx">Remote Desktop Services Blog</a> and <a href="http://blogs.windows.com/windows/b/business/archive/2012/10/09/virtualization-beyond-vdi.aspx">The Windows Blog</a>.</p>
 
-  <div class="blog-post-meta-bottom">
+    <div class="blog-post-meta-bottom">
+      
+          Posted by: John<br />
+      
+      
+          Tags: 
+                  Hyper-V
+              
+                  RDP
+              
+                  RemoteFX
+              
+      
+    </div>
+
     
-        Posted by: John<br />
-    
-    
-        Tags: 
-                Hyper-V
-            
-                RDP
-            
-                RemoteFX
-            
+      <div class="related-posts">
+        
+        
+        <h3>Related posts</h3>
+        <ul>
+          
+          <li><a href="/posts/improving-remotefx-performance-in-hyper-v/">Improving RemoteFX performance in Hyper-V</a></li>
+          
+          <li><a href="/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/">Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU</a></li>
+          
+        </ul>
+      </div>
+      
     
   </div>
 
   
-    <div class="related-posts">
-      
-      
-      <h3>Related posts</h3>
-      <ul>
-        
-        <li><a href="/posts/improving-remotefx-performance-in-hyper-v/">Improving RemoteFX performance in Hyper-V</a></li>
-        
-        <li><a href="/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/">Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU</a></li>
-        
-      </ul>
-    </div>
-    
-  
-</div>
-
-
-  <div id="disqus_thread"></div>
+    <div class="disqus-section">
+    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -153,9 +154,8 @@ if (!doNotTrack) {
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-
+    </div>
+  
 
                 </div>
                 <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
@@ -168,6 +168,11 @@ if (!doNotTrack) {
     <div id="recentPosts">
             <div class="recentposts">
                 <div class="recentposts-header">RECENT POSTS</div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo</a></h1>
+                    For a while now I have felt that it takes too long time for me to write blog posts. I spend a long time figuring out how to make the post look right, when I should be spending time on the content. In the end this puts me off ...
+                </div>
             
                 <div class="recent">
                     <h1><a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h1>
@@ -188,11 +193,6 @@ Create t...
                 <div class="recent">
                     <h1><a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h1>
                     To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell...
-                </div>
-            
-                <div class="recent">
-                    <h1><a class="title" href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h1>
-                    Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources ...
                 </div>
             
             </div>

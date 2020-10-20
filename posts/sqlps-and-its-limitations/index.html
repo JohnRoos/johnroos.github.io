@@ -80,52 +80,53 @@ if (!doNotTrack) {
 
 <div class="row">
                 <div class="col-sm-9 blog-main section" id="blogposts">
-<div class="blog-post">
-  
+  <div class="blog-post">
+    
     
     
     <time class="postdate" datetime="2012-06-15">Jun 15, 2012</time>
 
-  <h1>SQLPS and its limitations</h1>
-  <p>SQL Server PowerShell (<a href="http://technet.microsoft.com/en-us/library/cc281954(v=sql.105).aspx">SQLPS</a>) enables some new possibilities when it comes to managing your instances, but it also comes with some limitations. These limitations are not always obvious and can sometimes be worked around. To understand the limitations you must first understand that SQLPS is not PowerShell V1, V2 or V3 but rather a mini shell on its own. It was created by Microsoft as a mini shell based on PowerShell V1 so the cmdlets available are based on V1. To get an idea of what is missing compared to newer versions of PowerShell there is a list of feature differences between versions on <a href="http://en.wikipedia.org/wiki/Powershell#Version_1.0">Wikipedia</a> which could give some pointers.</p>
+    <h1>SQLPS and its limitations</h1>
+    <p>SQL Server PowerShell (<a href="http://technet.microsoft.com/en-us/library/cc281954(v=sql.105).aspx">SQLPS</a>) enables some new possibilities when it comes to managing your instances, but it also comes with some limitations. These limitations are not always obvious and can sometimes be worked around. To understand the limitations you must first understand that SQLPS is not PowerShell V1, V2 or V3 but rather a mini shell on its own. It was created by Microsoft as a mini shell based on PowerShell V1 so the cmdlets available are based on V1. To get an idea of what is missing compared to newer versions of PowerShell there is a list of feature differences between versions on <a href="http://en.wikipedia.org/wiki/Powershell#Version_1.0">Wikipedia</a> which could give some pointers.</p>
 <p>You can still use all the PowerShell features from newer versions with some workarounds. When setting up jobs in SQL Server Agent for example you can select PowerShell as a job step type. This actually means that you will use SQLPS and not the regular PowerShell.
 If you want the job to run regular PowerShell commands from V2 or later (like Invoke-Command) you can use CmdExec as job step type instead and from there execute PowerShell with the PS script included, like this:</p>
 <div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">&#39;Use with CmdExec
 powershell.exe -Command &#34;&amp; {Invoke-Command -ComputerName MyServername -ScriptBlock {Stop-Service -DisplayName &#39;MyServiceDisplayName&#39;}}&#34;
 </code></pre></div><p>When you run PS scripts in this way you will use the regular PowerShell from the operating system instead of SQLPS and it gives you all the features of newer versions of PowerShell in SQL Server Agent jobs. There is no difference in SQLPS in SQL Server 2008 and SQL Server 2008 R2. In SQL Server 2012 however, the PowerShell integration is much deeper and these kind of workarounds are much less needed.</p>
 
-  <div class="blog-post-meta-bottom">
+    <div class="blog-post-meta-bottom">
+      
+          Posted by: John<br />
+      
+      
+          Tags: 
+                  PowerShell
+              
+                  SQL Server
+              
+                  SQL Server Agent
+              
+      
+    </div>
+
     
-        Posted by: John<br />
-    
-    
-        Tags: 
-                PowerShell
-            
-                SQL Server
-            
-                SQL Server Agent
-            
+      <div class="related-posts">
+        
+        
+        <h3>Related posts</h3>
+        <ul>
+          
+          <li><a href="/posts/script-deployment-of-ssis-packages-from-folder/">Script deployment of SSIS packages from folder</a></li>
+          
+        </ul>
+      </div>
+      
     
   </div>
 
   
-    <div class="related-posts">
-      
-      
-      <h3>Related posts</h3>
-      <ul>
-        
-        <li><a href="/posts/script-deployment-of-ssis-packages-from-folder/">Script deployment of SSIS packages from folder</a></li>
-        
-      </ul>
-    </div>
-    
-  
-</div>
-
-
-  <div id="disqus_thread"></div>
+    <div class="disqus-section">
+    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -145,9 +146,8 @@ powershell.exe -Command &#34;&amp; {Invoke-Command -ComputerName MyServername -S
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-
+    </div>
+  
 
                 </div>
                 <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
@@ -160,6 +160,11 @@ powershell.exe -Command &#34;&amp; {Invoke-Command -ComputerName MyServername -S
     <div id="recentPosts">
             <div class="recentposts">
                 <div class="recentposts-header">RECENT POSTS</div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo</a></h1>
+                    For a while now I have felt that it takes too long time for me to write blog posts. I spend a long time figuring out how to make the post look right, when I should be spending time on the content. In the end this puts me off ...
+                </div>
             
                 <div class="recent">
                     <h1><a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h1>
@@ -180,11 +185,6 @@ Create t...
                 <div class="recent">
                     <h1><a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h1>
                     To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell...
-                </div>
-            
-                <div class="recent">
-                    <h1><a class="title" href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h1>
-                    Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources ...
                 </div>
             
             </div>

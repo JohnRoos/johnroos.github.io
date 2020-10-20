@@ -3,6 +3,61 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://blog.roostech.se/tags/blogger/</loc>
+    <lastmod>2020-10-20T21:24:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.roostech.se/tags/css/</loc>
+    <lastmod>2020-10-20T21:24:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.roostech.se/tags/github-pages/</loc>
+    <lastmod>2020-10-20T21:24:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.roostech.se/tags/html/</loc>
+    <lastmod>2020-10-20T21:24:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.roostech.se/tags/hugo/</loc>
+    <lastmod>2020-10-20T21:24:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.roostech.se/tags/javascript/</loc>
+    <lastmod>2020-10-20T21:24:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.roostech.se/posts/moving-from-blogger-to-github-pages-with-hugo/</loc>
+    <lastmod>2020-10-20T21:24:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.roostech.se/posts/</loc>
+    <lastmod>2020-10-20T21:24:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.roostech.se/</loc>
+    <lastmod>2020-10-20T21:24:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.roostech.se/tags/</loc>
+    <lastmod>2020-10-20T21:24:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.roostech.se/tags/web/</loc>
+    <lastmod>2020-10-20T21:24:00+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://blog.roostech.se/tags/pester/</loc>
     <lastmod>2020-05-29T14:14:00+02:00</lastmod>
   </url>
@@ -13,22 +68,7 @@
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/</loc>
-    <lastmod>2020-05-29T14:14:00+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://blog.roostech.se/tags/powershell/</loc>
-    <lastmod>2020-05-29T14:14:00+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://blog.roostech.se/</loc>
-    <lastmod>2020-05-29T14:14:00+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://blog.roostech.se/tags/</loc>
     <lastmod>2020-05-29T14:14:00+02:00</lastmod>
   </url>
   
@@ -150,11 +190,6 @@
   <url>
     <loc>http://blog.roostech.se/tags/write-objecttosql/</loc>
     <lastmod>2016-02-06T14:14:00+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://blog.roostech.se/tags/css/</loc>
-    <lastmod>2015-07-27T14:14:00+02:00</lastmod>
   </url>
   
   <url>

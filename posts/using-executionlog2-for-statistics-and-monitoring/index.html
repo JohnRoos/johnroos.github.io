@@ -81,14 +81,14 @@ if (!doNotTrack) {
 
 <div class="row">
                 <div class="col-sm-9 blog-main section" id="blogposts">
-<div class="blog-post">
-  
+  <div class="blog-post">
+    
     
     
     <time class="postdate" datetime="2011-10-28">Oct 28, 2011</time>
 
-  <h1>Using ExecutionLog2 for statistics and monitoring</h1>
-  <p>When developing reports its often nice to be able to see how the reports are doing when deployed into production. The fact that the reports are displaying the correct data is one thing. Are they performing as expected six months later? Do they scale well after the amount of data has increased? Which are the most common reports the users execute? Are there reports no one is using?</p>
+    <h1>Using ExecutionLog2 for statistics and monitoring</h1>
+    <p>When developing reports its often nice to be able to see how the reports are doing when deployed into production. The fact that the reports are displaying the correct data is one thing. Are they performing as expected six months later? Do they scale well after the amount of data has increased? Which are the most common reports the users execute? Are there reports no one is using?</p>
 <p>I wanted to write some simple examples of how to use the internal log to get this kind of information about reports. To make it easier for others to view the same things I will show some examples of reports which shows statistics and information about other reports. The good thing with that kind of report is that they work in almost any SSRS environment as long as the version is the same and the logging configuration is similar.</p>
 <h2 id="report-storage-and-folder-hierarchy">Report storage and folder hierarchy</h2>
 <p>There are some basic places in the <strong>ReportServer</strong> database where you can get some information about your reports. The reports themselves can be found in a table called <strong>Catalog</strong>.</p>
@@ -170,28 +170,29 @@ A report could give the same information:</p>
 <h2 id="change-the-default-logging-period">Change the default logging period</h2>
 <p>By default the logs will be saved for 60 days. It is possible to change the number of days the logs are kept. Connect to Reporting Services using Management Studio, select properties on the server and click Logging. Here you can disable both the logging if needed but you can also change logging period of the logs. Its also possible to disable the limit here, to keep logs forever, but be careful with the database size if you have very active users.</p>
 
-  <div class="blog-post-meta-bottom">
+    <div class="blog-post-meta-bottom">
+      
+          Posted by: John<br />
+      
+      
+          Tags: 
+                  SQL Server
+              
+                  SSRS
+              
+      
+    </div>
+
     
-        Posted by: John<br />
-    
-    
-        Tags: 
-                SQL Server
-            
-                SSRS
-            
+      <div class="related-posts">
+        
+        
     
   </div>
 
   
-    <div class="related-posts">
-      
-      
-  
-</div>
-
-
-  <div id="disqus_thread"></div>
+    <div class="disqus-section">
+    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -211,9 +212,8 @@ A report could give the same information:</p>
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-
+    </div>
+  
 
                 </div>
                 <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
@@ -226,6 +226,11 @@ A report could give the same information:</p>
     <div id="recentPosts">
             <div class="recentposts">
                 <div class="recentposts-header">RECENT POSTS</div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo</a></h1>
+                    For a while now I have felt that it takes too long time for me to write blog posts. I spend a long time figuring out how to make the post look right, when I should be spending time on the content. In the end this puts me off ...
+                </div>
             
                 <div class="recent">
                     <h1><a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h1>
@@ -246,11 +251,6 @@ Create t...
                 <div class="recent">
                     <h1><a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h1>
                     To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell...
-                </div>
-            
-                <div class="recent">
-                    <h1><a class="title" href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h1>
-                    Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources ...
                 </div>
             
             </div>

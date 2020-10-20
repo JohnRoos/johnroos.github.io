@@ -81,14 +81,14 @@ if (!doNotTrack) {
 
 <div class="row">
                 <div class="col-sm-9 blog-main section" id="blogposts">
-<div class="blog-post">
-  
+  <div class="blog-post">
+    
     
     
     <time class="postdate" datetime="2015-07-24">Jul 24, 2015</time>
 
-  <h1>What is this here-string people are talking about?</h1>
-  <p>When long strings need to be generated it could sometimes be cumbersome to keep adding strings together, especially if you want the string to contain several lines, tabs and special characters. Here-string can solve that problem and is very easy to use.</p>
+    <h1>What is this here-string people are talking about?</h1>
+    <p>When long strings need to be generated it could sometimes be cumbersome to keep adding strings together, especially if you want the string to contain several lines, tabs and special characters. Here-string can solve that problem and is very easy to use.</p>
 <p>Lets first look at a simple example of how regular strings work with variables, new lines and tabs. After that we look at an example of how to use here-string instead to make the code easier to read.
 PowerShell here-string
 The following code example generates a regular string with seven lines including special characters and variables.</p>
@@ -119,44 +119,45 @@ Here-strings starts with the @ symbol and ends with the @ symbol. The first line
 <span class="nb">Write-Host</span> <span class="nv">$str</span>
 </code></pre></div><p>This give the same output as the first example. As you can see I don&rsquo;t need to use <code> `n</code> for new lines and no <code>`t</code> for tabs so the code is a bit easier to read. Even quotes are accepted in the middle of the string so all that clutter is gone. This can be extra useful if you want to generate html pages. If you have tried <a href="http://www.poshserver.net/">PowerShell Web Server</a> you might have noticed that its using here-strings quite a lot when generating HTML pages and now you know why.</p>
 
-  <div class="blog-post-meta-bottom">
+    <div class="blog-post-meta-bottom">
+      
+          Posted by: John<br />
+      
+      
+          Tags: 
+                  Here-string
+              
+                  PowerShell
+              
+      
+    </div>
+
     
-        Posted by: John<br />
-    
-    
-        Tags: 
-                Here-string
-            
-                PowerShell
-            
+      <div class="related-posts">
+        
+        
+        <h3>Related posts</h3>
+        <ul>
+          
+          <li><a href="/posts/dynamic-parameters-in-powershell-executes-before-you-know-it/">Dynamic parameters in PowerShell executes before you know it</a></li>
+          
+          <li><a href="/posts/making-powershell-expressions-easier/">Making PowerShell expressions easier</a></li>
+          
+          <li><a href="/posts/simple-select-from-database-with-powershell/">Simple select from database with PowerShell</a></li>
+          
+          <li><a href="/posts/how-to-use-splatting-in-powershell/">How to use splatting in PowerShell</a></li>
+          
+          <li><a href="/posts/get-imdbmovie-using-invoke-webrequest/">Get-IMDBmovie using Invoke-WebRequest</a></li>
+          
+        </ul>
+      </div>
+      
     
   </div>
 
   
-    <div class="related-posts">
-      
-      
-      <h3>Related posts</h3>
-      <ul>
-        
-        <li><a href="/posts/dynamic-parameters-in-powershell-executes-before-you-know-it/">Dynamic parameters in PowerShell executes before you know it</a></li>
-        
-        <li><a href="/posts/making-powershell-expressions-easier/">Making PowerShell expressions easier</a></li>
-        
-        <li><a href="/posts/simple-select-from-database-with-powershell/">Simple select from database with PowerShell</a></li>
-        
-        <li><a href="/posts/how-to-use-splatting-in-powershell/">How to use splatting in PowerShell</a></li>
-        
-        <li><a href="/posts/get-imdbmovie-using-invoke-webrequest/">Get-IMDBmovie using Invoke-WebRequest</a></li>
-        
-      </ul>
-    </div>
-    
-  
-</div>
-
-
-  <div id="disqus_thread"></div>
+    <div class="disqus-section">
+    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -176,9 +177,8 @@ Here-strings starts with the @ symbol and ends with the @ symbol. The first line
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-
+    </div>
+  
 
                 </div>
                 <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
@@ -191,6 +191,11 @@ Here-strings starts with the @ symbol and ends with the @ symbol. The first line
     <div id="recentPosts">
             <div class="recentposts">
                 <div class="recentposts-header">RECENT POSTS</div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo</a></h1>
+                    For a while now I have felt that it takes too long time for me to write blog posts. I spend a long time figuring out how to make the post look right, when I should be spending time on the content. In the end this puts me off ...
+                </div>
             
                 <div class="recent">
                     <h1><a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h1>
@@ -211,11 +216,6 @@ Create t...
                 <div class="recent">
                     <h1><a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h1>
                     To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell...
-                </div>
-            
-                <div class="recent">
-                    <h1><a class="title" href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h1>
-                    Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources ...
                 </div>
             
             </div>

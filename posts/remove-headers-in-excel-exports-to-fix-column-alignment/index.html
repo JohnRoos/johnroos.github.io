@@ -81,14 +81,14 @@ if (!doNotTrack) {
 
 <div class="row">
                 <div class="col-sm-9 blog-main section" id="blogposts">
-<div class="blog-post">
-  
+  <div class="blog-post">
+    
     
     
     <time class="postdate" datetime="2011-12-14">Dec 14, 2011</time>
 
-  <h1>Remove headers in Excel exports to fix column alignment</h1>
-  <p>Reports with headers in Reporting Services works great as long as you are just rendering the reports in HTML. If you would try to export the report to Excel you might stumble into some problems.</p>
+    <h1>Remove headers in Excel exports to fix column alignment</h1>
+    <p>Reports with headers in Reporting Services works great as long as you are just rendering the reports in HTML. If you would try to export the report to Excel you might stumble into some problems.</p>
 <p>As long as the header design follows the rest of the design when it comes to columns you could be fine. However, often headers contain very different information and design than the actual content of the report and column alignment might in these cases become a problem. You might find merged columns here and there which could be hard to work around when working with the exported Excel file.</p>
 <p>There is however a quite easy fix for this, but it has its drawbacks.</p>
 <p>You can configure exports to Excel in Reporting Services so that headers will not be displayed in the cell grid and will instead be saved in the actual header section of the Excel sheet. The file you need to edit is the following: <em>C:\Program Files\Microsoft SQL Server\MSRS10_50.MSSQLSERVER\Reporting Services\ReportServer\rsreportserver.config</em></p>
@@ -117,38 +117,39 @@ if (!doNotTrack) {
 </span><span class="s">    Microsoft.ReportingServices.ExcelRendering&#34;</span> <span class="na">visible</span><span class="o">=</span><span class="s">&#34;false&#34;</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">extension</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
 </code></pre></div>
-  <div class="blog-post-meta-bottom">
+    <div class="blog-post-meta-bottom">
+      
+          Posted by: John<br />
+      
+      
+          Tags: 
+                  SQL Server
+              
+                  SSRS
+              
+                  Excel
+              
+      
+    </div>
+
     
-        Posted by: John<br />
-    
-    
-        Tags: 
-                SQL Server
-            
-                SSRS
-            
-                Excel
-            
+      <div class="related-posts">
+        
+        
+        <h3>Related posts</h3>
+        <ul>
+          
+          <li><a href="/posts/using-executionlog2-for-statistics-and-monitoring/">Using ExecutionLog2 for statistics and monitoring</a></li>
+          
+        </ul>
+      </div>
+      
     
   </div>
 
   
-    <div class="related-posts">
-      
-      
-      <h3>Related posts</h3>
-      <ul>
-        
-        <li><a href="/posts/using-executionlog2-for-statistics-and-monitoring/">Using ExecutionLog2 for statistics and monitoring</a></li>
-        
-      </ul>
-    </div>
-    
-  
-</div>
-
-
-  <div id="disqus_thread"></div>
+    <div class="disqus-section">
+    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -168,9 +169,8 @@ if (!doNotTrack) {
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-
+    </div>
+  
 
                 </div>
                 <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
@@ -183,6 +183,11 @@ if (!doNotTrack) {
     <div id="recentPosts">
             <div class="recentposts">
                 <div class="recentposts-header">RECENT POSTS</div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo</a></h1>
+                    For a while now I have felt that it takes too long time for me to write blog posts. I spend a long time figuring out how to make the post look right, when I should be spending time on the content. In the end this puts me off ...
+                </div>
             
                 <div class="recent">
                     <h1><a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h1>
@@ -203,11 +208,6 @@ Create t...
                 <div class="recent">
                     <h1><a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h1>
                     To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell...
-                </div>
-            
-                <div class="recent">
-                    <h1><a class="title" href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h1>
-                    Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources ...
                 </div>
             
             </div>

@@ -80,14 +80,14 @@ if (!doNotTrack) {
 
 <div class="row">
                 <div class="col-sm-9 blog-main section" id="blogposts">
-<div class="blog-post">
-  
+  <div class="blog-post">
+    
     
     
     <time class="postdate" datetime="2012-03-08">Mar 8, 2012</time>
 
-  <h1>Script deployment of SSIS packages from folder</h1>
-  <p>This is a very easy way to automate something which can take quite some time to do manually if you have lots of environments. Its made as easy as possible in this example rather than fancy and complicated. This script will create a SQL Server Agent Job which will execute a number of SSIS packages (dtsx files). The script will look for dtsx files in the selected folder DTSVirtualPath and also a config file (dtsConfig). Each file will get its own step in the job in alphabetical order. If you want to have a different order you could just rename the files with a number in the front or rearrange it manually afterwards in the job properties.</p>
+    <h1>Script deployment of SSIS packages from folder</h1>
+    <p>This is a very easy way to automate something which can take quite some time to do manually if you have lots of environments. Its made as easy as possible in this example rather than fancy and complicated. This script will create a SQL Server Agent Job which will execute a number of SSIS packages (dtsx files). The script will look for dtsx files in the selected folder DTSVirtualPath and also a config file (dtsConfig). Each file will get its own step in the job in alphabetical order. If you want to have a different order you could just rename the files with a number in the front or rearrange it manually afterwards in the job properties.</p>
 <p>To make it as easy and quick as possible I got the base for the script by using one of the jobs which was already configured. Just right click on a job which already exist and select Script Job as, Create to, New Query Editor Window. I then edited the script to make it a bit dynamic. I included two schedules for the job in case schedules are needed. Just edit the highlighted lines to adapt to your environment and give it a go. I have only tested this on SQL Server 2008 R2 but it will probably work on 2005 with a few or no tweaks.</p>
 <p>Before running the script you need to enable xp_cmdshell. This is because the script is running the dir command to get the file names for the dtsx files. To enable xp_cmdshell run the following:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- Enable advanced configuration options
@@ -251,42 +251,43 @@ if (!doNotTrack) {
  
 <span class="k">GO</span>
 </code></pre></div>
-  <div class="blog-post-meta-bottom">
+    <div class="blog-post-meta-bottom">
+      
+          Posted by: John<br />
+      
+      
+          Tags: 
+                  SQL Server
+              
+                  SSIS
+              
+                  SQL Server Agent
+              
+      
+    </div>
+
     
-        Posted by: John<br />
-    
-    
-        Tags: 
-                SQL Server
-            
-                SSIS
-            
-                SQL Server Agent
-            
+      <div class="related-posts">
+        
+        
+        <h3>Related posts</h3>
+        <ul>
+          
+          <li><a href="/posts/dynamic-deploy-of-ssrs-reports-using-rs.exe/">Dynamic deploy of SSRS reports using rs.exe</a></li>
+          
+          <li><a href="/posts/remove-headers-in-excel-exports-to-fix-column-alignment/">Remove headers in Excel exports to fix column alignment</a></li>
+          
+          <li><a href="/posts/using-executionlog2-for-statistics-and-monitoring/">Using ExecutionLog2 for statistics and monitoring</a></li>
+          
+        </ul>
+      </div>
+      
     
   </div>
 
   
-    <div class="related-posts">
-      
-      
-      <h3>Related posts</h3>
-      <ul>
-        
-        <li><a href="/posts/dynamic-deploy-of-ssrs-reports-using-rs.exe/">Dynamic deploy of SSRS reports using rs.exe</a></li>
-        
-        <li><a href="/posts/remove-headers-in-excel-exports-to-fix-column-alignment/">Remove headers in Excel exports to fix column alignment</a></li>
-        
-        <li><a href="/posts/using-executionlog2-for-statistics-and-monitoring/">Using ExecutionLog2 for statistics and monitoring</a></li>
-        
-      </ul>
-    </div>
-    
-  
-</div>
-
-
-  <div id="disqus_thread"></div>
+    <div class="disqus-section">
+    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -306,9 +307,8 @@ if (!doNotTrack) {
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-
+    </div>
+  
 
                 </div>
                 <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
@@ -321,6 +321,11 @@ if (!doNotTrack) {
     <div id="recentPosts">
             <div class="recentposts">
                 <div class="recentposts-header">RECENT POSTS</div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo</a></h1>
+                    For a while now I have felt that it takes too long time for me to write blog posts. I spend a long time figuring out how to make the post look right, when I should be spending time on the content. In the end this puts me off ...
+                </div>
             
                 <div class="recent">
                     <h1><a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h1>
@@ -341,11 +346,6 @@ Create t...
                 <div class="recent">
                     <h1><a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h1>
                     To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell...
-                </div>
-            
-                <div class="recent">
-                    <h1><a class="title" href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h1>
-                    Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources ...
                 </div>
             
             </div>

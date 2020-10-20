@@ -6,7 +6,70 @@
     <description>Recent content in Tags on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 29 May 2020 14:14:00 +0200</lastBuildDate><atom:link href="http://blog.roostech.se/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 20 Oct 2020 21:24:00 +0200</lastBuildDate><atom:link href="http://blog.roostech.se/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Blogger</title>
+      <link>http://blog.roostech.se/tags/blogger/</link>
+      <pubDate>Tue, 20 Oct 2020 21:24:00 +0200</pubDate>
+      
+      <guid>http://blog.roostech.se/tags/blogger/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CSS</title>
+      <link>http://blog.roostech.se/tags/css/</link>
+      <pubDate>Tue, 20 Oct 2020 21:24:00 +0200</pubDate>
+      
+      <guid>http://blog.roostech.se/tags/css/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GitHub Pages</title>
+      <link>http://blog.roostech.se/tags/github-pages/</link>
+      <pubDate>Tue, 20 Oct 2020 21:24:00 +0200</pubDate>
+      
+      <guid>http://blog.roostech.se/tags/github-pages/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>HTML</title>
+      <link>http://blog.roostech.se/tags/html/</link>
+      <pubDate>Tue, 20 Oct 2020 21:24:00 +0200</pubDate>
+      
+      <guid>http://blog.roostech.se/tags/html/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hugo</title>
+      <link>http://blog.roostech.se/tags/hugo/</link>
+      <pubDate>Tue, 20 Oct 2020 21:24:00 +0200</pubDate>
+      
+      <guid>http://blog.roostech.se/tags/hugo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>JavaScript</title>
+      <link>http://blog.roostech.se/tags/javascript/</link>
+      <pubDate>Tue, 20 Oct 2020 21:24:00 +0200</pubDate>
+      
+      <guid>http://blog.roostech.se/tags/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Web</title>
+      <link>http://blog.roostech.se/tags/web/</link>
+      <pubDate>Tue, 20 Oct 2020 21:24:00 +0200</pubDate>
+      
+      <guid>http://blog.roostech.se/tags/web/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Pester</title>
       <link>http://blog.roostech.se/tags/pester/</link>
@@ -193,15 +256,6 @@
       <pubDate>Sat, 06 Feb 2016 14:14:00 +0200</pubDate>
       
       <guid>http://blog.roostech.se/tags/write-objecttosql/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>CSS</title>
-      <link>http://blog.roostech.se/tags/css/</link>
-      <pubDate>Mon, 27 Jul 2015 14:14:00 +0200</pubDate>
-      
-      <guid>http://blog.roostech.se/tags/css/</guid>
       <description></description>
     </item>
     

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GitHub Pages on RoosTech</title>
+    <link>http://blog.roostech.se/tags/github-pages/</link>
+    <description>Recent content in GitHub Pages on RoosTech</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 20 Oct 2020 21:24:00 +0200</lastBuildDate><atom:link href="http://blog.roostech.se/tags/github-pages/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Moving from Blogger to GitHub Pages using Hugo</title>
+      <link>http://blog.roostech.se/posts/moving-from-blogger-to-github-pages-with-hugo/</link>
+      <pubDate>Tue, 20 Oct 2020 21:24:00 +0200</pubDate>
+      
+      <guid>http://blog.roostech.se/posts/moving-from-blogger-to-github-pages-with-hugo/</guid>
+      <description>For a while now I have felt that it takes too long time for me to write blog posts. I spend a long time figuring out how to make the post look right, when I should be spending time on the content. In the end this puts me off writing, because I know it will require a lot of effort. Because of that I have now moved the blog from Blogger to GitHub Pages using Hugo as static site generator to make it easier and quicker to write content.</description>
+    </item>
+    
+  </channel>
+</rss>

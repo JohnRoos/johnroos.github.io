@@ -91,6 +91,38 @@ if (!doNotTrack) {
 
         </span>
         <h1 class="blog-post-title">
+            <a class="title" href="/posts/enable-real-time-jmx-monitoring-in-cognos/">Enable real time JMX monitoring in Cognos</a>
+        </h1>
+        <div class="blog-post-body">
+            In Cognos BI its possible to enable JMX to be able to monitor the java engine. What IBM provides is not really what I was looking for. I wanted to be able to use for example VisualVM to see what happens in real time. This is how to enable the regular JMX monitoring in Cognos which comes out of the box with Tomcat.
+  Open the bootstrap file which is located in the following path: %installpath%\Bin64\bootstrap_winx64.
+        </div>
+        <div>
+            <a class="title" href="/posts/enable-real-time-jmx-monitoring-in-cognos/">Read more »</a>
+        </div>
+        <div class="blog-post-meta-bottom">
+            
+                Posted by: John<br />
+            
+            
+                Tags: 
+                        Cognos
+                    
+                        JMX
+                    
+            
+        </div>
+    </div>
+    
+    <div class="blog-post">
+        <span class="blog-post-meta">
+            
+    
+    
+    <time class="postdate" datetime="2014-09-30">Sep 30, 2014</time>
+
+        </span>
+        <h1 class="blog-post-title">
             <a class="title" href="/posts/move-data-or-log-files-for-tempdb-in-sql-server/">Move data or log files for TempDB in SQL Server</a>
         </h1>
         <div class="blog-post-body">
@@ -376,38 +408,6 @@ As long as the header design follows the rest of the design when it comes to col
         </div>
     </div>
     
-    <div class="blog-post">
-        <span class="blog-post-meta">
-            
-    
-    
-    <time class="postdate" datetime="2011-10-28">Oct 28, 2011</time>
-
-        </span>
-        <h1 class="blog-post-title">
-            <a class="title" href="/posts/using-executionlog2-for-statistics-and-monitoring/">Using ExecutionLog2 for statistics and monitoring</a>
-        </h1>
-        <div class="blog-post-body">
-            When developing reports its often nice to be able to see how the reports are doing when deployed into production. The fact that the reports are displaying the correct data is one thing. Are they performing as expected six months later? Do they scale well after the amount of data has increased? Which are the most common reports the users execute? Are there reports no one is using?
-I wanted to write some simple examples of how to use the internal log to get this kind of information about reports.
-        </div>
-        <div>
-            <a class="title" href="/posts/using-executionlog2-for-statistics-and-monitoring/">Read more »</a>
-        </div>
-        <div class="blog-post-meta-bottom">
-            
-                Posted by: John<br />
-            
-            
-                Tags: 
-                        SQL Server
-                    
-                        SSRS
-                    
-            
-        </div>
-    </div>
-    
     <div class='paginator'>
     
 <ul class="pagination">
@@ -426,11 +426,14 @@ I wanted to write some simple examples of how to use the internal log to get thi
   <li class="page-item active">
     <a class="page-link" href="/tags/rdp/page/3/">3</a>
   </li>
-  <li class="page-item disabled">
-    <a  class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+  <li class="page-item">
+    <a class="page-link" href="/tags/rdp/page/4/">4</a>
   </li>
   <li class="page-item">
-    <a href="/tags/rdp/page/3/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+    <a href="/tags/rdp/page/4/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+  </li>
+  <li class="page-item">
+    <a href="/tags/rdp/page/4/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
   </li>
 </ul>
 
@@ -448,6 +451,11 @@ I wanted to write some simple examples of how to use the internal log to get thi
     <div id="recentPosts">
             <div class="recentposts">
                 <div class="recentposts-header">RECENT POSTS</div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo</a></h1>
+                    For a while now I have felt that it takes too long time for me to write blog posts. I spend a long time figuring out how to make the post look right, when I should be spending time on the content. In the end this puts me off ...
+                </div>
             
                 <div class="recent">
                     <h1><a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h1>
@@ -468,11 +476,6 @@ Create t...
                 <div class="recent">
                     <h1><a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h1>
                     To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell...
-                </div>
-            
-                <div class="recent">
-                    <h1><a class="title" href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h1>
-                    Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources ...
                 </div>
             
             </div>

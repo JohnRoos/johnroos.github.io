@@ -80,14 +80,14 @@ if (!doNotTrack) {
 
 <div class="row">
                 <div class="col-sm-9 blog-main section" id="blogposts">
-<div class="blog-post">
-  
+  <div class="blog-post">
+    
     
     
     <time class="postdate" datetime="2012-08-30">Aug 30, 2012</time>
 
-  <h1>Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU</h1>
-  <p>This is for experimenting with RemoteFX in Hyper-V in a lab environment using Windows Server 2012. I wanted to see what I could do with RemoteFX on a slow GPU. To see how far I could get I started off with the Intel HD 2500, which is built into the Intel Core i5 3550 processor (Ivy Bridge). You can go through these steps with any supported hardware, and you probably get better results if you don&rsquo;t use the HD 2500 as I did. If you want to use RemoteFX for gaming you really need a proper GPU.</p>
+    <h1>Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU</h1>
+    <p>This is for experimenting with RemoteFX in Hyper-V in a lab environment using Windows Server 2012. I wanted to see what I could do with RemoteFX on a slow GPU. To see how far I could get I started off with the Intel HD 2500, which is built into the Intel Core i5 3550 processor (Ivy Bridge). You can go through these steps with any supported hardware, and you probably get better results if you don&rsquo;t use the HD 2500 as I did. If you want to use RemoteFX for gaming you really need a proper GPU.</p>
 <p><img src="/images/RemoteFX.png#center" alt="RemoteFX"></p>
 <p>Microsoft recommends an expensive server GPU for RemoteFX, like Nvidia Quadro or ATI FirePro, and that&rsquo;s probably what you want to use in a proper production environment. This article will totally ignore this fact and go for the most low end you can get and see how it goes.</p>
 <h2 id="hardware-requirements-for-hyper-v">Hardware requirements for Hyper-V</h2>
@@ -134,38 +134,39 @@ This is an upgrade compared to 2008 R2 where 9.0c and 10.0 was required. I have 
 <div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">Application Logs\Microsoft\Windows\RemoteDesktopServices-RemoteDesktopSession Manager
 </code></pre></div><p>Now you have enabled RemoteFX in a virtual machine. If you were using a poor GPU like I did first you will notice some poor performance. However, there are a couple of ways to tweak the performance for the GPU, mainly configuring group policies. There are some online resources for this but I might write another article about this later.</p>
 
-  <div class="blog-post-meta-bottom">
+    <div class="blog-post-meta-bottom">
+      
+          Posted by: John<br />
+      
+      
+          Tags: 
+                  PowerShell
+              
+                  RemoteFX
+              
+                  Hyper-V
+              
+      
+    </div>
+
     
-        Posted by: John<br />
-    
-    
-        Tags: 
-                PowerShell
-            
-                RemoteFX
-            
-                Hyper-V
-            
+      <div class="related-posts">
+        
+        
+        <h3>Related posts</h3>
+        <ul>
+          
+          <li><a href="/posts/sqlps-and-its-limitations/">SQLPS and its limitations</a></li>
+          
+        </ul>
+      </div>
+      
     
   </div>
 
   
-    <div class="related-posts">
-      
-      
-      <h3>Related posts</h3>
-      <ul>
-        
-        <li><a href="/posts/sqlps-and-its-limitations/">SQLPS and its limitations</a></li>
-        
-      </ul>
-    </div>
-    
-  
-</div>
-
-
-  <div id="disqus_thread"></div>
+    <div class="disqus-section">
+    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -185,9 +186,8 @@ This is an upgrade compared to 2008 R2 where 9.0c and 10.0 was required. I have 
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-
+    </div>
+  
 
                 </div>
                 <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
@@ -200,6 +200,11 @@ This is an upgrade compared to 2008 R2 where 9.0c and 10.0 was required. I have 
     <div id="recentPosts">
             <div class="recentposts">
                 <div class="recentposts-header">RECENT POSTS</div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo</a></h1>
+                    For a while now I have felt that it takes too long time for me to write blog posts. I spend a long time figuring out how to make the post look right, when I should be spending time on the content. In the end this puts me off ...
+                </div>
             
                 <div class="recent">
                     <h1><a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h1>
@@ -220,11 +225,6 @@ Create t...
                 <div class="recent">
                     <h1><a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h1>
                     To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell...
-                </div>
-            
-                <div class="recent">
-                    <h1><a class="title" href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h1>
-                    Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources ...
                 </div>
             
             </div>

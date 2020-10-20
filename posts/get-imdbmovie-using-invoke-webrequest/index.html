@@ -81,14 +81,14 @@ if (!doNotTrack) {
 
 <div class="row">
                 <div class="col-sm-9 blog-main section" id="blogposts">
-<div class="blog-post">
-  
+  <div class="blog-post">
+    
     
     
     <time class="postdate" datetime="2015-03-04">Mar 4, 2015</time>
 
-  <h1>Get-IMDBmovie using Invoke-WebRequest</h1>
-  <p>Some time ago I was playing around a bit with Invoke-WebRequest and wanted to know a bit more about what I could do with that cmdlet. I ended up creating a cmdlet to get movie information from IMDB.com. I thought I would share how that script since the same principles can be applied in many situations.</p>
+    <h1>Get-IMDBmovie using Invoke-WebRequest</h1>
+    <p>Some time ago I was playing around a bit with Invoke-WebRequest and wanted to know a bit more about what I could do with that cmdlet. I ended up creating a cmdlet to get movie information from IMDB.com. I thought I would share how that script since the same principles can be applied in many situations.</p>
 <div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">PS C:\&gt; Get-ImdbMovie -Title &#39;Star Trek&#39;
 
  Title       : Star Trek Into Darkness
@@ -330,44 +330,49 @@ Directors is a bit more tricky. Its in a tag using the class &ldquo;txt-block&rd
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-  <div class="blog-post-meta-bottom">
+    <div class="blog-post-meta-bottom">
+      
+          Posted by: John<br />
+      
+      
+          Tags: 
+                  PowerShell
+              
+                  Invoke-WebRequest
+              
+                  HTML
+              
+                  Web
+              
+      
+    </div>
+
     
-        Posted by: John<br />
-    
-    
-        Tags: 
-                PowerShell
-            
-                Invoke-WebRequest
-            
+      <div class="related-posts">
+        
+        
+        <h3>Related posts</h3>
+        <ul>
+          
+          <li><a href="/posts/classes-in-powershell-5.0/">Classes in Powershell 5.0</a></li>
+          
+          <li><a href="/posts/how-to-get-started-with-powershell/">How to get started with Powershell</a></li>
+          
+          <li><a href="/posts/powershell-script-find-hotfix-status/">Powershell script: Find hotfix status</a></li>
+          
+          <li><a href="/posts/powershell-script-write-object-to-sql/">Powershell script: Write object to SQL</a></li>
+          
+          <li><a href="/posts/get-type-alternative-for-null-values/">Get-Type alternative for $null values</a></li>
+          
+        </ul>
+      </div>
+      
     
   </div>
 
   
-    <div class="related-posts">
-      
-      
-      <h3>Related posts</h3>
-      <ul>
-        
-        <li><a href="/posts/classes-in-powershell-5.0/">Classes in Powershell 5.0</a></li>
-        
-        <li><a href="/posts/how-to-get-started-with-powershell/">How to get started with Powershell</a></li>
-        
-        <li><a href="/posts/powershell-script-write-object-to-sql/">Powershell script: Write object to SQL</a></li>
-        
-        <li><a href="/posts/powershell-script-find-hotfix-status/">Powershell script: Find hotfix status</a></li>
-        
-        <li><a href="/posts/get-type-alternative-for-null-values/">Get-Type alternative for $null values</a></li>
-        
-      </ul>
-    </div>
-    
-  
-</div>
-
-
-  <div id="disqus_thread"></div>
+    <div class="disqus-section">
+    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -387,9 +392,8 @@ Directors is a bit more tricky. Its in a tag using the class &ldquo;txt-block&rd
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-
+    </div>
+  
 
                 </div>
                 <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
@@ -402,6 +406,11 @@ Directors is a bit more tricky. Its in a tag using the class &ldquo;txt-block&rd
     <div id="recentPosts">
             <div class="recentposts">
                 <div class="recentposts-header">RECENT POSTS</div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo</a></h1>
+                    For a while now I have felt that it takes too long time for me to write blog posts. I spend a long time figuring out how to make the post look right, when I should be spending time on the content. In the end this puts me off ...
+                </div>
             
                 <div class="recent">
                     <h1><a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h1>
@@ -422,11 +431,6 @@ Create t...
                 <div class="recent">
                     <h1><a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h1>
                     To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell...
-                </div>
-            
-                <div class="recent">
-                    <h1><a class="title" href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h1>
-                    Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources ...
                 </div>
             
             </div>

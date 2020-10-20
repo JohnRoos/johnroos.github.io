@@ -81,14 +81,14 @@ if (!doNotTrack) {
 
 <div class="row">
                 <div class="col-sm-9 blog-main section" id="blogposts">
-<div class="blog-post">
-  
+  <div class="blog-post">
+    
     
     
     <time class="postdate" datetime="2014-12-20">Dec 20, 2014</time>
 
-  <h1>Get-Type alternative for $null values</h1>
-  <p>Sometimes its useful to get information about object properties in PowerShell. You might be writing a script where you want to extract information from a series of objects and you need to know what data type a property contains. Often this is not a big problem since you can use the GetType function that most objects have.</p>
+    <h1>Get-Type alternative for $null values</h1>
+    <p>Sometimes its useful to get information about object properties in PowerShell. You might be writing a script where you want to extract information from a series of objects and you need to know what data type a property contains. Often this is not a big problem since you can use the GetType function that most objects have.</p>
 <p>Then you run in to the problem that I had recently: You expect a series of objects and you check the types on the properties and suddenly a few of them doesn&rsquo;t have the function GetType for some reason. What I realized was that if a property is Null then a lot of features for that property doesn&rsquo;t work anymore. I did figure out a workaround for this, even if its not very pretty. I thought I share this in case more people stumble on the same issue.</p>
 <p>So what is the problem? Well, it seems like PowerShell considers a property with a null value to not exist, kind of. Let me do an example with Get-Process.</p>
 <p>Lets start with how it usually works, when there is no problem: Get-Process for Internet Explorer. Get-Process returns one object per process as usual. Lets pick a property that we want to examine. I pick StartTime which I expect is when the process started, but I haven&rsquo;t checked. It doesn&rsquo;t matter what it means for this example.
@@ -141,42 +141,43 @@ I would prefer the first option to use the GetType so why not use that one first
 <p>That&rsquo;s a workaround at least. I know this example with the Idle process is not really close to real life, but the concept is true for a lot of objects. Using Idle was just to prove the point. You can try these commands on your own machine. They should work on any machine, as long as Internet Explorer is running.
 For some reason the custom objects that I have tried this on doesn&rsquo;t work with this workaround. For me it has worked with the objects returned from several built-in cmdlets, so give it a try. It might just work.</p>
 
-  <div class="blog-post-meta-bottom">
+    <div class="blog-post-meta-bottom">
+      
+          Posted by: John<br />
+      
+      
+          Tags: 
+                  PowerShell
+              
+                  Get-Type
+              
+                  Null
+              
+      
+    </div>
+
     
-        Posted by: John<br />
-    
-    
-        Tags: 
-                PowerShell
-            
-                Get-Type
-            
-                Null
-            
+      <div class="related-posts">
+        
+        
+        <h3>Related posts</h3>
+        <ul>
+          
+          <li><a href="/posts/compress-files-to-zip-with-powershell/">Compress files to Zip with Powershell</a></li>
+          
+          <li><a href="/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/">Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU</a></li>
+          
+          <li><a href="/posts/sqlps-and-its-limitations/">SQLPS and its limitations</a></li>
+          
+        </ul>
+      </div>
+      
     
   </div>
 
   
-    <div class="related-posts">
-      
-      
-      <h3>Related posts</h3>
-      <ul>
-        
-        <li><a href="/posts/compress-files-to-zip-with-powershell/">Compress files to Zip with Powershell</a></li>
-        
-        <li><a href="/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/">Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU</a></li>
-        
-        <li><a href="/posts/sqlps-and-its-limitations/">SQLPS and its limitations</a></li>
-        
-      </ul>
-    </div>
-    
-  
-</div>
-
-
-  <div id="disqus_thread"></div>
+    <div class="disqus-section">
+    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -196,9 +197,8 @@ For some reason the custom objects that I have tried this on doesn&rsquo;t work 
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-
+    </div>
+  
 
                 </div>
                 <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
@@ -211,6 +211,11 @@ For some reason the custom objects that I have tried this on doesn&rsquo;t work 
     <div id="recentPosts">
             <div class="recentposts">
                 <div class="recentposts-header">RECENT POSTS</div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo</a></h1>
+                    For a while now I have felt that it takes too long time for me to write blog posts. I spend a long time figuring out how to make the post look right, when I should be spending time on the content. In the end this puts me off ...
+                </div>
             
                 <div class="recent">
                     <h1><a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h1>
@@ -231,11 +236,6 @@ Create t...
                 <div class="recent">
                     <h1><a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h1>
                     To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell...
-                </div>
-            
-                <div class="recent">
-                    <h1><a class="title" href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h1>
-                    Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources ...
                 </div>
             
             </div>

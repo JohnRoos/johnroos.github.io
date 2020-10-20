@@ -80,14 +80,14 @@ if (!doNotTrack) {
 
 <div class="row">
                 <div class="col-sm-9 blog-main section" id="blogposts">
-<div class="blog-post">
-  
+  <div class="blog-post">
+    
     
     
     <time class="postdate" datetime="2017-02-22">Feb 22, 2017</time>
 
-  <h1>Use Edit-Command to discover the code behind built-in cmdlets</h1>
-  <p>Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When you run Get-Command you get all kinds of details about the commands you are looking for. One of the properties in the output is called ScriptBlock. That&rsquo;s where the code is, if its written in PowerShell.</p>
+    <h1>Use Edit-Command to discover the code behind built-in cmdlets</h1>
+    <p>Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When you run Get-Command you get all kinds of details about the commands you are looking for. One of the properties in the output is called ScriptBlock. That&rsquo;s where the code is, if its written in PowerShell.</p>
 <p>Lets take a quick example. First check how many commands are available, and then how many of those have a script block attached to them.</p>
 <div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">PS </span><span class="n">C:</span><span class="p">\&gt;</span> <span class="p">(</span><span class="nb">Get-Command</span><span class="p">).</span><span class="n">count</span>
 <span class="n">1861</span>
@@ -180,52 +180,53 @@ if (!doNotTrack) {
 <span class="p">}</span>
 </code></pre></div><p>This code is also available on <a href="https://github.com/JohnRoos/PowerShell/tree/master/Modules/Edit-Command">GitHub</a>.</p>
 
-  <div class="blog-post-meta-bottom">
+    <div class="blog-post-meta-bottom">
+      
+          Posted by: John<br />
+      
+      
+          Tags: 
+                  PowerShell
+              
+                  Edit-Command
+              
+                  Get started
+              
+                  Get-Command
+              
+                  Get-Verb
+              
+                  PowerShell ISE
+              
+      
+    </div>
+
     
-        Posted by: John<br />
-    
-    
-        Tags: 
-                PowerShell
-            
-                Edit-Command
-            
-                Get started
-            
-                Get-Command
-            
-                Get-Verb
-            
-                PowerShell ISE
-            
+      <div class="related-posts">
+        
+        
+        <h3>Related posts</h3>
+        <ul>
+          
+          <li><a href="/posts/how-to-get-started-with-powershell/">How to get started with Powershell</a></li>
+          
+          <li><a href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></li>
+          
+          <li><a href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></li>
+          
+          <li><a href="/posts/use-powershell-jobs-to-ping-many-from-many-with-log/">Use PowerShell jobs to ping many from many with log</a></li>
+          
+          <li><a href="/posts/powershell-logo-made-with-css3/">PowerShell logo made with CSS3</a></li>
+          
+        </ul>
+      </div>
+      
     
   </div>
 
   
-    <div class="related-posts">
-      
-      
-      <h3>Related posts</h3>
-      <ul>
-        
-        <li><a href="/posts/how-to-get-started-with-powershell/">How to get started with Powershell</a></li>
-        
-        <li><a href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></li>
-        
-        <li><a href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></li>
-        
-        <li><a href="/posts/use-powershell-jobs-to-ping-many-from-many-with-log/">Use PowerShell jobs to ping many from many with log</a></li>
-        
-        <li><a href="/posts/powershell-logo-made-with-css3/">PowerShell logo made with CSS3</a></li>
-        
-      </ul>
-    </div>
-    
-  
-</div>
-
-
-  <div id="disqus_thread"></div>
+    <div class="disqus-section">
+    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -245,9 +246,8 @@ if (!doNotTrack) {
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-
+    </div>
+  
 
                 </div>
                 <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
@@ -260,6 +260,11 @@ if (!doNotTrack) {
     <div id="recentPosts">
             <div class="recentposts">
                 <div class="recentposts-header">RECENT POSTS</div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo</a></h1>
+                    For a while now I have felt that it takes too long time for me to write blog posts. I spend a long time figuring out how to make the post look right, when I should be spending time on the content. In the end this puts me off ...
+                </div>
             
                 <div class="recent">
                     <h1><a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h1>
@@ -280,11 +285,6 @@ Create t...
                 <div class="recent">
                     <h1><a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h1>
                     To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell...
-                </div>
-            
-                <div class="recent">
-                    <h1><a class="title" href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h1>
-                    Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources ...
                 </div>
             
             </div>

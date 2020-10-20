@@ -87,6 +87,47 @@ if (!doNotTrack) {
             
     
     
+    <time class="postdate" datetime="2020-10-20">Oct 20, 2020</time>
+
+        </span>
+        <h1 class="blog-post-title">
+            <a class="title" href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo</a>
+        </h1>
+        <div class="blog-post-body">
+            For a while now I have felt that it takes too long time for me to write blog posts. I spend a long time figuring out how to make the post look right, when I should be spending time on the content. In the end this puts me off writing, because I know it will require a lot of effort. Because of that I have now moved the blog from Blogger to GitHub Pages using Hugo as static site generator to make it easier and quicker to write content.
+        </div>
+        <div>
+            <a class="title" href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Read more »</a>
+        </div>
+        <div class="blog-post-meta-bottom">
+            
+                Posted by: John<br />
+            
+            
+                Tags: 
+                        Hugo
+                    
+                        Blogger
+                    
+                        GitHub Pages
+                    
+                        CSS
+                    
+                        HTML
+                    
+                        JavaScript
+                    
+                        Web
+                    
+            
+        </div>
+    </div>
+    
+    <div class="blog-post">
+        <span class="blog-post-meta">
+            
+    
+    
     <time class="postdate" datetime="2020-05-29">May 29, 2020</time>
 
         </span>
@@ -220,6 +261,8 @@ What&rsquo;s needed is basically a custom header and a cookie.
                         REST
                     
                         Splatting
+                    
+                        Web
                     
             
         </div>
@@ -396,40 +439,6 @@ Let&rsquo;s create a cmdlet to prove this theory. The cmdlet below will simply o
         </div>
     </div>
     
-    <div class="blog-post">
-        <span class="blog-post-meta">
-            
-    
-    
-    <time class="postdate" datetime="2015-07-14">Jul 14, 2015</time>
-
-        </span>
-        <h1 class="blog-post-title">
-            <a class="title" href="/posts/making-powershell-expressions-easier/">Making PowerShell expressions easier</a>
-        </h1>
-        <div class="blog-post-body">
-            Expressions in PowerShell have a weird syntax and can quickly become complicated and hard to read. I thought about a way to make the syntax a bit easier to read and came up with a solution that might work for some cases. This solution contains two classes which can be used when piping to Select-Object for example. The first class describes the actual expression.
-class Xpression { [string]$Name [scriptblock]$Expression [hashtable] getExpression() { return @{ Name = $this.
-        </div>
-        <div>
-            <a class="title" href="/posts/making-powershell-expressions-easier/">Read more »</a>
-        </div>
-        <div class="blog-post-meta-bottom">
-            
-                Posted by: John<br />
-            
-            
-                Tags: 
-                        Classes
-                    
-                        PowerShell
-                    
-                        Expressions
-                    
-            
-        </div>
-    </div>
-    
     <div class='paginator'>
     
 <ul class="pagination">
@@ -449,10 +458,13 @@ class Xpression { [string]$Name [scriptblock]$Expression [hashtable] getExpressi
     <a class="page-link" href="/tags/ssis/page/3/">3</a>
   </li>
   <li class="page-item">
+    <a class="page-link" href="/tags/ssis/page/4/">4</a>
+  </li>
+  <li class="page-item">
     <a href="/tags/ssis/page/2/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
   </li>
   <li class="page-item">
-    <a href="/tags/ssis/page/3/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+    <a href="/tags/ssis/page/4/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
   </li>
 </ul>
 
@@ -470,6 +482,11 @@ class Xpression { [string]$Name [scriptblock]$Expression [hashtable] getExpressi
     <div id="recentPosts">
             <div class="recentposts">
                 <div class="recentposts-header">RECENT POSTS</div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo</a></h1>
+                    For a while now I have felt that it takes too long time for me to write blog posts. I spend a long time figuring out how to make the post look right, when I should be spending time on the content. In the end this puts me off ...
+                </div>
             
                 <div class="recent">
                     <h1><a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h1>
@@ -490,11 +507,6 @@ Create t...
                 <div class="recent">
                     <h1><a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h1>
                     To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell...
-                </div>
-            
-                <div class="recent">
-                    <h1><a class="title" href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h1>
-                    Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources ...
                 </div>
             
             </div>

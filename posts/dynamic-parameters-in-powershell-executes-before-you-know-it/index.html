@@ -81,14 +81,14 @@ if (!doNotTrack) {
 
 <div class="row">
                 <div class="col-sm-9 blog-main section" id="blogposts">
-<div class="blog-post">
-  
+  <div class="blog-post">
+    
     
     
     <time class="postdate" datetime="2015-07-21">Jul 21, 2015</time>
 
-  <h1>Dynamic parameters in PowerShell executes before you know it</h1>
-  <p>When creating script cmdlets in PowerShell you can use dynamic parameters to create some advanced parameters. A few months back I was playing around a bit with dynamic parameters to see how it works and I noticed that the logic for the dynamic parameters is executed as soon as the verb is written in the console within PowerShell ISE.</p>
+    <h1>Dynamic parameters in PowerShell executes before you know it</h1>
+    <p>When creating script cmdlets in PowerShell you can use dynamic parameters to create some advanced parameters. A few months back I was playing around a bit with dynamic parameters to see how it works and I noticed that the logic for the dynamic parameters is executed as soon as the verb is written in the console within PowerShell ISE.</p>
 <p><img src="/images/dynamicparams.jpg#center" alt="Dynamic parameters in PowerShell"></p>
 <p>Let&rsquo;s create a cmdlet to prove this theory. The cmdlet below will simply open a text file in the PowerShell ISE from the folder C:\temp. The advanced parameter will show the available text files in the folder when using the console in PowerShell ISE.</p>
 <div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="k">Function</span> <span class="nb">Open-TextFile</span> <span class="p">{</span>
@@ -161,44 +161,45 @@ if (!doNotTrack) {
 </code></pre></div><p>Now load this cmdlet into memory and then write only &ldquo;open-&rdquo; in the console. Now check the folder c:\temp\ and you will find that a file has been created containing the timestamp for when the code was executed.</p>
 <p>This means that the logic for dynamic parameters are executed at the same time as when the PowerShell ISE is trying to find which cmdlets are matching the verb you have written. I would have thought that the dynamic parameter logic would be executed when I have written the entire name of the cmdlet, but that is not the case.</p>
 
-  <div class="blog-post-meta-bottom">
+    <div class="blog-post-meta-bottom">
+      
+          Posted by: John<br />
+      
+      
+          Tags: 
+                  PowerShell
+              
+                  Parameters
+              
+      
+    </div>
+
     
-        Posted by: John<br />
-    
-    
-        Tags: 
-                PowerShell
-            
-                Parameters
-            
+      <div class="related-posts">
+        
+        
+        <h3>Related posts</h3>
+        <ul>
+          
+          <li><a href="/posts/how-to-use-splatting-in-powershell/">How to use splatting in PowerShell</a></li>
+          
+          <li><a href="/posts/making-powershell-expressions-easier/">Making PowerShell expressions easier</a></li>
+          
+          <li><a href="/posts/simple-select-from-database-with-powershell/">Simple select from database with PowerShell</a></li>
+          
+          <li><a href="/posts/get-imdbmovie-using-invoke-webrequest/">Get-IMDBmovie using Invoke-WebRequest</a></li>
+          
+          <li><a href="/posts/classes-in-powershell-5.0/">Classes in Powershell 5.0</a></li>
+          
+        </ul>
+      </div>
+      
     
   </div>
 
   
-    <div class="related-posts">
-      
-      
-      <h3>Related posts</h3>
-      <ul>
-        
-        <li><a href="/posts/how-to-use-splatting-in-powershell/">How to use splatting in PowerShell</a></li>
-        
-        <li><a href="/posts/making-powershell-expressions-easier/">Making PowerShell expressions easier</a></li>
-        
-        <li><a href="/posts/simple-select-from-database-with-powershell/">Simple select from database with PowerShell</a></li>
-        
-        <li><a href="/posts/get-imdbmovie-using-invoke-webrequest/">Get-IMDBmovie using Invoke-WebRequest</a></li>
-        
-        <li><a href="/posts/classes-in-powershell-5.0/">Classes in Powershell 5.0</a></li>
-        
-      </ul>
-    </div>
-    
-  
-</div>
-
-
-  <div id="disqus_thread"></div>
+    <div class="disqus-section">
+    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -218,9 +219,8 @@ if (!doNotTrack) {
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-
+    </div>
+  
 
                 </div>
                 <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
@@ -233,6 +233,11 @@ if (!doNotTrack) {
     <div id="recentPosts">
             <div class="recentposts">
                 <div class="recentposts-header">RECENT POSTS</div>
+            
+                <div class="recent">
+                    <h1><a class="title" href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo</a></h1>
+                    For a while now I have felt that it takes too long time for me to write blog posts. I spend a long time figuring out how to make the post look right, when I should be spending time on the content. In the end this puts me off ...
+                </div>
             
                 <div class="recent">
                     <h1><a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h1>
@@ -253,11 +258,6 @@ Create t...
                 <div class="recent">
                     <h1><a class="title" href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h1>
                     To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell...
-                </div>
-            
-                <div class="recent">
-                    <h1><a class="title" href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h1>
-                    Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources ...
                 </div>
             
             </div>
