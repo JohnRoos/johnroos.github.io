@@ -6,7 +6,16 @@
     <description>Recent content on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 20 Oct 2020 21:24:00 +0200</lastBuildDate><atom:link href="http://blog.roostech.se/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 29 Oct 2020 21:53:00 +0200</lastBuildDate><atom:link href="http://blog.roostech.se/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Deploy Azure Function App without downtime</title>
+      <link>http://blog.roostech.se/posts/deploy-azure-function-app-without-downtime/</link>
+      <pubDate>Thu, 29 Oct 2020 21:53:00 +0200</pubDate>
+      
+      <guid>http://blog.roostech.se/posts/deploy-azure-function-app-without-downtime/</guid>
+      <description>Deploying a function app without downtime should be standard practice for anyone working with Azure Functions, but it does not come out of the box. It requires an understanding of how function apps gets configured, how deployment slots can help and why warmup does not necessarily mean your solution is up and running. In this post I will go through how this can be achieved using CD-pipelines in Azure DevOps.</description>
+    </item>
+    
     <item>
       <title>Moving from Blogger to GitHub Pages using Hugo</title>
       <link>http://blog.roostech.se/posts/moving-from-blogger-to-github-pages-with-hugo/</link>
