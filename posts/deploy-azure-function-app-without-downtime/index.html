@@ -99,7 +99,7 @@ if (!doNotTrack) {
       </ul>
     </li>
     <li><a href="#create-the-function-app-in-azure">Create the function app in Azure</a></li>
-    <li><a href="#the-function-app-code">The function app code</a>
+    <li><a href="#function-app-code">Function app code</a>
       <ul>
         <li><a href="#status-endpoint">Status endpoint</a></li>
         <li><a href="#profile">Profile</a></li>
@@ -193,7 +193,7 @@ if (!doNotTrack) {
                   <span class="n">-FunctionsVersion</span> <span class="s1">&#39;3&#39;</span> <span class="p">`</span>
                   <span class="n">-OSType</span> <span class="s1">&#39;Windows&#39;</span>
 </code></pre></div><p>Since the function app is running on EP1, don&rsquo;t forget to remove it when you are done. It costs even when you are not using it and even when its turned off.</p>
-<h2 id="the-function-app-code">The function app code</h2>
+<h2 id="function-app-code">Function app code</h2>
 <p>For this scenario I have created a very simple Function App. It contains one HTTP triggered function and a modified profile.</p>
 <h3 id="status-endpoint">Status endpoint</h3>
 <p>When this function (or any function) is triggered the profile will run before the endpoint starts to execute. The status endpoint returns a predefined string. I will update this string during every example to show the difference when a new version is deployed.</p>
