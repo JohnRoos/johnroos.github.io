@@ -88,6 +88,9 @@ if (!doNotTrack) {
     <time class="postdate" datetime="2017-02-21">Feb 21, 2017</time>
 
     <h1>Invoke-RestMethod with anti-forgery tokens in header and cookie</h1>
+    
+    
+    
     <p>To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell cmdlet Invoke-RestMethod. I have seen some people suggesting that Invoke-RestMethod does not have support for this, which is not true. It&rsquo;s just a little bit more complicated than expected.</p>
 <p>What&rsquo;s needed is basically a custom header and a cookie. It’s the last part with the cookie which makes people think that Invoke-RestMethod does not work because it does not support cookies. It does. The header goes into the header parameter as expected, but the cookie need to go into a web session variable which is used for the websession parameter.</p>
 <p>So let&rsquo;s get into the code. First we need the basics, like uri, content type and all that.</p>
@@ -148,6 +151,7 @@ That’s it. Now we can talk to a secure REST API.</p>
  
 <span class="nb">Invoke-RestMethod</span> <span class="nv">@props</span>
 </code></pre></div>
+    
     <div class="blog-post-meta-bottom">
       
           Posted by: John<br />
@@ -219,12 +223,12 @@ That’s it. Now we can talk to a secure REST API.</p>
 
                 </div>
                 <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
-    
+   
     <div class="author">
         <img width="120" height="120" alt="John Roos" src="/img/face.jpg"><br>
         <a title="About John Roos" href="http://blog.roostech.se/about">John Roos</a>
     </div>
-    
+   
     <div id="recentPosts">
             <div class="recentposts">
                 <div class="recentposts-header">RECENT POSTS</div>

@@ -89,6 +89,9 @@ if (!doNotTrack) {
     <time class="postdate" datetime="2014-12-15">Dec 15, 2014</time>
 
     <h1>Compress files to Zip with Powershell</h1>
+    
+    
+    
     <p>I have seen a lot of people writing PowerShell scripts to compress files or folders by using external file compression programs. Often Winrar, 7-Zip or something similar is used since PowerShell does not have any built in cmdlet to do this (not until version 5 at least).</p>
 <p>There is however a pretty simple way of doing this with only PowerShell. This is how.</p>
 <div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># First we add the .Net framework class needed for file compression.</span>
@@ -119,6 +122,7 @@ if (!doNotTrack) {
 <span class="nv">$ziparchive</span><span class="p">.</span><span class="n">Dispose</span><span class="p">()</span>
 </code></pre></div><p>Read more about these features at <a href="http://msdn.microsoft.com/en-us/library/System.IO.Compression(v=vs.110).aspx">MSDN</a>.</p>
 
+    
     <div class="blog-post-meta-bottom">
       
           Posted by: John<br />
@@ -178,12 +182,12 @@ if (!doNotTrack) {
 
                 </div>
                 <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
-    
+   
     <div class="author">
         <img width="120" height="120" alt="John Roos" src="/img/face.jpg"><br>
         <a title="About John Roos" href="http://blog.roostech.se/about">John Roos</a>
     </div>
-    
+   
     <div id="recentPosts">
             <div class="recentposts">
                 <div class="recentposts-header">RECENT POSTS</div>

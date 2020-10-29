@@ -87,6 +87,9 @@ if (!doNotTrack) {
     <time class="postdate" datetime="2017-02-22">Feb 22, 2017</time>
 
     <h1>Use Edit-Command to discover the code behind built-in cmdlets</h1>
+    
+    
+    
     <p>Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When you run Get-Command you get all kinds of details about the commands you are looking for. One of the properties in the output is called ScriptBlock. That&rsquo;s where the code is, if its written in PowerShell.</p>
 <p>Lets take a quick example. First check how many commands are available, and then how many of those have a script block attached to them.</p>
 <div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">PS </span><span class="n">C:</span><span class="p">\&gt;</span> <span class="p">(</span><span class="nb">Get-Command</span><span class="p">).</span><span class="n">count</span>
@@ -180,6 +183,7 @@ if (!doNotTrack) {
 <span class="p">}</span>
 </code></pre></div><p>This code is also available on <a href="https://github.com/JohnRoos/PowerShell/tree/master/Modules/Edit-Command">GitHub</a>.</p>
 
+    
     <div class="blog-post-meta-bottom">
       
           Posted by: John<br />
@@ -251,12 +255,12 @@ if (!doNotTrack) {
 
                 </div>
                 <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
-    
+   
     <div class="author">
         <img width="120" height="120" alt="John Roos" src="/img/face.jpg"><br>
         <a title="About John Roos" href="http://blog.roostech.se/about">John Roos</a>
     </div>
-    
+   
     <div id="recentPosts">
             <div class="recentposts">
                 <div class="recentposts-header">RECENT POSTS</div>

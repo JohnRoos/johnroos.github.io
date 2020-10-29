@@ -88,6 +88,9 @@ if (!doNotTrack) {
     <time class="postdate" datetime="2015-02-01">Feb 1, 2015</time>
 
     <h1>Powershell script: Find hotfix status</h1>
+    
+    
+    
     <p>I was browsing around the requests on the <a href="https://gallery.technet.microsoft.com/scriptcenter/site/requests">Microsoft Script Center</a> the other day and found one request where a user needed a PowerShell script for showing the status of specific hotfixes on multiple machines. I thought it would be a good idea since Get-Hotfix only shows where the hotfix is installed but not directly where its not installed.</p>
 <p>I created a simple small script that would list the patches to check for, along with each server and if its installed or not. The output looks something like this:</p>
 <div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">ComputerName    Hotfix       Status
@@ -102,6 +105,7 @@ server02        KB2923423    Not installed
 <div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="p">.\</span><span class="nb">Find-Hotfix</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Hotfix_FilePath</span> <span class="s1">&#39;c:\hotfixes.txt&#39;</span> <span class="n">-ComputerName_FilePath</span> <span class="s1">&#39;c:\servers.txt&#39;</span>
 </code></pre></div><p>The script can be downloaded from Microsoft Script Center <a href="https://gallery.technet.microsoft.com/Powershell-Find-hotfix-312a7bc2">here</a>.</p>
 
+    
     <div class="blog-post-meta-bottom">
       
           Posted by: John<br />
@@ -163,12 +167,12 @@ server02        KB2923423    Not installed
 
                 </div>
                 <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
-    
+   
     <div class="author">
         <img width="120" height="120" alt="John Roos" src="/img/face.jpg"><br>
         <a title="About John Roos" href="http://blog.roostech.se/about">John Roos</a>
     </div>
-    
+   
     <div id="recentPosts">
             <div class="recentposts">
                 <div class="recentposts-header">RECENT POSTS</div>

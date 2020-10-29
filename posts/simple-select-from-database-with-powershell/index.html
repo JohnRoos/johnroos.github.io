@@ -87,6 +87,9 @@ if (!doNotTrack) {
     <time class="postdate" datetime="2015-07-14">Jul 14, 2015</time>
 
     <h1>Simple select from database with PowerShell</h1>
+    
+    
+    
     <p>There are a few ways of getting data from SQL Server in PowerShell. This is one way of doing it which is quite simple and does not require the SQL Server module. The sample below shows how to get started. If you are planning on creating a script for serious use you need to add error handling and investigate a bit more what each line actually does so that you are in full control. Note that this is only for select statements. Insert, update and delete works slightly different, but I might get to that in the future.</p>
 <p>To get started I have added three variables which you can use to adapt to your environment.</p>
 <div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$server</span>   <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
@@ -142,6 +145,7 @@ if (!doNotTrack) {
 <span class="c"># Print amount of rows to screen (optional)</span>
 <span class="nb">Write-Host</span> <span class="s2">&#34;Rows returned: $rowCount&#34;</span>
 </code></pre></div>
+    
     <div class="blog-post-meta-bottom">
       
           Posted by: John<br />
@@ -205,12 +209,12 @@ if (!doNotTrack) {
 
                 </div>
                 <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
-    
+   
     <div class="author">
         <img width="120" height="120" alt="John Roos" src="/img/face.jpg"><br>
         <a title="About John Roos" href="http://blog.roostech.se/about">John Roos</a>
     </div>
-    
+   
     <div id="recentPosts">
             <div class="recentposts">
                 <div class="recentposts-header">RECENT POSTS</div>

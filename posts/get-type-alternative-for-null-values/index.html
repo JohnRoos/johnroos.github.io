@@ -88,6 +88,9 @@ if (!doNotTrack) {
     <time class="postdate" datetime="2014-12-20">Dec 20, 2014</time>
 
     <h1>Get-Type alternative for $null values</h1>
+    
+    
+    
     <p>Sometimes its useful to get information about object properties in PowerShell. You might be writing a script where you want to extract information from a series of objects and you need to know what data type a property contains. Often this is not a big problem since you can use the GetType function that most objects have.</p>
 <p>Then you run in to the problem that I had recently: You expect a series of objects and you check the types on the properties and suddenly a few of them doesn&rsquo;t have the function GetType for some reason. What I realized was that if a property is Null then a lot of features for that property doesn&rsquo;t work anymore. I did figure out a workaround for this, even if its not very pretty. I thought I share this in case more people stumble on the same issue.</p>
 <p>So what is the problem? Well, it seems like PowerShell considers a property with a null value to not exist, kind of. Let me do an example with Get-Process.</p>
@@ -141,6 +144,7 @@ I would prefer the first option to use the GetType so why not use that one first
 <p>That&rsquo;s a workaround at least. I know this example with the Idle process is not really close to real life, but the concept is true for a lot of objects. Using Idle was just to prove the point. You can try these commands on your own machine. They should work on any machine, as long as Internet Explorer is running.
 For some reason the custom objects that I have tried this on doesn&rsquo;t work with this workaround. For me it has worked with the objects returned from several built-in cmdlets, so give it a try. It might just work.</p>
 
+    
     <div class="blog-post-meta-bottom">
       
           Posted by: John<br />
@@ -202,12 +206,12 @@ For some reason the custom objects that I have tried this on doesn&rsquo;t work 
 
                 </div>
                 <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
-    
+   
     <div class="author">
         <img width="120" height="120" alt="John Roos" src="/img/face.jpg"><br>
         <a title="About John Roos" href="http://blog.roostech.se/about">John Roos</a>
     </div>
-    
+   
     <div id="recentPosts">
             <div class="recentposts">
                 <div class="recentposts-header">RECENT POSTS</div>

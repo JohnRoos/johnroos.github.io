@@ -88,6 +88,9 @@ if (!doNotTrack) {
     <time class="postdate" datetime="2020-03-11">Mar 11, 2020</time>
 
     <h1>Create and use Azure Table storage with PowerShell</h1>
+    
+    
+    
     <p>Azure Table storage is a quick and easy way to store data in the cloud. If you have an Azure subscription you can play around with you are up and running within minutes. Here is a short example on how to get started.</p>
 <h2 id="create-table">Create table</h2>
 <p>To create an Azure Table we need to first have a resource group. Lets create one that is called &ldquo;MyAwesomeResourceGroup&rdquo; and place it in &ldquo;West Europe&rdquo;. When the resource group is created we need to create a storage account. In this example I have set it to use locally redundant storage since its cheap and for lab purposes.</p>
@@ -137,6 +140,7 @@ if (!doNotTrack) {
 <span class="nb">Remove-AzTableRow</span> <span class="n">-entity</span> <span class="nv">$rows</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span>
 </code></pre></div><p>Thats it. This is a very quick introduction to how to create a table and manage the data in it.</p>
 
+    
     <div class="blog-post-meta-bottom">
       
           Posted by: John<br />
@@ -200,12 +204,12 @@ if (!doNotTrack) {
 
                 </div>
                 <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
-    
+   
     <div class="author">
         <img width="120" height="120" alt="John Roos" src="/img/face.jpg"><br>
         <a title="About John Roos" href="http://blog.roostech.se/about">John Roos</a>
     </div>
-    
+   
     <div id="recentPosts">
             <div class="recentposts">
                 <div class="recentposts-header">RECENT POSTS</div>

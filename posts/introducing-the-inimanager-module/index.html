@@ -87,6 +87,9 @@ if (!doNotTrack) {
     <time class="postdate" datetime="2016-04-23">Apr 23, 2016</time>
 
     <h1>Introducing the IniManager module</h1>
+    
+    
+    
     <p>Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources to contain as little code as possible I prefer to create cmdlets outside of the resource which I can call from within the resource. In this way I can also use the cmdlets in scripts and the console which is a nice bonus.</p>
 <p>I also wanted to be able to use both strings and hash tables as input depending on my needs. In this way I would be able to create very dynamic resources and if I need more static resources I can always create composite resources. I ended up with a module which contains seven cmdlets to create, modify and verify ini files.</p>
 <p>The IniManager module contains the following cmdlets:</p>
@@ -164,6 +167,7 @@ ImportPath  NoteProperty string ImportPath=c:\import
 </code></pre></div><h2 id="where-to-download">Where to download</h2>
 <p>This module is available in the <a href="https://www.powershellgallery.com/packages/IniManager">PowerShell Gallery</a> and <a href="https://gallery.technet.microsoft.com/scriptcenter/IniManager-2eb8cafd">Microsoft Script Center</a>. If you would like to see more examples, report a bug or contribute with more features, you can visit <a href="https://github.com/JohnRoos/PowerShell">my GitHub repository</a>.</p>
 
+    
     <div class="blog-post-meta-bottom">
       
           Posted by: John<br />
@@ -231,12 +235,12 @@ ImportPath  NoteProperty string ImportPath=c:\import
 
                 </div>
                 <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
-    
+   
     <div class="author">
         <img width="120" height="120" alt="John Roos" src="/img/face.jpg"><br>
         <a title="About John Roos" href="http://blog.roostech.se/about">John Roos</a>
     </div>
-    
+   
     <div id="recentPosts">
             <div class="recentposts">
                 <div class="recentposts-header">RECENT POSTS</div>

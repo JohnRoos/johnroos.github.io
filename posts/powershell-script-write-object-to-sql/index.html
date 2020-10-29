@@ -87,6 +87,9 @@ if (!doNotTrack) {
     <time class="postdate" datetime="2015-02-01">Feb 1, 2015</time>
 
     <h1>Powershell script: Write object to SQL</h1>
+    
+    
+    
     <p>A while ago I was playing around with PowerShell, gathering information from a lot of servers and I felt that I needed to have a simple way of storing that information in a database. I could have written my own T-SQL statements for creating the tables and then do the inserts in the powerShell scripts I was playing around with. But that felt like it would just take time so I started to think about a function that would just accept any object and do the magic of creating a table and then inserting anything I piped to it.</p>
 <p>I wrote a <a href="https://gallery.technet.microsoft.com/Write-object-to-database-7be1d3c5">script cmdlet</a> for this and I called it Write-ObjectToSQL. I don&rsquo;t like the name, but I haven&rsquo;t come up with anything better for now.</p>
 <p><img src="/images/writeobjecttosql01.jpg#center" alt="Verbose output from Write-ObjectToSQL"></p>
@@ -109,6 +112,7 @@ if (!doNotTrack) {
 </code></pre></div><p><img src="/images/writeobjecttosql04.jpg#center" alt="Console output: Rows inserted over time"></p>
 <p>The script can be downloaded from Microsoft Script Center <a href="https://gallery.technet.microsoft.com/Write-object-to-database-7be1d3c5">here</a>. I also have a project running on <a href="https://github.com/JohnRoos/PowerShell/tree/master/Modules/Write-ObjectToSQL">GitHub</a>. If you are using PowerShell 5.0 its available in the <a href="https://www.powershellgallery.com/packages/Write-ObjectToSQL/">PowerShell Gallery</a> as well.</p>
 
+    
     <div class="blog-post-meta-bottom">
       
           Posted by: John<br />
@@ -180,12 +184,12 @@ if (!doNotTrack) {
 
                 </div>
                 <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
-    
+   
     <div class="author">
         <img width="120" height="120" alt="John Roos" src="/img/face.jpg"><br>
         <a title="About John Roos" href="http://blog.roostech.se/about">John Roos</a>
     </div>
-    
+   
     <div id="recentPosts">
             <div class="recentposts">
                 <div class="recentposts-header">RECENT POSTS</div>
