@@ -1,155 +1,225 @@
 <!DOCTYPE html>
 <html lang="en"><head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/css/syntax.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    
-    
-    <title>RoosTech | HTML</title>
-    <meta name="description" content="A blog about PowerShell, automation and technology in general."/>
-    
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-35019756-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-
 </head><body>
         <div class="container">
+<input class="explorer-toggle" type="checkbox" id="explorer-toggle" checked>
+<label class="explorer-toggle-label" for="explorer-toggle"><div class="explorer-toggle-label-clickablearea"></div></label>
 
-<nav class="navbar navbar-expand-lg navbar-dark ">
-    <a class="navbar-brand" href="/">
-        <div class="logo">RoosTech.se</div>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-   
+<div class="explorer-toggle-label-selection"></div>
 
+<div class="left-menu-button-bar"></div>
 
-        
-        
-            
-              <li class="nav-item ">
-                <a class="nav-link" href="/"> Home</a>
-              </li>
-            
-        
-            
-              <li class="nav-item ">
-                <a class="nav-link" href="/gists/"> Gists</a>
-              </li>
-            
-        
-            
-              <li class="nav-item ">
-                <a class="nav-link" href="/parameter-validation/"> Parameter validation</a>
-              </li>
-            
-        
-
-      </ul>
-
-      <ul class="navbar-nav mr-right">
-
-        
-        
-            
-                <li class="nav-item navbar-right ">
-                <a class="nav-link" href="/about/"> About me</a>
+<diV class='left-menu'>
+    
+    <ul class="root">
+        <li class="root"><span class="rotate-letter">></span><span class="menu-item"><a class="menu-item-site" href="http://blog.roostech.se/">blog.roostech.se (HUGOVSCODE)</a></span>
+            <ul>  
+                <li><span class="rotate-letter">></span><span class="menu-item">content</span>
+                    <ul>
+                        <li><span class="rotate-letter">></span><span class="menu-item">posts</span>
+                            <ul>
+                                
+                                <li ><a href="/posts/deploy-azure-function-app-without-downtime/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Deploy Azure Function App without downtime.md</span></a></li>
+                                
+                                <li ><a href="/posts/moving-from-blogger-to-github-pages-with-hugo/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Moving from Blogger to GitHub Pages using Hugo.md</span></a></li>
+                                
+                                <li ><a href="/posts/pester-5-discovery-and-testcases/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Pester 5: Discovery and TestCases.md</span></a></li>
+                                
+                                <li ><a href="/posts/create-and-use-azure-table-storage-with-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Create and use Azure Table storage with PowerShell.md</span></a></li>
+                                
+                                <li ><a href="/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Use Edit-Command to discover the code behind built-in cmdlets.md</span></a></li>
+                                
+                                <li ><a href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Invoke-RestMethod with anti-forgery tokens in header and cookie.md</span></a></li>
+                                
+                                <li ><a href="/posts/introducing-the-inimanager-module/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Introducing the IniManager module.md</span></a></li>
+                                
+                                <li ><a href="/posts/use-powershell-jobs-to-ping-many-from-many-with-log/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Use PowerShell jobs to ping many from many with log.md</span></a></li>
+                                
+                                <li ><a href="/posts/powershell-logo-made-with-css3/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">PowerShell logo made with CSS3.md</span></a></li>
+                                
+                                <li ><a href="/posts/what-is-this-here-string-people-are-talking-about/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">What is this here-string people are talking about?.md</span></a></li>
+                                
+                                <li ><a href="/posts/dynamic-parameters-in-powershell-executes-before-you-know-it/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Dynamic parameters in PowerShell executes before you know it.md</span></a></li>
+                                
+                                <li ><a href="/posts/making-powershell-expressions-easier/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Making PowerShell expressions easier.md</span></a></li>
+                                
+                                <li ><a href="/posts/simple-select-from-database-with-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Simple select from database with PowerShell.md</span></a></li>
+                                
+                                <li ><a href="/posts/how-to-use-splatting-in-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">How to use splatting in PowerShell.md</span></a></li>
+                                
+                                <li ><a href="/posts/get-imdbmovie-using-invoke-webrequest/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Get-IMDBmovie using Invoke-WebRequest.md</span></a></li>
+                                
+                                <li ><a href="/posts/classes-in-powershell-5.0/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Classes in Powershell 5.0.md</span></a></li>
+                                
+                                <li ><a href="/posts/how-to-get-started-with-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">How to get started with Powershell.md</span></a></li>
+                                
+                                <li ><a href="/posts/powershell-script-find-hotfix-status/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Powershell script: Find hotfix status.md</span></a></li>
+                                
+                                <li ><a href="/posts/powershell-script-write-object-to-sql/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Powershell script: Write object to SQL.md</span></a></li>
+                                
+                                <li ><a href="/posts/get-type-alternative-for-null-values/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Get-Type alternative for $null values.md</span></a></li>
+                                
+                                <li ><a href="/posts/compress-files-to-zip-with-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Compress files to Zip with Powershell.md</span></a></li>
+                                
+                                <li ><a href="/posts/enable-real-time-jmx-monitoring-in-cognos/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Enable real time JMX monitoring in Cognos.md</span></a></li>
+                                
+                                <li ><a href="/posts/move-data-or-log-files-for-tempdb-in-sql-server/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Move data or log files for TempDB in SQL Server.md</span></a></li>
+                                
+                                <li ><a href="/posts/resources-for-remotefx-in-windows-server-2012/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Resources for RemoteFX in Windows Server 2012.md</span></a></li>
+                                
+                                <li ><a href="/posts/rdp-8.0-for-windows-7-sp1/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">RDP 8.0 for Windows 7 SP1.md</span></a></li>
+                                
+                                <li ><a href="/posts/improving-remotefx-performance-in-hyper-v/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Improving RemoteFX performance in Hyper-V.md</span></a></li>
+                                
+                                <li ><a href="/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU.md</span></a></li>
+                                
+                                <li ><a href="/posts/sqlps-and-its-limitations/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">SQLPS and its limitations.md</span></a></li>
+                                
+                                <li ><a href="/posts/script-deployment-of-ssis-packages-from-folder/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Script deployment of SSIS packages from folder.md</span></a></li>
+                                
+                                <li ><a href="/posts/dynamic-deploy-of-ssrs-reports-using-rs.exe/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Dynamic deploy of SSRS reports using rs.exe.md</span></a></li>
+                                
+                                <li ><a href="/posts/remove-headers-in-excel-exports-to-fix-column-alignment/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Remove headers in Excel exports to fix column alignment.md</span></a></li>
+                                
+                                <li ><a href="/posts/using-executionlog2-for-statistics-and-monitoring/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Using ExecutionLog2 for statistics and monitoring.md</span></a></li>
+                                
+                            </ul>
+                        </li>
+                        <li><span class="rotate-letter">></span><span class="menu-item">pages</span>
+                            <ul>
+                                
+                                <li ><a href="/about/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">About me.md</span></a></li>
+                                
+                                <li ><a href="/gists/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Gists.md</span></a></li>
+                                
+                                <li ><a href="/parameter-validation/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Parameter Validation.md</span></a></li>
+                                
+                            </ul>
+                        </li>
+                    </ul>
                 </li>
-            
+                <li>><span class="menu-item">data</span></li>
+                <li>><span class="menu-item">layouts</span></li>
+                <li>><span class="menu-item">resources</span></li>
+                <li>><span class="menu-item">static</span></li>
+                <li>><span class="menu-item">themes</span></li>
+                <li>config.toml</li>
+            </ul>
+        </li>
+    </ul>
+  
+
+    
+</diV><div class='main'>
+     
+     
+     
+    
+     
+    
+     
+    
+     
+    
+     
+    
+    
         
-
         
-      </ul>
-    </div>
-  </nav>
-
-<div class="row">
-                <div class="col-sm-9 blog-main section" id="blogposts">
-    
-    
-    <div class="blog-post">
-        <span class="blog-post-meta">
-            
-    
-    
-    <time class="postdate" datetime="2011-12-14">Dec 14, 2011</time>
-
-        </span>
-        <h1 class="blog-post-title">
-            <a class="title" href="/posts/remove-headers-in-excel-exports-to-fix-column-alignment/">Remove headers in Excel exports to fix column alignment</a>
-        </h1>
-        <div class="blog-post-body">
-            Reports with headers in Reporting Services works great as long as you are just rendering the reports in HTML. If you would try to export the report to Excel you might stumble into some problems.
-As long as the header design follows the rest of the design when it comes to columns you could be fine. However, often headers contain very different information and design than the actual content of the report and column alignment might in these cases become a problem.
-        </div>
-        <div>
-            <a class="title" href="/posts/remove-headers-in-excel-exports-to-fix-column-alignment/">Read more »</a>
-        </div>
-        <div class="blog-post-meta-bottom">
-            
-                Posted by: John<br />
-            
-            
-                Tags: 
-                        SQL Server
-                    
-                        SSRS
-                    
-                        Excel
-                    
-            
+    <div class="main-tabs">
+        <div class="main-tabs-scroll">
+            <div class="main-tabs-table">
+                <div class ="main-tabs-row">
+                    <div class="main-tab current">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/">Home.md</a> 
+                    </div>
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/deploy-azure-function-app-without-downtime/">Deploy Azure Function App without downtime.md</a>
+                    </div>
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo.md</a>
+                    </div>
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases.md</a>
+                    </div>
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/create-and-use-azure-table-storage-with-powershell/">Create and use Azure Table storage with PowerShell.md</a>
+                    </div>
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/">Use Edit-Command to discover the code behind built-in cmdlets.md</a>
+                    </div>
+                
+                </div>
+            </div>
         </div>
     </div>
-    
-    <div class="blog-post">
-        <span class="blog-post-meta">
+        <div class="main-path">
             
-    
-    
-    <time class="postdate" datetime="2011-10-28">Oct 28, 2011</time>
+            <a class="path-link" href="http://blog.roostech.se/">blog.roostech.se</a> > content > Home.md
+        </div>
+        <div class="main-content-toggle">
 
-        </span>
-        <h1 class="blog-post-title">
-            <a class="title" href="/posts/using-executionlog2-for-statistics-and-monitoring/">Using ExecutionLog2 for statistics and monitoring</a>
-        </h1>
-        <div class="blog-post-body">
-            When developing reports its often nice to be able to see how the reports are doing when deployed into production. The fact that the reports are displaying the correct data is one thing. Are they performing as expected six months later? Do they scale well after the amount of data has increased? Which are the most common reports the users execute? Are there reports no one is using?
-I wanted to write some simple examples of how to use the internal log to get this kind of information about reports.
-        </div>
-        <div>
-            <a class="title" href="/posts/using-executionlog2-for-statistics-and-monitoring/">Read more »</a>
-        </div>
-        <div class="blog-post-meta-bottom">
-            
-                Posted by: John<br />
-            
-            
-                Tags: 
-                        SQL Server
+            <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
+            <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
+
+            <input class="source-toggle" type="checkbox" id="source-toggle">
+            <label class="source-toggle-label" for="source-toggle"></label>
+
+            <div class="main-content">
+                ---<br />
+                <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Home.md</span><br />
+                <span class="md-frontmatter">date</span>: 2020-11-16 00:00:00+02:00<br />
+                <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
+                ----
+                
+                
+                     
                     
-                        SSRS
+                <h2><a href="/posts/remove-headers-in-excel-exports-to-fix-column-alignment/">Remove headers in Excel exports to fix column alignment</a></h2>
+                        <p>Reports with headers in Reporting Services works great as long as you are just rendering the reports in HTML. If you would try to export the report to Excel you might stumble into some problems.
+As long as the header design follows the rest of the design when it comes to columns you could be fine. However, often headers contain very different information and design than the actual content of the report and column alignment might in these cases become a problem.</p> 
+                        
+                                              
                     
-            
-        </div>
-    </div>
-    
-    <div class='paginator'>
-    
+                     
+                    
+                <h2><a href="/posts/using-executionlog2-for-statistics-and-monitoring/">Using ExecutionLog2 for statistics and monitoring</a></h2>
+                        <p>When developing reports its often nice to be able to see how the reports are doing when deployed into production. The fact that the reports are displaying the correct data is one thing. Are they performing as expected six months later? Do they scale well after the amount of data has increased? Which are the most common reports the users execute? Are there reports no one is using?
+I wanted to write some simple examples of how to use the internal log to get this kind of information about reports.</p> 
+                        
+                                              
+                    
+                
+
+            </div>
+
+            <div class="main-content-preview">
+                
+                     
+                    
+                        <h2><a href="/posts/remove-headers-in-excel-exports-to-fix-column-alignment/">Remove headers in Excel exports to fix column alignment</a></h2>
+                        <p>Reports with headers in Reporting Services works great as long as you are just rendering the reports in HTML. If you would try to export the report to Excel you might stumble into some problems.
+As long as the header design follows the rest of the design when it comes to columns you could be fine. However, often headers contain very different information and design than the actual content of the report and column alignment might in these cases become a problem.</p>                        
+                    
+                     
+                    
+                        <h2><a href="/posts/using-executionlog2-for-statistics-and-monitoring/">Using ExecutionLog2 for statistics and monitoring</a></h2>
+                        <p>When developing reports its often nice to be able to see how the reports are doing when deployed into production. The fact that the reports are displaying the correct data is one thing. Are they performing as expected six months later? Do they scale well after the amount of data has increased? Which are the most common reports the users execute? Are there reports no one is using?
+I wanted to write some simple examples of how to use the internal log to get this kind of information about reports.</p>                        
+                    
+                
+
+                <div class="internal-pagination">
+                    
 <ul class="pagination">
   <li class="page-item">
     <a href="/tags/html/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
@@ -178,61 +248,13 @@ I wanted to write some simple examples of how to use the internal log to get thi
 </ul>
 
 
-    </div>
-
-                </div>
-                <div class="col-sm-3 col-sm-offset0 blog-sidebar section" id="sidebar"><div id="sidebar">
-   
-    <div class="author">
-        <img width="120" height="120" alt="John Roos" src="/img/face.jpg"><br>
-        <a title="About John Roos" href="http://blog.roostech.se/about">John Roos</a>
-    </div>
-   
-    <div id="recentPosts">
-            <div class="recentposts">
-                <div class="recentposts-header">RECENT POSTS</div>
-            
-                <div class="recent">
-                    <h1><a class="title" href="/posts/deploy-azure-function-app-without-downtime/">Deploy Azure Function App without downtime</a></h1>
-                    Deploying a function app without downtime should be standard practice for anyone working with Azure Functions, but it does not come out of the box. It requires an understanding of how function apps gets configured, how deploy...
-                </div>
-            
-                <div class="recent">
-                    <h1><a class="title" href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo</a></h1>
-                    For a while now I have felt that it takes too long time for me to write blog posts. I spend a long time figuring out how to make the post look right, when I should be spending time on the content. In the end this puts me off ...
-                </div>
-            
-                <div class="recent">
-                    <h1><a class="title" href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h1>
-                    Pester 5 was released a couple of days ago which brings a lot of new features and changes to how we write tests. One of the major changes in Pester 5 is the Discovery phase. In this post I will attempt to explain how Discover...
-                </div>
-            
-                <div class="recent">
-                    <h1><a class="title" href="/posts/create-and-use-azure-table-storage-with-powershell/">Create and use Azure Table storage with PowerShell</a></h1>
-                    Azure Table storage is a quick and easy way to store data in the cloud. If you have an Azure subscription you can play around with you are up and running within minutes. Here is a short example on how to get started.
-Create t...
-                </div>
-            
-                <div class="recent">
-                    <h1><a class="title" href="/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/">Use Edit-Command to discover the code behind built-in cmdlets</a></h1>
-                    Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When y...
-                </div>
-            
+                </div>    
             </div>
-    </div>
-
-</div></div>
-            </div>
-            <footer class="footer"><div class="feet">
-<p class="footer text-center">Copyright (c) 2020 John Roos</p>
-</div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-</footer>
         </div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-</body>
+        
+
+
+            </div>
+        </div>
+    </body>
 </html>
