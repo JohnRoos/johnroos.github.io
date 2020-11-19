@@ -18,12 +18,13 @@ html, body {
 }
 
 .left-menu {
-    visibility: collapse;
+    visibility: hidden;
     position: relative;
     display: table-cell;
     table-layout: fixed;
     width: 100%;
-    margin-left: 50px;
+    /*margin-left: 50px;*/
+    margin-left: 0px;
     background-color: #252526;
     color: #cccccc;
     height: 0px;
@@ -37,6 +38,7 @@ html, body {
 
 @media screen and (min-width: 800px) { 
     .left-menu { 
+        margin-left: 50px;
         position: fixed;
         left: 0px;
         width: 375px;
@@ -46,14 +48,15 @@ html, body {
 }
 
 .left-menu-button-bar {
-    position: fixed;
-    width: 50px;
-    height: 100%;
-    background-color: #333333;
+    visibility: hidden;
 }
 
 @media screen and (min-width: 800px) { 
-    .left-menu-button-bar { 
+    .left-menu-button-bar {
+        width: 50px;
+        height: 100%;
+        background-color: #333333; 
+        visibility: visible;
         position: fixed;
         height: 100%
     } 
@@ -104,32 +107,17 @@ li.current {
     padding-left: 15px;
     font-size: 13px;
     font-family: "Segoe WPC", "Segoe UI";
-    /*cursor: pointer;
-    -webkit-user-select: none; 
-    -moz-user-select: none; 
-    -ms-user-select: none; 
-    user-select: none;*/
 }
 
 .left-menu li {
     line-height: 22px;
     white-space: nowrap;
-    /*overflow: hidden;*/
     text-overflow: ellipsis;
     border-left: 1px #444 solid;
     margin-left: -13px;
     padding-left: 7px
 }
 
-/*
-.left-menu ul::before {
-    /*content: "\25B6";   
-    content: "∨";
-    color: #C9D4D4;
-    display: inline-block;
-    margin-right: 6px;
-  }
-*/
 .rotate-letter {
     float:left;
     -webkit-transform: rotate(90deg);
@@ -155,7 +143,8 @@ li.current {
     float: left;
     display: table-cell;
     margin: 0px;
-    padding-left: 50px;
+    /*padding-left: 50px;*/
+    padding-left: 0px;
     width: auto;
     height: auto;
 }
@@ -170,7 +159,6 @@ li.current {
 
 .main-path {
     position: relative;
-    width: 100%;
     height: 20px;
     font-family: "Segoe WPC", "Segoe UI";
     font-size: 13px;
@@ -180,6 +168,7 @@ li.current {
     background-color: #1E1E1E;
     border-bottom: #111111 2px solid;
     z-index: 100;
+    overflow-x: hidden;
 }
 
 .path-link {
@@ -190,6 +179,7 @@ li.current {
 @media screen and (min-width: 800px) { 
     .main-path { 
         position: fixed;
+        overflow-x: unset;
     } 
 }
 
@@ -205,14 +195,13 @@ li.current {
     font-size: 13px;
     padding-left: 0px;  
     box-sizing: border-box;
-    float: left;
-    /*overflow: hidden;*/   
+    float: left;  
     z-index: 100;
 }
 
 @media screen and (min-width: 800px) { 
     .main-tabs {
-        float: none; 
+        float: unset;
         position: fixed;
     } 
 }
@@ -255,7 +244,6 @@ li.current {
 
 .main-tab {
     display: none;
-    /*float: left;*/
     padding-left: 20px;
     padding-right: 40px;
     background-color: #2D2D2D;
@@ -274,9 +262,7 @@ li.current {
 .main-tab a {
     color: #cccccc;
     text-decoration: none;
-    white-space: nowrap;
-    /*overflow: hidden;
-    text-overflow: ellipsis;*/    
+    white-space: nowrap;  
 }
 
 .main-tab.current {
@@ -286,20 +272,19 @@ li.current {
 
 /* tabs */
 
-
 .main-content-toggle {
     display: flex;
     width: 100%;
     height: 100%;
     padding-left: 0px;  
-    margin-top: 55px;
-    padding-top: 5px;
-    padding-left: 5px;
+    padding-top: 0px;
+    padding-left: 0px;
 }
 
 @media screen and (min-width: 800px) { 
     .main-content-toggle {
         width: auto;
+        margin-top: 55px;
         padding-left: 0px;
     } 
 }
@@ -309,11 +294,6 @@ li.current {
     font-family: Consolas, "Courier New", monospace;;
     width: 100%;
     height: 100%;
-/*    padding-top: 5px;
-    padding-right: 20px;
-    padding-bottom: 20px;
-    padding-left: 395px;  
-    margin-top: 55px;*/
     line-height: 19px;
     padding-top: 5px;
     padding-right: 20px;
@@ -445,15 +425,11 @@ li.current {
     color: #C9D4D4;
     width: 100%;
     height: 100%;
-/*    padding-top: 5px;
-    padding-right: 20px;
-    padding-bottom: 20px;
-    padding-left: 395px;  
-    margin-top: 55px;*/
     line-height: 19px;
     padding-top: 5px;
-    padding-right: 20px;
     padding-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 
@@ -463,6 +439,7 @@ li.current {
         
         max-width: 1000px;
         padding-left: 20px;
+        padding-right: 20px;
     } 
 }
 
@@ -523,8 +500,6 @@ li.current {
 
 
 /* Syntax highlight */
-
-
 
 /* PowerShell */
 .language-powershell { 
@@ -615,26 +590,10 @@ code[class|='language']::before {
     display: none;
 }
 
-/*
-.source-toggle-label::before {
-    content: "";
-    color: #C9D4D4;
-    margin: 0 .2em 0 0;
-    float: left;
-    width: 1em;
-    height: 1em;
-    background: #2D2D2D;
-    border: 1px solid #222;
-    border-radius: 3px;
-}
-*/
-
 .source-toggle-label {
-    /*display: block;*/ 
     display: none;
     position: absolute;
     right: 50px;
-    /*float: right;*/
     font-family: "Segoe WPC", "Segoe UI";
     font-size: 13px;
     margin: 1px;
@@ -670,12 +629,6 @@ code[class|='language']::before {
     } 
 }
 
-/*
-.source-toggle:checked + .source-toggle-label::before {
-    content: "✓";
-}
-*/
-
 .source-toggle:checked + .source-toggle-label::after {
     content: "===\00000a===";
     line-height: 7px;
@@ -691,12 +644,6 @@ code[class|='language']::before {
 
 /* Split view toggle */
 
-/*
-<input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
-<label class="source-preview-split-label" for="source-preview-split-toggle"></label>
-*/
-
-
 .source-preview-split {
     display: none;
 }
@@ -705,11 +652,8 @@ code[class|='language']::before {
 .source-preview-split-label {
     display: none;
     color: #777777;
-    /*display: block;*/ 
     position: absolute;
     right: 10px;
-    
-    /*float: right;*/
     margin-top: 5px;
     margin-right: 10px;
     margin-bottom: 1px;
@@ -744,19 +688,12 @@ code[class|='language']::before {
 
 
 .source-preview-split:checked + .source-preview-split-label::before {
-    /*content: "Normal view";*/
     border-right: none;
 }
 
 .source-preview-split-label:hover {
     cursor: pointer;
 }
-
-/*
-.source-preview-split:checked + .source-toggle {
-    display: none;
-}
-*/
 
 .source-preview-split:checked ~ .source-toggle-label {
     display: none;
@@ -782,32 +719,7 @@ code[class|='language']::before {
     border-right: 1px #333 solid;
 }
 
-/*
-.source-preview-split:checked ~ .main-content-divider {
-    display: block;
-    float: left;
-    height: 100%;
-    width: 20px;
-}
-*/
-
-
-/* split divider */
-
-/*
-.main-content-divider {
-    display: none;
-    height: 100px;
-    width: 20px;
-    border: 1px green solid;
-}
-*/
-
-/*   */
-
-
 /* Lab  */
-
 
 .explorer-toggle {
     display: none;
@@ -857,11 +769,11 @@ code[class|='language']::before {
     } 
 }
 
-
-
+/*
 .explorer-toggle:checked ~ .main {
     padding-left: 50px;
 }
+*/
 
 @media screen and (min-width: 800px) { 
     .explorer-toggle:checked ~ .main { 
@@ -869,10 +781,10 @@ code[class|='language']::before {
     }
 }
 
-
 .explorer-toggle-label {
     position: absolute;
-    left: 15px;
+    left: unset;
+    right: 15px;
     top: 10px;
     margin-top: 5px;
     margin-right: 10px;
@@ -888,7 +800,7 @@ code[class|='language']::before {
     border-right: 2px #777777 solid;
     border-bottom: 2px #777777 solid;
     content: " ";
-    z-index: 50;
+    z-index: 200;
 }
 
 .explorer-toggle-label::before {
@@ -925,30 +837,37 @@ code[class|='language']::before {
     width: 50px;
     height: 50px;
     z-index: 50;
-
+    /*border: 1px green solid;*/
 }
 
 .explorer-toggle-label-selection {
     color: #777777;
     position: absolute;
-    left: 0px;
+    right: 0px;
     top: 0px;
     width: 3px;
     height: 50px;
     z-index: 50;
 }
 
+/* Move toggle label to the left */
+
 @media screen and (min-width: 800px) { 
     .explorer-toggle-label { 
         position: fixed;
+        left: 15px;
+        right: unset;
     }
 
     .explorer-toggle-label-selection {
         position: fixed;
+        left: 0px;
+        right: unset;
     }
 }
 
 /* Pagination */
+
 .internal-pagination {
     width: 50%;
     margin: auto;
