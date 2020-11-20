@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-    
-
 
 
 
@@ -23,7 +21,9 @@
     <meta name='twitter:description' content='Since TempDB is a system database you should not try to move the database with detach/attach or backup/restore. Instead you should move the files with a simple script and after the next restart of the instance the files will be relocated to the new location.
 First check where the files are currently located so that you can easily just copy and paste the name and paths if needed:
 SELECT name, type_desc, physical_name FROM sys.' />
-    <meta name='twitter:domain'      content=''/>
+    
+    <meta name='twitter:domain'      content='http://blog.roostech.se/'/>
+    
 
     <title>Move data or log files for TempDB in SQL Server</title>
     <meta name="description" content="Since TempDB is a system database you should not try to move the database with detach/attach or backup/restore. Instead you should move the files with a simple script and after the next restart of the instance the files will be relocated to the new location.
@@ -43,8 +43,7 @@ if (!doNotTrack) {
 }
 </script>
 
-</head>
-    <body>
+</head><body>
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle" checked>
 <label class="explorer-toggle-label" for="explorer-toggle"><div class="explorer-toggle-label-clickablearea"></div></label>
