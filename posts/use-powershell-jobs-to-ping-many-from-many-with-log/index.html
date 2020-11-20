@@ -1,11 +1,28 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+    
+
+
+
+
+
+    
+
+
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <link rel="stylesheet" type="text/css" href="/css/syntax.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    
-    
+
+    <meta name='twitter:card'        content='summary' />
+    <meta name='twitter:site'        content='@johnmroos'/>
+    <meta name='twitter:creator'     content='@johnmroos'/>
+    <meta name='twitter:title'       content='Use PowerShell jobs to ping many from many with log' />
+    <meta name='twitter:description' content='Once in a while you want to check how stable a connection is between computers. You might want to ping one or two machines from several others to find out if there is some issues with the network somewhere. You could use the built-in cmdlet Test-Connection and log the results to a log file but then you will not be able to log timeouts since the cmdlet returns an error when timeouts occur.' />
+    <meta name='twitter:domain'      content=''/>
+
     <title>Use PowerShell jobs to ping many from many with log</title>
     <meta name="description" content="Once in a while you want to check how stable a connection is between computers. You might want to ping one or two machines from several others to find out if there is some issues with the network somewhere. You could use the built-in cmdlet Test-Connection and log the results to a log file but then you will not be able to log timeouts since the cmdlet returns an error when timeouts occur."/>
     
@@ -22,7 +39,8 @@ if (!doNotTrack) {
 }
 </script>
 
-</head><body>
+</head>
+    <body>
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle" checked>
 <label class="explorer-toggle-label" for="explorer-toggle"><div class="explorer-toggle-label-clickablearea"></div></label>

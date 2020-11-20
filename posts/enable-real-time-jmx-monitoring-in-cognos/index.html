@@ -1,11 +1,29 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+    
+
+
+
+
+
+    
+
+
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <link rel="stylesheet" type="text/css" href="/css/syntax.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    
-    
+
+    <meta name='twitter:card'        content='summary' />
+    <meta name='twitter:site'        content='@johnmroos'/>
+    <meta name='twitter:creator'     content='@johnmroos'/>
+    <meta name='twitter:title'       content='Enable real time JMX monitoring in Cognos' />
+    <meta name='twitter:description' content='In Cognos BI its possible to enable JMX to be able to monitor the java engine. What IBM provides is not really what I was looking for. I wanted to be able to use for example VisualVM to see what happens in real time. This is how to enable the regular JMX monitoring in Cognos which comes out of the box with Tomcat.
+  Open the bootstrap file which is located in the following path: %installpath%\Bin64\bootstrap_winx64.' />
+    <meta name='twitter:domain'      content=''/>
+
     <title>Enable real time JMX monitoring in Cognos</title>
     <meta name="description" content="In Cognos BI its possible to enable JMX to be able to monitor the java engine. What IBM provides is not really what I was looking for. I wanted to be able to use for example VisualVM to see what happens in real time. This is how to enable the regular JMX monitoring in Cognos which comes out of the box with Tomcat.
   Open the bootstrap file which is located in the following path: %installpath%\Bin64\bootstrap_winx64."/>
@@ -23,7 +41,8 @@ if (!doNotTrack) {
 }
 </script>
 
-</head><body>
+</head>
+    <body>
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle" checked>
 <label class="explorer-toggle-label" for="explorer-toggle"><div class="explorer-toggle-label-clickablearea"></div></label>

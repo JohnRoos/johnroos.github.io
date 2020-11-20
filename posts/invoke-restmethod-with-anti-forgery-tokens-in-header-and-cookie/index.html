@@ -1,11 +1,29 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+    
+
+
+
+
+
+    
+
+
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <link rel="stylesheet" type="text/css" href="/css/syntax.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    
-    
+
+    <meta name='twitter:card'        content='summary' />
+    <meta name='twitter:site'        content='@johnmroos'/>
+    <meta name='twitter:creator'     content='@johnmroos'/>
+    <meta name='twitter:title'       content='Invoke-RestMethod with anti-forgery tokens in header and cookie' />
+    <meta name='twitter:description' content='To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell cmdlet Invoke-RestMethod. I have seen some people suggesting that Invoke-RestMethod does not have support for this, which is not true. It&rsquo;s just a little bit more complicated than expected.
+What&rsquo;s needed is basically a custom header and a cookie.' />
+    <meta name='twitter:domain'      content=''/>
+
     <title>Invoke-RestMethod with anti-forgery tokens in header and cookie</title>
     <meta name="description" content="To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell cmdlet Invoke-RestMethod. I have seen some people suggesting that Invoke-RestMethod does not have support for this, which is not true. It&rsquo;s just a little bit more complicated than expected.
 What&rsquo;s needed is basically a custom header and a cookie."/>
@@ -23,7 +41,8 @@ if (!doNotTrack) {
 }
 </script>
 
-</head><body>
+</head>
+    <body>
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle" checked>
 <label class="explorer-toggle-label" for="explorer-toggle"><div class="explorer-toggle-label-clickablearea"></div></label>

@@ -1,11 +1,28 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+    
+
+
+
+
+
+    
+
+
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <link rel="stylesheet" type="text/css" href="/css/syntax.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    
-    
+
+    <meta name='twitter:card'        content='summary' />
+    <meta name='twitter:site'        content='@johnmroos'/>
+    <meta name='twitter:creator'     content='@johnmroos'/>
+    <meta name='twitter:title'       content='Deploy Azure Function App without downtime' />
+    <meta name='twitter:description' content='Deploying a function app without downtime should be standard practice for anyone working with Azure Functions, but it does not come out of the box. It requires an understanding of how function apps gets configured, how deployment slots can help and why warmup does not necessarily mean your solution is up and running. In this post I will go through how this can be achieved using CD-pipelines in Azure DevOps.' />
+    <meta name='twitter:domain'      content=''/>
+
     <title>Deploy Azure Function App without downtime</title>
     <meta name="description" content="Deploying a function app without downtime should be standard practice for anyone working with Azure Functions, but it does not come out of the box. It requires an understanding of how function apps gets configured, how deployment slots can help and why warmup does not necessarily mean your solution is up and running. In this post I will go through how this can be achieved using CD-pipelines in Azure DevOps."/>
     
@@ -22,7 +39,8 @@ if (!doNotTrack) {
 }
 </script>
 
-</head><body>
+</head>
+    <body>
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle" checked>
 <label class="explorer-toggle-label" for="explorer-toggle"><div class="explorer-toggle-label-clickablearea"></div></label>

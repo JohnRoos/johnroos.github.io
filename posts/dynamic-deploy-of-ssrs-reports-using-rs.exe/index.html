@@ -1,11 +1,28 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+    
+
+
+
+
+
+    
+
+
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <link rel="stylesheet" type="text/css" href="/css/syntax.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    
-    
+
+    <meta name='twitter:card'        content='summary' />
+    <meta name='twitter:site'        content='@johnmroos'/>
+    <meta name='twitter:creator'     content='@johnmroos'/>
+    <meta name='twitter:title'       content='Dynamic deploy of SSRS reports using rs.exe' />
+    <meta name='twitter:description' content='This script will search for reports in the local folder SOURCEREPORTFOLDER and then deploy them in the RS folder TARGETRSFOLDER, creating subfolders if needed. If any of the reports already exists in RS it will first do a backup of the existing report into the local folder BACKUPLOCATION. The target folder in RS will contain the same file structure as the source folder. Subfolders will be created if they don&rsquo;t already exists and so on.' />
+    <meta name='twitter:domain'      content=''/>
+
     <title>Dynamic deploy of SSRS reports using rs.exe</title>
     <meta name="description" content="This script will search for reports in the local folder SOURCEREPORTFOLDER and then deploy them in the RS folder TARGETRSFOLDER, creating subfolders if needed. If any of the reports already exists in RS it will first do a backup of the existing report into the local folder BACKUPLOCATION. The target folder in RS will contain the same file structure as the source folder. Subfolders will be created if they don&rsquo;t already exists and so on."/>
     
@@ -22,7 +39,8 @@ if (!doNotTrack) {
 }
 </script>
 
-</head><body>
+</head>
+    <body>
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle" checked>
 <label class="explorer-toggle-label" for="explorer-toggle"><div class="explorer-toggle-label-clickablearea"></div></label>
