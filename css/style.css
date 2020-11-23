@@ -20,11 +20,15 @@ html, body {
 .left-menu {
     visibility: hidden;
     position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
     display: table-cell;
     table-layout: fixed;
     width: 100%;
     /*margin-left: 50px;*/
-    margin-left: 0px;
+    /*margin-left: 0px;*/
     background-color: #252526;
     color: #cccccc;
     height: 0px;
