@@ -303,6 +303,7 @@ li.current {
     padding-top: 5px;
     padding-right: 20px;
     padding-bottom: 20px;
+    word-break: break-word;
 }
 
 @media screen and (min-width: 800px) { 
@@ -435,6 +436,7 @@ li.current {
     padding-bottom: 20px;
     padding-left: 10px;
     padding-right: 10px;
+    word-break: break-word;
 }
 
 
