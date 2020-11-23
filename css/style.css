@@ -2,7 +2,7 @@ html, body {
     background-color: #1E1E1E;
     color: #C9D4D4;    
     font-size: 10.5pt;
-    font-family: Consolas;
+    font-family: "Segoe WPC", "Segoe UI", "Open Sans";
     height: 100%;
     padding: 0px;
     margin: 0px;
@@ -111,7 +111,7 @@ li.current {
     list-style-type: none;
     padding-left: 15px;
     font-size: 13px;
-    font-family: "Segoe WPC", "Segoe UI";
+    font-family: "Segoe WPC", "Segoe UI", "Open Sans";
 }
 
 .left-menu li {
@@ -165,7 +165,7 @@ li.current {
 .main-path {
     position: relative;
     height: 20px;
-    font-family: "Segoe WPC", "Segoe UI";
+    font-family: "Segoe WPC", "Segoe UI", "Open Sans";
     font-size: 13px;
     line-height: 20px;
     padding-left: 10px;
@@ -196,7 +196,7 @@ li.current {
     width: 100%;
     height: 35px;
     background-color: #1E1E1E;
-    font-family: "Segoe WPC", "Segoe UI";
+    font-family: "Segoe WPC", "Segoe UI", "Open Sans";
     font-size: 13px;
     padding-left: 0px;  
     box-sizing: border-box;
@@ -296,7 +296,7 @@ li.current {
 
 .main-content {
     display: none;
-    font-family: Consolas, "Courier New", monospace;;
+    font-family: "Consolas", "Courier New", "monospace";
     width: 100%;
     height: 100%;
     line-height: 19px;
@@ -421,13 +421,14 @@ li.current {
     padding: 10px;
     border-radius: 3px;  
     background-color: #1e1e1e;
+    font-family: "Consolas", "Courier New", "monospace";
 }
 
 /* Preview */
 
 .main-content-preview {
     display: block;
-    font-family: "Segoe UI","Segoe WPC";
+    font-family: "Segoe WPC", "Segoe UI", "Open Sans";
     color: #C9D4D4;
     width: 100%;
     height: 100%;
@@ -601,7 +602,7 @@ code[class|='language']::before {
     display: none;
     position: absolute;
     right: 50px;
-    font-family: "Segoe WPC", "Segoe UI";
+    font-family: "Segoe WPC", "Segoe UI", "Open Sans";
     font-size: 13px;
     margin: 1px;
     margin-top: 5px;
@@ -617,7 +618,7 @@ code[class|='language']::before {
     color: #777777;
     content: "</>";
     font-size: 10px;
-    font-family: "Consolas", "Courier New", monospace;
+    font-family: "Consolas", "Courier New", "monospace";
     width: 20px;
     height: 16px;
     margin-right: 5px;
@@ -683,7 +684,7 @@ code[class|='language']::before {
     border-right: 1px #777777 solid;
     font-size: 14px;
     line-height: 20px;
-    font-family: "Consolas", "Courier New", monospace;
+    font-family: "Consolas", "Courier New", "monospace";
     content: " ";
 }
 
