@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Invoke-WebRequest on RoosTech</title>
-    <link>http://blog.roostech.se/tags/invoke-webrequest/</link>
+    <link>https://blog.roostech.se/tags/invoke-webrequest/</link>
     <description>Recent content in Invoke-WebRequest on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 04 Mar 2015 14:14:00 +0200</lastBuildDate><atom:link href="http://blog.roostech.se/tags/invoke-webrequest/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 04 Mar 2015 14:14:00 +0200</lastBuildDate><atom:link href="https://blog.roostech.se/tags/invoke-webrequest/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Get-IMDBmovie using Invoke-WebRequest</title>
-      <link>http://blog.roostech.se/posts/get-imdbmovie-using-invoke-webrequest/</link>
+      <link>https://blog.roostech.se/posts/get-imdbmovie-using-invoke-webrequest/</link>
       <pubDate>Wed, 04 Mar 2015 14:14:00 +0200</pubDate>
       
-      <guid>http://blog.roostech.se/posts/get-imdbmovie-using-invoke-webrequest/</guid>
+      <guid>https://blog.roostech.se/posts/get-imdbmovie-using-invoke-webrequest/</guid>
       <description>Some time ago I was playing around a bit with Invoke-WebRequest and wanted to know a bit more about what I could do with that cmdlet. I ended up creating a cmdlet to get movie information from IMDB.com. I thought I would share how that script since the same principles can be applied in many situations.
 PS C:\&amp;gt; Get-ImdbMovie -Title &amp;#39;Star Trek&amp;#39; Title : Star Trek Into Darkness Directors : J.</description>
     </item>

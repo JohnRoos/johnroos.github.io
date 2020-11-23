@@ -3,473 +3,473 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://blog.roostech.se/tags/azure-devops/</loc>
+    <loc>https://blog.roostech.se/tags/azure-devops/</loc>
     <lastmod>2020-10-29T21:53:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/azure-function-app/</loc>
+    <loc>https://blog.roostech.se/tags/azure-function-app/</loc>
     <lastmod>2020-10-29T21:53:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/deploy-azure-function-app-without-downtime/</loc>
+    <loc>https://blog.roostech.se/posts/deploy-azure-function-app-without-downtime/</loc>
     <lastmod>2020-10-29T21:53:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/</loc>
+    <loc>https://blog.roostech.se/posts/</loc>
     <lastmod>2020-10-29T21:53:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/powershell/</loc>
+    <loc>https://blog.roostech.se/tags/powershell/</loc>
     <lastmod>2020-10-29T21:53:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/</loc>
+    <loc>https://blog.roostech.se/</loc>
     <lastmod>2020-10-29T21:53:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/</loc>
+    <loc>https://blog.roostech.se/tags/</loc>
     <lastmod>2020-10-29T21:53:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/blogger/</loc>
+    <loc>https://blog.roostech.se/tags/blogger/</loc>
     <lastmod>2020-10-20T21:24:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/css/</loc>
+    <loc>https://blog.roostech.se/tags/css/</loc>
     <lastmod>2020-10-20T21:24:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/github-pages/</loc>
+    <loc>https://blog.roostech.se/tags/github-pages/</loc>
     <lastmod>2020-10-20T21:24:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/html/</loc>
+    <loc>https://blog.roostech.se/tags/html/</loc>
     <lastmod>2020-10-20T21:24:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/hugo/</loc>
+    <loc>https://blog.roostech.se/tags/hugo/</loc>
     <lastmod>2020-10-20T21:24:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/javascript/</loc>
+    <loc>https://blog.roostech.se/tags/javascript/</loc>
     <lastmod>2020-10-20T21:24:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/moving-from-blogger-to-github-pages-with-hugo/</loc>
+    <loc>https://blog.roostech.se/posts/moving-from-blogger-to-github-pages-with-hugo/</loc>
     <lastmod>2020-10-20T21:24:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/web/</loc>
+    <loc>https://blog.roostech.se/tags/web/</loc>
     <lastmod>2020-10-20T21:24:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/pester/</loc>
+    <loc>https://blog.roostech.se/tags/pester/</loc>
     <lastmod>2020-05-29T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/pester-5-discovery-and-testcases/</loc>
+    <loc>https://blog.roostech.se/posts/pester-5-discovery-and-testcases/</loc>
     <lastmod>2020-05-29T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/unit-test/</loc>
+    <loc>https://blog.roostech.se/tags/unit-test/</loc>
     <lastmod>2020-05-29T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/azure-tables/</loc>
+    <loc>https://blog.roostech.se/tags/azure-tables/</loc>
     <lastmod>2020-03-11T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/create-and-use-azure-table-storage-with-powershell/</loc>
+    <loc>https://blog.roostech.se/posts/create-and-use-azure-table-storage-with-powershell/</loc>
     <lastmod>2020-03-11T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/edit-command/</loc>
+    <loc>https://blog.roostech.se/tags/edit-command/</loc>
     <lastmod>2017-02-22T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/get-started/</loc>
+    <loc>https://blog.roostech.se/tags/get-started/</loc>
     <lastmod>2017-02-22T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/get-command/</loc>
+    <loc>https://blog.roostech.se/tags/get-command/</loc>
     <lastmod>2017-02-22T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/get-verb/</loc>
+    <loc>https://blog.roostech.se/tags/get-verb/</loc>
     <lastmod>2017-02-22T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/powershell-ise/</loc>
+    <loc>https://blog.roostech.se/tags/powershell-ise/</loc>
     <lastmod>2017-02-22T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/</loc>
+    <loc>https://blog.roostech.se/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/</loc>
     <lastmod>2017-02-22T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/invoke-restmethod/</loc>
+    <loc>https://blog.roostech.se/tags/invoke-restmethod/</loc>
     <lastmod>2017-02-21T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/</loc>
+    <loc>https://blog.roostech.se/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/</loc>
     <lastmod>2017-02-21T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/invoke-webreqyest/</loc>
+    <loc>https://blog.roostech.se/tags/invoke-webreqyest/</loc>
     <lastmod>2017-02-21T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/rest/</loc>
+    <loc>https://blog.roostech.se/tags/rest/</loc>
     <lastmod>2017-02-21T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/splatting/</loc>
+    <loc>https://blog.roostech.se/tags/splatting/</loc>
     <lastmod>2017-02-21T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/dsc/</loc>
+    <loc>https://blog.roostech.se/tags/dsc/</loc>
     <lastmod>2016-04-23T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/ini-file/</loc>
+    <loc>https://blog.roostech.se/tags/ini-file/</loc>
     <lastmod>2016-04-23T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/introducing-the-inimanager-module/</loc>
+    <loc>https://blog.roostech.se/posts/introducing-the-inimanager-module/</loc>
     <lastmod>2016-04-23T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/module/</loc>
+    <loc>https://blog.roostech.se/tags/module/</loc>
     <lastmod>2016-04-23T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/error-handling/</loc>
+    <loc>https://blog.roostech.se/tags/error-handling/</loc>
     <lastmod>2016-02-06T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/jobs/</loc>
+    <loc>https://blog.roostech.se/tags/jobs/</loc>
     <lastmod>2016-02-06T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/ping/</loc>
+    <loc>https://blog.roostech.se/tags/ping/</loc>
     <lastmod>2016-02-06T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/test-connection/</loc>
+    <loc>https://blog.roostech.se/tags/test-connection/</loc>
     <lastmod>2016-02-06T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/use-powershell-jobs-to-ping-many-from-many-with-log/</loc>
+    <loc>https://blog.roostech.se/posts/use-powershell-jobs-to-ping-many-from-many-with-log/</loc>
     <lastmod>2016-02-06T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/write-objecttosql/</loc>
+    <loc>https://blog.roostech.se/tags/write-objecttosql/</loc>
     <lastmod>2016-02-06T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/off-topic/</loc>
+    <loc>https://blog.roostech.se/tags/off-topic/</loc>
     <lastmod>2015-07-27T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/powershell-logo-made-with-css3/</loc>
+    <loc>https://blog.roostech.se/posts/powershell-logo-made-with-css3/</loc>
     <lastmod>2015-07-27T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/here-string/</loc>
+    <loc>https://blog.roostech.se/tags/here-string/</loc>
     <lastmod>2015-07-24T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/what-is-this-here-string-people-are-talking-about/</loc>
+    <loc>https://blog.roostech.se/posts/what-is-this-here-string-people-are-talking-about/</loc>
     <lastmod>2015-07-24T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/dynamic-parameters-in-powershell-executes-before-you-know-it/</loc>
+    <loc>https://blog.roostech.se/posts/dynamic-parameters-in-powershell-executes-before-you-know-it/</loc>
     <lastmod>2015-07-21T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/parameters/</loc>
+    <loc>https://blog.roostech.se/tags/parameters/</loc>
     <lastmod>2015-07-21T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/classes/</loc>
+    <loc>https://blog.roostech.se/tags/classes/</loc>
     <lastmod>2015-07-14T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/expressions/</loc>
+    <loc>https://blog.roostech.se/tags/expressions/</loc>
     <lastmod>2015-07-14T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/making-powershell-expressions-easier/</loc>
+    <loc>https://blog.roostech.se/posts/making-powershell-expressions-easier/</loc>
     <lastmod>2015-07-14T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/simple-select-from-database-with-powershell/</loc>
+    <loc>https://blog.roostech.se/posts/simple-select-from-database-with-powershell/</loc>
     <lastmod>2015-07-14T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/sql-server/</loc>
+    <loc>https://blog.roostech.se/tags/sql-server/</loc>
     <lastmod>2015-07-14T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/how-to-use-splatting-in-powershell/</loc>
+    <loc>https://blog.roostech.se/posts/how-to-use-splatting-in-powershell/</loc>
     <lastmod>2015-07-09T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/get-imdbmovie-using-invoke-webrequest/</loc>
+    <loc>https://blog.roostech.se/posts/get-imdbmovie-using-invoke-webrequest/</loc>
     <lastmod>2015-03-04T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/invoke-webrequest/</loc>
+    <loc>https://blog.roostech.se/tags/invoke-webrequest/</loc>
     <lastmod>2015-03-04T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/classes-in-powershell-5.0/</loc>
+    <loc>https://blog.roostech.se/posts/classes-in-powershell-5.0/</loc>
     <lastmod>2015-03-01T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/getting-started/</loc>
+    <loc>https://blog.roostech.se/tags/getting-started/</loc>
     <lastmod>2015-03-01T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/introduction/</loc>
+    <loc>https://blog.roostech.se/tags/introduction/</loc>
     <lastmod>2015-03-01T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/how-to-get-started-with-powershell/</loc>
+    <loc>https://blog.roostech.se/posts/how-to-get-started-with-powershell/</loc>
     <lastmod>2015-02-22T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/get-member/</loc>
+    <loc>https://blog.roostech.se/tags/get-member/</loc>
     <lastmod>2015-02-01T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/get-type/</loc>
+    <loc>https://blog.roostech.se/tags/get-type/</loc>
     <lastmod>2015-02-01T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/powershell-script-find-hotfix-status/</loc>
+    <loc>https://blog.roostech.se/posts/powershell-script-find-hotfix-status/</loc>
     <lastmod>2015-02-01T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/powershell-script-write-object-to-sql/</loc>
+    <loc>https://blog.roostech.se/posts/powershell-script-write-object-to-sql/</loc>
     <lastmod>2015-02-01T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/t-sql/</loc>
+    <loc>https://blog.roostech.se/tags/t-sql/</loc>
     <lastmod>2015-02-01T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/get-type-alternative-for-null-values/</loc>
+    <loc>https://blog.roostech.se/posts/get-type-alternative-for-null-values/</loc>
     <lastmod>2014-12-20T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/null/</loc>
+    <loc>https://blog.roostech.se/tags/null/</loc>
     <lastmod>2014-12-20T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/compress-files-to-zip-with-powershell/</loc>
+    <loc>https://blog.roostech.se/posts/compress-files-to-zip-with-powershell/</loc>
     <lastmod>2014-12-15T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/compression/</loc>
+    <loc>https://blog.roostech.se/tags/compression/</loc>
     <lastmod>2014-12-15T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/zip/</loc>
+    <loc>https://blog.roostech.se/tags/zip/</loc>
     <lastmod>2014-12-15T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/cognos/</loc>
+    <loc>https://blog.roostech.se/tags/cognos/</loc>
     <lastmod>2014-09-30T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/enable-real-time-jmx-monitoring-in-cognos/</loc>
+    <loc>https://blog.roostech.se/posts/enable-real-time-jmx-monitoring-in-cognos/</loc>
     <lastmod>2014-09-30T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/jmx/</loc>
+    <loc>https://blog.roostech.se/tags/jmx/</loc>
     <lastmod>2014-09-30T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/move-data-or-log-files-for-tempdb-in-sql-server/</loc>
+    <loc>https://blog.roostech.se/posts/move-data-or-log-files-for-tempdb-in-sql-server/</loc>
     <lastmod>2014-09-30T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/hyper-v/</loc>
+    <loc>https://blog.roostech.se/tags/hyper-v/</loc>
     <lastmod>2012-10-26T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/remotefx/</loc>
+    <loc>https://blog.roostech.se/tags/remotefx/</loc>
     <lastmod>2012-10-26T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/resources-for-remotefx-in-windows-server-2012/</loc>
+    <loc>https://blog.roostech.se/posts/resources-for-remotefx-in-windows-server-2012/</loc>
     <lastmod>2012-10-26T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/rdp/</loc>
+    <loc>https://blog.roostech.se/tags/rdp/</loc>
     <lastmod>2012-10-16T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/rdp-8.0-for-windows-7-sp1/</loc>
+    <loc>https://blog.roostech.se/posts/rdp-8.0-for-windows-7-sp1/</loc>
     <lastmod>2012-10-16T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/improving-remotefx-performance-in-hyper-v/</loc>
+    <loc>https://blog.roostech.se/posts/improving-remotefx-performance-in-hyper-v/</loc>
     <lastmod>2012-09-25T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/performance/</loc>
+    <loc>https://blog.roostech.se/tags/performance/</loc>
     <lastmod>2012-09-25T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/</loc>
+    <loc>https://blog.roostech.se/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/</loc>
     <lastmod>2012-08-30T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/sql-server-agent/</loc>
+    <loc>https://blog.roostech.se/tags/sql-server-agent/</loc>
     <lastmod>2012-06-15T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/sqlps-and-its-limitations/</loc>
+    <loc>https://blog.roostech.se/posts/sqlps-and-its-limitations/</loc>
     <lastmod>2012-06-15T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/script-deployment-of-ssis-packages-from-folder/</loc>
+    <loc>https://blog.roostech.se/posts/script-deployment-of-ssis-packages-from-folder/</loc>
     <lastmod>2012-03-08T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/ssis/</loc>
+    <loc>https://blog.roostech.se/tags/ssis/</loc>
     <lastmod>2012-03-08T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/dynamic-deploy-of-ssrs-reports-using-rs.exe/</loc>
+    <loc>https://blog.roostech.se/posts/dynamic-deploy-of-ssrs-reports-using-rs.exe/</loc>
     <lastmod>2012-03-01T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/ssrs/</loc>
+    <loc>https://blog.roostech.se/tags/ssrs/</loc>
     <lastmod>2012-03-01T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/excel/</loc>
+    <loc>https://blog.roostech.se/tags/excel/</loc>
     <lastmod>2011-12-14T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/remove-headers-in-excel-exports-to-fix-column-alignment/</loc>
+    <loc>https://blog.roostech.se/posts/remove-headers-in-excel-exports-to-fix-column-alignment/</loc>
     <lastmod>2011-12-14T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/posts/using-executionlog2-for-statistics-and-monitoring/</loc>
+    <loc>https://blog.roostech.se/posts/using-executionlog2-for-statistics-and-monitoring/</loc>
     <lastmod>2011-10-28T14:14:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/about/</loc>
+    <loc>https://blog.roostech.se/about/</loc>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/categories/</loc>
+    <loc>https://blog.roostech.se/categories/</loc>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/tags/ci/cd/</loc>
+    <loc>https://blog.roostech.se/tags/ci/cd/</loc>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/gists/</loc>
+    <loc>https://blog.roostech.se/gists/</loc>
   </url>
   
   <url>
-    <loc>http://blog.roostech.se/parameter-validation/</loc>
+    <loc>https://blog.roostech.se/parameter-validation/</loc>
   </url>
   
 </urlset>

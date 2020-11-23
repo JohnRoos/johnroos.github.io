@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Performance on RoosTech</title>
-    <link>http://blog.roostech.se/tags/performance/</link>
+    <link>https://blog.roostech.se/tags/performance/</link>
     <description>Recent content in Performance on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 25 Sep 2012 14:14:00 +0200</lastBuildDate><atom:link href="http://blog.roostech.se/tags/performance/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 25 Sep 2012 14:14:00 +0200</lastBuildDate><atom:link href="https://blog.roostech.se/tags/performance/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Improving RemoteFX performance in Hyper-V</title>
-      <link>http://blog.roostech.se/posts/improving-remotefx-performance-in-hyper-v/</link>
+      <link>https://blog.roostech.se/posts/improving-remotefx-performance-in-hyper-v/</link>
       <pubDate>Tue, 25 Sep 2012 14:14:00 +0200</pubDate>
       
-      <guid>http://blog.roostech.se/posts/improving-remotefx-performance-in-hyper-v/</guid>
+      <guid>https://blog.roostech.se/posts/improving-remotefx-performance-in-hyper-v/</guid>
       <description>As I wrote earlier its possible to run RemoteFX on some of the slowest GPU´s you can buy today (on a regular CPU actually), but you might not get the performance you need to get anywhere. This time I will go through some of the options you have for getting it to work a bit better. Keep in mind that I am writing this with a really poor GPU in mind (yes, the Intel HD 2500 is not good for anything else than browsing).</description>
     </item>
     

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Azure Tables on RoosTech</title>
-    <link>http://blog.roostech.se/tags/azure-tables/</link>
+    <link>https://blog.roostech.se/tags/azure-tables/</link>
     <description>Recent content in Azure Tables on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 11 Mar 2020 14:14:00 +0200</lastBuildDate><atom:link href="http://blog.roostech.se/tags/azure-tables/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 Mar 2020 14:14:00 +0200</lastBuildDate><atom:link href="https://blog.roostech.se/tags/azure-tables/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Create and use Azure Table storage with PowerShell</title>
-      <link>http://blog.roostech.se/posts/create-and-use-azure-table-storage-with-powershell/</link>
+      <link>https://blog.roostech.se/posts/create-and-use-azure-table-storage-with-powershell/</link>
       <pubDate>Wed, 11 Mar 2020 14:14:00 +0200</pubDate>
       
-      <guid>http://blog.roostech.se/posts/create-and-use-azure-table-storage-with-powershell/</guid>
+      <guid>https://blog.roostech.se/posts/create-and-use-azure-table-storage-with-powershell/</guid>
       <description>Azure Table storage is a quick and easy way to store data in the cloud. If you have an Azure subscription you can play around with you are up and running within minutes. Here is a short example on how to get started.
 Create table To create an Azure Table we need to first have a resource group. Lets create one that is called &amp;ldquo;MyAwesomeResourceGroup&amp;rdquo; and place it in &amp;ldquo;West Europe&amp;rdquo;.</description>
     </item>

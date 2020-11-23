@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>SSIS on RoosTech</title>
-    <link>http://blog.roostech.se/tags/ssis/</link>
+    <link>https://blog.roostech.se/tags/ssis/</link>
     <description>Recent content in SSIS on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 08 Mar 2012 14:14:00 +0200</lastBuildDate><atom:link href="http://blog.roostech.se/tags/ssis/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 08 Mar 2012 14:14:00 +0200</lastBuildDate><atom:link href="https://blog.roostech.se/tags/ssis/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Script deployment of SSIS packages from folder</title>
-      <link>http://blog.roostech.se/posts/script-deployment-of-ssis-packages-from-folder/</link>
+      <link>https://blog.roostech.se/posts/script-deployment-of-ssis-packages-from-folder/</link>
       <pubDate>Thu, 08 Mar 2012 14:14:00 +0200</pubDate>
       
-      <guid>http://blog.roostech.se/posts/script-deployment-of-ssis-packages-from-folder/</guid>
+      <guid>https://blog.roostech.se/posts/script-deployment-of-ssis-packages-from-folder/</guid>
       <description>This is a very easy way to automate something which can take quite some time to do manually if you have lots of environments. Its made as easy as possible in this example rather than fancy and complicated. This script will create a SQL Server Agent Job which will execute a number of SSIS packages (dtsx files). The script will look for dtsx files in the selected folder DTSVirtualPath and also a config file (dtsConfig).</description>
     </item>
     

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Null on RoosTech</title>
-    <link>http://blog.roostech.se/tags/null/</link>
+    <link>https://blog.roostech.se/tags/null/</link>
     <description>Recent content in Null on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 20 Dec 2014 14:14:00 +0200</lastBuildDate><atom:link href="http://blog.roostech.se/tags/null/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 20 Dec 2014 14:14:00 +0200</lastBuildDate><atom:link href="https://blog.roostech.se/tags/null/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Get-Type alternative for $null values</title>
-      <link>http://blog.roostech.se/posts/get-type-alternative-for-null-values/</link>
+      <link>https://blog.roostech.se/posts/get-type-alternative-for-null-values/</link>
       <pubDate>Sat, 20 Dec 2014 14:14:00 +0200</pubDate>
       
-      <guid>http://blog.roostech.se/posts/get-type-alternative-for-null-values/</guid>
+      <guid>https://blog.roostech.se/posts/get-type-alternative-for-null-values/</guid>
       <description>Sometimes its useful to get information about object properties in PowerShell. You might be writing a script where you want to extract information from a series of objects and you need to know what data type a property contains. Often this is not a big problem since you can use the GetType function that most objects have.
 Then you run in to the problem that I had recently: You expect a series of objects and you check the types on the properties and suddenly a few of them doesn&amp;rsquo;t have the function GetType for some reason.</description>
     </item>

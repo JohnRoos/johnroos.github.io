@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>HTML on RoosTech</title>
-    <link>http://blog.roostech.se/tags/html/</link>
+    <link>https://blog.roostech.se/tags/html/</link>
     <description>Recent content in HTML on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 20 Oct 2020 21:24:00 +0200</lastBuildDate><atom:link href="http://blog.roostech.se/tags/html/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 20 Oct 2020 21:24:00 +0200</lastBuildDate><atom:link href="https://blog.roostech.se/tags/html/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Moving from Blogger to GitHub Pages using Hugo</title>
-      <link>http://blog.roostech.se/posts/moving-from-blogger-to-github-pages-with-hugo/</link>
+      <link>https://blog.roostech.se/posts/moving-from-blogger-to-github-pages-with-hugo/</link>
       <pubDate>Tue, 20 Oct 2020 21:24:00 +0200</pubDate>
       
-      <guid>http://blog.roostech.se/posts/moving-from-blogger-to-github-pages-with-hugo/</guid>
+      <guid>https://blog.roostech.se/posts/moving-from-blogger-to-github-pages-with-hugo/</guid>
       <description>For a while now I have felt that it takes too long time for me to write blog posts. I spend a long time figuring out how to make the post look right, when I should be spending time on the content. In the end this puts me off writing, because I know it will require a lot of effort. Because of that I have now moved the blog from Blogger to GitHub Pages using Hugo as static site generator to make it easier and quicker to write content.</description>
     </item>
     
     <item>
       <title>Get-IMDBmovie using Invoke-WebRequest</title>
-      <link>http://blog.roostech.se/posts/get-imdbmovie-using-invoke-webrequest/</link>
+      <link>https://blog.roostech.se/posts/get-imdbmovie-using-invoke-webrequest/</link>
       <pubDate>Wed, 04 Mar 2015 14:14:00 +0200</pubDate>
       
-      <guid>http://blog.roostech.se/posts/get-imdbmovie-using-invoke-webrequest/</guid>
+      <guid>https://blog.roostech.se/posts/get-imdbmovie-using-invoke-webrequest/</guid>
       <description>Some time ago I was playing around a bit with Invoke-WebRequest and wanted to know a bit more about what I could do with that cmdlet. I ended up creating a cmdlet to get movie information from IMDB.com. I thought I would share how that script since the same principles can be applied in many situations.
 PS C:\&amp;gt; Get-ImdbMovie -Title &amp;#39;Star Trek&amp;#39; Title : Star Trek Into Darkness Directors : J.</description>
     </item>
