@@ -164,11 +164,12 @@ li.current {
 
 .main-path {
     position: relative;
-    height: 20px;
+    height: auto;   
     font-family: "Segoe WPC", "Segoe UI", "Open Sans";
     font-size: 13px;
     line-height: 20px;
     padding-left: 10px;
+    padding-right: 50px;
     margin-top: 35px;
     background-color: #1E1E1E;
     border-bottom: #111111 2px solid;
@@ -185,6 +186,8 @@ li.current {
     .main-path { 
         position: fixed;
         overflow-x: unset;
+        padding-right: unset;
+        height: 20px;
     } 
 }
 
@@ -247,20 +250,31 @@ li.current {
     display: table-row;
 }
 
+img {
+    max-width: 100%;
+}
+
 .main-tab {
     display: none;
     padding-left: 20px;
-    padding-right: 40px;
+    padding-right: 50px;
     background-color: #2D2D2D;
     line-height: 35px;
-    white-space: nowrap;
+    /*white-space: nowrap;*/
     border-right: 1px #252526 solid;
     border-left: 1px #252526 solid;
+    overflow-x: hidden;
+    max-width: 100%;
 }
 
 @media screen and (min-width: 800px) { 
     .main-tab {
         display: table-cell;
+        padding-right: 40px;
+        overflow-x: unset;
+        white-space: nowrap;
+        overflow-x: unset;
+        max-width: unset;
     } 
 }
 
