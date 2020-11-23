@@ -320,6 +320,31 @@ if (!doNotTrack) {
 <div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$csv</span> <span class="p">=</span> <span class="nb">Import-Csv</span> <span class="n">-Path</span> <span class="n">C:</span><span class="p">\</span><span class="n">Ping_logs</span><span class="p">\</span><span class="n">Server1_Server2_2016</span><span class="p">-</span><span class="n">02</span><span class="p">-</span><span class="n">06</span><span class="p">.</span><span class="n">log</span>
 <span class="nb">Write-ObjectToSQL</span> <span class="nv">$csv</span> <span class="n">-Server</span> <span class="n">localhost</span> <span class="n">-Database</span> <span class="n">PingDB</span> <span class="n">-TableName</span> <span class="n">PingLog</span>
 </code></pre></div>
+
+                
+                    <div class="disqus-section">
+                        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-roostech-se" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                    </div>
+                
             </div>
 
        </div>
