@@ -1025,3 +1025,8 @@ div.highlight pre {
 .postdate {
     
 }
+
+.h2-postdate {
+    font-size: 12px;
+    color: #777777;
+}

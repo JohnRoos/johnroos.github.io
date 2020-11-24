@@ -142,7 +142,15 @@ if (!doNotTrack) {
                 <li><span class="menu-item folder">layouts</span></li>
                 <li><span class="menu-item folder">resources</span></li>
                 <li><span class="menu-item folder">static</span></li>
-                <li><span class="menu-item folder">themes</span></li>
+                <li><span class="menu-item folder open">themes</span>
+                    <ul>
+                        <li><span class="menu-item folder open">hugovscode</span>
+                            <ul>
+                                <li><a href="https://github.com/JohnRoos/HugoVSCode/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">.git</span></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
                 <li>config.toml</li>
             </ul>
         </li>
@@ -203,7 +211,7 @@ if (!doNotTrack) {
             </div>
         </div>
         <div class="main-path">
-            <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">gists.html</span>
+            <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">pages</span><span class="folder">Gists.md</span>
             
         </div>
         <div class="main-content-toggle">
@@ -336,7 +344,7 @@ $.getJSON('https://api.github.com/users/' + username + '/gists', function (data)
 
 
                 <p>- Written by   
-                .</p>
+                </p>
 
                 
             </div>
