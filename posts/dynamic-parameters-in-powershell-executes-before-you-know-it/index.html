@@ -206,6 +206,11 @@ if (!doNotTrack) {
         </div>
         <div class="main-path">
             <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Dynamic parameters in PowerShell executes before you know it.md</span>
+            
+                    
+                    
+                    <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2015-07-21">July 21, 2015</time>)</span>
+                
         </div>
         <div class="main-content-toggle">
 
@@ -301,6 +306,7 @@ if (!doNotTrack) {
             
             <div class="main-content-preview">
                 <h1>Dynamic parameters in PowerShell executes before you know it</h1>
+                
                 <p>When creating script cmdlets in PowerShell you can use dynamic parameters to create some advanced parameters. A few months back I was playing around a bit with dynamic parameters to see how it works and I noticed that the logic for the dynamic parameters is executed as soon as the verb is written in the console within PowerShell ISE.</p>
 <p><img src="/images/dynamicparams.jpg#center" alt="Dynamic parameters in PowerShell"></p>
 <p>Let&rsquo;s create a cmdlet to prove this theory. The cmdlet below will simply open a text file in the PowerShell ISE from the folder C:\temp. The advanced parameter will show the available text files in the folder when using the console in PowerShell ISE.</p>
@@ -374,6 +380,12 @@ if (!doNotTrack) {
 </code></pre></div><p>Now load this cmdlet into memory and then write only &ldquo;open-&rdquo; in the console. Now check the folder c:\temp\ and you will find that a file has been created containing the timestamp for when the code was executed.</p>
 <p>This means that the logic for dynamic parameters are executed at the same time as when the PowerShell ISE is trying to find which cmdlets are matching the verb you have written. I would have thought that the dynamic parameter logic would be executed when I have written the entire name of the cmdlet, but that is not the case.</p>
 
+
+                <p>- Written by John  
+                
+                    
+                    
+                    on July 21, 2015.</p>
 
                 
                     <div class="disqus-section">
