@@ -193,6 +193,7 @@ li.current {
     border-bottom: #111111 2px solid;
     z-index: 100;
     overflow-x: hidden;
+    width: 100%;
 }
 
 .main-path span {

@@ -324,23 +324,5 @@ You can contact me using Twitter or LinkedIn.
 I will add more information to this page when I have time.</description>
     </item>
     
-    <item>
-      <title>Gists</title>
-      <link>https://blog.roostech.se/gists/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.roostech.se/gists/</guid>
-      <description>Note: This page is still in development. Headers are not showing up at the correct gist.    var username = &#39;JohnRoos&#39; $.getJSON(&#39;https://api.github.com/users/&#39; + username + &#39;/gists&#39;, function (data) { //for (var i = 0; i &#39; + data[i].description + &#39;&#39;; } else { title = &#39;&#39; + Object.keys(data[i].files)[0] + &#39;&#39;; } title = &#39;&#39; + data[i].description + &#39;&#39;; $(&#34;#placeholder&#34;).append(title); $(&#34;#placeholder&#34;).append(&#39;&#39;); var s = document.createElement(&#39;script&#39;); s.setAttribute(&#39;type&#39;, &#39;text/javascript&#39;); s.src = &#39;https://gist.</description>
-    </item>
-    
-    <item>
-      <title>Parameter Validation</title>
-      <link>https://blog.roostech.se/parameter-validation/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.roostech.se/parameter-validation/</guid>
-      <description>Choose a filter:  Free text filter: --  Navigation     Choose a filter:  Free text filter: --  var jsondata; $.getJSON(&#39;https://raw.githubusercontent.com/JohnRoos/PowerShell/master/Modules/Get-ParamHelp/data.json&#39;) .success(function(data) { jsondata = data[0].ParamHelp; $(&#39;#headerlinks&#39;).html(&#39;&#39;); $(&#39;#headerlinks&#39;).append(&#39;&#39;); jQuery.each(data[0].ParamHelp, function() { //$(&#39;#myselect&#39;).append(&#39;&#39; + this.Name + &#39;&#39;); $(&#39;#headerlinks&#39;).append(&#39;&#39; + this.Name + &#39;&#39;); buildParameter(this); }); $(&#39;#headerlinks&#39;).append(&#39;&#39;); setTimeout(function(){ if (location.hash != &#39;&#39;) { var myhash = location.hash location.hash = &#39;&#39;; location.hash = myhash; } }, 1000); }) .</description>
-    </item>
-    
   </channel>
 </rss>
