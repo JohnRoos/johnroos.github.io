@@ -205,80 +205,67 @@ if (!doNotTrack) {
             
             
             <div class='main'>
-     
-     
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-    
-       
-        <div class="main-path">
-            <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Remove headers in Excel exports to fix column alignment.md</span>
-            
-                    
-                    
-                    <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2011-12-14">December 14, 2011</time>)</span>
+    <div class="main-path">
+        <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Remove headers in Excel exports to fix column alignment.md</span>
+        
                 
+                
+                <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2011-12-14">December 14, 2011</time>)</span>
+            
+    </div>
+    
+    <div class="main-content-toggle">
+
+        
+        <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
+        <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
+
+        <input class="source-toggle" type="checkbox" id="source-toggle">
+        <label class="source-toggle-label" for="source-toggle"></label>
+
+        <div class="main-content">
+            ---<br />
+            <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Remove headers in Excel exports to fix column alignment</span><br />
+            <span class="md-frontmatter">date</span>: 2011-12-14 14:14:00 &#43;0200 &#43;0200<br />
+            <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
+            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
+            ----
+            <p>Reports with headers in Reporting Services works great as long as you are just rendering the reports in HTML. If you would try to export the report to Excel you might stumble into some problems.</p>
+<p>As long as the header design follows the rest of the design when it comes to columns you could be fine. However, often headers contain very different information and design than the actual content of the report and column alignment might in these cases become a problem. You might find merged columns here and there which could be hard to work around when working with the exported Excel file.</p>
+<p>There is however a quite easy fix for this, but it has its drawbacks.</p>
+<p>You can configure exports to Excel in Reporting Services so that headers will not be displayed in the cell grid and will instead be saved in the actual header section of the Excel sheet. The file you need to edit is the following: <em>C:\Program Files\Microsoft SQL Server\MSRS10_50.MSSQLSERVER\Reporting Services\ReportServer\rsreportserver.config</em></p>
+<p>Scroll down in the config file and you will find a part containing the &lt;Render&gt; tag. Here you can do some configuration for the exports which the users can use in the web GUI when rendering a report. The default configuration for the Excel export will look something like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;s1&#34;</span><span class="p">&gt;&lt;</span><span class="nt">extension</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;EXCEL&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;Microsoft.ReportingServices.Rendering.
+</span><span class="s">    ExcelRenderer.ExcelRenderer,
+</span><span class="s">    Microsoft.ReportingServices.ExcelRendering&#34;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">extension</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</code></pre></div><p>To remove headers (or move them from cells to actual header) you can add SimplePageHeaders to the tag:</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">extension</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;EXCEL&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;Microsoft.ReportingServices.Rendering.
+</span><span class="s">    ExcelRenderer.ExcelRenderer,
+</span><span class="s">    Microsoft.ReportingServices.ExcelRendering&#34;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">configuration</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">deviceinfo</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">simplepageheaders</span><span class="p">&gt;</span>
+                True
+                <span class="p">&lt;/</span><span class="nt">simplepageheaders</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">deviceinfo</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">configuration</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">extension</span><span class="p">&gt;</span>
+</code></pre></div><p>There is a couple of problems when configuring this (especially in a production environment). Since the configuration is a server config this will affect all reports. If you still want to be able to export headers on some reports and not on others you will probably have to redesign the ones you want headers in to include them in the body instead.</p>
+<p>The second problem could be easily planned for but still worth mentioning: It requires a restart of Reporting Services and if you are running SSRS 2005 you might have to restart IIS as well. Note that the header section of the Excel sheet has a limit on 256 characters, including markup.</p>
+<p>Another option is to hide the possibility for the users to export to excel. Set visibility to false and the option will go away.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;s1&#34;</span><span class="p">&gt;&lt;</span><span class="nt">extension</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;EXCEL&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;Microsoft.ReportingServices.Rendering.
+</span><span class="s">    ExcelRenderer.ExcelRenderer,
+</span><span class="s">    Microsoft.ReportingServices.ExcelRendering&#34;</span> <span class="na">visible</span><span class="o">=</span><span class="s">&#34;false&#34;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">extension</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</code></pre></div>
         </div>
-        <div class="main-content-toggle">
 
+        
+        <div class="main-content-preview">
+            <h1>Remove headers in Excel exports to fix column alignment</h1>
             
-            <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
-            <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
-
-            <input class="source-toggle" type="checkbox" id="source-toggle">
-            <label class="source-toggle-label" for="source-toggle"></label>
-
-            <div class="main-content">
-                ---<br />
-                <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Remove headers in Excel exports to fix column alignment</span><br />
-                <span class="md-frontmatter">date</span>: 2011-12-14 14:14:00 &#43;0200 &#43;0200<br />
-                <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
-                <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
-                ----
-                <p>Reports with headers in Reporting Services works great as long as you are just rendering the reports in HTML. If you would try to export the report to Excel you might stumble into some problems.</p>
-<p>As long as the header design follows the rest of the design when it comes to columns you could be fine. However, often headers contain very different information and design than the actual content of the report and column alignment might in these cases become a problem. You might find merged columns here and there which could be hard to work around when working with the exported Excel file.</p>
-<p>There is however a quite easy fix for this, but it has its drawbacks.</p>
-<p>You can configure exports to Excel in Reporting Services so that headers will not be displayed in the cell grid and will instead be saved in the actual header section of the Excel sheet. The file you need to edit is the following: <em>C:\Program Files\Microsoft SQL Server\MSRS10_50.MSSQLSERVER\Reporting Services\ReportServer\rsreportserver.config</em></p>
-<p>Scroll down in the config file and you will find a part containing the &lt;Render&gt; tag. Here you can do some configuration for the exports which the users can use in the web GUI when rendering a report. The default configuration for the Excel export will look something like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;s1&#34;</span><span class="p">&gt;&lt;</span><span class="nt">extension</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;EXCEL&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;Microsoft.ReportingServices.Rendering.
-</span><span class="s">    ExcelRenderer.ExcelRenderer,
-</span><span class="s">    Microsoft.ReportingServices.ExcelRendering&#34;</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">extension</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
-</code></pre></div><p>To remove headers (or move them from cells to actual header) you can add SimplePageHeaders to the tag:</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">extension</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;EXCEL&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;Microsoft.ReportingServices.Rendering.
-</span><span class="s">    ExcelRenderer.ExcelRenderer,
-</span><span class="s">    Microsoft.ReportingServices.ExcelRendering&#34;</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">configuration</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">deviceinfo</span><span class="p">&gt;</span>
-                <span class="p">&lt;</span><span class="nt">simplepageheaders</span><span class="p">&gt;</span>
-                True
-                <span class="p">&lt;/</span><span class="nt">simplepageheaders</span><span class="p">&gt;</span>
-            <span class="p">&lt;/</span><span class="nt">deviceinfo</span><span class="p">&gt;</span>
-        <span class="p">&lt;/</span><span class="nt">configuration</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">extension</span><span class="p">&gt;</span>
-</code></pre></div><p>There is a couple of problems when configuring this (especially in a production environment). Since the configuration is a server config this will affect all reports. If you still want to be able to export headers on some reports and not on others you will probably have to redesign the ones you want headers in to include them in the body instead.</p>
-<p>The second problem could be easily planned for but still worth mentioning: It requires a restart of Reporting Services and if you are running SSRS 2005 you might have to restart IIS as well. Note that the header section of the Excel sheet has a limit on 256 characters, including markup.</p>
-<p>Another option is to hide the possibility for the users to export to excel. Set visibility to false and the option will go away.</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;s1&#34;</span><span class="p">&gt;&lt;</span><span class="nt">extension</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;EXCEL&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;Microsoft.ReportingServices.Rendering.
-</span><span class="s">    ExcelRenderer.ExcelRenderer,
-</span><span class="s">    Microsoft.ReportingServices.ExcelRendering&#34;</span> <span class="na">visible</span><span class="o">=</span><span class="s">&#34;false&#34;</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">extension</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
-</code></pre></div>
-            </div>
-
-            
-            <div class="main-content-preview">
-                <h1>Remove headers in Excel exports to fix column alignment</h1>
-                
-                <p>Reports with headers in Reporting Services works great as long as you are just rendering the reports in HTML. If you would try to export the report to Excel you might stumble into some problems.</p>
+            <p>Reports with headers in Reporting Services works great as long as you are just rendering the reports in HTML. If you would try to export the report to Excel you might stumble into some problems.</p>
 <p>As long as the header design follows the rest of the design when it comes to columns you could be fine. However, often headers contain very different information and design than the actual content of the report and column alignment might in these cases become a problem. You might find merged columns here and there which could be hard to work around when working with the exported Excel file.</p>
 <p>There is however a quite easy fix for this, but it has its drawbacks.</p>
 <p>You can configure exports to Excel in Reporting Services so that headers will not be displayed in the cell grid and will instead be saved in the actual header section of the Excel sheet. The file you need to edit is the following: <em>C:\Program Files\Microsoft SQL Server\MSRS10_50.MSSQLSERVER\Reporting Services\ReportServer\rsreportserver.config</em></p>
@@ -308,15 +295,15 @@ if (!doNotTrack) {
 <span class="p">&lt;/</span><span class="nt">extension</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
 </code></pre></div>
 
-                <p>- Written by John  
+            <p>- Written by John  
+            
                 
-                    
-                    
-                    on December 14, 2011</p>
+                
+                on December 14, 2011</p>
 
-                
-                    <div class="disqus-section">
-                        <div id="disqus_thread"></div>
+            
+                <div class="disqus-section">
+                    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -336,11 +323,11 @@ if (!doNotTrack) {
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-                    </div>
-                
-            </div>
+                </div>
+            
+        </div>
 
-       </div>
+    </div>
     
 
 

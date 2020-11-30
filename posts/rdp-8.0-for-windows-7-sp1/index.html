@@ -203,64 +203,51 @@ if (!doNotTrack) {
             
             
             <div class='main'>
-     
-     
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-    
-       
-        <div class="main-path">
-            <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">RDP 8.0 for Windows 7 SP1.md</span>
-            
-                    
-                    
-                    <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2012-10-16">October 16, 2012</time>)</span>
+    <div class="main-path">
+        <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">RDP 8.0 for Windows 7 SP1.md</span>
+        
                 
+                
+                <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2012-10-16">October 16, 2012</time>)</span>
+            
+    </div>
+    
+    <div class="main-content-toggle">
+
+        
+        <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
+        <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
+
+        <input class="source-toggle" type="checkbox" id="source-toggle">
+        <label class="source-toggle-label" for="source-toggle"></label>
+
+        <div class="main-content">
+            ---<br />
+            <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">RDP 8.0 for Windows 7 SP1</span><br />
+            <span class="md-frontmatter">date</span>: 2012-10-16 14:14:00 &#43;0200 CEST<br />
+            <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
+            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
+            ----
+            <p>A few days ago Microsoft finally announced that they will be releasing Remote Desktop Protocol 8.0 for Windows 7 SP1. Earlier it was not clear if this would be released for Windows 7 or if RDP 8.0 would be exclusive for Windows 8 and Windows Server 2012. RDP 8.0 should give some proper improvements when it comes to hardware accelerated graphics in Hyper-V with the RemoteFX capabilities. Among many improvements there are some new compression algorithms which will lower the bandwidth needed for RDP sessions where some parts of the screen might use a different algorithm compared to other parts, and even mixing UDP and TCP on different parts of the screen depending on what&rsquo;s displayed.</p>
+<p>Here is a short list of some of the features we can expect:</p>
+<ul>
+<li><strong>RemoteFX for WAN</strong>: Enables end users even on WAN to have a fast and fluid experience by employing advanced techniques such as intelligent and adaptive UDP transports, network loss tolerance and recovery, etc.</li>
+<li><strong>RemoteFX Network Auto Detect</strong>: Automatically detects network characteristics and optimizes user experience accordingly.</li>
+<li><strong>RemoteFX Adaptive Graphics</strong>: Delivers a rich graphics experience that dynamically adapts to server load, client access device load and network characteristics.</li>
+<li><strong>RemoteFX Media Streaming</strong>: Enables end users to get a smooth media experience even on WAN networks for all media content formats.</li>
+<li><strong>RemoteFX USB Redirection for non VGPU Virtual desktops</strong>: Enables users to use their USB devices with IT provided RemoteApp applications and remote desktops.</li>
+<li><strong>Support for Nested Sessions</strong>: Support for running a Remote Desktop Connection session within another Remote Desktop Connection session.</li>
+<li>Performance counters for monitoring user experience. Watch out for a blog post on this topic with more details.</li>
+</ul>
+<p>Read more about the update on <a href="http://blogs.msdn.com/b/rds/archive/2012/10/09/remote-desktop-protocol-8-0-update-for-windows-7-sp1-enabling-a-great-wan-user-experience-for-windows-7-sp1-virtual-desktops.aspx">Remote Desktop Services Blog</a> and <a href="http://blogs.windows.com/windows/b/business/archive/2012/10/09/virtualization-beyond-vdi.aspx">The Windows Blog</a>.</p>
+
         </div>
-        <div class="main-content-toggle">
 
+        
+        <div class="main-content-preview">
+            <h1>RDP 8.0 for Windows 7 SP1</h1>
             
-            <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
-            <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
-
-            <input class="source-toggle" type="checkbox" id="source-toggle">
-            <label class="source-toggle-label" for="source-toggle"></label>
-
-            <div class="main-content">
-                ---<br />
-                <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">RDP 8.0 for Windows 7 SP1</span><br />
-                <span class="md-frontmatter">date</span>: 2012-10-16 14:14:00 &#43;0200 CEST<br />
-                <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
-                <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
-                ----
-                <p>A few days ago Microsoft finally announced that they will be releasing Remote Desktop Protocol 8.0 for Windows 7 SP1. Earlier it was not clear if this would be released for Windows 7 or if RDP 8.0 would be exclusive for Windows 8 and Windows Server 2012. RDP 8.0 should give some proper improvements when it comes to hardware accelerated graphics in Hyper-V with the RemoteFX capabilities. Among many improvements there are some new compression algorithms which will lower the bandwidth needed for RDP sessions where some parts of the screen might use a different algorithm compared to other parts, and even mixing UDP and TCP on different parts of the screen depending on what&rsquo;s displayed.</p>
-<p>Here is a short list of some of the features we can expect:</p>
-<ul>
-<li><strong>RemoteFX for WAN</strong>: Enables end users even on WAN to have a fast and fluid experience by employing advanced techniques such as intelligent and adaptive UDP transports, network loss tolerance and recovery, etc.</li>
-<li><strong>RemoteFX Network Auto Detect</strong>: Automatically detects network characteristics and optimizes user experience accordingly.</li>
-<li><strong>RemoteFX Adaptive Graphics</strong>: Delivers a rich graphics experience that dynamically adapts to server load, client access device load and network characteristics.</li>
-<li><strong>RemoteFX Media Streaming</strong>: Enables end users to get a smooth media experience even on WAN networks for all media content formats.</li>
-<li><strong>RemoteFX USB Redirection for non VGPU Virtual desktops</strong>: Enables users to use their USB devices with IT provided RemoteApp applications and remote desktops.</li>
-<li><strong>Support for Nested Sessions</strong>: Support for running a Remote Desktop Connection session within another Remote Desktop Connection session.</li>
-<li>Performance counters for monitoring user experience. Watch out for a blog post on this topic with more details.</li>
-</ul>
-<p>Read more about the update on <a href="http://blogs.msdn.com/b/rds/archive/2012/10/09/remote-desktop-protocol-8-0-update-for-windows-7-sp1-enabling-a-great-wan-user-experience-for-windows-7-sp1-virtual-desktops.aspx">Remote Desktop Services Blog</a> and <a href="http://blogs.windows.com/windows/b/business/archive/2012/10/09/virtualization-beyond-vdi.aspx">The Windows Blog</a>.</p>
-
-            </div>
-
-            
-            <div class="main-content-preview">
-                <h1>RDP 8.0 for Windows 7 SP1</h1>
-                
-                <p>A few days ago Microsoft finally announced that they will be releasing Remote Desktop Protocol 8.0 for Windows 7 SP1. Earlier it was not clear if this would be released for Windows 7 or if RDP 8.0 would be exclusive for Windows 8 and Windows Server 2012. RDP 8.0 should give some proper improvements when it comes to hardware accelerated graphics in Hyper-V with the RemoteFX capabilities. Among many improvements there are some new compression algorithms which will lower the bandwidth needed for RDP sessions where some parts of the screen might use a different algorithm compared to other parts, and even mixing UDP and TCP on different parts of the screen depending on what&rsquo;s displayed.</p>
+            <p>A few days ago Microsoft finally announced that they will be releasing Remote Desktop Protocol 8.0 for Windows 7 SP1. Earlier it was not clear if this would be released for Windows 7 or if RDP 8.0 would be exclusive for Windows 8 and Windows Server 2012. RDP 8.0 should give some proper improvements when it comes to hardware accelerated graphics in Hyper-V with the RemoteFX capabilities. Among many improvements there are some new compression algorithms which will lower the bandwidth needed for RDP sessions where some parts of the screen might use a different algorithm compared to other parts, and even mixing UDP and TCP on different parts of the screen depending on what&rsquo;s displayed.</p>
 <p>Here is a short list of some of the features we can expect:</p>
 <ul>
 <li><strong>RemoteFX for WAN</strong>: Enables end users even on WAN to have a fast and fluid experience by employing advanced techniques such as intelligent and adaptive UDP transports, network loss tolerance and recovery, etc.</li>
@@ -274,15 +261,15 @@ if (!doNotTrack) {
 <p>Read more about the update on <a href="http://blogs.msdn.com/b/rds/archive/2012/10/09/remote-desktop-protocol-8-0-update-for-windows-7-sp1-enabling-a-great-wan-user-experience-for-windows-7-sp1-virtual-desktops.aspx">Remote Desktop Services Blog</a> and <a href="http://blogs.windows.com/windows/b/business/archive/2012/10/09/virtualization-beyond-vdi.aspx">The Windows Blog</a>.</p>
 
 
-                <p>- Written by John  
+            <p>- Written by John  
+            
                 
-                    
-                    
-                    on October 16, 2012</p>
+                
+                on October 16, 2012</p>
 
-                
-                    <div class="disqus-section">
-                        <div id="disqus_thread"></div>
+            
+                <div class="disqus-section">
+                    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -302,11 +289,11 @@ if (!doNotTrack) {
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-                    </div>
-                
-            </div>
+                </div>
+            
+        </div>
 
-       </div>
+    </div>
     
 
 

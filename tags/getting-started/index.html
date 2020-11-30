@@ -203,118 +203,103 @@ if (!doNotTrack) {
             
             
             <div class='main'>
-     
-     
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-    
-        
-        
-        <div class="main-path">
-            <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">Home.md</span>
-        </div>
-        <div class="main-content-toggle">
+    <div class="main-path">
+        <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">Home.md</span>
+    </div>
+    <div class="main-content-toggle">
 
-            <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
-            <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
+        <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
+        <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
 
-            <input class="source-toggle" type="checkbox" id="source-toggle">
-            <label class="source-toggle-label" for="source-toggle"></label>
+        <input class="source-toggle" type="checkbox" id="source-toggle">
+        <label class="source-toggle-label" for="source-toggle"></label>
 
-            <div class="main-content">
-                ---<br />
-                <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Home.md</span><br />
-                <span class="md-frontmatter">date</span>: 2020-11-16 00:00:00+02:00<br />
-                <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
-                ----
-                
-                
-                     
-                    <h2><a href="/posts/deploy-azure-function-app-without-downtime/">Deploy Azure Function App without downtime</a></h2>        
-                    <p>Deploying a function app without downtime should be standard practice for anyone working with Azure Functions, but it does not come out of the box. It requires an understanding of how function apps gets configured, how deployment slots can help and why warmup does not necessarily mean your solution is up and running. In this post I will go through how this can be achieved using CD-pipelines in Azure DevOps.</p>
-                     
-                    <h2><a href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo</a></h2>        
-                    <p>For a while now I have felt that it takes too long time for me to write blog posts. I spend a long time figuring out how to make the post look right, when I should be spending time on the content. In the end this puts me off writing, because I know it will require a lot of effort. Because of that I have now moved the blog from Blogger to GitHub Pages using Hugo as static site generator to make it easier and quicker to write content.</p>
-                     
-                    <h2><a href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h2>        
-                    <p>Pester 5 was released a couple of days ago which brings a lot of new features and changes to how we write tests. One of the major changes in Pester 5 is the Discovery phase. In this post I will attempt to explain how Discovery works and how to use it to generate test cases.
+        <div class="main-content">
+            ---<br />
+            <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Home.md</span><br />
+            <span class="md-frontmatter">date</span>: 2020-11-16 00:00:00+02:00<br />
+            <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
+            ----
+            
+            
+                 
+                <h2><a href="/posts/deploy-azure-function-app-without-downtime/">Deploy Azure Function App without downtime</a></h2>        
+                <p>Deploying a function app without downtime should be standard practice for anyone working with Azure Functions, but it does not come out of the box. It requires an understanding of how function apps gets configured, how deployment slots can help and why warmup does not necessarily mean your solution is up and running. In this post I will go through how this can be achieved using CD-pipelines in Azure DevOps.</p>
+                 
+                <h2><a href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo</a></h2>        
+                <p>For a while now I have felt that it takes too long time for me to write blog posts. I spend a long time figuring out how to make the post look right, when I should be spending time on the content. In the end this puts me off writing, because I know it will require a lot of effort. Because of that I have now moved the blog from Blogger to GitHub Pages using Hugo as static site generator to make it easier and quicker to write content.</p>
+                 
+                <h2><a href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a></h2>        
+                <p>Pester 5 was released a couple of days ago which brings a lot of new features and changes to how we write tests. One of the major changes in Pester 5 is the Discovery phase. In this post I will attempt to explain how Discovery works and how to use it to generate test cases.
 Tests are executed in two phases Whenever you run tests with Pester 5 there will always be two phases, the Discovery phase and the Run phase.</p>
-                     
-                    <h2><a href="/posts/create-and-use-azure-table-storage-with-powershell/">Create and use Azure Table storage with PowerShell</a></h2>        
-                    <p>Azure Table storage is a quick and easy way to store data in the cloud. If you have an Azure subscription you can play around with you are up and running within minutes. Here is a short example on how to get started.
+                 
+                <h2><a href="/posts/create-and-use-azure-table-storage-with-powershell/">Create and use Azure Table storage with PowerShell</a></h2>        
+                <p>Azure Table storage is a quick and easy way to store data in the cloud. If you have an Azure subscription you can play around with you are up and running within minutes. Here is a short example on how to get started.
 Create table To create an Azure Table we need to first have a resource group. Lets create one that is called &ldquo;MyAwesomeResourceGroup&rdquo; and place it in &ldquo;West Europe&rdquo;.</p>
-                     
-                    <h2><a href="/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/">Use Edit-Command to discover the code behind built-in cmdlets</a></h2>        
-                    <p>Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When you run Get-Command you get all kinds of details about the commands you are looking for. One of the properties in the output is called ScriptBlock. That&rsquo;s where the code is, if its written in PowerShell.</p>
-                     
-                    <h2><a href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h2>        
-                    <p>To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell cmdlet Invoke-RestMethod. I have seen some people suggesting that Invoke-RestMethod does not have support for this, which is not true. It&rsquo;s just a little bit more complicated than expected.
+                 
+                <h2><a href="/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/">Use Edit-Command to discover the code behind built-in cmdlets</a></h2>        
+                <p>Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When you run Get-Command you get all kinds of details about the commands you are looking for. One of the properties in the output is called ScriptBlock. That&rsquo;s where the code is, if its written in PowerShell.</p>
+                 
+                <h2><a href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h2>        
+                <p>To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell cmdlet Invoke-RestMethod. I have seen some people suggesting that Invoke-RestMethod does not have support for this, which is not true. It&rsquo;s just a little bit more complicated than expected.
 What&rsquo;s needed is basically a custom header and a cookie.</p>
-                     
-                    <h2><a href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h2>        
-                    <p>Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources to contain as little code as possible I prefer to create cmdlets outside of the resource which I can call from within the resource. In this way I can also use the cmdlets in scripts and the console which is a nice bonus.</p>
-                     
-                    <h2><a href="/posts/use-powershell-jobs-to-ping-many-from-many-with-log/">Use PowerShell jobs to ping many from many with log</a></h2>        
-                    <p>Once in a while you want to check how stable a connection is between computers. You might want to ping one or two machines from several others to find out if there is some issues with the network somewhere. You could use the built-in cmdlet Test-Connection and log the results to a log file but then you will not be able to log timeouts since the cmdlet returns an error when timeouts occur.</p>
-                     
-                    <h2><a href="/posts/powershell-logo-made-with-css3/">PowerShell logo made with CSS3</a></h2>        
-                    <p>If you are following this blog you might have noticed some small changes here and there. I have been playing around with CSS in search of something that I like. While playing with CSS I started to wonder how hard it would be to create the PowerShell logo with only CSS, and it turned out it was not that hard. Unfortunately it requires some CSS3 components which not all browsers support, so depending on your browser the logo in the end of this post might or might not show properly.</p>
-                     
-                    <h2><a href="/posts/what-is-this-here-string-people-are-talking-about/">What is this here-string people are talking about?</a></h2>        
-                    <p>When long strings need to be generated it could sometimes be cumbersome to keep adding strings together, especially if you want the string to contain several lines, tabs and special characters. Here-string can solve that problem and is very easy to use.
+                 
+                <h2><a href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h2>        
+                <p>Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources to contain as little code as possible I prefer to create cmdlets outside of the resource which I can call from within the resource. In this way I can also use the cmdlets in scripts and the console which is a nice bonus.</p>
+                 
+                <h2><a href="/posts/use-powershell-jobs-to-ping-many-from-many-with-log/">Use PowerShell jobs to ping many from many with log</a></h2>        
+                <p>Once in a while you want to check how stable a connection is between computers. You might want to ping one or two machines from several others to find out if there is some issues with the network somewhere. You could use the built-in cmdlet Test-Connection and log the results to a log file but then you will not be able to log timeouts since the cmdlet returns an error when timeouts occur.</p>
+                 
+                <h2><a href="/posts/powershell-logo-made-with-css3/">PowerShell logo made with CSS3</a></h2>        
+                <p>If you are following this blog you might have noticed some small changes here and there. I have been playing around with CSS in search of something that I like. While playing with CSS I started to wonder how hard it would be to create the PowerShell logo with only CSS, and it turned out it was not that hard. Unfortunately it requires some CSS3 components which not all browsers support, so depending on your browser the logo in the end of this post might or might not show properly.</p>
+                 
+                <h2><a href="/posts/what-is-this-here-string-people-are-talking-about/">What is this here-string people are talking about?</a></h2>        
+                <p>When long strings need to be generated it could sometimes be cumbersome to keep adding strings together, especially if you want the string to contain several lines, tabs and special characters. Here-string can solve that problem and is very easy to use.
 Lets first look at a simple example of how regular strings work with variables, new lines and tabs. After that we look at an example of how to use here-string instead to make the code easier to read.</p>
-                
+            
 
-            </div>
-            <div class="main-content-preview">
+        </div>
+        <div class="main-content-preview">
 
-                
-                
-                    <h2><a href="/posts/deploy-azure-function-app-without-downtime/">Deploy Azure Function App without downtime</a>&nbsp;<span class="h2-postdate">- October 29, 2020</span></h2>
-                    <p>Deploying a function app without downtime should be standard practice for anyone working with Azure Functions, but it does not come out of the box. It requires an understanding of how function apps gets configured, how deployment slots can help and why warmup does not necessarily mean your solution is up and running. In this post I will go through how this can be achieved using CD-pipelines in Azure DevOps.</p>                        
-                
-                    <h2><a href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo</a>&nbsp;<span class="h2-postdate">- October 20, 2020</span></h2>
-                    <p>For a while now I have felt that it takes too long time for me to write blog posts. I spend a long time figuring out how to make the post look right, when I should be spending time on the content. In the end this puts me off writing, because I know it will require a lot of effort. Because of that I have now moved the blog from Blogger to GitHub Pages using Hugo as static site generator to make it easier and quicker to write content.</p>                        
-                
-                    <h2><a href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a>&nbsp;<span class="h2-postdate">- May 29, 2020</span></h2>
-                    <p>Pester 5 was released a couple of days ago which brings a lot of new features and changes to how we write tests. One of the major changes in Pester 5 is the Discovery phase. In this post I will attempt to explain how Discovery works and how to use it to generate test cases.
+            
+            
+                <h2><a href="/posts/deploy-azure-function-app-without-downtime/">Deploy Azure Function App without downtime</a>&nbsp;<span class="h2-postdate">- October 29, 2020</span></h2>
+                <p>Deploying a function app without downtime should be standard practice for anyone working with Azure Functions, but it does not come out of the box. It requires an understanding of how function apps gets configured, how deployment slots can help and why warmup does not necessarily mean your solution is up and running. In this post I will go through how this can be achieved using CD-pipelines in Azure DevOps.</p>                        
+            
+                <h2><a href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo</a>&nbsp;<span class="h2-postdate">- October 20, 2020</span></h2>
+                <p>For a while now I have felt that it takes too long time for me to write blog posts. I spend a long time figuring out how to make the post look right, when I should be spending time on the content. In the end this puts me off writing, because I know it will require a lot of effort. Because of that I have now moved the blog from Blogger to GitHub Pages using Hugo as static site generator to make it easier and quicker to write content.</p>                        
+            
+                <h2><a href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases</a>&nbsp;<span class="h2-postdate">- May 29, 2020</span></h2>
+                <p>Pester 5 was released a couple of days ago which brings a lot of new features and changes to how we write tests. One of the major changes in Pester 5 is the Discovery phase. In this post I will attempt to explain how Discovery works and how to use it to generate test cases.
 Tests are executed in two phases Whenever you run tests with Pester 5 there will always be two phases, the Discovery phase and the Run phase.</p>                        
-                
-                    <h2><a href="/posts/create-and-use-azure-table-storage-with-powershell/">Create and use Azure Table storage with PowerShell</a>&nbsp;<span class="h2-postdate">- March 11, 2020</span></h2>
-                    <p>Azure Table storage is a quick and easy way to store data in the cloud. If you have an Azure subscription you can play around with you are up and running within minutes. Here is a short example on how to get started.
+            
+                <h2><a href="/posts/create-and-use-azure-table-storage-with-powershell/">Create and use Azure Table storage with PowerShell</a>&nbsp;<span class="h2-postdate">- March 11, 2020</span></h2>
+                <p>Azure Table storage is a quick and easy way to store data in the cloud. If you have an Azure subscription you can play around with you are up and running within minutes. Here is a short example on how to get started.
 Create table To create an Azure Table we need to first have a resource group. Lets create one that is called &ldquo;MyAwesomeResourceGroup&rdquo; and place it in &ldquo;West Europe&rdquo;.</p>                        
-                
-                    <h2><a href="/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/">Use Edit-Command to discover the code behind built-in cmdlets</a>&nbsp;<span class="h2-postdate">- February 22, 2017</span></h2>
-                    <p>Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When you run Get-Command you get all kinds of details about the commands you are looking for. One of the properties in the output is called ScriptBlock. That&rsquo;s where the code is, if its written in PowerShell.</p>                        
-                
-                    <h2><a href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a>&nbsp;<span class="h2-postdate">- February 21, 2017</span></h2>
-                    <p>To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell cmdlet Invoke-RestMethod. I have seen some people suggesting that Invoke-RestMethod does not have support for this, which is not true. It&rsquo;s just a little bit more complicated than expected.
+            
+                <h2><a href="/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/">Use Edit-Command to discover the code behind built-in cmdlets</a>&nbsp;<span class="h2-postdate">- February 22, 2017</span></h2>
+                <p>Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When you run Get-Command you get all kinds of details about the commands you are looking for. One of the properties in the output is called ScriptBlock. That&rsquo;s where the code is, if its written in PowerShell.</p>                        
+            
+                <h2><a href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a>&nbsp;<span class="h2-postdate">- February 21, 2017</span></h2>
+                <p>To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell cmdlet Invoke-RestMethod. I have seen some people suggesting that Invoke-RestMethod does not have support for this, which is not true. It&rsquo;s just a little bit more complicated than expected.
 What&rsquo;s needed is basically a custom header and a cookie.</p>                        
-                
-                    <h2><a href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a>&nbsp;<span class="h2-postdate">- April 23, 2016</span></h2>
-                    <p>Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources to contain as little code as possible I prefer to create cmdlets outside of the resource which I can call from within the resource. In this way I can also use the cmdlets in scripts and the console which is a nice bonus.</p>                        
-                
-                    <h2><a href="/posts/use-powershell-jobs-to-ping-many-from-many-with-log/">Use PowerShell jobs to ping many from many with log</a>&nbsp;<span class="h2-postdate">- February 6, 2016</span></h2>
-                    <p>Once in a while you want to check how stable a connection is between computers. You might want to ping one or two machines from several others to find out if there is some issues with the network somewhere. You could use the built-in cmdlet Test-Connection and log the results to a log file but then you will not be able to log timeouts since the cmdlet returns an error when timeouts occur.</p>                        
-                
-                    <h2><a href="/posts/powershell-logo-made-with-css3/">PowerShell logo made with CSS3</a>&nbsp;<span class="h2-postdate">- July 27, 2015</span></h2>
-                    <p>If you are following this blog you might have noticed some small changes here and there. I have been playing around with CSS in search of something that I like. While playing with CSS I started to wonder how hard it would be to create the PowerShell logo with only CSS, and it turned out it was not that hard. Unfortunately it requires some CSS3 components which not all browsers support, so depending on your browser the logo in the end of this post might or might not show properly.</p>                        
-                
-                    <h2><a href="/posts/what-is-this-here-string-people-are-talking-about/">What is this here-string people are talking about?</a>&nbsp;<span class="h2-postdate">- July 24, 2015</span></h2>
-                    <p>When long strings need to be generated it could sometimes be cumbersome to keep adding strings together, especially if you want the string to contain several lines, tabs and special characters. Here-string can solve that problem and is very easy to use.
+            
+                <h2><a href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a>&nbsp;<span class="h2-postdate">- April 23, 2016</span></h2>
+                <p>Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources to contain as little code as possible I prefer to create cmdlets outside of the resource which I can call from within the resource. In this way I can also use the cmdlets in scripts and the console which is a nice bonus.</p>                        
+            
+                <h2><a href="/posts/use-powershell-jobs-to-ping-many-from-many-with-log/">Use PowerShell jobs to ping many from many with log</a>&nbsp;<span class="h2-postdate">- February 6, 2016</span></h2>
+                <p>Once in a while you want to check how stable a connection is between computers. You might want to ping one or two machines from several others to find out if there is some issues with the network somewhere. You could use the built-in cmdlet Test-Connection and log the results to a log file but then you will not be able to log timeouts since the cmdlet returns an error when timeouts occur.</p>                        
+            
+                <h2><a href="/posts/powershell-logo-made-with-css3/">PowerShell logo made with CSS3</a>&nbsp;<span class="h2-postdate">- July 27, 2015</span></h2>
+                <p>If you are following this blog you might have noticed some small changes here and there. I have been playing around with CSS in search of something that I like. While playing with CSS I started to wonder how hard it would be to create the PowerShell logo with only CSS, and it turned out it was not that hard. Unfortunately it requires some CSS3 components which not all browsers support, so depending on your browser the logo in the end of this post might or might not show properly.</p>                        
+            
+                <h2><a href="/posts/what-is-this-here-string-people-are-talking-about/">What is this here-string people are talking about?</a>&nbsp;<span class="h2-postdate">- July 24, 2015</span></h2>
+                <p>When long strings need to be generated it could sometimes be cumbersome to keep adding strings together, especially if you want the string to contain several lines, tabs and special characters. Here-string can solve that problem and is very easy to use.
 Lets first look at a simple example of how regular strings work with variables, new lines and tabs. After that we look at an example of how to use here-string instead to make the code easier to read.</p>                        
-                
+            
 
-                <div class="internal-pagination">
-                    
+            <div class="internal-pagination">
+                
 <ul class="pagination">
   <li class="page-item">
     <a href="/tags/getting-started/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
@@ -343,9 +328,9 @@ Lets first look at a simple example of how regular strings work with variables, 
 </ul>
 
 
-                </div>    
-            </div>
+            </div>    
         </div>
+    </div>
 
 
             </div>

@@ -201,146 +201,131 @@ if (!doNotTrack) {
             
             
             <div class='main'>
-     
-     
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-    
-    
-    
-       
-        <div class="main-path">
-            <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Use Edit-Command to discover the code behind built-in cmdlets.md</span>
-            
-                    
-                    
-                    <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2017-02-22">February 22, 2017</time>)</span>
+    <div class="main-path">
+        <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Use Edit-Command to discover the code behind built-in cmdlets.md</span>
+        
                 
+                
+                <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2017-02-22">February 22, 2017</time>)</span>
+            
+    </div>
+    
+    <div class="main-content-toggle">
+
+        
+        <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
+        <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
+
+        <input class="source-toggle" type="checkbox" id="source-toggle">
+        <label class="source-toggle-label" for="source-toggle"></label>
+
+        <div class="main-content">
+            ---<br />
+            <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Use Edit-Command to discover the code behind built-in cmdlets</span><br />
+            <span class="md-frontmatter">date</span>: 2017-02-22 14:14:00 &#43;0200 &#43;0200<br />
+            <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
+            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
+            ----
+            <p>Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When you run Get-Command you get all kinds of details about the commands you are looking for. One of the properties in the output is called ScriptBlock. That&rsquo;s where the code is, if its written in PowerShell.</p>
+<p>Lets take a quick example. First check how many commands are available, and then how many of those have a script block attached to them.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">PS </span><span class="n">C:</span><span class="p">\&gt;</span> <span class="p">(</span><span class="nb">Get-Command</span><span class="p">).</span><span class="n">count</span>
+<span class="n">1861</span>
+
+<span class="nb">PS </span><span class="n">C:</span><span class="p">\&gt;</span> <span class="p">(</span><span class="nb">Get-Command</span> <span class="p">|</span> <span class="p">?</span> <span class="n">scriptblock</span><span class="p">).</span><span class="n">count</span>
+<span class="n">955</span>
+</code></pre></div><p>In this system I have a total of 1861 commands, and 955 of those are written in PowerShell. That&rsquo;s cool. Get-Verb is one of those commands. Lets have a look at that and expand the script block property.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">PS </span><span class="n">C:</span><span class="p">\&gt;</span> <span class="nb">Get-Command</span> <span class="n">-Name</span> <span class="nb">Get-Verb</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-ExpandProperty</span> <span class="n">scriptblock</span>
+
+<span class="k">param</span><span class="p">(</span>
+    <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">ValueFromPipeline</span><span class="p">=</span><span class="nv">$true</span><span class="p">)]</span>
+    <span class="no">[string[]]</span>
+    <span class="nv">$verb</span> <span class="p">=</span> <span class="s1">&#39;*&#39;</span>
+<span class="p">)</span>
+<span class="k">begin</span> <span class="p">{</span>
+    <span class="nv">$allVerbs</span> <span class="p">=</span> 
+<span class="no">[System.Reflection.IntrospectionExtensions]</span><span class="p">::</span><span class="n">GetTypeInfo</span><span class="p">(</span><span class="no">[PSObject]</span><span class="p">).</span><span class="n">Assembly</span><span class="p">.</span><span class="n">ExportedTypes</span> 
+<span class="p">|</span>
+        <span class="n">Microsoft</span><span class="p">.</span><span class="n">PowerShell</span><span class="p">.</span><span class="n">Core</span><span class="p">\</span><span class="nb">Where-Object</span> <span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="n">Name</span> <span class="o">-match</span> <span class="s1">&#39;^Verbs.&#39;</span><span class="p">}</span> <span class="p">|</span>
+        <span class="n">Microsoft</span><span class="p">.</span><span class="n">PowerShell</span><span class="p">.</span><span class="n">Utility</span><span class="p">\</span><span class="nb">Get-Member</span> <span class="n">-type</span> <span class="n">Properties</span> <span class="n">-static</span> <span class="p">|</span>
+        <span class="n">Microsoft</span><span class="p">.</span><span class="n">PowerShell</span><span class="p">.</span><span class="n">Utility</span><span class="p">\</span><span class="nb">Select-Object</span> <span class="p">@{</span>
+            <span class="n">Name</span><span class="p">=</span><span class="s1">&#39;Verb&#39;</span>
+            <span class="n">Expression</span> <span class="p">=</span> <span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="n">Name</span><span class="p">}</span>
+        <span class="p">},</span> <span class="p">@{</span>
+            <span class="n">Name</span><span class="p">=</span><span class="s1">&#39;Group&#39;</span>
+            <span class="n">Expression</span> <span class="p">=</span> <span class="p">{</span>
+                <span class="nv">$str</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$_</span><span class="p">.</span><span class="n">TypeName</span><span class="p">)</span><span class="s2">&#34;</span>
+                <span class="nv">$str</span><span class="p">.</span><span class="n">Substring</span><span class="p">(</span><span class="nv">$str</span><span class="p">.</span><span class="n">LastIndexOf</span><span class="p">(</span><span class="s1">&#39;Verbs&#39;</span><span class="p">)</span> <span class="p">+</span> <span class="n">5</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">process</span> <span class="p">{</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$v</span> <span class="k">in</span> <span class="nv">$verb</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$allVerbs</span> <span class="p">|</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">PowerShell</span><span class="p">.</span><span class="n">Core</span><span class="p">\</span><span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Verb</span> <span class="o">-like</span> <span class="nv">$v</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="c"># </span><span class="sd">.Link</span>
+<span class="c"># http://go.microsoft.com/fwlink/?LinkID=160712</span>
+<span class="c"># </span><span class="sd">.ExternalHelp</span><span class="c"> System.Management.Automation.dll-help.xml</span>
+</code></pre></div><p>But why not add the result to a new tab in the PowerShell ISE? I wrote a simple cmdlet for that, called Edit-Command. When you run Edit-Command it will check if the command have a script block and in that case open a new tab in ISE with the content from the script block. In the top of the new tab it will add some meta data about the command, like name, type, version and source.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">PS </span><span class="n">C:</span><span class="p">\&gt;</span> <span class="nb">Edit-Command</span> <span class="n">-Name</span> <span class="nb">Get-Verb</span>
+</code></pre></div><p>Pretty neat. Below is the code for Edit-Command if you want to try it yourself.</p>
+<h2 id="edit-command">Edit-Command</h2>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="k">function</span> <span class="nb">Edit-Command</span> <span class="p">{</span>
+    <span class="p">[</span><span class="k">CmdletBinding</span><span class="p">()]</span>
+    <span class="p">[</span><span class="n">OutputType</span><span class="p">(</span><span class="no">[void]</span><span class="p">)]</span>
+    <span class="k">param</span> <span class="p">(</span>
+        <span class="p">[</span><span class="n">validatenotnullorempty</span><span class="p">()]</span>
+        <span class="no">[string]</span><span class="nv">$Name</span>
+    <span class="p">)</span>
+ 
+    <span class="k">Process</span>
+    <span class="p">{</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="nv">$command</span> <span class="p">=</span> <span class="nb">Get-Command</span> <span class="n">-Name</span> <span class="nv">$Name</span> <span class="n">-ErrorAction</span> <span class="n">Stop</span>
+        <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+            <span class="k">Throw</span> <span class="nv">$Error</span><span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">Exception</span>
+        <span class="p">}</span>
+ 
+        <span class="k">if</span> <span class="p">(</span> <span class="nv">$command</span> <span class="o">-is</span> <span class="no">[array]</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="s1">&#39;Multiple commands found. You need to be more specific.&#39;</span>
+        <span class="p">}</span>
+ 
+        <span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="p">(</span><span class="nv">$scriptblock</span> <span class="p">=</span> <span class="nv">$command</span><span class="p">.</span><span class="n">ScriptBlock</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$exception</span> <span class="p">=</span> <span class="s2">&#34;The command does not have a scriptblock available.&#34;</span>
+            <span class="k">Throw</span> <span class="nv">$exception</span>
+        <span class="p">}</span>
+ 
+        <span class="nv">$code</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="n">Text</span><span class="p">.</span><span class="n">StringBuilder</span>
+        <span class="nv">$code</span><span class="p">.</span><span class="n">Append</span><span class="p">(</span><span class="s2">&#34;# Command: </span><span class="p">$(</span><span class="nv">$command</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span><span class="se">`n</span><span class="s2">&#34;</span><span class="p">)</span> <span class="p">|</span> <span class="nb">Out-Null</span>
+        <span class="nv">$code</span><span class="p">.</span><span class="n">Append</span><span class="p">(</span><span class="s2">&#34;# Type: </span><span class="p">$(</span><span class="nv">$command</span><span class="p">.</span><span class="n">CommandType</span><span class="p">)</span><span class="se">`n</span><span class="s2">&#34;</span><span class="p">)</span> <span class="p">|</span> <span class="nb">Out-Null</span>
+        <span class="nv">$code</span><span class="p">.</span><span class="n">Append</span><span class="p">(</span><span class="s2">&#34;# Version: </span><span class="p">$(</span><span class="nv">$command</span><span class="p">.</span><span class="n">Version</span><span class="p">)</span><span class="se">`n</span><span class="s2">&#34;</span><span class="p">)</span> <span class="p">|</span> <span class="nb">Out-Null</span>
+        <span class="nv">$code</span><span class="p">.</span><span class="n">Append</span><span class="p">(</span><span class="s2">&#34;# Source: </span><span class="p">$(</span><span class="nv">$command</span><span class="p">.</span><span class="n">Source</span><span class="p">)</span><span class="se">`n</span><span class="s2">&#34;</span><span class="p">)</span> <span class="p">|</span> <span class="nb">Out-Null</span>
+        <span class="nv">$code</span><span class="p">.</span><span class="n">Append</span><span class="p">(</span><span class="nv">$scriptblock</span><span class="p">)</span> <span class="p">|</span> <span class="nb">Out-Null</span>
+ 
+        <span class="n">OpenTab</span> <span class="n">-code</span> <span class="nv">$code</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+ 
+<span class="k">function</span> <span class="n">OpenTab</span> <span class="p">{</span>
+    <span class="k">param</span> <span class="p">(</span> <span class="no">[System.Text.StringBuilder]</span><span class="nv">$code</span> <span class="p">)</span>
+ 
+    <span class="nv">$displayname</span> <span class="p">=</span> <span class="nv">$psISE</span><span class="p">.</span><span class="n">CurrentPowerShellTab</span><span class="p">.</span><span class="n">Files</span><span class="p">.</span><span class="n">Add</span><span class="p">().</span><span class="n">DisplayName</span>
+    <span class="nv">$openfile</span> <span class="p">=</span> <span class="nv">$psISE</span><span class="p">.</span><span class="n">PowerShellTabs</span><span class="p">.</span><span class="n">files</span> <span class="p">|</span> 
+        <span class="nb">Where-Object</span> <span class="n">DisplayName</span> <span class="o">-eq</span> <span class="nv">$displayname</span> <span class="p">|</span> 
+        <span class="nb">Select-Object</span> <span class="n">-First</span> <span class="n">1</span>
+
+    <span class="nv">$openfile</span><span class="p">.</span><span class="n">Editor</span><span class="p">.</span><span class="n">Text</span> <span class="p">+=</span> <span class="nv">$code</span>
+    <span class="nv">$openfile</span><span class="p">.</span><span class="n">Editor</span><span class="p">.</span><span class="n">SetCaretPosition</span><span class="p">(</span><span class="n">1</span><span class="p">,</span><span class="n">1</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div><p>This code is also available on <a href="https://github.com/JohnRoos/PowerShell/tree/master/Modules/Edit-Command">GitHub</a>.</p>
+
         </div>
-        <div class="main-content-toggle">
 
+        
+        <div class="main-content-preview">
+            <h1>Use Edit-Command to discover the code behind built-in cmdlets</h1>
             
-            <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
-            <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
-
-            <input class="source-toggle" type="checkbox" id="source-toggle">
-            <label class="source-toggle-label" for="source-toggle"></label>
-
-            <div class="main-content">
-                ---<br />
-                <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Use Edit-Command to discover the code behind built-in cmdlets</span><br />
-                <span class="md-frontmatter">date</span>: 2017-02-22 14:14:00 &#43;0200 &#43;0200<br />
-                <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
-                <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
-                ----
-                <p>Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When you run Get-Command you get all kinds of details about the commands you are looking for. One of the properties in the output is called ScriptBlock. That&rsquo;s where the code is, if its written in PowerShell.</p>
-<p>Lets take a quick example. First check how many commands are available, and then how many of those have a script block attached to them.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">PS </span><span class="n">C:</span><span class="p">\&gt;</span> <span class="p">(</span><span class="nb">Get-Command</span><span class="p">).</span><span class="n">count</span>
-<span class="n">1861</span>
-
-<span class="nb">PS </span><span class="n">C:</span><span class="p">\&gt;</span> <span class="p">(</span><span class="nb">Get-Command</span> <span class="p">|</span> <span class="p">?</span> <span class="n">scriptblock</span><span class="p">).</span><span class="n">count</span>
-<span class="n">955</span>
-</code></pre></div><p>In this system I have a total of 1861 commands, and 955 of those are written in PowerShell. That&rsquo;s cool. Get-Verb is one of those commands. Lets have a look at that and expand the script block property.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">PS </span><span class="n">C:</span><span class="p">\&gt;</span> <span class="nb">Get-Command</span> <span class="n">-Name</span> <span class="nb">Get-Verb</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-ExpandProperty</span> <span class="n">scriptblock</span>
-
-<span class="k">param</span><span class="p">(</span>
-    <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">ValueFromPipeline</span><span class="p">=</span><span class="nv">$true</span><span class="p">)]</span>
-    <span class="no">[string[]]</span>
-    <span class="nv">$verb</span> <span class="p">=</span> <span class="s1">&#39;*&#39;</span>
-<span class="p">)</span>
-<span class="k">begin</span> <span class="p">{</span>
-    <span class="nv">$allVerbs</span> <span class="p">=</span> 
-<span class="no">[System.Reflection.IntrospectionExtensions]</span><span class="p">::</span><span class="n">GetTypeInfo</span><span class="p">(</span><span class="no">[PSObject]</span><span class="p">).</span><span class="n">Assembly</span><span class="p">.</span><span class="n">ExportedTypes</span> 
-<span class="p">|</span>
-        <span class="n">Microsoft</span><span class="p">.</span><span class="n">PowerShell</span><span class="p">.</span><span class="n">Core</span><span class="p">\</span><span class="nb">Where-Object</span> <span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="n">Name</span> <span class="o">-match</span> <span class="s1">&#39;^Verbs.&#39;</span><span class="p">}</span> <span class="p">|</span>
-        <span class="n">Microsoft</span><span class="p">.</span><span class="n">PowerShell</span><span class="p">.</span><span class="n">Utility</span><span class="p">\</span><span class="nb">Get-Member</span> <span class="n">-type</span> <span class="n">Properties</span> <span class="n">-static</span> <span class="p">|</span>
-        <span class="n">Microsoft</span><span class="p">.</span><span class="n">PowerShell</span><span class="p">.</span><span class="n">Utility</span><span class="p">\</span><span class="nb">Select-Object</span> <span class="p">@{</span>
-            <span class="n">Name</span><span class="p">=</span><span class="s1">&#39;Verb&#39;</span>
-            <span class="n">Expression</span> <span class="p">=</span> <span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="n">Name</span><span class="p">}</span>
-        <span class="p">},</span> <span class="p">@{</span>
-            <span class="n">Name</span><span class="p">=</span><span class="s1">&#39;Group&#39;</span>
-            <span class="n">Expression</span> <span class="p">=</span> <span class="p">{</span>
-                <span class="nv">$str</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$_</span><span class="p">.</span><span class="n">TypeName</span><span class="p">)</span><span class="s2">&#34;</span>
-                <span class="nv">$str</span><span class="p">.</span><span class="n">Substring</span><span class="p">(</span><span class="nv">$str</span><span class="p">.</span><span class="n">LastIndexOf</span><span class="p">(</span><span class="s1">&#39;Verbs&#39;</span><span class="p">)</span> <span class="p">+</span> <span class="n">5</span><span class="p">)</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-<span class="p">}</span>
-<span class="k">process</span> <span class="p">{</span>
-    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$v</span> <span class="k">in</span> <span class="nv">$verb</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nv">$allVerbs</span> <span class="p">|</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">PowerShell</span><span class="p">.</span><span class="n">Core</span><span class="p">\</span><span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Verb</span> <span class="o">-like</span> <span class="nv">$v</span> <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="c"># </span><span class="sd">.Link</span>
-<span class="c"># http://go.microsoft.com/fwlink/?LinkID=160712</span>
-<span class="c"># </span><span class="sd">.ExternalHelp</span><span class="c"> System.Management.Automation.dll-help.xml</span>
-</code></pre></div><p>But why not add the result to a new tab in the PowerShell ISE? I wrote a simple cmdlet for that, called Edit-Command. When you run Edit-Command it will check if the command have a script block and in that case open a new tab in ISE with the content from the script block. In the top of the new tab it will add some meta data about the command, like name, type, version and source.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">PS </span><span class="n">C:</span><span class="p">\&gt;</span> <span class="nb">Edit-Command</span> <span class="n">-Name</span> <span class="nb">Get-Verb</span>
-</code></pre></div><p>Pretty neat. Below is the code for Edit-Command if you want to try it yourself.</p>
-<h2 id="edit-command">Edit-Command</h2>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="k">function</span> <span class="nb">Edit-Command</span> <span class="p">{</span>
-    <span class="p">[</span><span class="k">CmdletBinding</span><span class="p">()]</span>
-    <span class="p">[</span><span class="n">OutputType</span><span class="p">(</span><span class="no">[void]</span><span class="p">)]</span>
-    <span class="k">param</span> <span class="p">(</span>
-        <span class="p">[</span><span class="n">validatenotnullorempty</span><span class="p">()]</span>
-        <span class="no">[string]</span><span class="nv">$Name</span>
-    <span class="p">)</span>
- 
-    <span class="k">Process</span>
-    <span class="p">{</span>
-        <span class="k">try</span> <span class="p">{</span>
-            <span class="nv">$command</span> <span class="p">=</span> <span class="nb">Get-Command</span> <span class="n">-Name</span> <span class="nv">$Name</span> <span class="n">-ErrorAction</span> <span class="n">Stop</span>
-        <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
-            <span class="k">Throw</span> <span class="nv">$Error</span><span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">Exception</span>
-        <span class="p">}</span>
- 
-        <span class="k">if</span> <span class="p">(</span> <span class="nv">$command</span> <span class="o">-is</span> <span class="no">[array]</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">throw</span> <span class="s1">&#39;Multiple commands found. You need to be more specific.&#39;</span>
-        <span class="p">}</span>
- 
-        <span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="p">(</span><span class="nv">$scriptblock</span> <span class="p">=</span> <span class="nv">$command</span><span class="p">.</span><span class="n">ScriptBlock</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
-            <span class="nv">$exception</span> <span class="p">=</span> <span class="s2">&#34;The command does not have a scriptblock available.&#34;</span>
-            <span class="k">Throw</span> <span class="nv">$exception</span>
-        <span class="p">}</span>
- 
-        <span class="nv">$code</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="n">Text</span><span class="p">.</span><span class="n">StringBuilder</span>
-        <span class="nv">$code</span><span class="p">.</span><span class="n">Append</span><span class="p">(</span><span class="s2">&#34;# Command: </span><span class="p">$(</span><span class="nv">$command</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span><span class="se">`n</span><span class="s2">&#34;</span><span class="p">)</span> <span class="p">|</span> <span class="nb">Out-Null</span>
-        <span class="nv">$code</span><span class="p">.</span><span class="n">Append</span><span class="p">(</span><span class="s2">&#34;# Type: </span><span class="p">$(</span><span class="nv">$command</span><span class="p">.</span><span class="n">CommandType</span><span class="p">)</span><span class="se">`n</span><span class="s2">&#34;</span><span class="p">)</span> <span class="p">|</span> <span class="nb">Out-Null</span>
-        <span class="nv">$code</span><span class="p">.</span><span class="n">Append</span><span class="p">(</span><span class="s2">&#34;# Version: </span><span class="p">$(</span><span class="nv">$command</span><span class="p">.</span><span class="n">Version</span><span class="p">)</span><span class="se">`n</span><span class="s2">&#34;</span><span class="p">)</span> <span class="p">|</span> <span class="nb">Out-Null</span>
-        <span class="nv">$code</span><span class="p">.</span><span class="n">Append</span><span class="p">(</span><span class="s2">&#34;# Source: </span><span class="p">$(</span><span class="nv">$command</span><span class="p">.</span><span class="n">Source</span><span class="p">)</span><span class="se">`n</span><span class="s2">&#34;</span><span class="p">)</span> <span class="p">|</span> <span class="nb">Out-Null</span>
-        <span class="nv">$code</span><span class="p">.</span><span class="n">Append</span><span class="p">(</span><span class="nv">$scriptblock</span><span class="p">)</span> <span class="p">|</span> <span class="nb">Out-Null</span>
- 
-        <span class="n">OpenTab</span> <span class="n">-code</span> <span class="nv">$code</span>
-    <span class="p">}</span>
-<span class="p">}</span>
- 
-<span class="k">function</span> <span class="n">OpenTab</span> <span class="p">{</span>
-    <span class="k">param</span> <span class="p">(</span> <span class="no">[System.Text.StringBuilder]</span><span class="nv">$code</span> <span class="p">)</span>
- 
-    <span class="nv">$displayname</span> <span class="p">=</span> <span class="nv">$psISE</span><span class="p">.</span><span class="n">CurrentPowerShellTab</span><span class="p">.</span><span class="n">Files</span><span class="p">.</span><span class="n">Add</span><span class="p">().</span><span class="n">DisplayName</span>
-    <span class="nv">$openfile</span> <span class="p">=</span> <span class="nv">$psISE</span><span class="p">.</span><span class="n">PowerShellTabs</span><span class="p">.</span><span class="n">files</span> <span class="p">|</span> 
-        <span class="nb">Where-Object</span> <span class="n">DisplayName</span> <span class="o">-eq</span> <span class="nv">$displayname</span> <span class="p">|</span> 
-        <span class="nb">Select-Object</span> <span class="n">-First</span> <span class="n">1</span>
-
-    <span class="nv">$openfile</span><span class="p">.</span><span class="n">Editor</span><span class="p">.</span><span class="n">Text</span> <span class="p">+=</span> <span class="nv">$code</span>
-    <span class="nv">$openfile</span><span class="p">.</span><span class="n">Editor</span><span class="p">.</span><span class="n">SetCaretPosition</span><span class="p">(</span><span class="n">1</span><span class="p">,</span><span class="n">1</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div><p>This code is also available on <a href="https://github.com/JohnRoos/PowerShell/tree/master/Modules/Edit-Command">GitHub</a>.</p>
-
-            </div>
-
-            
-            <div class="main-content-preview">
-                <h1>Use Edit-Command to discover the code behind built-in cmdlets</h1>
-                
-                <p>Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When you run Get-Command you get all kinds of details about the commands you are looking for. One of the properties in the output is called ScriptBlock. That&rsquo;s where the code is, if its written in PowerShell.</p>
+            <p>Did you know that there are a lot of built-in cmdlets which are written entirely in PowerShell? Did you also know that you can view the source of those cmdlets? Well, you can. Get-Command shows all the details we need. When you run Get-Command you get all kinds of details about the commands you are looking for. One of the properties in the output is called ScriptBlock. That&rsquo;s where the code is, if its written in PowerShell.</p>
 <p>Lets take a quick example. First check how many commands are available, and then how many of those have a script block attached to them.</p>
 <div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">PS </span><span class="n">C:</span><span class="p">\&gt;</span> <span class="p">(</span><span class="nb">Get-Command</span><span class="p">).</span><span class="n">count</span>
 <span class="n">1861</span>
@@ -434,15 +419,15 @@ if (!doNotTrack) {
 </code></pre></div><p>This code is also available on <a href="https://github.com/JohnRoos/PowerShell/tree/master/Modules/Edit-Command">GitHub</a>.</p>
 
 
-                <p>- Written by John  
+            <p>- Written by John  
+            
                 
-                    
-                    
-                    on February 22, 2017</p>
+                
+                on February 22, 2017</p>
 
-                
-                    <div class="disqus-section">
-                        <div id="disqus_thread"></div>
+            
+                <div class="disqus-section">
+                    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -462,11 +447,11 @@ if (!doNotTrack) {
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-                    </div>
-                
-            </div>
+                </div>
+            
+        </div>
 
-       </div>
+    </div>
     
 
 

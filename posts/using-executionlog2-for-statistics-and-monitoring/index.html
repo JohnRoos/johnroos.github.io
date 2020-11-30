@@ -205,133 +205,120 @@ if (!doNotTrack) {
             
             
             <div class='main'>
-     
-     
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-    
-       
-        <div class="main-path">
-            <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Using ExecutionLog2 for statistics and monitoring.md</span>
-            
-                    
-                    
-                    <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2011-10-28">October 28, 2011</time>)</span>
+    <div class="main-path">
+        <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Using ExecutionLog2 for statistics and monitoring.md</span>
+        
                 
+                
+                <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2011-10-28">October 28, 2011</time>)</span>
+            
+    </div>
+    
+    <div class="main-content-toggle">
+
+        
+        <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
+        <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
+
+        <input class="source-toggle" type="checkbox" id="source-toggle">
+        <label class="source-toggle-label" for="source-toggle"></label>
+
+        <div class="main-content">
+            ---<br />
+            <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Using ExecutionLog2 for statistics and monitoring</span><br />
+            <span class="md-frontmatter">date</span>: 2011-10-28 14:14:00 &#43;0200 CEST<br />
+            <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
+            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
+            ----
+            <p>When developing reports its often nice to be able to see how the reports are doing when deployed into production. The fact that the reports are displaying the correct data is one thing. Are they performing as expected six months later? Do they scale well after the amount of data has increased? Which are the most common reports the users execute? Are there reports no one is using?</p>
+<p>I wanted to write some simple examples of how to use the internal log to get this kind of information about reports. To make it easier for others to view the same things I will show some examples of reports which shows statistics and information about other reports. The good thing with that kind of report is that they work in almost any SSRS environment as long as the version is the same and the logging configuration is similar.</p>
+<h2 id="report-storage-and-folder-hierarchy">Report storage and folder hierarchy</h2>
+<p>There are some basic places in the <strong>ReportServer</strong> database where you can get some information about your reports. The reports themselves can be found in a table called <strong>Catalog</strong>.</p>
+<p>The <strong>Catalog</strong> table contains the path and title of the reports as well as the report definition in binary format. The binary format can make the table slow to lookup if you have a lot of reports so if you skip the column <strong>Content</strong> the table will be faster to work with.
+There is also a couple of other columns of interest. First of all you have the <strong>ItemID</strong> for each report which is useful when joining tables together, but you also have Type which tells you what kind of data we are looking at in the table.</p>
+<p>Here are some examples of what type could be:</p>
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">1 = Folder
+2 = Report
+3 = Other (PDF documents can be uploaded for example, check the MimeType column for more details)
+4 = Link
+5 = Data Source
+6 = Report model
+</code></pre></div><p>This is useful to know when writing scripts to query information about reports since you might just want to check for reports and not for folders for example. <strong>ParentID</strong> is simply pointing to where the report is residing, usually in a folder.</p>
+<h2 id="log-structure-and-content">Log structure and content</h2>
+<p>So now we know where the reports are. That does not help us all that much unless we can get some more detailed information about how they are performing when users use them. There are a couple of places to look at when it comes to logging about reports. The first place to look is in a table called <strong>ExecutionLogStorage</strong> which exists in both SQL Server 2005 and 2008.</p>
+<p>Microsoft have been kind enough in SQL Server 2008 to create a view with a little bit more information from this table. The view is called <strong>ExecutionLog2</strong> and contains mostly information from ExecutionLogStorage but also some minor details from the Catalog table. In this post I will focus primarily on this view, so if you are using SQL Server 2005 you will have to alter the queries a bit to get them to work with ExecutionLogStorage instead of ExecutionLog2.</p>
+<p>The view also makes it a bit easier to read and replaces certain status numbers with actual words describing its meaning. 
+If you haven&rsquo;t already checked how the view is created I recommend that you do that to get to know the view and where it is different from the regular ExecutionLogStorage table.</p>
+<p>Lets look at the data in the ExecutionLog2 view. If you are using SQL Server 2005 this will probably be useful as well since this view is based on the ExecutionLogStorage and the most important information are available in both the view and the table.</p>
+<p>First of all you have the <strong>InstanceName</strong> which shows where the report was processed in a scale-out deployment. This is especially important if you find that certain reports spend lots of time in Processing and Rendering (coming up soon). If the environment is not using the scale-out features this column is not that useful.</p>
+<p>The <strong>report path</strong> contains both the path and the name of the report.</p>
+<p><strong>Username</strong> is simply the user who executed the report. Note that scheduled reports will use a different account since the server generates the scheduled reports and not the users.
+RequestType shows how the report processing has been requested. It could be manually using the GUI (Interactive) or through a Subscription. (in which case UserName will be different as mentioned earlier)</p>
+<p><strong>Format</strong> shows how the report has been rendered, showing null for snapshot subscriptions since only the data is cached and the report has not been rendered yet. Common values are RPL and Excel. Interactive actions can get this to show NULL as well. (for Drillthrough and Interactive Sorting for example)</p>
+<p><strong>Parameters</strong> is a very useful part of the logging. This column shows what the user have selected among the parameters when running the report, which makes it much easier to reproduce a slow running report a user has reported. Using the parameters combined with the time it takes to generate a report can show clues to reports which does not scale well.</p>
+<p><strong>ReportAction</strong> shows interactive actions such as Drillthrough, sort, render and so on.</p>
+<p>The next five columns are some of the most interesting and they all have to do with how long it actually takes to process a report from the time the user clicked View Report until the report is displayed.</p>
+<p>The <strong>TimeStart</strong> and <strong>TimeEnd</strong> explains itself: the time the report started processing and the time it was finished.</p>
+<p><strong>TimeDataRetrieval</strong> shows how long time in milliseconds it took for the database to produce the data for the report server. If the datasets for the report is not able to run in parallel this shows the sum of all the datasets. If they are running in parallel this value will show the longest running dataset.</p>
+<p><strong>TimeProcessing</strong> is the time in milliseconds it takes for the report server to process the data retrieved from the database which could include sorting and grouping if that is done in the report instead of the dataset.</p>
+<p><strong>TimeRendering</strong> show the time in milliseconds it took for report server to render the report with all the html, pictures and other things.</p>
+<p>These five columns are examples of good places to look when a report is performing poorly. You can easily see where in the processing it takes the longest time and decide where to optimize to make things better. However, don&rsquo;t be fooled by the numbers. A long rendering time does not necessarily mean that you have created a complex interface in the report. It could also mean that the query to the database picks up a lot of data to be rendered. If all that data is not necessary you might want to optimize the query even if the time for DataRetrieval is very short. If a time is showing -1 its probably best to ignore that row. A result of -1 indicates that the time counter was for some reason unreliable and could not be calculated properly.</p>
+<p><strong>Source</strong> shows where the report gets the data. If this field shows Live its looking up the data directly in the database. When it says Snapshot the data was retrieved from a report snapshot and so on. Other options are AdHoc and History among others.</p>
+<p><strong>Status</strong> is good to keep an eye on. Here you want to see successfully processed reports showing rsSuccess.</p>
+<p><strong>ByteCount</strong> and <strong>RowCount</strong> shows how large the output for the report actually gets when all the data is collected. If a report is slow only sometimes its helpful to compare the Parameters, ByteCount and RowCount to the time it takes to process the report to get an idea of where to improve.</p>
+<p><strong>AdditionalInfo</strong> contains extra information that might not be included in other columns. I will not go through the details about this column but you can find lots of information about this on other blogs and in Books Online. One thing that could be worth mentioning is EstimatedMemoryUsageKB which indicates how much resources a report will have to use. This value could also be 0 if the engine decides that the memory usage is so low that the overhead of calculating the amount of memory needed will be too high and decides not to.</p>
+<h2 id="so-how-do-we-use-all-this-information">So how do we use all this information?</h2>
+<p>I wanted to make sure all this information was available for everyone who might possibly have use for it so I created a few simple reports showing how long time it takes for reports to process and how many times a report has been processed. I will go through some some easy examples of how to use this information in a good way, both for monitoring and for statistical analysis.</p>
+<p>The following query shows the amount of times reports have been processed, the average amount of time it takes for reports to process and the average ByteCount and RowCount.</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">ReportPath</span> 
+    <span class="p">,</span><span class="k">COUNT</span><span class="p">(</span><span class="n">ExecutionId</span><span class="p">)</span> <span class="k">AS</span> <span class="n">NumberOfExecutions</span>
+    <span class="p">,</span><span class="k">AVG</span><span class="p">(</span><span class="n">TimeDataRetrieval</span><span class="p">)</span> <span class="k">AS</span> <span class="n">AVGTimeDataRetrieval</span>
+    <span class="p">,</span><span class="k">AVG</span><span class="p">(</span><span class="n">TimeProcessing</span><span class="p">)</span> <span class="k">AS</span> <span class="n">AVGTimeProcessing</span>
+    <span class="p">,</span><span class="k">AVG</span><span class="p">(</span><span class="n">TimeRendering</span><span class="p">)</span> <span class="k">AS</span> <span class="n">AVGTimeRendering</span>
+    <span class="p">,</span><span class="k">AVG</span><span class="p">(</span><span class="n">TimeDataRetrieval</span> 
+        <span class="o">+</span> <span class="n">TimeProcessing</span> 
+        <span class="o">+</span> <span class="n">TimeRendering</span><span class="p">)</span> <span class="k">AS</span> <span class="n">TotalTimeProcessing</span> 
+    <span class="p">,</span><span class="k">AVG</span><span class="p">(</span><span class="n">ByteCount</span><span class="p">)</span> <span class="k">AS</span> <span class="n">AVGByteCount</span>
+    <span class="p">,</span><span class="k">AVG</span><span class="p">(</span><span class="n">RowCount</span><span class="p">)</span> <span class="k">AS</span> <span class="n">AVGRowCount</span>
+<span class="k">FROM</span>   <span class="n">ExecutionLog2</span>
+<span class="k">WHERE</span>  <span class="n">Format</span> <span class="o">=</span> <span class="s1">&#39;RPL&#39;</span> <span class="k">AND</span> <span class="n">ReportPath</span> <span class="o">!=</span> <span class="s1">&#39;Unknown&#39;</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">ReportPath</span>
+</code></pre></div><p>This gives a general overview over reports. Its easy to see which reports users execute most often. In certain situations it could be even more important to know which reports users no longer use. Do the rarely used reports really need continued maintenance?
+A report could give the same information:</p>
+<p><img src="/images/executionlog01.png#center" alt="Report Execution Statistics Overview"></p>
+<p>Recently I had a user reporting that a report was running very slow when using certain parameters. When I ran the report using the same parameters I did not notice the same problem. A quick look at the log showed that the parameter I had been informed about was not correct:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">UserName</span><span class="p">,</span> <span class="n">RequestType</span><span class="p">,</span> <span class="n">Format</span>
+    <span class="p">,</span><span class="k">Parameters</span><span class="p">,</span> <span class="n">ReportAction</span><span class="p">,</span> <span class="n">TimeStart</span>
+    <span class="p">,(</span><span class="n">TimeDataRetrieval</span> 
+        <span class="o">+</span> <span class="n">TimeProcessing</span> 
+        <span class="o">+</span> <span class="n">TimeRendering</span><span class="p">)</span> 
+            <span class="k">AS</span> <span class="n">TimeProcessing</span>
+    <span class="p">,</span><span class="k">Source</span><span class="p">,</span> <span class="n">Status</span>
+<span class="k">FROM</span>  <span class="n">ExecutionLog2</span>
+<span class="k">WHERE</span> <span class="n">UserName</span> <span class="o">=</span> <span class="s1">&#39;Domain\Username&#39;</span>
+  <span class="k">AND</span> <span class="n">ReportPath</span> <span class="o">=</span> <span class="s1">&#39;/Folder/MyReport&#39;</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">TimeStart</span> <span class="k">DESC</span>
+</code></pre></div><p>The above query shows all the executions done by the selected user on a certain report. What helped in this case was the fact that I could see all the parameters the user had used. In this particular case the query did not scale well (DataRetrieval was off the scale under certain conditions) and had to be adjusted to be able to handle larger amounts or data more efficiently. Here is an example of how a report based on the above query could look like:</p>
+<p><img src="/images/executionlog02.png#center" alt="Report Execution Statistics Overview"></p>
+<p>The image above shows details about a report which is actually about other reports. The input parameter Report selects which report the report should show details about. Developing reports about reports showing details of reports can get confusing at times so I do suggest you filter out these kind of reports in the results if any regular users need to use it.</p>
+<h2 id="forecasting-performance">Forecasting performance</h2>
+<p>For ease of use it is sometimes be useful to create reports showing all these statistics of reports. If you would be using the last example as a dataset you could have the parameter column made as links directly to the report in question using the same parameters as the user had used for that row. This makes it easy to recreate problems that users have.</p>
+<p>How about being proactive? All these scripts only shows the past and then its too late!</p>
+<p>Well, like weather, its a bit tricky to do forecasts but we can look at trends to spot when its time to do something to prevent a storm of raging users. We can look at how the average time for processing a report changes over time. Even if the average time might not change dramatically we can look at how the scale changes between data retrieval, processing and rendering. Most of the time all three scales increases at the same time, but depending on how the report is designed you can sometimes see other trends. Spotting trends also helps you to scale the environment which could include a scale-out environment or simply just adding more memory. Since you can see which reports are using the most CPU you can select the most heavy reports and prepare to run them on a separate machine with SSRS.</p>
+<p>Creating your own reports to view trends is a great way to get the information you need in just a few clicks:</p>
+<p><img src="/images/executionlog03.png#center" alt="Report Execution Statistics Overview"></p>
+<h2 id="how-report-snapshots-affects-processing-time">How report snapshots affects processing time</h2>
+<p>If you are using schedules snapshots for reports you will notice that the snapshot itself does not render the report and the time for rendering the report will be zero, while data retrieval and processing will have stats in the view. When a user executes a report based on a snapshot the data will be processed and rendered but not fetched from the database since its already a snapshot. Its good to have this in mind when creating monitoring scripts or reports showing trends.</p>
+<h2 id="change-the-default-logging-period">Change the default logging period</h2>
+<p>By default the logs will be saved for 60 days. It is possible to change the number of days the logs are kept. Connect to Reporting Services using Management Studio, select properties on the server and click Logging. Here you can disable both the logging if needed but you can also change logging period of the logs. Its also possible to disable the limit here, to keep logs forever, but be careful with the database size if you have very active users.</p>
+
         </div>
-        <div class="main-content-toggle">
 
+        
+        <div class="main-content-preview">
+            <h1>Using ExecutionLog2 for statistics and monitoring</h1>
             
-            <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
-            <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
-
-            <input class="source-toggle" type="checkbox" id="source-toggle">
-            <label class="source-toggle-label" for="source-toggle"></label>
-
-            <div class="main-content">
-                ---<br />
-                <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Using ExecutionLog2 for statistics and monitoring</span><br />
-                <span class="md-frontmatter">date</span>: 2011-10-28 14:14:00 &#43;0200 CEST<br />
-                <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
-                <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
-                ----
-                <p>When developing reports its often nice to be able to see how the reports are doing when deployed into production. The fact that the reports are displaying the correct data is one thing. Are they performing as expected six months later? Do they scale well after the amount of data has increased? Which are the most common reports the users execute? Are there reports no one is using?</p>
-<p>I wanted to write some simple examples of how to use the internal log to get this kind of information about reports. To make it easier for others to view the same things I will show some examples of reports which shows statistics and information about other reports. The good thing with that kind of report is that they work in almost any SSRS environment as long as the version is the same and the logging configuration is similar.</p>
-<h2 id="report-storage-and-folder-hierarchy">Report storage and folder hierarchy</h2>
-<p>There are some basic places in the <strong>ReportServer</strong> database where you can get some information about your reports. The reports themselves can be found in a table called <strong>Catalog</strong>.</p>
-<p>The <strong>Catalog</strong> table contains the path and title of the reports as well as the report definition in binary format. The binary format can make the table slow to lookup if you have a lot of reports so if you skip the column <strong>Content</strong> the table will be faster to work with.
-There is also a couple of other columns of interest. First of all you have the <strong>ItemID</strong> for each report which is useful when joining tables together, but you also have Type which tells you what kind of data we are looking at in the table.</p>
-<p>Here are some examples of what type could be:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">1 = Folder
-2 = Report
-3 = Other (PDF documents can be uploaded for example, check the MimeType column for more details)
-4 = Link
-5 = Data Source
-6 = Report model
-</code></pre></div><p>This is useful to know when writing scripts to query information about reports since you might just want to check for reports and not for folders for example. <strong>ParentID</strong> is simply pointing to where the report is residing, usually in a folder.</p>
-<h2 id="log-structure-and-content">Log structure and content</h2>
-<p>So now we know where the reports are. That does not help us all that much unless we can get some more detailed information about how they are performing when users use them. There are a couple of places to look at when it comes to logging about reports. The first place to look is in a table called <strong>ExecutionLogStorage</strong> which exists in both SQL Server 2005 and 2008.</p>
-<p>Microsoft have been kind enough in SQL Server 2008 to create a view with a little bit more information from this table. The view is called <strong>ExecutionLog2</strong> and contains mostly information from ExecutionLogStorage but also some minor details from the Catalog table. In this post I will focus primarily on this view, so if you are using SQL Server 2005 you will have to alter the queries a bit to get them to work with ExecutionLogStorage instead of ExecutionLog2.</p>
-<p>The view also makes it a bit easier to read and replaces certain status numbers with actual words describing its meaning. 
-If you haven&rsquo;t already checked how the view is created I recommend that you do that to get to know the view and where it is different from the regular ExecutionLogStorage table.</p>
-<p>Lets look at the data in the ExecutionLog2 view. If you are using SQL Server 2005 this will probably be useful as well since this view is based on the ExecutionLogStorage and the most important information are available in both the view and the table.</p>
-<p>First of all you have the <strong>InstanceName</strong> which shows where the report was processed in a scale-out deployment. This is especially important if you find that certain reports spend lots of time in Processing and Rendering (coming up soon). If the environment is not using the scale-out features this column is not that useful.</p>
-<p>The <strong>report path</strong> contains both the path and the name of the report.</p>
-<p><strong>Username</strong> is simply the user who executed the report. Note that scheduled reports will use a different account since the server generates the scheduled reports and not the users.
-RequestType shows how the report processing has been requested. It could be manually using the GUI (Interactive) or through a Subscription. (in which case UserName will be different as mentioned earlier)</p>
-<p><strong>Format</strong> shows how the report has been rendered, showing null for snapshot subscriptions since only the data is cached and the report has not been rendered yet. Common values are RPL and Excel. Interactive actions can get this to show NULL as well. (for Drillthrough and Interactive Sorting for example)</p>
-<p><strong>Parameters</strong> is a very useful part of the logging. This column shows what the user have selected among the parameters when running the report, which makes it much easier to reproduce a slow running report a user has reported. Using the parameters combined with the time it takes to generate a report can show clues to reports which does not scale well.</p>
-<p><strong>ReportAction</strong> shows interactive actions such as Drillthrough, sort, render and so on.</p>
-<p>The next five columns are some of the most interesting and they all have to do with how long it actually takes to process a report from the time the user clicked View Report until the report is displayed.</p>
-<p>The <strong>TimeStart</strong> and <strong>TimeEnd</strong> explains itself: the time the report started processing and the time it was finished.</p>
-<p><strong>TimeDataRetrieval</strong> shows how long time in milliseconds it took for the database to produce the data for the report server. If the datasets for the report is not able to run in parallel this shows the sum of all the datasets. If they are running in parallel this value will show the longest running dataset.</p>
-<p><strong>TimeProcessing</strong> is the time in milliseconds it takes for the report server to process the data retrieved from the database which could include sorting and grouping if that is done in the report instead of the dataset.</p>
-<p><strong>TimeRendering</strong> show the time in milliseconds it took for report server to render the report with all the html, pictures and other things.</p>
-<p>These five columns are examples of good places to look when a report is performing poorly. You can easily see where in the processing it takes the longest time and decide where to optimize to make things better. However, don&rsquo;t be fooled by the numbers. A long rendering time does not necessarily mean that you have created a complex interface in the report. It could also mean that the query to the database picks up a lot of data to be rendered. If all that data is not necessary you might want to optimize the query even if the time for DataRetrieval is very short. If a time is showing -1 its probably best to ignore that row. A result of -1 indicates that the time counter was for some reason unreliable and could not be calculated properly.</p>
-<p><strong>Source</strong> shows where the report gets the data. If this field shows Live its looking up the data directly in the database. When it says Snapshot the data was retrieved from a report snapshot and so on. Other options are AdHoc and History among others.</p>
-<p><strong>Status</strong> is good to keep an eye on. Here you want to see successfully processed reports showing rsSuccess.</p>
-<p><strong>ByteCount</strong> and <strong>RowCount</strong> shows how large the output for the report actually gets when all the data is collected. If a report is slow only sometimes its helpful to compare the Parameters, ByteCount and RowCount to the time it takes to process the report to get an idea of where to improve.</p>
-<p><strong>AdditionalInfo</strong> contains extra information that might not be included in other columns. I will not go through the details about this column but you can find lots of information about this on other blogs and in Books Online. One thing that could be worth mentioning is EstimatedMemoryUsageKB which indicates how much resources a report will have to use. This value could also be 0 if the engine decides that the memory usage is so low that the overhead of calculating the amount of memory needed will be too high and decides not to.</p>
-<h2 id="so-how-do-we-use-all-this-information">So how do we use all this information?</h2>
-<p>I wanted to make sure all this information was available for everyone who might possibly have use for it so I created a few simple reports showing how long time it takes for reports to process and how many times a report has been processed. I will go through some some easy examples of how to use this information in a good way, both for monitoring and for statistical analysis.</p>
-<p>The following query shows the amount of times reports have been processed, the average amount of time it takes for reports to process and the average ByteCount and RowCount.</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">ReportPath</span> 
-    <span class="p">,</span><span class="k">COUNT</span><span class="p">(</span><span class="n">ExecutionId</span><span class="p">)</span> <span class="k">AS</span> <span class="n">NumberOfExecutions</span>
-    <span class="p">,</span><span class="k">AVG</span><span class="p">(</span><span class="n">TimeDataRetrieval</span><span class="p">)</span> <span class="k">AS</span> <span class="n">AVGTimeDataRetrieval</span>
-    <span class="p">,</span><span class="k">AVG</span><span class="p">(</span><span class="n">TimeProcessing</span><span class="p">)</span> <span class="k">AS</span> <span class="n">AVGTimeProcessing</span>
-    <span class="p">,</span><span class="k">AVG</span><span class="p">(</span><span class="n">TimeRendering</span><span class="p">)</span> <span class="k">AS</span> <span class="n">AVGTimeRendering</span>
-    <span class="p">,</span><span class="k">AVG</span><span class="p">(</span><span class="n">TimeDataRetrieval</span> 
-        <span class="o">+</span> <span class="n">TimeProcessing</span> 
-        <span class="o">+</span> <span class="n">TimeRendering</span><span class="p">)</span> <span class="k">AS</span> <span class="n">TotalTimeProcessing</span> 
-    <span class="p">,</span><span class="k">AVG</span><span class="p">(</span><span class="n">ByteCount</span><span class="p">)</span> <span class="k">AS</span> <span class="n">AVGByteCount</span>
-    <span class="p">,</span><span class="k">AVG</span><span class="p">(</span><span class="n">RowCount</span><span class="p">)</span> <span class="k">AS</span> <span class="n">AVGRowCount</span>
-<span class="k">FROM</span>   <span class="n">ExecutionLog2</span>
-<span class="k">WHERE</span>  <span class="n">Format</span> <span class="o">=</span> <span class="s1">&#39;RPL&#39;</span> <span class="k">AND</span> <span class="n">ReportPath</span> <span class="o">!=</span> <span class="s1">&#39;Unknown&#39;</span>
-<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">ReportPath</span>
-</code></pre></div><p>This gives a general overview over reports. Its easy to see which reports users execute most often. In certain situations it could be even more important to know which reports users no longer use. Do the rarely used reports really need continued maintenance?
-A report could give the same information:</p>
-<p><img src="/images/executionlog01.png#center" alt="Report Execution Statistics Overview"></p>
-<p>Recently I had a user reporting that a report was running very slow when using certain parameters. When I ran the report using the same parameters I did not notice the same problem. A quick look at the log showed that the parameter I had been informed about was not correct:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">UserName</span><span class="p">,</span> <span class="n">RequestType</span><span class="p">,</span> <span class="n">Format</span>
-    <span class="p">,</span><span class="k">Parameters</span><span class="p">,</span> <span class="n">ReportAction</span><span class="p">,</span> <span class="n">TimeStart</span>
-    <span class="p">,(</span><span class="n">TimeDataRetrieval</span> 
-        <span class="o">+</span> <span class="n">TimeProcessing</span> 
-        <span class="o">+</span> <span class="n">TimeRendering</span><span class="p">)</span> 
-            <span class="k">AS</span> <span class="n">TimeProcessing</span>
-    <span class="p">,</span><span class="k">Source</span><span class="p">,</span> <span class="n">Status</span>
-<span class="k">FROM</span>  <span class="n">ExecutionLog2</span>
-<span class="k">WHERE</span> <span class="n">UserName</span> <span class="o">=</span> <span class="s1">&#39;Domain\Username&#39;</span>
-  <span class="k">AND</span> <span class="n">ReportPath</span> <span class="o">=</span> <span class="s1">&#39;/Folder/MyReport&#39;</span>
-<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">TimeStart</span> <span class="k">DESC</span>
-</code></pre></div><p>The above query shows all the executions done by the selected user on a certain report. What helped in this case was the fact that I could see all the parameters the user had used. In this particular case the query did not scale well (DataRetrieval was off the scale under certain conditions) and had to be adjusted to be able to handle larger amounts or data more efficiently. Here is an example of how a report based on the above query could look like:</p>
-<p><img src="/images/executionlog02.png#center" alt="Report Execution Statistics Overview"></p>
-<p>The image above shows details about a report which is actually about other reports. The input parameter Report selects which report the report should show details about. Developing reports about reports showing details of reports can get confusing at times so I do suggest you filter out these kind of reports in the results if any regular users need to use it.</p>
-<h2 id="forecasting-performance">Forecasting performance</h2>
-<p>For ease of use it is sometimes be useful to create reports showing all these statistics of reports. If you would be using the last example as a dataset you could have the parameter column made as links directly to the report in question using the same parameters as the user had used for that row. This makes it easy to recreate problems that users have.</p>
-<p>How about being proactive? All these scripts only shows the past and then its too late!</p>
-<p>Well, like weather, its a bit tricky to do forecasts but we can look at trends to spot when its time to do something to prevent a storm of raging users. We can look at how the average time for processing a report changes over time. Even if the average time might not change dramatically we can look at how the scale changes between data retrieval, processing and rendering. Most of the time all three scales increases at the same time, but depending on how the report is designed you can sometimes see other trends. Spotting trends also helps you to scale the environment which could include a scale-out environment or simply just adding more memory. Since you can see which reports are using the most CPU you can select the most heavy reports and prepare to run them on a separate machine with SSRS.</p>
-<p>Creating your own reports to view trends is a great way to get the information you need in just a few clicks:</p>
-<p><img src="/images/executionlog03.png#center" alt="Report Execution Statistics Overview"></p>
-<h2 id="how-report-snapshots-affects-processing-time">How report snapshots affects processing time</h2>
-<p>If you are using schedules snapshots for reports you will notice that the snapshot itself does not render the report and the time for rendering the report will be zero, while data retrieval and processing will have stats in the view. When a user executes a report based on a snapshot the data will be processed and rendered but not fetched from the database since its already a snapshot. Its good to have this in mind when creating monitoring scripts or reports showing trends.</p>
-<h2 id="change-the-default-logging-period">Change the default logging period</h2>
-<p>By default the logs will be saved for 60 days. It is possible to change the number of days the logs are kept. Connect to Reporting Services using Management Studio, select properties on the server and click Logging. Here you can disable both the logging if needed but you can also change logging period of the logs. Its also possible to disable the limit here, to keep logs forever, but be careful with the database size if you have very active users.</p>
-
-            </div>
-
-            
-            <div class="main-content-preview">
-                <h1>Using ExecutionLog2 for statistics and monitoring</h1>
-                
-                <p>When developing reports its often nice to be able to see how the reports are doing when deployed into production. The fact that the reports are displaying the correct data is one thing. Are they performing as expected six months later? Do they scale well after the amount of data has increased? Which are the most common reports the users execute? Are there reports no one is using?</p>
+            <p>When developing reports its often nice to be able to see how the reports are doing when deployed into production. The fact that the reports are displaying the correct data is one thing. Are they performing as expected six months later? Do they scale well after the amount of data has increased? Which are the most common reports the users execute? Are there reports no one is using?</p>
 <p>I wanted to write some simple examples of how to use the internal log to get this kind of information about reports. To make it easier for others to view the same things I will show some examples of reports which shows statistics and information about other reports. The good thing with that kind of report is that they work in almost any SSRS environment as long as the version is the same and the logging configuration is similar.</p>
 <h2 id="report-storage-and-folder-hierarchy">Report storage and folder hierarchy</h2>
 <p>There are some basic places in the <strong>ReportServer</strong> database where you can get some information about your reports. The reports themselves can be found in a table called <strong>Catalog</strong>.</p>
@@ -414,15 +401,15 @@ A report could give the same information:</p>
 <p>By default the logs will be saved for 60 days. It is possible to change the number of days the logs are kept. Connect to Reporting Services using Management Studio, select properties on the server and click Logging. Here you can disable both the logging if needed but you can also change logging period of the logs. Its also possible to disable the limit here, to keep logs forever, but be careful with the database size if you have very active users.</p>
 
 
-                <p>- Written by John  
+            <p>- Written by John  
+            
                 
-                    
-                    
-                    on October 28, 2011</p>
+                
+                on October 28, 2011</p>
 
-                
-                    <div class="disqus-section">
-                        <div id="disqus_thread"></div>
+            
+                <div class="disqus-section">
+                    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -442,11 +429,11 @@ A report could give the same information:</p>
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-                    </div>
-                
-            </div>
+                </div>
+            
+        </div>
 
-       </div>
+    </div>
     
 
 

@@ -207,62 +207,49 @@ if (!doNotTrack) {
             
             
             <div class='main'>
-     
-     
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-    
-       
-        <div class="main-path">
-            <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Move data or log files for TempDB in SQL Server.md</span>
-            
-                    
-                    
-                    <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2014-09-30">September 30, 2014</time>)</span>
+    <div class="main-path">
+        <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Move data or log files for TempDB in SQL Server.md</span>
+        
                 
+                
+                <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2014-09-30">September 30, 2014</time>)</span>
+            
+    </div>
+    
+    <div class="main-content-toggle">
+
+        
+        <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
+        <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
+
+        <input class="source-toggle" type="checkbox" id="source-toggle">
+        <label class="source-toggle-label" for="source-toggle"></label>
+
+        <div class="main-content">
+            ---<br />
+            <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Move data or log files for TempDB in SQL Server</span><br />
+            <span class="md-frontmatter">date</span>: 2014-09-30 14:14:00 &#43;0200 CEST<br />
+            <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
+            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
+            ----
+            <p>Since TempDB is a system database you should not try to move the database with detach/attach or backup/restore. Instead you should move the files with a simple script and after the next restart of the instance the files will be relocated to the new location.</p>
+<p>First check where the files are currently located so that you can easily just copy and paste the name and paths if needed:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">name</span><span class="p">,</span> <span class="n">type_desc</span><span class="p">,</span> <span class="n">physical_name</span> 
+<span class="k">FROM</span> <span class="n">sys</span><span class="p">.</span><span class="n">master_files</span> 
+<span class="k">WHERE</span> <span class="n">database_id</span> <span class="o">=</span> <span class="n">DB_ID</span><span class="p">(</span><span class="n">N</span><span class="s1">&#39;tempdb&#39;</span><span class="p">)</span>
+</code></pre></div><p>To do the actual change you can use the following script:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span> <span class="k">DATABASE</span> <span class="n">tempdb</span> 
+<span class="k">MODIFY</span> <span class="n">FILE</span> <span class="p">(</span><span class="n">NAME</span> <span class="o">=</span> <span class="n">tempdbfile</span><span class="p">,</span> 
+               <span class="n">FILENAME</span> <span class="o">=</span> <span class="s1">&#39;C:\MyFolder\tempdb.mdf&#39;</span><span class="p">)</span>
+</code></pre></div><p>Change the name of the file and path to your needs. After you have executed the script you will receive a message saying that the instance needs to be started for the changes to have effect. Restart the instance and verify that the files have been relocated properly.</p>
+
         </div>
-        <div class="main-content-toggle">
 
+        
+        <div class="main-content-preview">
+            <h1>Move data or log files for TempDB in SQL Server</h1>
             
-            <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
-            <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
-
-            <input class="source-toggle" type="checkbox" id="source-toggle">
-            <label class="source-toggle-label" for="source-toggle"></label>
-
-            <div class="main-content">
-                ---<br />
-                <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Move data or log files for TempDB in SQL Server</span><br />
-                <span class="md-frontmatter">date</span>: 2014-09-30 14:14:00 &#43;0200 CEST<br />
-                <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
-                <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
-                ----
-                <p>Since TempDB is a system database you should not try to move the database with detach/attach or backup/restore. Instead you should move the files with a simple script and after the next restart of the instance the files will be relocated to the new location.</p>
-<p>First check where the files are currently located so that you can easily just copy and paste the name and paths if needed:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">name</span><span class="p">,</span> <span class="n">type_desc</span><span class="p">,</span> <span class="n">physical_name</span> 
-<span class="k">FROM</span> <span class="n">sys</span><span class="p">.</span><span class="n">master_files</span> 
-<span class="k">WHERE</span> <span class="n">database_id</span> <span class="o">=</span> <span class="n">DB_ID</span><span class="p">(</span><span class="n">N</span><span class="s1">&#39;tempdb&#39;</span><span class="p">)</span>
-</code></pre></div><p>To do the actual change you can use the following script:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span> <span class="k">DATABASE</span> <span class="n">tempdb</span> 
-<span class="k">MODIFY</span> <span class="n">FILE</span> <span class="p">(</span><span class="n">NAME</span> <span class="o">=</span> <span class="n">tempdbfile</span><span class="p">,</span> 
-               <span class="n">FILENAME</span> <span class="o">=</span> <span class="s1">&#39;C:\MyFolder\tempdb.mdf&#39;</span><span class="p">)</span>
-</code></pre></div><p>Change the name of the file and path to your needs. After you have executed the script you will receive a message saying that the instance needs to be started for the changes to have effect. Restart the instance and verify that the files have been relocated properly.</p>
-
-            </div>
-
-            
-            <div class="main-content-preview">
-                <h1>Move data or log files for TempDB in SQL Server</h1>
-                
-                <p>Since TempDB is a system database you should not try to move the database with detach/attach or backup/restore. Instead you should move the files with a simple script and after the next restart of the instance the files will be relocated to the new location.</p>
+            <p>Since TempDB is a system database you should not try to move the database with detach/attach or backup/restore. Instead you should move the files with a simple script and after the next restart of the instance the files will be relocated to the new location.</p>
 <p>First check where the files are currently located so that you can easily just copy and paste the name and paths if needed:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">name</span><span class="p">,</span> <span class="n">type_desc</span><span class="p">,</span> <span class="n">physical_name</span> 
 <span class="k">FROM</span> <span class="n">sys</span><span class="p">.</span><span class="n">master_files</span> 
@@ -274,15 +261,15 @@ if (!doNotTrack) {
 </code></pre></div><p>Change the name of the file and path to your needs. After you have executed the script you will receive a message saying that the instance needs to be started for the changes to have effect. Restart the instance and verify that the files have been relocated properly.</p>
 
 
-                <p>- Written by John  
+            <p>- Written by John  
+            
                 
-                    
-                    
-                    on September 30, 2014</p>
+                
+                on September 30, 2014</p>
 
-                
-                    <div class="disqus-section">
-                        <div id="disqus_thread"></div>
+            
+                <div class="disqus-section">
+                    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -302,11 +289,11 @@ if (!doNotTrack) {
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-                    </div>
-                
-            </div>
+                </div>
+            
+        </div>
 
-       </div>
+    </div>
     
 
 

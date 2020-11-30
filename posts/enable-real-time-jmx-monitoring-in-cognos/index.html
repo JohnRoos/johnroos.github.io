@@ -205,90 +205,77 @@ if (!doNotTrack) {
             
             
             <div class='main'>
-     
-     
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-    
-       
-        <div class="main-path">
-            <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Enable real time JMX monitoring in Cognos.md</span>
-            
-                    
-                    
-                    <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2014-09-30">September 30, 2014</time>)</span>
+    <div class="main-path">
+        <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Enable real time JMX monitoring in Cognos.md</span>
+        
                 
+                
+                <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2014-09-30">September 30, 2014</time>)</span>
+            
+    </div>
+    
+    <div class="main-content-toggle">
+
+        
+        <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
+        <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
+
+        <input class="source-toggle" type="checkbox" id="source-toggle">
+        <label class="source-toggle-label" for="source-toggle"></label>
+
+        <div class="main-content">
+            ---<br />
+            <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Enable real time JMX monitoring in Cognos</span><br />
+            <span class="md-frontmatter">date</span>: 2014-09-30 14:14:00 &#43;0200 CEST<br />
+            <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
+            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
+            ----
+            <p>In Cognos BI its possible to enable JMX to be able to monitor the java engine. What IBM provides is not really what I was looking for. I wanted to be able to use for example VisualVM to see what happens in real time. This is how to enable the regular JMX monitoring in Cognos which comes out of the box with Tomcat.</p>
+<ol>
+<li>
+<p>Open the bootstrap file which is located in the following path: <strong>%installpath%\Bin64\bootstrap_winx64.xml</strong></p>
+</li>
+<li>
+<p>Add the following lines directly after <strong>&lt;!&ndash; end debug params &ndash;&gt;</strong></p>
+</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">&lt;!-- JMX config start --&gt;
+&lt;param&gt;-Dcom.sun.management.jmxremote&lt;/param&gt;
+&lt;param&gt;-Dcom.sun.management.jmxremote.port=29001&lt;/param&gt;
+&lt;param&gt;-Dcom.sun.management.jmxremote.ssl=false&lt;/param&gt;
+&lt;param&gt;-Dcom.sun.management.jmxremote.authenticate=true&lt;/param&gt;
+&lt;!-- JMX config end --&gt;
+</code></pre></div><p><img src="/images/cognos01.png#center" alt="JMX config"></p>
+<ol start="3">
+<li>
+<p>Save the file.</p>
+</li>
+<li>
+<p>Open the password file located at <strong>%Install Path%\bin\jre64\6.0\lib\management\jmxremote.password</strong>. Uncomment the last two lines and set the passwords for each role.</p>
+</li>
+</ol>
+<p><img src="/images/cognos02.png#center" alt="jmxremote.password"></p>
+<ol start="5">
+<li>
+<p>Set the permissions on the passwords file: Change the owner to the local Administrators group. Disable &ldquo;include inheritable permissions&rdquo; and remove all permission entries for all users except for the local Administrators group. Note: After this has been done you might not be able to open the file normally. If you want to edit or look at the file you need to first start Notepad &ldquo;as Administrator&rdquo; and then open the file from there.</p>
+</li>
+<li>
+<p>Restart Cognos.</p>
+</li>
+<li>
+<p>Test the JMX connection using VisualVM (called jvisualvm.exe in the Java JDK):</p>
+</li>
+</ol>
+<p><img src="/images/cognos03.png#center" alt="Add remote host"></p>
+<p><img src="/images/cognos04.png#center" alt="Add JMX connection"></p>
+
         </div>
-        <div class="main-content-toggle">
 
+        
+        <div class="main-content-preview">
+            <h1>Enable real time JMX monitoring in Cognos</h1>
             
-            <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
-            <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
-
-            <input class="source-toggle" type="checkbox" id="source-toggle">
-            <label class="source-toggle-label" for="source-toggle"></label>
-
-            <div class="main-content">
-                ---<br />
-                <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Enable real time JMX monitoring in Cognos</span><br />
-                <span class="md-frontmatter">date</span>: 2014-09-30 14:14:00 &#43;0200 CEST<br />
-                <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
-                <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
-                ----
-                <p>In Cognos BI its possible to enable JMX to be able to monitor the java engine. What IBM provides is not really what I was looking for. I wanted to be able to use for example VisualVM to see what happens in real time. This is how to enable the regular JMX monitoring in Cognos which comes out of the box with Tomcat.</p>
-<ol>
-<li>
-<p>Open the bootstrap file which is located in the following path: <strong>%installpath%\Bin64\bootstrap_winx64.xml</strong></p>
-</li>
-<li>
-<p>Add the following lines directly after <strong>&lt;!&ndash; end debug params &ndash;&gt;</strong></p>
-</li>
-</ol>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">&lt;!-- JMX config start --&gt;
-&lt;param&gt;-Dcom.sun.management.jmxremote&lt;/param&gt;
-&lt;param&gt;-Dcom.sun.management.jmxremote.port=29001&lt;/param&gt;
-&lt;param&gt;-Dcom.sun.management.jmxremote.ssl=false&lt;/param&gt;
-&lt;param&gt;-Dcom.sun.management.jmxremote.authenticate=true&lt;/param&gt;
-&lt;!-- JMX config end --&gt;
-</code></pre></div><p><img src="/images/cognos01.png#center" alt="JMX config"></p>
-<ol start="3">
-<li>
-<p>Save the file.</p>
-</li>
-<li>
-<p>Open the password file located at <strong>%Install Path%\bin\jre64\6.0\lib\management\jmxremote.password</strong>. Uncomment the last two lines and set the passwords for each role.</p>
-</li>
-</ol>
-<p><img src="/images/cognos02.png#center" alt="jmxremote.password"></p>
-<ol start="5">
-<li>
-<p>Set the permissions on the passwords file: Change the owner to the local Administrators group. Disable &ldquo;include inheritable permissions&rdquo; and remove all permission entries for all users except for the local Administrators group. Note: After this has been done you might not be able to open the file normally. If you want to edit or look at the file you need to first start Notepad &ldquo;as Administrator&rdquo; and then open the file from there.</p>
-</li>
-<li>
-<p>Restart Cognos.</p>
-</li>
-<li>
-<p>Test the JMX connection using VisualVM (called jvisualvm.exe in the Java JDK):</p>
-</li>
-</ol>
-<p><img src="/images/cognos03.png#center" alt="Add remote host"></p>
-<p><img src="/images/cognos04.png#center" alt="Add JMX connection"></p>
-
-            </div>
-
-            
-            <div class="main-content-preview">
-                <h1>Enable real time JMX monitoring in Cognos</h1>
-                
-                <p>In Cognos BI its possible to enable JMX to be able to monitor the java engine. What IBM provides is not really what I was looking for. I wanted to be able to use for example VisualVM to see what happens in real time. This is how to enable the regular JMX monitoring in Cognos which comes out of the box with Tomcat.</p>
+            <p>In Cognos BI its possible to enable JMX to be able to monitor the java engine. What IBM provides is not really what I was looking for. I wanted to be able to use for example VisualVM to see what happens in real time. This is how to enable the regular JMX monitoring in Cognos which comes out of the box with Tomcat.</p>
 <ol>
 <li>
 <p>Open the bootstrap file which is located in the following path: <strong>%installpath%\Bin64\bootstrap_winx64.xml</strong></p>
@@ -328,15 +315,15 @@ if (!doNotTrack) {
 <p><img src="/images/cognos04.png#center" alt="Add JMX connection"></p>
 
 
-                <p>- Written by John  
+            <p>- Written by John  
+            
                 
-                    
-                    
-                    on September 30, 2014</p>
+                
+                on September 30, 2014</p>
 
-                
-                    <div class="disqus-section">
-                        <div id="disqus_thread"></div>
+            
+                <div class="disqus-section">
+                    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -356,11 +343,11 @@ if (!doNotTrack) {
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-                    </div>
-                
-            </div>
+                </div>
+            
+        </div>
 
-       </div>
+    </div>
     
 
 

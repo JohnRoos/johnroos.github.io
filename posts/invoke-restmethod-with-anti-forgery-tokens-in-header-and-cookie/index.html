@@ -205,111 +205,98 @@ if (!doNotTrack) {
             
             
             <div class='main'>
-     
-     
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-    
-       
-        <div class="main-path">
-            <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Invoke-RestMethod with anti-forgery tokens in header and cookie.md</span>
-            
-                    
-                    
-                    <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2017-02-21">February 21, 2017</time>)</span>
+    <div class="main-path">
+        <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Invoke-RestMethod with anti-forgery tokens in header and cookie.md</span>
+        
                 
+                
+                <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2017-02-21">February 21, 2017</time>)</span>
+            
+    </div>
+    
+    <div class="main-content-toggle">
+
+        
+        <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
+        <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
+
+        <input class="source-toggle" type="checkbox" id="source-toggle">
+        <label class="source-toggle-label" for="source-toggle"></label>
+
+        <div class="main-content">
+            ---<br />
+            <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Invoke-RestMethod with anti-forgery tokens in header and cookie</span><br />
+            <span class="md-frontmatter">date</span>: 2017-02-21 14:14:00 &#43;0200 &#43;0200<br />
+            <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
+            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
+            ----
+            <p>To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell cmdlet Invoke-RestMethod. I have seen some people suggesting that Invoke-RestMethod does not have support for this, which is not true. It&rsquo;s just a little bit more complicated than expected.</p>
+<p>What&rsquo;s needed is basically a custom header and a cookie. It’s the last part with the cookie which makes people think that Invoke-RestMethod does not work because it does not support cookies. It does. The header goes into the header parameter as expected, but the cookie need to go into a web session variable which is used for the websession parameter.</p>
+<p>So let&rsquo;s get into the code. First we need the basics, like uri, content type and all that.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="no">[System.Uri]</span><span class="nv">$Uri</span> <span class="p">=</span> <span class="s2">&#34;http://pizzaserver.example.com/api/pizza/1&#34;</span>
+<span class="nv">$ContentType</span> <span class="p">=</span> <span class="s2">&#34;application/json&#34;</span>
+<span class="nv">$Method</span> <span class="p">=</span> <span class="s1">&#39;PUT&#39;</span>
+<span class="nv">$Body</span> <span class="p">=</span> <span class="s1">&#39;{ &#34;id&#34; = 1, &#34;Name&#34; = &#34;Peperoni&#34; }&#39;</span>
+</code></pre></div><p>So now we have a small body which we are going to use to update a record in the REST API using the PUT method.
+Now the cookie. It’s a very simple .Net class which is kind of like a small hash table. Change the name and value into what is needed for your anti-forgery token.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$Cookie</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Net</span><span class="p">.</span><span class="n">Cookie</span>
+<span class="nv">$Cookie</span><span class="p">.</span><span class="n">Name</span> <span class="p">=</span> <span class="s2">&#34;My cookie name&#34;</span>
+<span class="nv">$Cookie</span><span class="p">.</span><span class="n">Value</span> <span class="p">=</span> <span class="s2">&#34;My cookie value&#34;</span>
+<span class="nv">$Cookie</span><span class="p">.</span><span class="n">Domain</span> <span class="p">=</span> <span class="nv">$uri</span><span class="p">.</span><span class="n">DnsSafeHost</span>
+</code></pre></div><p>Create the web session and add the cookie to it.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$WebSession</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">PowerShell</span><span class="p">.</span><span class="n">Commands</span><span class="p">.</span><span class="n">WebRequestSession</span>
+<span class="nv">$WebSession</span><span class="p">.</span><span class="n">Cookies</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="nv">$Cookie</span><span class="p">)</span>
+</code></pre></div><p>That’s actually everything you need for the cookie. Next is the header. Modify the name and value to match the other token.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$Headers</span> <span class="p">=</span> <span class="p">@{</span>
+    <span class="s1">&#39;My header name&#39;</span> <span class="p">=</span> <span class="s1">&#39;My header value&#39;</span>
+<span class="p">}</span>
+</code></pre></div><p>Now we are ready to run Invoke-RestMethod. I prefer to use splatting for the parameters.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$props</span> <span class="p">=</span> <span class="p">@{</span>
+    <span class="n">Uri</span>     <span class="p">=</span> <span class="nv">$uri</span><span class="p">.</span><span class="n">AbsoluteUri</span>
+    <span class="n">Headers</span> <span class="p">=</span> <span class="nv">$Headers</span>
+    <span class="n">ContentType</span> <span class="p">=</span> <span class="nv">$ContentType</span>
+    <span class="n">Method</span> <span class="p">=</span> <span class="nv">$Method</span>
+    <span class="n">WebSession</span> <span class="p">=</span> <span class="nv">$WebSession</span>
+    <span class="n">Body</span> <span class="p">=</span> <span class="nv">$Body</span>
+<span class="p">}</span>
+</code></pre></div><p>Invoke-RestMethod @props
+That’s it. Now we can talk to a secure REST API.</p>
+<h2 id="full-script">Full script</h2>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="no">[System.Uri]</span><span class="nv">$Uri</span> <span class="p">=</span> <span class="s2">&#34;http://pizzaserver.example.com/api/pizza/1&#34;</span>
+<span class="nv">$ContentType</span> <span class="p">=</span> <span class="s2">&#34;application/json&#34;</span>
+<span class="nv">$Method</span> <span class="p">=</span> <span class="s1">&#39;PUT&#39;</span>
+<span class="nv">$Body</span> <span class="p">=</span> <span class="s1">&#39;{ &#34;id&#34; = 1, &#34;Name&#34; = &#34;Peperoni&#34; }&#39;</span>
+ 
+<span class="nv">$Cookie</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Net</span><span class="p">.</span><span class="n">Cookie</span>
+<span class="nv">$Cookie</span><span class="p">.</span><span class="n">Name</span> <span class="p">=</span> <span class="s2">&#34;My cookie name&#34;</span>
+<span class="nv">$Cookie</span><span class="p">.</span><span class="n">Value</span> <span class="p">=</span> <span class="s2">&#34;My cookie value&#34;</span>
+<span class="nv">$Cookie</span><span class="p">.</span><span class="n">Domain</span> <span class="p">=</span> <span class="nv">$uri</span><span class="p">.</span><span class="n">DnsSafeHost</span>
+ 
+<span class="nv">$WebSession</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">PowerShell</span><span class="p">.</span><span class="n">Commands</span><span class="p">.</span><span class="n">WebRequestSession</span>
+<span class="nv">$WebSession</span><span class="p">.</span><span class="n">Cookies</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="nv">$Cookie</span><span class="p">)</span>
+ 
+<span class="nv">$Headers</span> <span class="p">=</span> <span class="p">@{</span>
+    <span class="s1">&#39;My header name&#39;</span> <span class="p">=</span> <span class="s1">&#39;My header value&#39;</span>
+<span class="p">}</span>
+ 
+<span class="nv">$props</span> <span class="p">=</span> <span class="p">@{</span>
+    <span class="n">Uri</span>         <span class="p">=</span> <span class="nv">$uri</span><span class="p">.</span><span class="n">AbsoluteUri</span>
+    <span class="n">Headers</span>     <span class="p">=</span> <span class="nv">$Headers</span>
+    <span class="n">ContentType</span> <span class="p">=</span> <span class="nv">$ContentType</span>
+    <span class="n">Method</span>      <span class="p">=</span> <span class="nv">$Method</span>
+    <span class="n">WebSession</span>  <span class="p">=</span> <span class="nv">$WebSession</span>
+    <span class="n">Body</span>        <span class="p">=</span> <span class="nv">$Body</span>
+<span class="p">}</span>
+ 
+<span class="nb">Invoke-RestMethod</span> <span class="nv">@props</span>
+</code></pre></div>
         </div>
-        <div class="main-content-toggle">
 
+        
+        <div class="main-content-preview">
+            <h1>Invoke-RestMethod with anti-forgery tokens in header and cookie</h1>
             
-            <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
-            <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
-
-            <input class="source-toggle" type="checkbox" id="source-toggle">
-            <label class="source-toggle-label" for="source-toggle"></label>
-
-            <div class="main-content">
-                ---<br />
-                <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Invoke-RestMethod with anti-forgery tokens in header and cookie</span><br />
-                <span class="md-frontmatter">date</span>: 2017-02-21 14:14:00 &#43;0200 &#43;0200<br />
-                <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
-                <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
-                ----
-                <p>To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell cmdlet Invoke-RestMethod. I have seen some people suggesting that Invoke-RestMethod does not have support for this, which is not true. It&rsquo;s just a little bit more complicated than expected.</p>
-<p>What&rsquo;s needed is basically a custom header and a cookie. It’s the last part with the cookie which makes people think that Invoke-RestMethod does not work because it does not support cookies. It does. The header goes into the header parameter as expected, but the cookie need to go into a web session variable which is used for the websession parameter.</p>
-<p>So let&rsquo;s get into the code. First we need the basics, like uri, content type and all that.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="no">[System.Uri]</span><span class="nv">$Uri</span> <span class="p">=</span> <span class="s2">&#34;http://pizzaserver.example.com/api/pizza/1&#34;</span>
-<span class="nv">$ContentType</span> <span class="p">=</span> <span class="s2">&#34;application/json&#34;</span>
-<span class="nv">$Method</span> <span class="p">=</span> <span class="s1">&#39;PUT&#39;</span>
-<span class="nv">$Body</span> <span class="p">=</span> <span class="s1">&#39;{ &#34;id&#34; = 1, &#34;Name&#34; = &#34;Peperoni&#34; }&#39;</span>
-</code></pre></div><p>So now we have a small body which we are going to use to update a record in the REST API using the PUT method.
-Now the cookie. It’s a very simple .Net class which is kind of like a small hash table. Change the name and value into what is needed for your anti-forgery token.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$Cookie</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Net</span><span class="p">.</span><span class="n">Cookie</span>
-<span class="nv">$Cookie</span><span class="p">.</span><span class="n">Name</span> <span class="p">=</span> <span class="s2">&#34;My cookie name&#34;</span>
-<span class="nv">$Cookie</span><span class="p">.</span><span class="n">Value</span> <span class="p">=</span> <span class="s2">&#34;My cookie value&#34;</span>
-<span class="nv">$Cookie</span><span class="p">.</span><span class="n">Domain</span> <span class="p">=</span> <span class="nv">$uri</span><span class="p">.</span><span class="n">DnsSafeHost</span>
-</code></pre></div><p>Create the web session and add the cookie to it.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$WebSession</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">PowerShell</span><span class="p">.</span><span class="n">Commands</span><span class="p">.</span><span class="n">WebRequestSession</span>
-<span class="nv">$WebSession</span><span class="p">.</span><span class="n">Cookies</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="nv">$Cookie</span><span class="p">)</span>
-</code></pre></div><p>That’s actually everything you need for the cookie. Next is the header. Modify the name and value to match the other token.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$Headers</span> <span class="p">=</span> <span class="p">@{</span>
-    <span class="s1">&#39;My header name&#39;</span> <span class="p">=</span> <span class="s1">&#39;My header value&#39;</span>
-<span class="p">}</span>
-</code></pre></div><p>Now we are ready to run Invoke-RestMethod. I prefer to use splatting for the parameters.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$props</span> <span class="p">=</span> <span class="p">@{</span>
-    <span class="n">Uri</span>     <span class="p">=</span> <span class="nv">$uri</span><span class="p">.</span><span class="n">AbsoluteUri</span>
-    <span class="n">Headers</span> <span class="p">=</span> <span class="nv">$Headers</span>
-    <span class="n">ContentType</span> <span class="p">=</span> <span class="nv">$ContentType</span>
-    <span class="n">Method</span> <span class="p">=</span> <span class="nv">$Method</span>
-    <span class="n">WebSession</span> <span class="p">=</span> <span class="nv">$WebSession</span>
-    <span class="n">Body</span> <span class="p">=</span> <span class="nv">$Body</span>
-<span class="p">}</span>
-</code></pre></div><p>Invoke-RestMethod @props
-That’s it. Now we can talk to a secure REST API.</p>
-<h2 id="full-script">Full script</h2>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="no">[System.Uri]</span><span class="nv">$Uri</span> <span class="p">=</span> <span class="s2">&#34;http://pizzaserver.example.com/api/pizza/1&#34;</span>
-<span class="nv">$ContentType</span> <span class="p">=</span> <span class="s2">&#34;application/json&#34;</span>
-<span class="nv">$Method</span> <span class="p">=</span> <span class="s1">&#39;PUT&#39;</span>
-<span class="nv">$Body</span> <span class="p">=</span> <span class="s1">&#39;{ &#34;id&#34; = 1, &#34;Name&#34; = &#34;Peperoni&#34; }&#39;</span>
- 
-<span class="nv">$Cookie</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Net</span><span class="p">.</span><span class="n">Cookie</span>
-<span class="nv">$Cookie</span><span class="p">.</span><span class="n">Name</span> <span class="p">=</span> <span class="s2">&#34;My cookie name&#34;</span>
-<span class="nv">$Cookie</span><span class="p">.</span><span class="n">Value</span> <span class="p">=</span> <span class="s2">&#34;My cookie value&#34;</span>
-<span class="nv">$Cookie</span><span class="p">.</span><span class="n">Domain</span> <span class="p">=</span> <span class="nv">$uri</span><span class="p">.</span><span class="n">DnsSafeHost</span>
- 
-<span class="nv">$WebSession</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">PowerShell</span><span class="p">.</span><span class="n">Commands</span><span class="p">.</span><span class="n">WebRequestSession</span>
-<span class="nv">$WebSession</span><span class="p">.</span><span class="n">Cookies</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="nv">$Cookie</span><span class="p">)</span>
- 
-<span class="nv">$Headers</span> <span class="p">=</span> <span class="p">@{</span>
-    <span class="s1">&#39;My header name&#39;</span> <span class="p">=</span> <span class="s1">&#39;My header value&#39;</span>
-<span class="p">}</span>
- 
-<span class="nv">$props</span> <span class="p">=</span> <span class="p">@{</span>
-    <span class="n">Uri</span>         <span class="p">=</span> <span class="nv">$uri</span><span class="p">.</span><span class="n">AbsoluteUri</span>
-    <span class="n">Headers</span>     <span class="p">=</span> <span class="nv">$Headers</span>
-    <span class="n">ContentType</span> <span class="p">=</span> <span class="nv">$ContentType</span>
-    <span class="n">Method</span>      <span class="p">=</span> <span class="nv">$Method</span>
-    <span class="n">WebSession</span>  <span class="p">=</span> <span class="nv">$WebSession</span>
-    <span class="n">Body</span>        <span class="p">=</span> <span class="nv">$Body</span>
-<span class="p">}</span>
- 
-<span class="nb">Invoke-RestMethod</span> <span class="nv">@props</span>
-</code></pre></div>
-            </div>
-
-            
-            <div class="main-content-preview">
-                <h1>Invoke-RestMethod with anti-forgery tokens in header and cookie</h1>
-                
-                <p>To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell cmdlet Invoke-RestMethod. I have seen some people suggesting that Invoke-RestMethod does not have support for this, which is not true. It&rsquo;s just a little bit more complicated than expected.</p>
+            <p>To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell cmdlet Invoke-RestMethod. I have seen some people suggesting that Invoke-RestMethod does not have support for this, which is not true. It&rsquo;s just a little bit more complicated than expected.</p>
 <p>What&rsquo;s needed is basically a custom header and a cookie. It’s the last part with the cookie which makes people think that Invoke-RestMethod does not work because it does not support cookies. It does. The header goes into the header parameter as expected, but the cookie need to go into a web session variable which is used for the websession parameter.</p>
 <p>So let&rsquo;s get into the code. First we need the basics, like uri, content type and all that.</p>
 <div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="no">[System.Uri]</span><span class="nv">$Uri</span> <span class="p">=</span> <span class="s2">&#34;http://pizzaserver.example.com/api/pizza/1&#34;</span>
@@ -370,15 +357,15 @@ That’s it. Now we can talk to a secure REST API.</p>
 <span class="nb">Invoke-RestMethod</span> <span class="nv">@props</span>
 </code></pre></div>
 
-                <p>- Written by John  
+            <p>- Written by John  
+            
                 
-                    
-                    
-                    on February 21, 2017</p>
+                
+                on February 21, 2017</p>
 
-                
-                    <div class="disqus-section">
-                        <div id="disqus_thread"></div>
+            
+                <div class="disqus-section">
+                    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -398,11 +385,11 @@ That’s it. Now we can talk to a secure REST API.</p>
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-                    </div>
-                
-            </div>
+                </div>
+            
+        </div>
 
-       </div>
+    </div>
     
 
 

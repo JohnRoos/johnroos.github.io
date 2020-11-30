@@ -203,128 +203,115 @@ if (!doNotTrack) {
             
             
             <div class='main'>
-     
-     
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-    
-       
-        <div class="main-path">
-            <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Introducing the IniManager module.md</span>
-            
-                    
-                    
-                    <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2016-04-23">April 23, 2016</time>)</span>
+    <div class="main-path">
+        <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Introducing the IniManager module.md</span>
+        
                 
+                
+                <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2016-04-23">April 23, 2016</time>)</span>
+            
+    </div>
+    
+    <div class="main-content-toggle">
+
+        
+        <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
+        <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
+
+        <input class="source-toggle" type="checkbox" id="source-toggle">
+        <label class="source-toggle-label" for="source-toggle"></label>
+
+        <div class="main-content">
+            ---<br />
+            <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Introducing the IniManager module</span><br />
+            <span class="md-frontmatter">date</span>: 2016-04-23 14:14:00 &#43;0200 CEST<br />
+            <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
+            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
+            ----
+            <p>Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources to contain as little code as possible I prefer to create cmdlets outside of the resource which I can call from within the resource. In this way I can also use the cmdlets in scripts and the console which is a nice bonus.</p>
+<p>I also wanted to be able to use both strings and hash tables as input depending on my needs. In this way I would be able to create very dynamic resources and if I need more static resources I can always create composite resources. I ended up with a module which contains seven cmdlets to create, modify and verify ini files.</p>
+<p>The IniManager module contains the following cmdlets:</p>
+<ul>
+<li>Get-Ini</li>
+<li>New-Ini</li>
+<li>Remove-IniKey</li>
+<li>Rename-IniKey</li>
+<li>Set-IniFromHash</li>
+<li>Set-IniKey</li>
+<li>Test-Ini</li>
+</ul>
+<p>Note that comments in ini files are not handled. If you use this module to create or modify an ini file any comments in that file will be removed. The only case in which a comment is kept is if it contains &ldquo;=&rdquo; on that row. The functions check for &ldquo;=&rdquo; on each row to separate between key and value.</p>
+<h2 id="the-fileini-object">The File.Ini object</h2>
+<p>For all the cmdlets in this module I created a custom object which has the type name File.Ini. This object type contains one property per section with the same naming convention as in ini files. This means that the property names have brackets around them. The object also contains one property for each key/value pair which does not belong to a section. These properties will not have brackets around them.</p>
+<p>The section properties (with brackets) are of the type File.Ini.Config which in turn contains a collection of properties. One property per key/value in that section.</p>
+<p>It&rsquo;s probably easier to explain the object with an example. In this example I use Get-Ini to read the content from an ini file and pipe that to Get-Member. The ini file looks like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">ImportPath=c:\import
+ExportPath=c:\export
+ 
+[logging]
+Path=c:\log
+LogLevel=Error
+ 
+[drivers]
+wave=mmdrv.dll
+timer=timer.drv
+</code></pre></div><p>Running the command in the console will output an object which looks like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">PS C:\&gt; Get-Ini -Path C:\temp\myconfig.ini | Get-Member
+
+   TypeName: File.ini
+
+Name        MemberType   Definition                                                   
+----        ----------   ----------                                                   
+Equals      Method       bool Equals(System.Object obj)                               
+GetHashCode Method       int GetHashCode()                                            
+GetType     Method       type GetType()                                               
+ToString    Method       string ToString()                                            
+ExportPath  NoteProperty string ExportPath=c:\export                                  
+ImportPath  NoteProperty string ImportPath=c:\import                                  
+[drivers]   NoteProperty File.ini.Section [drivers]=@{wave=mmdrv.dll; timer=timer.drv}
+[logging]   NoteProperty File.Ini.Config [logging]=@{LogLevel=Error; Path=c:\log}
+</code></pre></div><p>That&rsquo;s the object we are dealing with. Now, let&rsquo;s look at the cmdlets available in the module.</p>
+<h2 id="get-ini">Get-Ini</h2>
+<p>When I do this kind of thing I usually start with the basics. This cmdlet reads an ini file from disk and outputs the custom object. Its used by most of the other cmdlets so it makes the basics for the entire module. Here is an example:</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Get-Ini</span> <span class="n">-Path</span> <span class="s2">&#34;C:\config.ini&#34;</span>
+</code></pre></div><h2 id="new-ini">New-Ini</h2>
+<p>This cmdlet, as the name suggests, creates an ini file on disk. It requires a File.Ini object so the easiest thing to do is to create a File.Ini object first and them pipe that to this cmdlet. One way to do that is to use Get-Ini. You could modify the object before sending it to New-Ini, but in this example I will just create the object from an existing ini file and create it in a new path.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Get-Ini</span> <span class="n">-Path</span> <span class="s2">&#34;C:\config.ini&#34;</span> <span class="p">|</span> <span class="nb">new-ini</span> <span class="n">-Path</span> <span class="n">c:</span><span class="p">\</span><span class="n">config_new</span><span class="p">.</span><span class="n">ini</span> <span class="n">-Encoding</span> <span class="n">UTF8</span>
+</code></pre></div><h2 id="set-inikey">Set-IniKey</h2>
+<p>So now we have covered the basics. If we would want to change certain configuration values in an ini file there are several options on how to do that. One easy way is to use Set-IniKey, which is used to change a value in an ini file. In this example we are changing the key &ldquo;LogLevel&rdquo; to &ldquo;Debug&rdquo;. The LogLevel is placed in the Logging section of the ini file so we also have to select the section. As an extra feature we also set the file encoding to UTF8 just for the hell of it.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Set-IniKey</span> <span class="n">-Path</span> <span class="s2">&#34;C:\config.ini&#34;</span> <span class="n">-Key</span> <span class="n">LoggingLevel</span> <span class="n">-Value</span> <span class="n">Debug</span> <span class="n">-Section</span> <span class="n">Logging</span> <span class="n">-Encoding</span> <span class="n">UTF8</span>
+</code></pre></div><h2 id="remove-inikey">Remove-IniKey</h2>
+<p>So we have tried to read an ini file, create a new one and modified a value. Now it&rsquo;s time for removing values in the ini file. This cmdlet works just as easy as the others. You simply use parameters to select the key and optionally you select the file encoding (the file have to be written after all). In this example we will remove a key (or configuration entry) which is called Proxy in the &ldquo;[system]&rdquo; section of the ini file. Again, the file encoding can be set as well.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Remove-IniKey</span> <span class="n">-Path</span> <span class="s2">&#34;c:\config.ini&#34;</span> <span class="n">-Key</span> <span class="no">[system]</span><span class="n">Proxy</span> <span class="n">-Encoding</span> <span class="n">ASCII</span>
+</code></pre></div><h2 id="rename-inikey">Rename-IniKey</h2>
+<p>There are occasions where a key needs to be renamed. One reason to change the name of a key could simply be to add a hash before it so that it becomes a comment and not read by the system. It could also be if a key was misspelled. In this example we will rename a key called &ldquo;Prixy&rdquo; to &ldquo;Proxy&rdquo; in the &ldquo;system&rdquo; section.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Rename-IniKey</span> <span class="n">-Path</span> <span class="n">c:</span><span class="p">\</span><span class="n">config</span><span class="p">.</span><span class="n">ini</span> <span class="n">-Key</span> <span class="n">Prixy</span> <span class="n">-NewKey</span> <span class="n">Proxy</span> <span class="n">-Section</span> <span class="n">system</span> <span class="n">-Encoding</span> <span class="n">UTF8</span>
+</code></pre></div><h2 id="set-inifromhash">Set-IniFromHash</h2>
+<p>Now we are getting into the interesting parts. What if you know exactly what you need to change in an ini file and you want to change all of it at once? This is the cmdlet you need for that. You simply create a hash table with the configuration you want and pass it in. In this example we will use a hash table to add two key/value pairs, one in a section and one without section. This works really well in DSC resources.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$hash</span> <span class="p">=</span> <span class="p">@{</span>
+    <span class="s1">&#39;DebugLog&#39;</span>          <span class="p">=</span><span class="s1">&#39;false&#39;</span>
+    <span class="s1">&#39;[settings]Hostname&#39;</span><span class="p">=</span><span class="s1">&#39;localhost&#39;</span>
+<span class="p">}</span>
+ 
+<span class="nb">Set-IniFromHash</span> <span class="n">-Path</span> <span class="n">c:</span><span class="p">\</span><span class="n">config</span><span class="p">.</span><span class="n">ini</span> <span class="n">-Values</span> <span class="nv">$hash</span> <span class="n">-Encoding</span> <span class="n">UTF8</span>
+</code></pre></div><h2 id="test-ini">Test-Ini</h2>
+<p>So now we have all the cmdlets to modify our ini files. What if we want to make sure that an ini file is set up in the correct way? This is the cmdlet for that. Simply pass in a hash table with your configuration and this cmdlet will output True or False. Test-Ini works really well in a DSC configuration as well. This example is uses the same hash table as Set-IniFromHash to check if the ini file has the correct settings.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$hash</span> <span class="p">=</span> <span class="p">@{</span>
+    <span class="s1">&#39;DebugLog&#39;</span>          <span class="p">=</span><span class="s1">&#39;false&#39;</span>
+    <span class="s1">&#39;[settings]Hostname&#39;</span><span class="p">=</span><span class="s1">&#39;localhost&#39;</span>
+<span class="p">}</span>
+ 
+<span class="nb">Test-Ini</span> <span class="n">-Path</span> <span class="s2">&#34;C:\config.ini&#34;</span> <span class="n">-Values</span> <span class="nv">$hash</span>
+</code></pre></div><h2 id="where-to-download">Where to download</h2>
+<p>This module is available in the <a href="https://www.powershellgallery.com/packages/IniManager">PowerShell Gallery</a> and <a href="https://gallery.technet.microsoft.com/scriptcenter/IniManager-2eb8cafd">Microsoft Script Center</a>. If you would like to see more examples, report a bug or contribute with more features, you can visit <a href="https://github.com/JohnRoos/PowerShell">my GitHub repository</a>.</p>
+
         </div>
-        <div class="main-content-toggle">
 
+        
+        <div class="main-content-preview">
+            <h1>Introducing the IniManager module</h1>
             
-            <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
-            <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
-
-            <input class="source-toggle" type="checkbox" id="source-toggle">
-            <label class="source-toggle-label" for="source-toggle"></label>
-
-            <div class="main-content">
-                ---<br />
-                <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Introducing the IniManager module</span><br />
-                <span class="md-frontmatter">date</span>: 2016-04-23 14:14:00 &#43;0200 CEST<br />
-                <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
-                <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
-                ----
-                <p>Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources to contain as little code as possible I prefer to create cmdlets outside of the resource which I can call from within the resource. In this way I can also use the cmdlets in scripts and the console which is a nice bonus.</p>
-<p>I also wanted to be able to use both strings and hash tables as input depending on my needs. In this way I would be able to create very dynamic resources and if I need more static resources I can always create composite resources. I ended up with a module which contains seven cmdlets to create, modify and verify ini files.</p>
-<p>The IniManager module contains the following cmdlets:</p>
-<ul>
-<li>Get-Ini</li>
-<li>New-Ini</li>
-<li>Remove-IniKey</li>
-<li>Rename-IniKey</li>
-<li>Set-IniFromHash</li>
-<li>Set-IniKey</li>
-<li>Test-Ini</li>
-</ul>
-<p>Note that comments in ini files are not handled. If you use this module to create or modify an ini file any comments in that file will be removed. The only case in which a comment is kept is if it contains &ldquo;=&rdquo; on that row. The functions check for &ldquo;=&rdquo; on each row to separate between key and value.</p>
-<h2 id="the-fileini-object">The File.Ini object</h2>
-<p>For all the cmdlets in this module I created a custom object which has the type name File.Ini. This object type contains one property per section with the same naming convention as in ini files. This means that the property names have brackets around them. The object also contains one property for each key/value pair which does not belong to a section. These properties will not have brackets around them.</p>
-<p>The section properties (with brackets) are of the type File.Ini.Config which in turn contains a collection of properties. One property per key/value in that section.</p>
-<p>It&rsquo;s probably easier to explain the object with an example. In this example I use Get-Ini to read the content from an ini file and pipe that to Get-Member. The ini file looks like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">ImportPath=c:\import
-ExportPath=c:\export
- 
-[logging]
-Path=c:\log
-LogLevel=Error
- 
-[drivers]
-wave=mmdrv.dll
-timer=timer.drv
-</code></pre></div><p>Running the command in the console will output an object which looks like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">PS C:\&gt; Get-Ini -Path C:\temp\myconfig.ini | Get-Member
-
-   TypeName: File.ini
-
-Name        MemberType   Definition                                                   
-----        ----------   ----------                                                   
-Equals      Method       bool Equals(System.Object obj)                               
-GetHashCode Method       int GetHashCode()                                            
-GetType     Method       type GetType()                                               
-ToString    Method       string ToString()                                            
-ExportPath  NoteProperty string ExportPath=c:\export                                  
-ImportPath  NoteProperty string ImportPath=c:\import                                  
-[drivers]   NoteProperty File.ini.Section [drivers]=@{wave=mmdrv.dll; timer=timer.drv}
-[logging]   NoteProperty File.Ini.Config [logging]=@{LogLevel=Error; Path=c:\log}
-</code></pre></div><p>That&rsquo;s the object we are dealing with. Now, let&rsquo;s look at the cmdlets available in the module.</p>
-<h2 id="get-ini">Get-Ini</h2>
-<p>When I do this kind of thing I usually start with the basics. This cmdlet reads an ini file from disk and outputs the custom object. Its used by most of the other cmdlets so it makes the basics for the entire module. Here is an example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Get-Ini</span> <span class="n">-Path</span> <span class="s2">&#34;C:\config.ini&#34;</span>
-</code></pre></div><h2 id="new-ini">New-Ini</h2>
-<p>This cmdlet, as the name suggests, creates an ini file on disk. It requires a File.Ini object so the easiest thing to do is to create a File.Ini object first and them pipe that to this cmdlet. One way to do that is to use Get-Ini. You could modify the object before sending it to New-Ini, but in this example I will just create the object from an existing ini file and create it in a new path.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Get-Ini</span> <span class="n">-Path</span> <span class="s2">&#34;C:\config.ini&#34;</span> <span class="p">|</span> <span class="nb">new-ini</span> <span class="n">-Path</span> <span class="n">c:</span><span class="p">\</span><span class="n">config_new</span><span class="p">.</span><span class="n">ini</span> <span class="n">-Encoding</span> <span class="n">UTF8</span>
-</code></pre></div><h2 id="set-inikey">Set-IniKey</h2>
-<p>So now we have covered the basics. If we would want to change certain configuration values in an ini file there are several options on how to do that. One easy way is to use Set-IniKey, which is used to change a value in an ini file. In this example we are changing the key &ldquo;LogLevel&rdquo; to &ldquo;Debug&rdquo;. The LogLevel is placed in the Logging section of the ini file so we also have to select the section. As an extra feature we also set the file encoding to UTF8 just for the hell of it.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Set-IniKey</span> <span class="n">-Path</span> <span class="s2">&#34;C:\config.ini&#34;</span> <span class="n">-Key</span> <span class="n">LoggingLevel</span> <span class="n">-Value</span> <span class="n">Debug</span> <span class="n">-Section</span> <span class="n">Logging</span> <span class="n">-Encoding</span> <span class="n">UTF8</span>
-</code></pre></div><h2 id="remove-inikey">Remove-IniKey</h2>
-<p>So we have tried to read an ini file, create a new one and modified a value. Now it&rsquo;s time for removing values in the ini file. This cmdlet works just as easy as the others. You simply use parameters to select the key and optionally you select the file encoding (the file have to be written after all). In this example we will remove a key (or configuration entry) which is called Proxy in the &ldquo;[system]&rdquo; section of the ini file. Again, the file encoding can be set as well.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Remove-IniKey</span> <span class="n">-Path</span> <span class="s2">&#34;c:\config.ini&#34;</span> <span class="n">-Key</span> <span class="no">[system]</span><span class="n">Proxy</span> <span class="n">-Encoding</span> <span class="n">ASCII</span>
-</code></pre></div><h2 id="rename-inikey">Rename-IniKey</h2>
-<p>There are occasions where a key needs to be renamed. One reason to change the name of a key could simply be to add a hash before it so that it becomes a comment and not read by the system. It could also be if a key was misspelled. In this example we will rename a key called &ldquo;Prixy&rdquo; to &ldquo;Proxy&rdquo; in the &ldquo;system&rdquo; section.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Rename-IniKey</span> <span class="n">-Path</span> <span class="n">c:</span><span class="p">\</span><span class="n">config</span><span class="p">.</span><span class="n">ini</span> <span class="n">-Key</span> <span class="n">Prixy</span> <span class="n">-NewKey</span> <span class="n">Proxy</span> <span class="n">-Section</span> <span class="n">system</span> <span class="n">-Encoding</span> <span class="n">UTF8</span>
-</code></pre></div><h2 id="set-inifromhash">Set-IniFromHash</h2>
-<p>Now we are getting into the interesting parts. What if you know exactly what you need to change in an ini file and you want to change all of it at once? This is the cmdlet you need for that. You simply create a hash table with the configuration you want and pass it in. In this example we will use a hash table to add two key/value pairs, one in a section and one without section. This works really well in DSC resources.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$hash</span> <span class="p">=</span> <span class="p">@{</span>
-    <span class="s1">&#39;DebugLog&#39;</span>          <span class="p">=</span><span class="s1">&#39;false&#39;</span>
-    <span class="s1">&#39;[settings]Hostname&#39;</span><span class="p">=</span><span class="s1">&#39;localhost&#39;</span>
-<span class="p">}</span>
- 
-<span class="nb">Set-IniFromHash</span> <span class="n">-Path</span> <span class="n">c:</span><span class="p">\</span><span class="n">config</span><span class="p">.</span><span class="n">ini</span> <span class="n">-Values</span> <span class="nv">$hash</span> <span class="n">-Encoding</span> <span class="n">UTF8</span>
-</code></pre></div><h2 id="test-ini">Test-Ini</h2>
-<p>So now we have all the cmdlets to modify our ini files. What if we want to make sure that an ini file is set up in the correct way? This is the cmdlet for that. Simply pass in a hash table with your configuration and this cmdlet will output True or False. Test-Ini works really well in a DSC configuration as well. This example is uses the same hash table as Set-IniFromHash to check if the ini file has the correct settings.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$hash</span> <span class="p">=</span> <span class="p">@{</span>
-    <span class="s1">&#39;DebugLog&#39;</span>          <span class="p">=</span><span class="s1">&#39;false&#39;</span>
-    <span class="s1">&#39;[settings]Hostname&#39;</span><span class="p">=</span><span class="s1">&#39;localhost&#39;</span>
-<span class="p">}</span>
- 
-<span class="nb">Test-Ini</span> <span class="n">-Path</span> <span class="s2">&#34;C:\config.ini&#34;</span> <span class="n">-Values</span> <span class="nv">$hash</span>
-</code></pre></div><h2 id="where-to-download">Where to download</h2>
-<p>This module is available in the <a href="https://www.powershellgallery.com/packages/IniManager">PowerShell Gallery</a> and <a href="https://gallery.technet.microsoft.com/scriptcenter/IniManager-2eb8cafd">Microsoft Script Center</a>. If you would like to see more examples, report a bug or contribute with more features, you can visit <a href="https://github.com/JohnRoos/PowerShell">my GitHub repository</a>.</p>
-
-            </div>
-
-            
-            <div class="main-content-preview">
-                <h1>Introducing the IniManager module</h1>
-                
-                <p>Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources to contain as little code as possible I prefer to create cmdlets outside of the resource which I can call from within the resource. In this way I can also use the cmdlets in scripts and the console which is a nice bonus.</p>
+            <p>Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources to contain as little code as possible I prefer to create cmdlets outside of the resource which I can call from within the resource. In this way I can also use the cmdlets in scripts and the console which is a nice bonus.</p>
 <p>I also wanted to be able to use both strings and hash tables as input depending on my needs. In this way I would be able to create very dynamic resources and if I need more static resources I can always create composite resources. I ended up with a module which contains seven cmdlets to create, modify and verify ini files.</p>
 <p>The IniManager module contains the following cmdlets:</p>
 <ul>
@@ -402,15 +389,15 @@ ImportPath  NoteProperty string ImportPath=c:\import
 <p>This module is available in the <a href="https://www.powershellgallery.com/packages/IniManager">PowerShell Gallery</a> and <a href="https://gallery.technet.microsoft.com/scriptcenter/IniManager-2eb8cafd">Microsoft Script Center</a>. If you would like to see more examples, report a bug or contribute with more features, you can visit <a href="https://github.com/JohnRoos/PowerShell">my GitHub repository</a>.</p>
 
 
-                <p>- Written by John  
+            <p>- Written by John  
+            
                 
-                    
-                    
-                    on April 23, 2016</p>
+                
+                on April 23, 2016</p>
 
-                
-                    <div class="disqus-section">
-                        <div id="disqus_thread"></div>
+            
+                <div class="disqus-section">
+                    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -430,11 +417,11 @@ ImportPath  NoteProperty string ImportPath=c:\import
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-                    </div>
-                
-            </div>
+                </div>
+            
+        </div>
 
-       </div>
+    </div>
     
 
 

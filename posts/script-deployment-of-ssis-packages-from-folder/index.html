@@ -203,215 +203,202 @@ if (!doNotTrack) {
             
             
             <div class='main'>
-     
-     
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-    
-       
-        <div class="main-path">
-            <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Script deployment of SSIS packages from folder.md</span>
-            
-                    
-                    
-                    <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2012-03-08">March 8, 2012</time>)</span>
+    <div class="main-path">
+        <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Script deployment of SSIS packages from folder.md</span>
+        
                 
+                
+                <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2012-03-08">March 8, 2012</time>)</span>
+            
+    </div>
+    
+    <div class="main-content-toggle">
+
+        
+        <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
+        <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
+
+        <input class="source-toggle" type="checkbox" id="source-toggle">
+        <label class="source-toggle-label" for="source-toggle"></label>
+
+        <div class="main-content">
+            ---<br />
+            <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Script deployment of SSIS packages from folder</span><br />
+            <span class="md-frontmatter">date</span>: 2012-03-08 14:14:00 &#43;0200 &#43;0200<br />
+            <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
+            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
+            ----
+            <p>This is a very easy way to automate something which can take quite some time to do manually if you have lots of environments. Its made as easy as possible in this example rather than fancy and complicated. This script will create a SQL Server Agent Job which will execute a number of SSIS packages (dtsx files). The script will look for dtsx files in the selected folder DTSVirtualPath and also a config file (dtsConfig). Each file will get its own step in the job in alphabetical order. If you want to have a different order you could just rename the files with a number in the front or rearrange it manually afterwards in the job properties.</p>
+<p>To make it as easy and quick as possible I got the base for the script by using one of the jobs which was already configured. Just right click on a job which already exist and select Script Job as, Create to, New Query Editor Window. I then edited the script to make it a bit dynamic. I included two schedules for the job in case schedules are needed. Just edit the highlighted lines to adapt to your environment and give it a go. I have only tested this on SQL Server 2008 R2 but it will probably work on 2005 with a few or no tweaks.</p>
+<p>Before running the script you need to enable xp_cmdshell. This is because the script is running the dir command to get the file names for the dtsx files. To enable xp_cmdshell run the following:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- Enable advanced configuration options
+</span><span class="c1"></span><span class="k">EXEC</span> <span class="n">sp_configure</span> <span class="s1">&#39;show advanced options&#39;</span><span class="p">,</span> <span class="mi">1</span>
+ 
+<span class="n">RECONFIGURE</span>
+ 
+<span class="c1">-- Enable xp_cmdshell
+</span><span class="c1"></span><span class="k">EXEC</span> <span class="n">sp_configure</span> <span class="s1">&#39;xp_cmdshell&#39;</span><span class="p">,</span> <span class="mi">1</span>
+ 
+<span class="n">RECONFIGURE</span>
+ 
+<span class="c1">-- Test the feature
+</span><span class="c1"></span><span class="k">EXEC</span> <span class="n">xp_cmdshell</span> <span class="s1">&#39;dir c:\&#39;</span>
+</code></pre></div><p>This can easily be incorporated into the script below if you dont want to have it enabled all the time. In the end of the script you can simply disable it again.</p>
+<p>@DTSVirtualPath is the path from the &ldquo;root&rdquo; folder in the SSIS Package Store. In this case its using the default path: C:\Program Files\Microsoft SQL Server\100\DTS\Packages</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">USE</span> <span class="p">[</span><span class="n">msdb</span><span class="p">]</span>
+<span class="k">GO</span>
+ 
+<span class="k">DECLARE</span> <span class="o">@</span><span class="n">DTSJobName</span> <span class="n">nvarchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+<span class="k">DECLARE</span> <span class="o">@</span><span class="n">DTSServerName</span> <span class="n">nvarchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+<span class="k">DECLARE</span> <span class="o">@</span><span class="n">DTSVirtualPath</span> <span class="n">nvarchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+<span class="k">DECLARE</span> <span class="o">@</span><span class="n">DTSConfigFileName</span> <span class="n">nvarchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+<span class="k">DECLARE</span> <span class="o">@</span><span class="n">DTSOwnerName</span> <span class="n">nvarchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+ 
+<span class="c1">-- USER VARIABLES
+</span><span class="c1"></span> 
+<span class="k">SET</span> <span class="o">@</span><span class="n">DTSJobName</span> <span class="o">=</span> <span class="s1">&#39;My SSIS job&#39;</span>
+<span class="k">SET</span> <span class="o">@</span><span class="n">DTSVirtualPath</span> <span class="o">=</span> <span class="s1">&#39;\FolderWithdtsxFiles\&#39;</span>
+<span class="k">SET</span> <span class="o">@</span><span class="n">DTSConfigFileName</span> <span class="o">=</span> <span class="s1">&#39;config.dtsConfig&#39;</span>
+<span class="k">SET</span> <span class="o">@</span><span class="n">DTSServerName</span> <span class="o">=</span> <span class="s1">&#39;Servername&#39;</span>
+<span class="k">SET</span> <span class="o">@</span><span class="n">DTSOwnerName</span> <span class="o">=</span> <span class="s1">&#39;domain\user&#39;</span>
+ 
+ 
+<span class="c1">-- USER VARIABLES END --
+</span><span class="c1"></span> 
+<span class="k">DECLARE</span> <span class="o">@</span><span class="n">DTSFolder</span> <span class="n">nvarchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+<span class="k">DECLARE</span> <span class="o">@</span><span class="n">DTSConfig</span> <span class="n">nvarchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+<span class="k">DECLARE</span> <span class="o">@</span><span class="n">DTSCommand</span> <span class="n">nvarchar</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+<span class="k">DECLARE</span> <span class="o">@</span><span class="n">TotalRows</span> <span class="nb">int</span>
+<span class="k">DECLARE</span> <span class="o">@</span><span class="n">CurrentRow</span> <span class="nb">int</span>
+<span class="k">DECLARE</span> <span class="o">@</span><span class="n">DTSFileName</span> <span class="n">nvarchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+<span class="k">DECLARE</span> <span class="o">@</span><span class="n">TempDTSsteps</span> <span class="k">TABLE</span><span class="p">(</span><span class="n">Seq</span> <span class="nb">int</span> <span class="k">IDENTITY</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">DTSfile</span> <span class="n">nvarchar</span><span class="p">(</span><span class="mi">255</span><span class="p">))</span>
+ 
+<span class="k">SET</span> <span class="o">@</span><span class="n">DTSFolder</span> <span class="o">=</span> <span class="s1">&#39;\File System&#39;</span> <span class="o">+</span> <span class="o">@</span><span class="n">DTSVirtualPath</span>
+<span class="k">SET</span> <span class="o">@</span><span class="n">DTSConfig</span> <span class="o">=</span> <span class="s1">&#39;C:\Program Files\Microsoft SQL Server\100\DTS\Packages&#39;</span> <span class="o">+</span> <span class="o">@</span><span class="n">DTSVirtualPath</span> <span class="o">+</span> <span class="o">@</span><span class="n">DTSConfigFileName</span> 
+ 
+<span class="c1">-- insert all the job steps/dts files into the temp table
+</span><span class="c1">-- Add more rows below if there are more steps to be added
+</span><span class="c1">-- The number have to be unique and represents the order of the steps
+</span><span class="c1"></span> 
+<span class="k">DECLARE</span> <span class="o">@</span><span class="n">Command</span> <span class="n">nvarchar</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span> 
+<span class="k">SET</span> <span class="o">@</span><span class="n">Command</span> <span class="o">=</span> <span class="s1">&#39;dir &#34;C:\Program Files\Microsoft SQL Server\100\DTS\Packages&#39;</span> <span class="o">+</span> <span class="o">@</span><span class="n">DTSVirtualPath</span> <span class="o">+</span> <span class="s1">&#39;*.dtsx&#34; /A-D  /B&#39;</span> 
+ 
+<span class="k">INSERT</span> <span class="o">@</span><span class="n">TempDTSsteps</span>
+<span class="k">EXEC</span> <span class="n">MASTER</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">xp_cmdshell</span> <span class="o">@</span><span class="n">Command</span>
+ 
+<span class="k">DELETE</span> <span class="k">FROM</span> <span class="o">@</span><span class="n">TempDTSsteps</span> <span class="k">WHERE</span> <span class="n">DTSfile</span> <span class="k">IS</span> <span class="k">NULL</span>
+ 
+ <span class="c1">--SELECT DTSfile FROM @TempDTSsteps
+</span><span class="c1">-- inserting steps complete
+</span><span class="c1"></span> 
+ 
+<span class="k">SELECT</span> <span class="o">@</span><span class="n">TotalRows</span><span class="o">=</span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">from</span> <span class="o">@</span><span class="n">TempDTSsteps</span>
+<span class="k">SET</span> <span class="o">@</span><span class="n">CurrentRow</span> <span class="o">=</span> <span class="mi">1</span>
+ 
+<span class="c1">-- Create Job
+</span><span class="c1"></span><span class="k">BEGIN</span> <span class="k">TRANSACTION</span>
+<span class="k">DECLARE</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="nb">INT</span>
+<span class="k">SELECT</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">name</span> <span class="k">FROM</span> <span class="n">msdb</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">syscategories</span> <span class="k">WHERE</span> <span class="n">name</span><span class="o">=</span><span class="n">N</span><span class="s1">&#39;[Uncategorized (Local)]&#39;</span> <span class="k">AND</span> <span class="n">category_class</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">BEGIN</span>
+<span class="k">EXEC</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">=</span> <span class="n">msdb</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">sp_add_category</span> <span class="o">@</span><span class="k">class</span><span class="o">=</span><span class="n">N</span><span class="s1">&#39;JOB&#39;</span><span class="p">,</span> <span class="o">@</span><span class="k">type</span><span class="o">=</span><span class="n">N</span><span class="s1">&#39;LOCAL&#39;</span><span class="p">,</span> <span class="o">@</span><span class="n">name</span><span class="o">=</span><span class="n">N</span><span class="s1">&#39;[Uncategorized (Local)]&#39;</span>
+<span class="k">IF</span> <span class="p">(</span><span class="o">@@</span><span class="n">ERROR</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span> <span class="k">OR</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">GOTO</span> <span class="n">QuitWithRollback</span>
+<span class="k">END</span>
+ 
+<span class="k">DECLARE</span> <span class="o">@</span><span class="n">jobId</span> <span class="nb">BINARY</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+<span class="k">EXEC</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">=</span>  <span class="n">msdb</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">sp_add_job</span> <span class="o">@</span><span class="n">job_name</span><span class="o">=@</span><span class="n">DTSJobName</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">enabled</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">notify_level_eventlog</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">notify_level_email</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">notify_level_netsend</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">notify_level_page</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">delete_level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">description</span><span class="o">=</span><span class="n">N</span><span class="s1">&#39;No description available.&#39;</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">category_name</span><span class="o">=</span><span class="n">N</span><span class="s1">&#39;[Uncategorized (Local)]&#39;</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">owner_login_name</span><span class="o">=@</span><span class="n">DTSOwnerName</span><span class="p">,</span> <span class="o">@</span><span class="n">job_id</span> <span class="o">=</span> <span class="o">@</span><span class="n">jobId</span> <span class="k">OUTPUT</span>
+<span class="k">IF</span> <span class="p">(</span><span class="o">@@</span><span class="n">ERROR</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span> <span class="k">OR</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">GOTO</span> <span class="n">QuitWithRollback</span>
+ 
+<span class="k">DECLARE</span> <span class="o">@</span><span class="n">SuccessAction</span> <span class="nb">int</span>
+<span class="k">SET</span> <span class="o">@</span><span class="n">SuccessAction</span> <span class="o">=</span> <span class="mi">3</span>
+ 
+<span class="c1">-- loop start
+</span><span class="c1"></span><span class="n">WHILE</span> <span class="o">@</span><span class="n">CurrentRow</span> <span class="o">&lt;=</span> <span class="o">@</span><span class="n">TotalRows</span>
+<span class="k">BEGIN</span>
+<span class="k">SELECT</span> <span class="o">@</span><span class="n">DTSFileName</span> <span class="o">=</span> <span class="k">REPLACE</span><span class="p">(</span><span class="n">DTSfile</span><span class="p">,</span><span class="s1">&#39;.dtsx&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">FROM</span> <span class="o">@</span><span class="n">TempDTSsteps</span> <span class="k">WHERE</span> <span class="n">Seq</span> <span class="o">=</span> <span class="o">@</span><span class="n">CurrentRow</span>
+ 
+<span class="k">IF</span> <span class="o">@</span><span class="n">CurrentRow</span> <span class="o">=</span> <span class="o">@</span><span class="n">TotalRows</span>
+<span class="k">BEGIN</span>
+ <span class="k">SET</span> <span class="o">@</span><span class="n">SuccessAction</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">END</span>
+ 
+<span class="k">SET</span> <span class="o">@</span><span class="n">DTSCommand</span><span class="o">=</span><span class="n">N</span><span class="s1">&#39;/DTS &#34;&#39;</span> <span class="o">+</span> <span class="o">@</span><span class="n">DTSFolder</span> <span class="o">+</span> <span class="o">@</span><span class="n">DTSFileName</span> <span class="o">+</span> <span class="n">N</span><span class="s1">&#39;&#34; /SERVER &#39;</span> <span class="o">+</span> <span class="o">@</span><span class="n">DTSServerName</span> <span class="o">+</span> <span class="n">N</span><span class="s1">&#39; /CONFIGFILE &#34;&#39;</span> <span class="o">+</span> <span class="o">@</span><span class="n">DTSConfig</span> <span class="o">+</span> <span class="n">N</span><span class="s1">&#39;&#34; /MAXCONCURRENT &#34; -1 &#34; /CHECKPOINTING OFF /REPORTING E&#39;</span>
+<span class="c1">-- Create step in job
+</span><span class="c1"></span><span class="k">EXEC</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">=</span> <span class="n">msdb</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">sp_add_jobstep</span> <span class="o">@</span><span class="n">job_id</span><span class="o">=@</span><span class="n">jobId</span><span class="p">,</span> <span class="o">@</span><span class="n">step_name</span><span class="o">=@</span><span class="n">DTSFileName</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">step_id</span><span class="o">=@</span><span class="n">CurrentRow</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">cmdexec_success_code</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">on_success_action</span><span class="o">=@</span><span class="n">SuccessAction</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">on_success_step_id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">on_fail_action</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">on_fail_step_id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">retry_attempts</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">retry_interval</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">os_run_priority</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">@</span><span class="n">subsystem</span><span class="o">=</span><span class="n">N</span><span class="s1">&#39;SSIS&#39;</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">command</span><span class="o">=@</span><span class="n">DTSCommand</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">database_name</span><span class="o">=</span><span class="n">N</span><span class="s1">&#39;master&#39;</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">flags</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">IF</span> <span class="p">(</span><span class="o">@@</span><span class="n">ERROR</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span> <span class="k">OR</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">GOTO</span> <span class="n">QuitWithRollback</span>
+<span class="k">SET</span> <span class="o">@</span><span class="n">CurrentRow</span> <span class="o">=</span> <span class="o">@</span><span class="n">CurrentRow</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="k">END</span>
+<span class="c1">-- end loop
+</span><span class="c1"></span> 
+<span class="c1">-- Set starting step
+</span><span class="c1"></span><span class="k">EXEC</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">=</span> <span class="n">msdb</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">sp_update_job</span> <span class="o">@</span><span class="n">job_id</span> <span class="o">=</span> <span class="o">@</span><span class="n">jobId</span><span class="p">,</span> <span class="o">@</span><span class="n">start_step_id</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">IF</span> <span class="p">(</span><span class="o">@@</span><span class="n">ERROR</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span> <span class="k">OR</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">GOTO</span> <span class="n">QuitWithRollback</span>
+ 
+<span class="c1">-- configure schedules and commit transaction
+</span><span class="c1"></span><span class="k">EXEC</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">=</span> <span class="n">msdb</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">sp_add_jobschedule</span> <span class="o">@</span><span class="n">job_id</span><span class="o">=@</span><span class="n">jobId</span><span class="p">,</span> <span class="o">@</span><span class="n">name</span><span class="o">=</span><span class="n">N</span><span class="s1">&#39;DailySchedule&#39;</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">enabled</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">freq_type</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">freq_interval</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">freq_subday_type</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">freq_subday_interval</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">freq_relative_interval</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">freq_recurrence_factor</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">active_start_date</span><span class="o">=</span><span class="mi">20120101</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">active_end_date</span><span class="o">=</span><span class="mi">99991231</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">active_start_time</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">active_end_time</span><span class="o">=</span><span class="mi">235959</span>
+<span class="k">IF</span> <span class="p">(</span><span class="o">@@</span><span class="n">ERROR</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span> <span class="k">OR</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">GOTO</span> <span class="n">QuitWithRollback</span>
+<span class="k">EXEC</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">=</span> <span class="n">msdb</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">sp_add_jobschedule</span> <span class="o">@</span><span class="n">job_id</span><span class="o">=@</span><span class="n">jobId</span><span class="p">,</span> <span class="o">@</span><span class="n">name</span><span class="o">=</span><span class="n">N</span><span class="s1">&#39;WeeklySchedule&#39;</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">enabled</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">freq_type</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">freq_interval</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">freq_subday_type</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">freq_subday_interval</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">freq_relative_interval</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">freq_recurrence_factor</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">active_start_date</span><span class="o">=</span><span class="mi">20120101</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">active_end_date</span><span class="o">=</span><span class="mi">99991231</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">active_start_time</span><span class="o">=</span><span class="mi">220000</span><span class="p">,</span> 
+  <span class="o">@</span><span class="n">active_end_time</span><span class="o">=</span><span class="mi">235959</span>
+<span class="k">IF</span> <span class="p">(</span><span class="o">@@</span><span class="n">ERROR</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span> <span class="k">OR</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">GOTO</span> <span class="n">QuitWithRollback</span>
+<span class="k">EXEC</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">=</span> <span class="n">msdb</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">sp_add_jobserver</span> <span class="o">@</span><span class="n">job_id</span> <span class="o">=</span> <span class="o">@</span><span class="n">jobId</span><span class="p">,</span> <span class="o">@</span><span class="k">server_name</span> <span class="o">=</span> <span class="n">N</span><span class="s1">&#39;(local)&#39;</span>
+<span class="k">IF</span> <span class="p">(</span><span class="o">@@</span><span class="n">ERROR</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span> <span class="k">OR</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">GOTO</span> <span class="n">QuitWithRollback</span>
+<span class="k">COMMIT</span> <span class="k">TRANSACTION</span>
+<span class="k">GOTO</span> <span class="n">EndSave</span>
+<span class="n">QuitWithRollback</span><span class="p">:</span>
+    <span class="k">IF</span> <span class="p">(</span><span class="o">@@</span><span class="n">TRANCOUNT</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">ROLLBACK</span> <span class="k">TRANSACTION</span>
+<span class="n">EndSave</span><span class="p">:</span>
+ 
+<span class="k">GO</span>
+</code></pre></div>
         </div>
-        <div class="main-content-toggle">
 
+        
+        <div class="main-content-preview">
+            <h1>Script deployment of SSIS packages from folder</h1>
             
-            <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
-            <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
-
-            <input class="source-toggle" type="checkbox" id="source-toggle">
-            <label class="source-toggle-label" for="source-toggle"></label>
-
-            <div class="main-content">
-                ---<br />
-                <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Script deployment of SSIS packages from folder</span><br />
-                <span class="md-frontmatter">date</span>: 2012-03-08 14:14:00 &#43;0200 &#43;0200<br />
-                <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
-                <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
-                ----
-                <p>This is a very easy way to automate something which can take quite some time to do manually if you have lots of environments. Its made as easy as possible in this example rather than fancy and complicated. This script will create a SQL Server Agent Job which will execute a number of SSIS packages (dtsx files). The script will look for dtsx files in the selected folder DTSVirtualPath and also a config file (dtsConfig). Each file will get its own step in the job in alphabetical order. If you want to have a different order you could just rename the files with a number in the front or rearrange it manually afterwards in the job properties.</p>
-<p>To make it as easy and quick as possible I got the base for the script by using one of the jobs which was already configured. Just right click on a job which already exist and select Script Job as, Create to, New Query Editor Window. I then edited the script to make it a bit dynamic. I included two schedules for the job in case schedules are needed. Just edit the highlighted lines to adapt to your environment and give it a go. I have only tested this on SQL Server 2008 R2 but it will probably work on 2005 with a few or no tweaks.</p>
-<p>Before running the script you need to enable xp_cmdshell. This is because the script is running the dir command to get the file names for the dtsx files. To enable xp_cmdshell run the following:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- Enable advanced configuration options
-</span><span class="c1"></span><span class="k">EXEC</span> <span class="n">sp_configure</span> <span class="s1">&#39;show advanced options&#39;</span><span class="p">,</span> <span class="mi">1</span>
- 
-<span class="n">RECONFIGURE</span>
- 
-<span class="c1">-- Enable xp_cmdshell
-</span><span class="c1"></span><span class="k">EXEC</span> <span class="n">sp_configure</span> <span class="s1">&#39;xp_cmdshell&#39;</span><span class="p">,</span> <span class="mi">1</span>
- 
-<span class="n">RECONFIGURE</span>
- 
-<span class="c1">-- Test the feature
-</span><span class="c1"></span><span class="k">EXEC</span> <span class="n">xp_cmdshell</span> <span class="s1">&#39;dir c:\&#39;</span>
-</code></pre></div><p>This can easily be incorporated into the script below if you dont want to have it enabled all the time. In the end of the script you can simply disable it again.</p>
-<p>@DTSVirtualPath is the path from the &ldquo;root&rdquo; folder in the SSIS Package Store. In this case its using the default path: C:\Program Files\Microsoft SQL Server\100\DTS\Packages</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">USE</span> <span class="p">[</span><span class="n">msdb</span><span class="p">]</span>
-<span class="k">GO</span>
- 
-<span class="k">DECLARE</span> <span class="o">@</span><span class="n">DTSJobName</span> <span class="n">nvarchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
-<span class="k">DECLARE</span> <span class="o">@</span><span class="n">DTSServerName</span> <span class="n">nvarchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
-<span class="k">DECLARE</span> <span class="o">@</span><span class="n">DTSVirtualPath</span> <span class="n">nvarchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
-<span class="k">DECLARE</span> <span class="o">@</span><span class="n">DTSConfigFileName</span> <span class="n">nvarchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
-<span class="k">DECLARE</span> <span class="o">@</span><span class="n">DTSOwnerName</span> <span class="n">nvarchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
- 
-<span class="c1">-- USER VARIABLES
-</span><span class="c1"></span> 
-<span class="k">SET</span> <span class="o">@</span><span class="n">DTSJobName</span> <span class="o">=</span> <span class="s1">&#39;My SSIS job&#39;</span>
-<span class="k">SET</span> <span class="o">@</span><span class="n">DTSVirtualPath</span> <span class="o">=</span> <span class="s1">&#39;\FolderWithdtsxFiles\&#39;</span>
-<span class="k">SET</span> <span class="o">@</span><span class="n">DTSConfigFileName</span> <span class="o">=</span> <span class="s1">&#39;config.dtsConfig&#39;</span>
-<span class="k">SET</span> <span class="o">@</span><span class="n">DTSServerName</span> <span class="o">=</span> <span class="s1">&#39;Servername&#39;</span>
-<span class="k">SET</span> <span class="o">@</span><span class="n">DTSOwnerName</span> <span class="o">=</span> <span class="s1">&#39;domain\user&#39;</span>
- 
- 
-<span class="c1">-- USER VARIABLES END --
-</span><span class="c1"></span> 
-<span class="k">DECLARE</span> <span class="o">@</span><span class="n">DTSFolder</span> <span class="n">nvarchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
-<span class="k">DECLARE</span> <span class="o">@</span><span class="n">DTSConfig</span> <span class="n">nvarchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
-<span class="k">DECLARE</span> <span class="o">@</span><span class="n">DTSCommand</span> <span class="n">nvarchar</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
-<span class="k">DECLARE</span> <span class="o">@</span><span class="n">TotalRows</span> <span class="nb">int</span>
-<span class="k">DECLARE</span> <span class="o">@</span><span class="n">CurrentRow</span> <span class="nb">int</span>
-<span class="k">DECLARE</span> <span class="o">@</span><span class="n">DTSFileName</span> <span class="n">nvarchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
-<span class="k">DECLARE</span> <span class="o">@</span><span class="n">TempDTSsteps</span> <span class="k">TABLE</span><span class="p">(</span><span class="n">Seq</span> <span class="nb">int</span> <span class="k">IDENTITY</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">DTSfile</span> <span class="n">nvarchar</span><span class="p">(</span><span class="mi">255</span><span class="p">))</span>
- 
-<span class="k">SET</span> <span class="o">@</span><span class="n">DTSFolder</span> <span class="o">=</span> <span class="s1">&#39;\File System&#39;</span> <span class="o">+</span> <span class="o">@</span><span class="n">DTSVirtualPath</span>
-<span class="k">SET</span> <span class="o">@</span><span class="n">DTSConfig</span> <span class="o">=</span> <span class="s1">&#39;C:\Program Files\Microsoft SQL Server\100\DTS\Packages&#39;</span> <span class="o">+</span> <span class="o">@</span><span class="n">DTSVirtualPath</span> <span class="o">+</span> <span class="o">@</span><span class="n">DTSConfigFileName</span> 
- 
-<span class="c1">-- insert all the job steps/dts files into the temp table
-</span><span class="c1">-- Add more rows below if there are more steps to be added
-</span><span class="c1">-- The number have to be unique and represents the order of the steps
-</span><span class="c1"></span> 
-<span class="k">DECLARE</span> <span class="o">@</span><span class="n">Command</span> <span class="n">nvarchar</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span> 
-<span class="k">SET</span> <span class="o">@</span><span class="n">Command</span> <span class="o">=</span> <span class="s1">&#39;dir &#34;C:\Program Files\Microsoft SQL Server\100\DTS\Packages&#39;</span> <span class="o">+</span> <span class="o">@</span><span class="n">DTSVirtualPath</span> <span class="o">+</span> <span class="s1">&#39;*.dtsx&#34; /A-D  /B&#39;</span> 
- 
-<span class="k">INSERT</span> <span class="o">@</span><span class="n">TempDTSsteps</span>
-<span class="k">EXEC</span> <span class="n">MASTER</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">xp_cmdshell</span> <span class="o">@</span><span class="n">Command</span>
- 
-<span class="k">DELETE</span> <span class="k">FROM</span> <span class="o">@</span><span class="n">TempDTSsteps</span> <span class="k">WHERE</span> <span class="n">DTSfile</span> <span class="k">IS</span> <span class="k">NULL</span>
- 
- <span class="c1">--SELECT DTSfile FROM @TempDTSsteps
-</span><span class="c1">-- inserting steps complete
-</span><span class="c1"></span> 
- 
-<span class="k">SELECT</span> <span class="o">@</span><span class="n">TotalRows</span><span class="o">=</span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">from</span> <span class="o">@</span><span class="n">TempDTSsteps</span>
-<span class="k">SET</span> <span class="o">@</span><span class="n">CurrentRow</span> <span class="o">=</span> <span class="mi">1</span>
- 
-<span class="c1">-- Create Job
-</span><span class="c1"></span><span class="k">BEGIN</span> <span class="k">TRANSACTION</span>
-<span class="k">DECLARE</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="nb">INT</span>
-<span class="k">SELECT</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">name</span> <span class="k">FROM</span> <span class="n">msdb</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">syscategories</span> <span class="k">WHERE</span> <span class="n">name</span><span class="o">=</span><span class="n">N</span><span class="s1">&#39;[Uncategorized (Local)]&#39;</span> <span class="k">AND</span> <span class="n">category_class</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="k">BEGIN</span>
-<span class="k">EXEC</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">=</span> <span class="n">msdb</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">sp_add_category</span> <span class="o">@</span><span class="k">class</span><span class="o">=</span><span class="n">N</span><span class="s1">&#39;JOB&#39;</span><span class="p">,</span> <span class="o">@</span><span class="k">type</span><span class="o">=</span><span class="n">N</span><span class="s1">&#39;LOCAL&#39;</span><span class="p">,</span> <span class="o">@</span><span class="n">name</span><span class="o">=</span><span class="n">N</span><span class="s1">&#39;[Uncategorized (Local)]&#39;</span>
-<span class="k">IF</span> <span class="p">(</span><span class="o">@@</span><span class="n">ERROR</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span> <span class="k">OR</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">GOTO</span> <span class="n">QuitWithRollback</span>
-<span class="k">END</span>
- 
-<span class="k">DECLARE</span> <span class="o">@</span><span class="n">jobId</span> <span class="nb">BINARY</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
-<span class="k">EXEC</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">=</span>  <span class="n">msdb</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">sp_add_job</span> <span class="o">@</span><span class="n">job_name</span><span class="o">=@</span><span class="n">DTSJobName</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">enabled</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">notify_level_eventlog</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">notify_level_email</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">notify_level_netsend</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">notify_level_page</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">delete_level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">description</span><span class="o">=</span><span class="n">N</span><span class="s1">&#39;No description available.&#39;</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">category_name</span><span class="o">=</span><span class="n">N</span><span class="s1">&#39;[Uncategorized (Local)]&#39;</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">owner_login_name</span><span class="o">=@</span><span class="n">DTSOwnerName</span><span class="p">,</span> <span class="o">@</span><span class="n">job_id</span> <span class="o">=</span> <span class="o">@</span><span class="n">jobId</span> <span class="k">OUTPUT</span>
-<span class="k">IF</span> <span class="p">(</span><span class="o">@@</span><span class="n">ERROR</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span> <span class="k">OR</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">GOTO</span> <span class="n">QuitWithRollback</span>
- 
-<span class="k">DECLARE</span> <span class="o">@</span><span class="n">SuccessAction</span> <span class="nb">int</span>
-<span class="k">SET</span> <span class="o">@</span><span class="n">SuccessAction</span> <span class="o">=</span> <span class="mi">3</span>
- 
-<span class="c1">-- loop start
-</span><span class="c1"></span><span class="n">WHILE</span> <span class="o">@</span><span class="n">CurrentRow</span> <span class="o">&lt;=</span> <span class="o">@</span><span class="n">TotalRows</span>
-<span class="k">BEGIN</span>
-<span class="k">SELECT</span> <span class="o">@</span><span class="n">DTSFileName</span> <span class="o">=</span> <span class="k">REPLACE</span><span class="p">(</span><span class="n">DTSfile</span><span class="p">,</span><span class="s1">&#39;.dtsx&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">FROM</span> <span class="o">@</span><span class="n">TempDTSsteps</span> <span class="k">WHERE</span> <span class="n">Seq</span> <span class="o">=</span> <span class="o">@</span><span class="n">CurrentRow</span>
- 
-<span class="k">IF</span> <span class="o">@</span><span class="n">CurrentRow</span> <span class="o">=</span> <span class="o">@</span><span class="n">TotalRows</span>
-<span class="k">BEGIN</span>
- <span class="k">SET</span> <span class="o">@</span><span class="n">SuccessAction</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="k">END</span>
- 
-<span class="k">SET</span> <span class="o">@</span><span class="n">DTSCommand</span><span class="o">=</span><span class="n">N</span><span class="s1">&#39;/DTS &#34;&#39;</span> <span class="o">+</span> <span class="o">@</span><span class="n">DTSFolder</span> <span class="o">+</span> <span class="o">@</span><span class="n">DTSFileName</span> <span class="o">+</span> <span class="n">N</span><span class="s1">&#39;&#34; /SERVER &#39;</span> <span class="o">+</span> <span class="o">@</span><span class="n">DTSServerName</span> <span class="o">+</span> <span class="n">N</span><span class="s1">&#39; /CONFIGFILE &#34;&#39;</span> <span class="o">+</span> <span class="o">@</span><span class="n">DTSConfig</span> <span class="o">+</span> <span class="n">N</span><span class="s1">&#39;&#34; /MAXCONCURRENT &#34; -1 &#34; /CHECKPOINTING OFF /REPORTING E&#39;</span>
-<span class="c1">-- Create step in job
-</span><span class="c1"></span><span class="k">EXEC</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">=</span> <span class="n">msdb</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">sp_add_jobstep</span> <span class="o">@</span><span class="n">job_id</span><span class="o">=@</span><span class="n">jobId</span><span class="p">,</span> <span class="o">@</span><span class="n">step_name</span><span class="o">=@</span><span class="n">DTSFileName</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">step_id</span><span class="o">=@</span><span class="n">CurrentRow</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">cmdexec_success_code</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">on_success_action</span><span class="o">=@</span><span class="n">SuccessAction</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">on_success_step_id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">on_fail_action</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">on_fail_step_id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">retry_attempts</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">retry_interval</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">os_run_priority</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">@</span><span class="n">subsystem</span><span class="o">=</span><span class="n">N</span><span class="s1">&#39;SSIS&#39;</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">command</span><span class="o">=@</span><span class="n">DTSCommand</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">database_name</span><span class="o">=</span><span class="n">N</span><span class="s1">&#39;master&#39;</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">flags</span><span class="o">=</span><span class="mi">0</span>
-<span class="k">IF</span> <span class="p">(</span><span class="o">@@</span><span class="n">ERROR</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span> <span class="k">OR</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">GOTO</span> <span class="n">QuitWithRollback</span>
-<span class="k">SET</span> <span class="o">@</span><span class="n">CurrentRow</span> <span class="o">=</span> <span class="o">@</span><span class="n">CurrentRow</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="k">END</span>
-<span class="c1">-- end loop
-</span><span class="c1"></span> 
-<span class="c1">-- Set starting step
-</span><span class="c1"></span><span class="k">EXEC</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">=</span> <span class="n">msdb</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">sp_update_job</span> <span class="o">@</span><span class="n">job_id</span> <span class="o">=</span> <span class="o">@</span><span class="n">jobId</span><span class="p">,</span> <span class="o">@</span><span class="n">start_step_id</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="k">IF</span> <span class="p">(</span><span class="o">@@</span><span class="n">ERROR</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span> <span class="k">OR</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">GOTO</span> <span class="n">QuitWithRollback</span>
- 
-<span class="c1">-- configure schedules and commit transaction
-</span><span class="c1"></span><span class="k">EXEC</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">=</span> <span class="n">msdb</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">sp_add_jobschedule</span> <span class="o">@</span><span class="n">job_id</span><span class="o">=@</span><span class="n">jobId</span><span class="p">,</span> <span class="o">@</span><span class="n">name</span><span class="o">=</span><span class="n">N</span><span class="s1">&#39;DailySchedule&#39;</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">enabled</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">freq_type</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">freq_interval</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">freq_subday_type</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">freq_subday_interval</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">freq_relative_interval</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">freq_recurrence_factor</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">active_start_date</span><span class="o">=</span><span class="mi">20120101</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">active_end_date</span><span class="o">=</span><span class="mi">99991231</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">active_start_time</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">active_end_time</span><span class="o">=</span><span class="mi">235959</span>
-<span class="k">IF</span> <span class="p">(</span><span class="o">@@</span><span class="n">ERROR</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span> <span class="k">OR</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">GOTO</span> <span class="n">QuitWithRollback</span>
-<span class="k">EXEC</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">=</span> <span class="n">msdb</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">sp_add_jobschedule</span> <span class="o">@</span><span class="n">job_id</span><span class="o">=@</span><span class="n">jobId</span><span class="p">,</span> <span class="o">@</span><span class="n">name</span><span class="o">=</span><span class="n">N</span><span class="s1">&#39;WeeklySchedule&#39;</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">enabled</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">freq_type</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">freq_interval</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">freq_subday_type</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">freq_subday_interval</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">freq_relative_interval</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">freq_recurrence_factor</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">active_start_date</span><span class="o">=</span><span class="mi">20120101</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">active_end_date</span><span class="o">=</span><span class="mi">99991231</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">active_start_time</span><span class="o">=</span><span class="mi">220000</span><span class="p">,</span> 
-  <span class="o">@</span><span class="n">active_end_time</span><span class="o">=</span><span class="mi">235959</span>
-<span class="k">IF</span> <span class="p">(</span><span class="o">@@</span><span class="n">ERROR</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span> <span class="k">OR</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">GOTO</span> <span class="n">QuitWithRollback</span>
-<span class="k">EXEC</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">=</span> <span class="n">msdb</span><span class="p">.</span><span class="n">dbo</span><span class="p">.</span><span class="n">sp_add_jobserver</span> <span class="o">@</span><span class="n">job_id</span> <span class="o">=</span> <span class="o">@</span><span class="n">jobId</span><span class="p">,</span> <span class="o">@</span><span class="k">server_name</span> <span class="o">=</span> <span class="n">N</span><span class="s1">&#39;(local)&#39;</span>
-<span class="k">IF</span> <span class="p">(</span><span class="o">@@</span><span class="n">ERROR</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span> <span class="k">OR</span> <span class="o">@</span><span class="n">ReturnCode</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">GOTO</span> <span class="n">QuitWithRollback</span>
-<span class="k">COMMIT</span> <span class="k">TRANSACTION</span>
-<span class="k">GOTO</span> <span class="n">EndSave</span>
-<span class="n">QuitWithRollback</span><span class="p">:</span>
-    <span class="k">IF</span> <span class="p">(</span><span class="o">@@</span><span class="n">TRANCOUNT</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">ROLLBACK</span> <span class="k">TRANSACTION</span>
-<span class="n">EndSave</span><span class="p">:</span>
- 
-<span class="k">GO</span>
-</code></pre></div>
-            </div>
-
-            
-            <div class="main-content-preview">
-                <h1>Script deployment of SSIS packages from folder</h1>
-                
-                <p>This is a very easy way to automate something which can take quite some time to do manually if you have lots of environments. Its made as easy as possible in this example rather than fancy and complicated. This script will create a SQL Server Agent Job which will execute a number of SSIS packages (dtsx files). The script will look for dtsx files in the selected folder DTSVirtualPath and also a config file (dtsConfig). Each file will get its own step in the job in alphabetical order. If you want to have a different order you could just rename the files with a number in the front or rearrange it manually afterwards in the job properties.</p>
+            <p>This is a very easy way to automate something which can take quite some time to do manually if you have lots of environments. Its made as easy as possible in this example rather than fancy and complicated. This script will create a SQL Server Agent Job which will execute a number of SSIS packages (dtsx files). The script will look for dtsx files in the selected folder DTSVirtualPath and also a config file (dtsConfig). Each file will get its own step in the job in alphabetical order. If you want to have a different order you could just rename the files with a number in the front or rearrange it manually afterwards in the job properties.</p>
 <p>To make it as easy and quick as possible I got the base for the script by using one of the jobs which was already configured. Just right click on a job which already exist and select Script Job as, Create to, New Query Editor Window. I then edited the script to make it a bit dynamic. I included two schedules for the job in case schedules are needed. Just edit the highlighted lines to adapt to your environment and give it a go. I have only tested this on SQL Server 2008 R2 but it will probably work on 2005 with a few or no tweaks.</p>
 <p>Before running the script you need to enable xp_cmdshell. This is because the script is running the dir command to get the file names for the dtsx files. To enable xp_cmdshell run the following:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- Enable advanced configuration options
@@ -576,15 +563,15 @@ if (!doNotTrack) {
 <span class="k">GO</span>
 </code></pre></div>
 
-                <p>- Written by John  
+            <p>- Written by John  
+            
                 
-                    
-                    
-                    on March 8, 2012</p>
+                
+                on March 8, 2012</p>
 
-                
-                    <div class="disqus-section">
-                        <div id="disqus_thread"></div>
+            
+                <div class="disqus-section">
+                    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -604,11 +591,11 @@ if (!doNotTrack) {
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-                    </div>
-                
-            </div>
+                </div>
+            
+        </div>
 
-       </div>
+    </div>
     
 
 

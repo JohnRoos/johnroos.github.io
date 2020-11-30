@@ -203,73 +203,60 @@ if (!doNotTrack) {
             
             
             <div class='main'>
-     
-     
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-    
-       
-        <div class="main-path">
-            <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Powershell script: Write object to SQL.md</span>
-            
-                    
-                    
-                    <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2015-02-01">February 1, 2015</time>)</span>
+    <div class="main-path">
+        <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Powershell script: Write object to SQL.md</span>
+        
                 
+                
+                <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2015-02-01">February 1, 2015</time>)</span>
+            
+    </div>
+    
+    <div class="main-content-toggle">
+
+        
+        <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
+        <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
+
+        <input class="source-toggle" type="checkbox" id="source-toggle">
+        <label class="source-toggle-label" for="source-toggle"></label>
+
+        <div class="main-content">
+            ---<br />
+            <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Powershell script: Write object to SQL</span><br />
+            <span class="md-frontmatter">date</span>: 2015-02-01 14:14:00 &#43;0200 &#43;0200<br />
+            <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
+            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
+            ----
+            <p>A while ago I was playing around with PowerShell, gathering information from a lot of servers and I felt that I needed to have a simple way of storing that information in a database. I could have written my own T-SQL statements for creating the tables and then do the inserts in the powerShell scripts I was playing around with. But that felt like it would just take time so I started to think about a function that would just accept any object and do the magic of creating a table and then inserting anything I piped to it.</p>
+<p>I wrote a <a href="https://gallery.technet.microsoft.com/Write-object-to-database-7be1d3c5">script cmdlet</a> for this and I called it Write-ObjectToSQL. I don&rsquo;t like the name, but I haven&rsquo;t come up with anything better for now.</p>
+<p><img src="/images/writeobjecttosql01.jpg#center" alt="Verbose output from Write-ObjectToSQL"></p>
+<p>This script cmdlet writes an object into a database table. If the table does not exist it will be created based on the properties of the object. For every property of the object a column will be created. The data type for each column will be converted from .Net data types into SQL Server data types. Not all data types are supported. Unsupported data types will be ignored (but can be listed). If several objects are sent through the pipeline only the first object will be used for creating the template for the table.</p>
+<h2 id="piping-objects-to-a-database">Piping objects to a database</h2>
+<p>I find this cmdlet to be very useful. Any time I write a small Powershell script to gather some kind of information I just pipe it to this function and then I have it instantly stored in a table in some database somewhere. Sure, the table doesnt have any indexes and the columns sizes are standardized, but thats ok most of the time. Take this code as an example:</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="n">-Server</span> <span class="n">localhost</span><span class="p">\</span><span class="n">sqlexpress</span> <span class="n">-Database</span> <span class="n">MyDB</span> <span class="n">-TableName</span> <span class="n">ProcessTable</span>
+</code></pre></div><p><img src="/images/writeobjecttosql02.jpg#center" alt="Inserted 85 rows into ProcessTable in 0.76 seconds (111.84 rows per second)"></p>
+<p>This will create a table called ProcessTable. That table will have around 36 columns with the correct (sometimes simplified) data types. It will also insert all the information about the running processes in that table. I had 85 processes running on my machine at this point. I am running Windows 10 Preview when writing this, so the amount of columns might be slightly different on other versions of Windows.</p>
+<p>You could of course pipe any command or cmdlet to this function. As long as you are piping objects with interesting properties you are good to go. You could use Find-Hotfix that I wrote about recently and store that output to a table. In that case you just do it like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="p">.\</span><span class="nb">Find-Hotfix</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Hotfix</span> <span class="s1">&#39;KB2991963&#39;</span> <span class="n">-ComputerName</span> <span class="s1">&#39;server01&#39;</span><span class="p">,</span> <span class="s1">&#39;server02&#39;</span> <span class="p">|</span> 
+                   <span class="nb">Write-ObjectToSQL</span> <span class="n">-Server</span> <span class="n">localhost</span><span class="p">\</span><span class="n">sqlexpress</span> <span class="n">-Database</span> <span class="n">MyDB</span> <span class="n">-TableName</span> <span class="n">Hotfixes</span>
+</code></pre></div><h2 id="ignored-properties">Ignored properties</h2>
+<p>Sometimes when you are piping objects to Write-ObjectToSQL you will notice that some properties are ignored. Thats because that property contains a data type that is unsupported. You could use -verbose to see lots of details about whats happening when you run the script (including sql statements) but you could also use the parameter ShowIgnoredPropertiesOnly. That will show you which properties are being ignored and their data types.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="n">-Server</span> <span class="n">localhost</span><span class="p">\</span><span class="n">sqlexpress</span> <span class="n">-Database</span> <span class="n">MyDB</span> <span class="n">-TableName</span> <span class="n">ProcessTable</span> <span class="n">-ShowIgnoredPropertiesOnly</span>
+</code></pre></div><p><img src="/images/writeobjecttosql03.jpg#center" alt="Console output: Ignored properties"></p>
+<h2 id="progress-status">Progress status</h2>
+<p>This script cmdlet contains lots of useful stuff. Other parameters include ReportEveryXObject which will give you some feedback in case you are piping many thousands of objects and the function runs for a long time. The following example is a little silly, but it shows how the function works at least.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="n">-Server</span> <span class="n">localhost</span><span class="p">\</span><span class="n">sqlexpress</span> <span class="n">-Database</span> <span class="n">MyDB</span> <span class="n">-TableName</span> <span class="n">ProcessTable</span> <span class="n">-ReportEveryXObject</span> <span class="n">20</span>
+</code></pre></div><p><img src="/images/writeobjecttosql04.jpg#center" alt="Console output: Rows inserted over time"></p>
+<p>The script can be downloaded from Microsoft Script Center <a href="https://gallery.technet.microsoft.com/Write-object-to-database-7be1d3c5">here</a>. I also have a project running on <a href="https://github.com/JohnRoos/PowerShell/tree/master/Modules/Write-ObjectToSQL">GitHub</a>. If you are using PowerShell 5.0 its available in the <a href="https://www.powershellgallery.com/packages/Write-ObjectToSQL/">PowerShell Gallery</a> as well.</p>
+
         </div>
-        <div class="main-content-toggle">
 
+        
+        <div class="main-content-preview">
+            <h1>Powershell script: Write object to SQL</h1>
             
-            <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
-            <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
-
-            <input class="source-toggle" type="checkbox" id="source-toggle">
-            <label class="source-toggle-label" for="source-toggle"></label>
-
-            <div class="main-content">
-                ---<br />
-                <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Powershell script: Write object to SQL</span><br />
-                <span class="md-frontmatter">date</span>: 2015-02-01 14:14:00 &#43;0200 &#43;0200<br />
-                <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
-                <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
-                ----
-                <p>A while ago I was playing around with PowerShell, gathering information from a lot of servers and I felt that I needed to have a simple way of storing that information in a database. I could have written my own T-SQL statements for creating the tables and then do the inserts in the powerShell scripts I was playing around with. But that felt like it would just take time so I started to think about a function that would just accept any object and do the magic of creating a table and then inserting anything I piped to it.</p>
-<p>I wrote a <a href="https://gallery.technet.microsoft.com/Write-object-to-database-7be1d3c5">script cmdlet</a> for this and I called it Write-ObjectToSQL. I don&rsquo;t like the name, but I haven&rsquo;t come up with anything better for now.</p>
-<p><img src="/images/writeobjecttosql01.jpg#center" alt="Verbose output from Write-ObjectToSQL"></p>
-<p>This script cmdlet writes an object into a database table. If the table does not exist it will be created based on the properties of the object. For every property of the object a column will be created. The data type for each column will be converted from .Net data types into SQL Server data types. Not all data types are supported. Unsupported data types will be ignored (but can be listed). If several objects are sent through the pipeline only the first object will be used for creating the template for the table.</p>
-<h2 id="piping-objects-to-a-database">Piping objects to a database</h2>
-<p>I find this cmdlet to be very useful. Any time I write a small Powershell script to gather some kind of information I just pipe it to this function and then I have it instantly stored in a table in some database somewhere. Sure, the table doesnt have any indexes and the columns sizes are standardized, but thats ok most of the time. Take this code as an example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="n">-Server</span> <span class="n">localhost</span><span class="p">\</span><span class="n">sqlexpress</span> <span class="n">-Database</span> <span class="n">MyDB</span> <span class="n">-TableName</span> <span class="n">ProcessTable</span>
-</code></pre></div><p><img src="/images/writeobjecttosql02.jpg#center" alt="Inserted 85 rows into ProcessTable in 0.76 seconds (111.84 rows per second)"></p>
-<p>This will create a table called ProcessTable. That table will have around 36 columns with the correct (sometimes simplified) data types. It will also insert all the information about the running processes in that table. I had 85 processes running on my machine at this point. I am running Windows 10 Preview when writing this, so the amount of columns might be slightly different on other versions of Windows.</p>
-<p>You could of course pipe any command or cmdlet to this function. As long as you are piping objects with interesting properties you are good to go. You could use Find-Hotfix that I wrote about recently and store that output to a table. In that case you just do it like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="p">.\</span><span class="nb">Find-Hotfix</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Hotfix</span> <span class="s1">&#39;KB2991963&#39;</span> <span class="n">-ComputerName</span> <span class="s1">&#39;server01&#39;</span><span class="p">,</span> <span class="s1">&#39;server02&#39;</span> <span class="p">|</span> 
-                   <span class="nb">Write-ObjectToSQL</span> <span class="n">-Server</span> <span class="n">localhost</span><span class="p">\</span><span class="n">sqlexpress</span> <span class="n">-Database</span> <span class="n">MyDB</span> <span class="n">-TableName</span> <span class="n">Hotfixes</span>
-</code></pre></div><h2 id="ignored-properties">Ignored properties</h2>
-<p>Sometimes when you are piping objects to Write-ObjectToSQL you will notice that some properties are ignored. Thats because that property contains a data type that is unsupported. You could use -verbose to see lots of details about whats happening when you run the script (including sql statements) but you could also use the parameter ShowIgnoredPropertiesOnly. That will show you which properties are being ignored and their data types.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="n">-Server</span> <span class="n">localhost</span><span class="p">\</span><span class="n">sqlexpress</span> <span class="n">-Database</span> <span class="n">MyDB</span> <span class="n">-TableName</span> <span class="n">ProcessTable</span> <span class="n">-ShowIgnoredPropertiesOnly</span>
-</code></pre></div><p><img src="/images/writeobjecttosql03.jpg#center" alt="Console output: Ignored properties"></p>
-<h2 id="progress-status">Progress status</h2>
-<p>This script cmdlet contains lots of useful stuff. Other parameters include ReportEveryXObject which will give you some feedback in case you are piping many thousands of objects and the function runs for a long time. The following example is a little silly, but it shows how the function works at least.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="n">-Server</span> <span class="n">localhost</span><span class="p">\</span><span class="n">sqlexpress</span> <span class="n">-Database</span> <span class="n">MyDB</span> <span class="n">-TableName</span> <span class="n">ProcessTable</span> <span class="n">-ReportEveryXObject</span> <span class="n">20</span>
-</code></pre></div><p><img src="/images/writeobjecttosql04.jpg#center" alt="Console output: Rows inserted over time"></p>
-<p>The script can be downloaded from Microsoft Script Center <a href="https://gallery.technet.microsoft.com/Write-object-to-database-7be1d3c5">here</a>. I also have a project running on <a href="https://github.com/JohnRoos/PowerShell/tree/master/Modules/Write-ObjectToSQL">GitHub</a>. If you are using PowerShell 5.0 its available in the <a href="https://www.powershellgallery.com/packages/Write-ObjectToSQL/">PowerShell Gallery</a> as well.</p>
-
-            </div>
-
-            
-            <div class="main-content-preview">
-                <h1>Powershell script: Write object to SQL</h1>
-                
-                <p>A while ago I was playing around with PowerShell, gathering information from a lot of servers and I felt that I needed to have a simple way of storing that information in a database. I could have written my own T-SQL statements for creating the tables and then do the inserts in the powerShell scripts I was playing around with. But that felt like it would just take time so I started to think about a function that would just accept any object and do the magic of creating a table and then inserting anything I piped to it.</p>
+            <p>A while ago I was playing around with PowerShell, gathering information from a lot of servers and I felt that I needed to have a simple way of storing that information in a database. I could have written my own T-SQL statements for creating the tables and then do the inserts in the powerShell scripts I was playing around with. But that felt like it would just take time so I started to think about a function that would just accept any object and do the magic of creating a table and then inserting anything I piped to it.</p>
 <p>I wrote a <a href="https://gallery.technet.microsoft.com/Write-object-to-database-7be1d3c5">script cmdlet</a> for this and I called it Write-ObjectToSQL. I don&rsquo;t like the name, but I haven&rsquo;t come up with anything better for now.</p>
 <p><img src="/images/writeobjecttosql01.jpg#center" alt="Verbose output from Write-ObjectToSQL"></p>
 <p>This script cmdlet writes an object into a database table. If the table does not exist it will be created based on the properties of the object. For every property of the object a column will be created. The data type for each column will be converted from .Net data types into SQL Server data types. Not all data types are supported. Unsupported data types will be ignored (but can be listed). If several objects are sent through the pipeline only the first object will be used for creating the template for the table.</p>
@@ -292,15 +279,15 @@ if (!doNotTrack) {
 <p>The script can be downloaded from Microsoft Script Center <a href="https://gallery.technet.microsoft.com/Write-object-to-database-7be1d3c5">here</a>. I also have a project running on <a href="https://github.com/JohnRoos/PowerShell/tree/master/Modules/Write-ObjectToSQL">GitHub</a>. If you are using PowerShell 5.0 its available in the <a href="https://www.powershellgallery.com/packages/Write-ObjectToSQL/">PowerShell Gallery</a> as well.</p>
 
 
-                <p>- Written by John  
+            <p>- Written by John  
+            
                 
-                    
-                    
-                    on February 1, 2015</p>
+                
+                on February 1, 2015</p>
 
-                
-                    <div class="disqus-section">
-                        <div id="disqus_thread"></div>
+            
+                <div class="disqus-section">
+                    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -320,11 +307,11 @@ if (!doNotTrack) {
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-                    </div>
-                
-            </div>
+                </div>
+            
+        </div>
 
-       </div>
+    </div>
     
 
 

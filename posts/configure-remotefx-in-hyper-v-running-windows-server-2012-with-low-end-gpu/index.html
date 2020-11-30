@@ -203,98 +203,85 @@ if (!doNotTrack) {
             
             
             <div class='main'>
-     
-     
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-    
-       
-        <div class="main-path">
-            <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU.md</span>
-            
-                    
-                    
-                    <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2012-08-30">August 30, 2012</time>)</span>
+    <div class="main-path">
+        <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU.md</span>
+        
                 
+                
+                <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2012-08-30">August 30, 2012</time>)</span>
+            
+    </div>
+    
+    <div class="main-content-toggle">
+
+        
+        <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
+        <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
+
+        <input class="source-toggle" type="checkbox" id="source-toggle">
+        <label class="source-toggle-label" for="source-toggle"></label>
+
+        <div class="main-content">
+            ---<br />
+            <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU</span><br />
+            <span class="md-frontmatter">date</span>: 2012-08-30 14:14:00 &#43;0200 CEST<br />
+            <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
+            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
+            ----
+            <p>This is for experimenting with RemoteFX in Hyper-V in a lab environment using Windows Server 2012. I wanted to see what I could do with RemoteFX on a slow GPU. To see how far I could get I started off with the Intel HD 2500, which is built into the Intel Core i5 3550 processor (Ivy Bridge). You can go through these steps with any supported hardware, and you probably get better results if you don&rsquo;t use the HD 2500 as I did. If you want to use RemoteFX for gaming you really need a proper GPU.</p>
+<p><img src="/images/RemoteFX.png#center" alt="RemoteFX"></p>
+<p>Microsoft recommends an expensive server GPU for RemoteFX, like Nvidia Quadro or ATI FirePro, and that&rsquo;s probably what you want to use in a proper production environment. This article will totally ignore this fact and go for the most low end you can get and see how it goes.</p>
+<h2 id="hardware-requirements-for-hyper-v">Hardware requirements for Hyper-V</h2>
+<p>Lets first go through what you need to get this to work. You can get the hardware requirements from Microsoft or any other resource, but some of the requirements are not clear for everyone so I will just go through a few of them.</p>
+<ul>
+<li>A processor that supports Intel VT or AMD-V. Not all processors today support this. One example is the K series from Intel which does not have this feature. If you are building a new machine for virtualization make sure to pick the right CPU. AMD and Intel have all the information you need on their websites where you can compare the different features.</li>
+<li>An NX bit-compatible CPU. Intel calls this XD bit and AMD calls this Enhanced Virus Protection or NX bit. Check the specifications of your processor.</li>
+</ul>
+<h2 id="hardware-requirements-for-remotefx">Hardware requirements for RemoteFX</h2>
+<p>As I mentioned before there are a number of requirements which you can find elsewhere. This post will only go through two of them.</p>
+<ul>
+<li>The server&rsquo;s CPU must support Second Level Address Translation (SLAT).
+This is usually not a big issue if you have a fairly modern CPU. Intel calls this Extended Page Table and has supported this on most of their desktop CPU´s since late 2008. AMD calls this Rapid Virtualization Indexing and haven&rsquo;t had support as long as Intel, but still since late 2011.</li>
+<li>At least one DirectX 11.1 capable graphics card must be installed on the server.
+This is an upgrade compared to 2008 R2 where 9.0c and 10.0 was required. I have tried myself with a DirectX 9 card and the GPU was not available to use for RemoteFX on Windows Server 2012.</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<p>There are a number of steps to go through to get RemoteFX running in a virtual machine. This is one way to do it.</p>
+<h3 id="1-install-windows-server-2012-on-the-host-machine">1. Install Windows Server 2012 on the host machine</h3>
+<p>Only Standard and Datacenter editions support Hyper-V. More about editions here:
+<a href="http://en.wikipedia.org/wiki/Windows_Server_2012#Editions">http://en.wikipedia.org/wiki/Windows_Server_2012#Editions</a></p>
+<h3 id="2-install-gpu-drivers-for-windows-8">2. Install GPU drivers for Windows 8</h3>
+<p>Go to your GPU vendor to get the latest drivers. There are usually not that many drivers for server versions of Windows but for Windows 2012 it seems to work fine with drivers for Windows 8 since its the same core.</p>
+<h3 id="3-add-the-hyper-v-role">3. Add the Hyper-V role</h3>
+<p>To get RemoteFX to work for this scenario you don&rsquo;t have to do anything different than usual when adding a role.</p>
+<h3 id="4-add-the-remote-desktop-services-role">4. Add the Remote Desktop Services role</h3>
+<p>Include Remote Desktop Virtualization Host (found in the Role Services list). Some people say that you also need Remote Desktop Session Host but I have tried to disable this service once its installed and it works fine anyway so its probably not needed.</p>
+<h3 id="5-make-the-gpu-available-for-virtual-machines">5. Make the GPU available for virtual machines</h3>
+<p>Enable the GPU in Hyper-V settings on the host so that virtual machines can use it. This requires that the GPU drivers is properly installed (step 2).</p>
+<h3 id="6-create-a-new-vm-and-install-windows-8-enterprise">6. Create a new VM and install Windows 8 Enterprise</h3>
+<p>If you have a look on the following link you will see that Enterprise is the only version of Windows 8 which supports RemoteFX: <a href="http://en.wikipedia.org/wiki/Windows_8_editions#Comparison_chart">http://en.wikipedia.org/wiki/Windows_8_editions#Comparison_chart</a></p>
+<h3 id="7-install-hyper-v-integration-services-on-the-guest-os">7. Install Hyper-V Integration Services on the guest OS</h3>
+<p>This might have automatically been installed on the VM but otherwise it should be installed.</p>
+<h3 id="8-enable-remote-desktop-on-the-guest-os">8. Enable remote desktop on the guest OS</h3>
+<p>This was important in Windows Server 2008 R2, but not as important in Windows Server 2012. On 2008 R2, once RemoteFX worked on the VM you would not be able to just &ldquo;Connect&rdquo; to the VM in Hyper-V manager. You had to use a terminal services client. So if remote connections was not enabled you could not connect to the machine. However, in Windows Server 2012 they have made some improvements so you actually can use Connect. However, I would still recommend remote desktop.</p>
+<h3 id="9-add-the-remotefx-gpu-to-the-vm">9. Add the RemoteFX GPU to the VM</h3>
+<p>You need to turn off the VM before adding a GPU. If you try to enable the GPU in the VM setting you will get a message saying that none of the installed GPU´s support RemoteFX. This seems to be a bug and can be easily worked around with a couple of PowerShell commands. First you need to import the module for remote desktop services:</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Import-Module</span> <span class="n">RemoteDesktopServices</span>
+</code></pre></div><p>When the import is done (should be instant) you need to add the GPU adapter to the VM. Run the following command and replace VirtualMachineName with the name of your VM. If you have several VM´s you can run this command once for each VM:</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Add-VMRemoteFx3dVideoAdapter</span> <span class="n">-VMName</span> <span class="n">VirtualMachineName</span>
+</code></pre></div><p>If you now check the settings on the VM you will see that your GPU has been added where it said you couldn&rsquo;t before. Here you can also limit the resolution on the VM which can help to avoid degraded performance.</p>
+<h3 id="10-verify-remotefx-is-working-on-the-vm">10. Verify RemoteFX is working on the VM</h3>
+<p>Start the VM. When booted into Windows you should check device manager to make sure it has installed drivers for the RemoteFX GPU. It might require an extra restart before its installed properly. Check the Event Logs as well to make sure everything looks ok. Run dxdiag to make sure its working. On the host you can also check the event logs to verify that the RemoteFX GPU was enabled on the client:</p>
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">Application Logs\Microsoft\Windows\RemoteDesktopServices-RemoteDesktopSession Manager
+</code></pre></div><p>Now you have enabled RemoteFX in a virtual machine. If you were using a poor GPU like I did first you will notice some poor performance. However, there are a couple of ways to tweak the performance for the GPU, mainly configuring group policies. There are some online resources for this but I might write another article about this later.</p>
+
         </div>
-        <div class="main-content-toggle">
 
+        
+        <div class="main-content-preview">
+            <h1>Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU</h1>
             
-            <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
-            <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
-
-            <input class="source-toggle" type="checkbox" id="source-toggle">
-            <label class="source-toggle-label" for="source-toggle"></label>
-
-            <div class="main-content">
-                ---<br />
-                <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU</span><br />
-                <span class="md-frontmatter">date</span>: 2012-08-30 14:14:00 &#43;0200 CEST<br />
-                <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
-                <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
-                ----
-                <p>This is for experimenting with RemoteFX in Hyper-V in a lab environment using Windows Server 2012. I wanted to see what I could do with RemoteFX on a slow GPU. To see how far I could get I started off with the Intel HD 2500, which is built into the Intel Core i5 3550 processor (Ivy Bridge). You can go through these steps with any supported hardware, and you probably get better results if you don&rsquo;t use the HD 2500 as I did. If you want to use RemoteFX for gaming you really need a proper GPU.</p>
-<p><img src="/images/RemoteFX.png#center" alt="RemoteFX"></p>
-<p>Microsoft recommends an expensive server GPU for RemoteFX, like Nvidia Quadro or ATI FirePro, and that&rsquo;s probably what you want to use in a proper production environment. This article will totally ignore this fact and go for the most low end you can get and see how it goes.</p>
-<h2 id="hardware-requirements-for-hyper-v">Hardware requirements for Hyper-V</h2>
-<p>Lets first go through what you need to get this to work. You can get the hardware requirements from Microsoft or any other resource, but some of the requirements are not clear for everyone so I will just go through a few of them.</p>
-<ul>
-<li>A processor that supports Intel VT or AMD-V. Not all processors today support this. One example is the K series from Intel which does not have this feature. If you are building a new machine for virtualization make sure to pick the right CPU. AMD and Intel have all the information you need on their websites where you can compare the different features.</li>
-<li>An NX bit-compatible CPU. Intel calls this XD bit and AMD calls this Enhanced Virus Protection or NX bit. Check the specifications of your processor.</li>
-</ul>
-<h2 id="hardware-requirements-for-remotefx">Hardware requirements for RemoteFX</h2>
-<p>As I mentioned before there are a number of requirements which you can find elsewhere. This post will only go through two of them.</p>
-<ul>
-<li>The server&rsquo;s CPU must support Second Level Address Translation (SLAT).
-This is usually not a big issue if you have a fairly modern CPU. Intel calls this Extended Page Table and has supported this on most of their desktop CPU´s since late 2008. AMD calls this Rapid Virtualization Indexing and haven&rsquo;t had support as long as Intel, but still since late 2011.</li>
-<li>At least one DirectX 11.1 capable graphics card must be installed on the server.
-This is an upgrade compared to 2008 R2 where 9.0c and 10.0 was required. I have tried myself with a DirectX 9 card and the GPU was not available to use for RemoteFX on Windows Server 2012.</li>
-</ul>
-<h2 id="installation">Installation</h2>
-<p>There are a number of steps to go through to get RemoteFX running in a virtual machine. This is one way to do it.</p>
-<h3 id="1-install-windows-server-2012-on-the-host-machine">1. Install Windows Server 2012 on the host machine</h3>
-<p>Only Standard and Datacenter editions support Hyper-V. More about editions here:
-<a href="http://en.wikipedia.org/wiki/Windows_Server_2012#Editions">http://en.wikipedia.org/wiki/Windows_Server_2012#Editions</a></p>
-<h3 id="2-install-gpu-drivers-for-windows-8">2. Install GPU drivers for Windows 8</h3>
-<p>Go to your GPU vendor to get the latest drivers. There are usually not that many drivers for server versions of Windows but for Windows 2012 it seems to work fine with drivers for Windows 8 since its the same core.</p>
-<h3 id="3-add-the-hyper-v-role">3. Add the Hyper-V role</h3>
-<p>To get RemoteFX to work for this scenario you don&rsquo;t have to do anything different than usual when adding a role.</p>
-<h3 id="4-add-the-remote-desktop-services-role">4. Add the Remote Desktop Services role</h3>
-<p>Include Remote Desktop Virtualization Host (found in the Role Services list). Some people say that you also need Remote Desktop Session Host but I have tried to disable this service once its installed and it works fine anyway so its probably not needed.</p>
-<h3 id="5-make-the-gpu-available-for-virtual-machines">5. Make the GPU available for virtual machines</h3>
-<p>Enable the GPU in Hyper-V settings on the host so that virtual machines can use it. This requires that the GPU drivers is properly installed (step 2).</p>
-<h3 id="6-create-a-new-vm-and-install-windows-8-enterprise">6. Create a new VM and install Windows 8 Enterprise</h3>
-<p>If you have a look on the following link you will see that Enterprise is the only version of Windows 8 which supports RemoteFX: <a href="http://en.wikipedia.org/wiki/Windows_8_editions#Comparison_chart">http://en.wikipedia.org/wiki/Windows_8_editions#Comparison_chart</a></p>
-<h3 id="7-install-hyper-v-integration-services-on-the-guest-os">7. Install Hyper-V Integration Services on the guest OS</h3>
-<p>This might have automatically been installed on the VM but otherwise it should be installed.</p>
-<h3 id="8-enable-remote-desktop-on-the-guest-os">8. Enable remote desktop on the guest OS</h3>
-<p>This was important in Windows Server 2008 R2, but not as important in Windows Server 2012. On 2008 R2, once RemoteFX worked on the VM you would not be able to just &ldquo;Connect&rdquo; to the VM in Hyper-V manager. You had to use a terminal services client. So if remote connections was not enabled you could not connect to the machine. However, in Windows Server 2012 they have made some improvements so you actually can use Connect. However, I would still recommend remote desktop.</p>
-<h3 id="9-add-the-remotefx-gpu-to-the-vm">9. Add the RemoteFX GPU to the VM</h3>
-<p>You need to turn off the VM before adding a GPU. If you try to enable the GPU in the VM setting you will get a message saying that none of the installed GPU´s support RemoteFX. This seems to be a bug and can be easily worked around with a couple of PowerShell commands. First you need to import the module for remote desktop services:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Import-Module</span> <span class="n">RemoteDesktopServices</span>
-</code></pre></div><p>When the import is done (should be instant) you need to add the GPU adapter to the VM. Run the following command and replace VirtualMachineName with the name of your VM. If you have several VM´s you can run this command once for each VM:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Add-VMRemoteFx3dVideoAdapter</span> <span class="n">-VMName</span> <span class="n">VirtualMachineName</span>
-</code></pre></div><p>If you now check the settings on the VM you will see that your GPU has been added where it said you couldn&rsquo;t before. Here you can also limit the resolution on the VM which can help to avoid degraded performance.</p>
-<h3 id="10-verify-remotefx-is-working-on-the-vm">10. Verify RemoteFX is working on the VM</h3>
-<p>Start the VM. When booted into Windows you should check device manager to make sure it has installed drivers for the RemoteFX GPU. It might require an extra restart before its installed properly. Check the Event Logs as well to make sure everything looks ok. Run dxdiag to make sure its working. On the host you can also check the event logs to verify that the RemoteFX GPU was enabled on the client:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">Application Logs\Microsoft\Windows\RemoteDesktopServices-RemoteDesktopSession Manager
-</code></pre></div><p>Now you have enabled RemoteFX in a virtual machine. If you were using a poor GPU like I did first you will notice some poor performance. However, there are a couple of ways to tweak the performance for the GPU, mainly configuring group policies. There are some online resources for this but I might write another article about this later.</p>
-
-            </div>
-
-            
-            <div class="main-content-preview">
-                <h1>Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU</h1>
-                
-                <p>This is for experimenting with RemoteFX in Hyper-V in a lab environment using Windows Server 2012. I wanted to see what I could do with RemoteFX on a slow GPU. To see how far I could get I started off with the Intel HD 2500, which is built into the Intel Core i5 3550 processor (Ivy Bridge). You can go through these steps with any supported hardware, and you probably get better results if you don&rsquo;t use the HD 2500 as I did. If you want to use RemoteFX for gaming you really need a proper GPU.</p>
+            <p>This is for experimenting with RemoteFX in Hyper-V in a lab environment using Windows Server 2012. I wanted to see what I could do with RemoteFX on a slow GPU. To see how far I could get I started off with the Intel HD 2500, which is built into the Intel Core i5 3550 processor (Ivy Bridge). You can go through these steps with any supported hardware, and you probably get better results if you don&rsquo;t use the HD 2500 as I did. If you want to use RemoteFX for gaming you really need a proper GPU.</p>
 <p><img src="/images/RemoteFX.png#center" alt="RemoteFX"></p>
 <p>Microsoft recommends an expensive server GPU for RemoteFX, like Nvidia Quadro or ATI FirePro, and that&rsquo;s probably what you want to use in a proper production environment. This article will totally ignore this fact and go for the most low end you can get and see how it goes.</p>
 <h2 id="hardware-requirements-for-hyper-v">Hardware requirements for Hyper-V</h2>
@@ -342,15 +329,15 @@ This is an upgrade compared to 2008 R2 where 9.0c and 10.0 was required. I have 
 </code></pre></div><p>Now you have enabled RemoteFX in a virtual machine. If you were using a poor GPU like I did first you will notice some poor performance. However, there are a couple of ways to tweak the performance for the GPU, mainly configuring group policies. There are some online resources for this but I might write another article about this later.</p>
 
 
-                <p>- Written by John  
+            <p>- Written by John  
+            
                 
-                    
-                    
-                    on August 30, 2012</p>
+                
+                on August 30, 2012</p>
 
-                
-                    <div class="disqus-section">
-                        <div id="disqus_thread"></div>
+            
+                <div class="disqus-section">
+                    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -370,11 +357,11 @@ This is an upgrade compared to 2008 R2 where 9.0c and 10.0 was required. I have 
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-                    </div>
-                
-            </div>
+                </div>
+            
+        </div>
 
-       </div>
+    </div>
     
 
 

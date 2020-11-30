@@ -203,65 +203,52 @@ if (!doNotTrack) {
             
             
             <div class='main'>
-     
-     
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-    
-       
-        <div class="main-path">
-            <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Improving RemoteFX performance in Hyper-V.md</span>
-            
-                    
-                    
-                    <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2012-09-25">September 25, 2012</time>)</span>
+    <div class="main-path">
+        <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Improving RemoteFX performance in Hyper-V.md</span>
+        
                 
+                
+                <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2012-09-25">September 25, 2012</time>)</span>
+            
+    </div>
+    
+    <div class="main-content-toggle">
+
+        
+        <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
+        <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
+
+        <input class="source-toggle" type="checkbox" id="source-toggle">
+        <label class="source-toggle-label" for="source-toggle"></label>
+
+        <div class="main-content">
+            ---<br />
+            <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Improving RemoteFX performance in Hyper-V</span><br />
+            <span class="md-frontmatter">date</span>: 2012-09-25 14:14:00 &#43;0200 CEST<br />
+            <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
+            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
+            ----
+            <p>As I <a href="https://blog.roostech.se/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/">wrote earlier</a> its possible to run RemoteFX on some of the slowest GPU´s you can buy today (on a regular CPU actually), but you might not get the performance you need to get anywhere. This time I will go through some of the options you have for getting it to work a bit better. Keep in mind that I am writing this with a really poor GPU in mind (yes, the Intel HD 2500 is not good for anything else than browsing).</p>
+<h2 id="the-basics">The basics</h2>
+<p>First some basic things. For a slow GPU you want to make sure the GPU is the actual bottleneck so don&rsquo;t be cheap when you assign memory. I used 4 GB on the VM. Use higher if you want and then lower it until you find a good sweet spot in case you want the memory back. Assign more than one core to the VM to start with.</p>
+<p>Use RemoteFX over a wired LAN (100 Mbit or more). Avoid using WiFi since a lot of bandwidth is needed to get good quality, especially if you configure the group policies to get the highest quality with no compression.</p>
+<p>The maximum resolution is divided into the amount of monitors you select. More monitors, lower resolution. Use one monitor for this test and add more later if you want.</p>
+<h2 id="version-considerations">Version considerations</h2>
+<p>Besides the basic stuff above, the first thing to keep in mind is that you need to use RDP 7.1 to get RemoteFX to work properly when using Windows Server 2012. I believe this was released for Windows 7 in SP1. The client actually reports version 6-something, but if you check the about screen it says if it supports RDP 7.0 or 7.1. RDP and Remote Desktop Connection are not the same thing.</p>
+<p>There are also some fairly big differences between running Windows 7 and Windows 8. As one example, Microsoft have done a lot of work when it comes to reducing the bandwidth when using RemoteFX (and RDP in general) in Windows 8. I did some simple tests on this to see what difference it makes and found that when running Windows 8 it consumed about 30% less network traffic compared to Windows 7 when running the same sequence in a full screen game (Torchlight). According to Microsoft the difference can be much bigger depending on what you are doing on your VM. If you are going to use Windows 7 you need to make sure that SP1 is installed before enabling the RemoteFX GPU. If you add it before that you will run into problems getting it to work, even if you add SP1 afterwards.</p>
+<h2 id="group-policies">Group Policies</h2>
+<p>This is probably the most interesting part of the performance configuration. This is also the main place where Microsoft want you to tweak the environment to suit your purposes.</p>
+<p>Use gpedit.msc and go to Computer Settings, Administrative templates, Windows Components, Remote Desktop Services, Remote Desktop Session Host, Remote Session Environment.</p>
+<p>Here are some settings you can play around with to get the performance better, depending on what you will use it for. I played around with the settings and after a while the performance became a bit better with the Intel HD 2500 but I did not see any great improvement. The new GUI (which until recently was called Metro) in Windows 8 worked great with all the animations and everything, but that kind of worked even without RemoteFX so not a huge difference there. Movies played better in smaller windows than before, but frames were sometimes lost. Full screen videos, especially HD, was crap to be honest. I did not expect much from this hardware, but I was hoping for a bit better performance.</p>
+<p>I would expect that tweaking these settings on a proper GPU will probably give better results compared to what I got. I will not post my settings right now because I don&rsquo;t think they are useful for anyone else. I will instead get back to this when I have used a better GPU and can give some examples of what could help. My suggestion here would be that you should play around with the settings and see what you can get.</p>
+
         </div>
-        <div class="main-content-toggle">
 
+        
+        <div class="main-content-preview">
+            <h1>Improving RemoteFX performance in Hyper-V</h1>
             
-            <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
-            <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
-
-            <input class="source-toggle" type="checkbox" id="source-toggle">
-            <label class="source-toggle-label" for="source-toggle"></label>
-
-            <div class="main-content">
-                ---<br />
-                <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Improving RemoteFX performance in Hyper-V</span><br />
-                <span class="md-frontmatter">date</span>: 2012-09-25 14:14:00 &#43;0200 CEST<br />
-                <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
-                <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
-                ----
-                <p>As I <a href="https://blog.roostech.se/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/">wrote earlier</a> its possible to run RemoteFX on some of the slowest GPU´s you can buy today (on a regular CPU actually), but you might not get the performance you need to get anywhere. This time I will go through some of the options you have for getting it to work a bit better. Keep in mind that I am writing this with a really poor GPU in mind (yes, the Intel HD 2500 is not good for anything else than browsing).</p>
-<h2 id="the-basics">The basics</h2>
-<p>First some basic things. For a slow GPU you want to make sure the GPU is the actual bottleneck so don&rsquo;t be cheap when you assign memory. I used 4 GB on the VM. Use higher if you want and then lower it until you find a good sweet spot in case you want the memory back. Assign more than one core to the VM to start with.</p>
-<p>Use RemoteFX over a wired LAN (100 Mbit or more). Avoid using WiFi since a lot of bandwidth is needed to get good quality, especially if you configure the group policies to get the highest quality with no compression.</p>
-<p>The maximum resolution is divided into the amount of monitors you select. More monitors, lower resolution. Use one monitor for this test and add more later if you want.</p>
-<h2 id="version-considerations">Version considerations</h2>
-<p>Besides the basic stuff above, the first thing to keep in mind is that you need to use RDP 7.1 to get RemoteFX to work properly when using Windows Server 2012. I believe this was released for Windows 7 in SP1. The client actually reports version 6-something, but if you check the about screen it says if it supports RDP 7.0 or 7.1. RDP and Remote Desktop Connection are not the same thing.</p>
-<p>There are also some fairly big differences between running Windows 7 and Windows 8. As one example, Microsoft have done a lot of work when it comes to reducing the bandwidth when using RemoteFX (and RDP in general) in Windows 8. I did some simple tests on this to see what difference it makes and found that when running Windows 8 it consumed about 30% less network traffic compared to Windows 7 when running the same sequence in a full screen game (Torchlight). According to Microsoft the difference can be much bigger depending on what you are doing on your VM. If you are going to use Windows 7 you need to make sure that SP1 is installed before enabling the RemoteFX GPU. If you add it before that you will run into problems getting it to work, even if you add SP1 afterwards.</p>
-<h2 id="group-policies">Group Policies</h2>
-<p>This is probably the most interesting part of the performance configuration. This is also the main place where Microsoft want you to tweak the environment to suit your purposes.</p>
-<p>Use gpedit.msc and go to Computer Settings, Administrative templates, Windows Components, Remote Desktop Services, Remote Desktop Session Host, Remote Session Environment.</p>
-<p>Here are some settings you can play around with to get the performance better, depending on what you will use it for. I played around with the settings and after a while the performance became a bit better with the Intel HD 2500 but I did not see any great improvement. The new GUI (which until recently was called Metro) in Windows 8 worked great with all the animations and everything, but that kind of worked even without RemoteFX so not a huge difference there. Movies played better in smaller windows than before, but frames were sometimes lost. Full screen videos, especially HD, was crap to be honest. I did not expect much from this hardware, but I was hoping for a bit better performance.</p>
-<p>I would expect that tweaking these settings on a proper GPU will probably give better results compared to what I got. I will not post my settings right now because I don&rsquo;t think they are useful for anyone else. I will instead get back to this when I have used a better GPU and can give some examples of what could help. My suggestion here would be that you should play around with the settings and see what you can get.</p>
-
-            </div>
-
-            
-            <div class="main-content-preview">
-                <h1>Improving RemoteFX performance in Hyper-V</h1>
-                
-                <p>As I <a href="https://blog.roostech.se/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/">wrote earlier</a> its possible to run RemoteFX on some of the slowest GPU´s you can buy today (on a regular CPU actually), but you might not get the performance you need to get anywhere. This time I will go through some of the options you have for getting it to work a bit better. Keep in mind that I am writing this with a really poor GPU in mind (yes, the Intel HD 2500 is not good for anything else than browsing).</p>
+            <p>As I <a href="https://blog.roostech.se/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/">wrote earlier</a> its possible to run RemoteFX on some of the slowest GPU´s you can buy today (on a regular CPU actually), but you might not get the performance you need to get anywhere. This time I will go through some of the options you have for getting it to work a bit better. Keep in mind that I am writing this with a really poor GPU in mind (yes, the Intel HD 2500 is not good for anything else than browsing).</p>
 <h2 id="the-basics">The basics</h2>
 <p>First some basic things. For a slow GPU you want to make sure the GPU is the actual bottleneck so don&rsquo;t be cheap when you assign memory. I used 4 GB on the VM. Use higher if you want and then lower it until you find a good sweet spot in case you want the memory back. Assign more than one core to the VM to start with.</p>
 <p>Use RemoteFX over a wired LAN (100 Mbit or more). Avoid using WiFi since a lot of bandwidth is needed to get good quality, especially if you configure the group policies to get the highest quality with no compression.</p>
@@ -276,15 +263,15 @@ if (!doNotTrack) {
 <p>I would expect that tweaking these settings on a proper GPU will probably give better results compared to what I got. I will not post my settings right now because I don&rsquo;t think they are useful for anyone else. I will instead get back to this when I have used a better GPU and can give some examples of what could help. My suggestion here would be that you should play around with the settings and see what you can get.</p>
 
 
-                <p>- Written by John  
+            <p>- Written by John  
+            
                 
-                    
-                    
-                    on September 25, 2012</p>
+                
+                on September 25, 2012</p>
 
-                
-                    <div class="disqus-section">
-                        <div id="disqus_thread"></div>
+            
+                <div class="disqus-section">
+                    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -304,11 +291,11 @@ if (!doNotTrack) {
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-                    </div>
-                
-            </div>
+                </div>
+            
+        </div>
 
-       </div>
+    </div>
     
 
 

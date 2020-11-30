@@ -205,93 +205,80 @@ if (!doNotTrack) {
             
             
             <div class='main'>
-     
-     
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-    
-       
-        <div class="main-path">
-            <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Making PowerShell expressions easier.md</span>
-            
-                    
-                    
-                    <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2015-07-14">July 14, 2015</time>)</span>
+    <div class="main-path">
+        <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Making PowerShell expressions easier.md</span>
+        
                 
+                
+                <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2015-07-14">July 14, 2015</time>)</span>
+            
+    </div>
+    
+    <div class="main-content-toggle">
+
+        
+        <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
+        <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
+
+        <input class="source-toggle" type="checkbox" id="source-toggle">
+        <label class="source-toggle-label" for="source-toggle"></label>
+
+        <div class="main-content">
+            ---<br />
+            <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Making PowerShell expressions easier</span><br />
+            <span class="md-frontmatter">date</span>: 2015-07-14 14:14:00 &#43;0200 CEST<br />
+            <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
+            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
+            ----
+            <p>Expressions in PowerShell have a weird syntax and can quickly become complicated and hard to read. I thought about a way to make the syntax a bit easier to read and came up with a solution that might work for some cases. This solution contains two classes which can be used when piping to Select-Object for example. The first class describes the actual expression.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">class</span> <span class="n">Xpression</span>
+<span class="p">{</span>
+    <span class="no">[string]</span><span class="nv">$Name</span>
+    <span class="no">[scriptblock]</span><span class="nv">$Expression</span>
+    <span class="no">[hashtable]</span> <span class="n">getExpression</span><span class="p">()</span> <span class="p">{</span> 
+        <span class="k">return</span> <span class="p">@{</span> <span class="n">Name</span> <span class="p">=</span> <span class="nv">$this</span><span class="p">.</span><span class="n">Name</span><span class="p">;</span> <span class="n">Expression</span> <span class="p">=</span> <span class="nv">$this</span><span class="p">.</span><span class="n">Expression</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>The second class is an array of the first class. This class also have overloaded methods for adding expressions or property names. The Get() method returns all expressions and properties (converted to expressions).</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">class</span> <span class="n">XpressionArray</span>
+<span class="p">{</span>
+    <span class="no">[Xpression[]]</span><span class="nv">$Expression</span>
+    <span class="no">[array]</span> <span class="n">Get</span><span class="p">()</span> <span class="p">{</span> 
+        <span class="k">return</span> <span class="nv">$this</span><span class="p">.</span><span class="n">Expression</span><span class="p">.</span><span class="n">getExpression</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="n">Add</span><span class="p">(</span><span class="no">[string]</span><span class="nv">$n</span><span class="p">,</span> <span class="no">[scriptblock]</span><span class="nv">$x</span><span class="p">)</span> <span class="p">{</span> 
+        <span class="nv">$temp</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">Xpression</span>
+        <span class="nv">$temp</span><span class="p">.</span><span class="n">Name</span> <span class="p">=</span> <span class="nv">$n</span>
+        <span class="nv">$temp</span><span class="p">.</span><span class="n">Expression</span> <span class="p">=</span> <span class="nv">$x</span>
+        <span class="nv">$this</span><span class="p">.</span><span class="n">Expression</span> <span class="p">+=</span> <span class="nv">$temp</span>
+    <span class="p">}</span>
+    <span class="n">Add</span><span class="p">(</span><span class="no">[string]</span><span class="nv">$n</span><span class="p">)</span> <span class="p">{</span> 
+        <span class="nv">$temp</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">Xpression</span>
+        <span class="nv">$temp</span><span class="p">.</span><span class="n">Name</span> <span class="p">=</span> <span class="nv">$n</span>
+        <span class="nv">$temp</span><span class="p">.</span><span class="n">Expression</span> <span class="p">=</span> <span class="no">[Scriptblock]</span><span class="p">::</span><span class="n">Create</span><span class="p">(</span><span class="s1">&#39;$_.&#39;</span> <span class="p">+</span> <span class="nv">$n</span> <span class="p">)</span> 
+        <span class="nv">$this</span><span class="p">.</span><span class="n">Expression</span> <span class="p">+=</span> <span class="nv">$temp</span>
+         
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>So how can we use this? Its quite easy actually. First create an object with TypeName &ldquo;XpressionArray&rdquo;.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$exp</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">XpressionArray</span>
+</code></pre></div><p>Then add the properties or expressions you need using the Add() method.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$exp</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">)</span>
+<span class="nv">$exp</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s1">&#39;Id&#39;</span><span class="p">)</span>
+<span class="nv">$exp</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s1">&#39;KB&#39;</span><span class="p">,{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">WorkingSet</span> <span class="p">/</span> <span class="n">1Kb</span> <span class="p">})</span>
+<span class="nv">$exp</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s1">&#39;MB&#39;</span><span class="p">,{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">WorkingSet</span> <span class="p">/</span> <span class="n">1Mb</span> <span class="p">})</span>
+</code></pre></div><p>Now lets see if this works. Run the following command to use the method Get() in the pipeline.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Get-Process</span> <span class="n">-Name</span> <span class="n">powershell</span><span class="p">*</span> <span class="p">|</span> <span class="nb">select </span><span class="nv">$exp</span><span class="p">.</span><span class="n">Get</span><span class="p">()</span> <span class="p">|</span> <span class="nb">Format-Table</span>
+<span class="nb">Get-Process</span> <span class="n">-Name</span> <span class="n">powershell</span><span class="p">*</span> <span class="p">|</span> <span class="nb">select </span><span class="nv">$exp</span><span class="p">.</span><span class="n">Get</span><span class="p">()</span> <span class="p">|</span> <span class="nb">Get-Member</span>
+</code></pre></div><p>And it works! These classes can make the code look a bit more clean in some cases so try it for yourself to see if it fits your scenarios.</p>
+
         </div>
-        <div class="main-content-toggle">
 
+        
+        <div class="main-content-preview">
+            <h1>Making PowerShell expressions easier</h1>
             
-            <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
-            <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
-
-            <input class="source-toggle" type="checkbox" id="source-toggle">
-            <label class="source-toggle-label" for="source-toggle"></label>
-
-            <div class="main-content">
-                ---<br />
-                <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Making PowerShell expressions easier</span><br />
-                <span class="md-frontmatter">date</span>: 2015-07-14 14:14:00 &#43;0200 CEST<br />
-                <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
-                <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
-                ----
-                <p>Expressions in PowerShell have a weird syntax and can quickly become complicated and hard to read. I thought about a way to make the syntax a bit easier to read and came up with a solution that might work for some cases. This solution contains two classes which can be used when piping to Select-Object for example. The first class describes the actual expression.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">class</span> <span class="n">Xpression</span>
-<span class="p">{</span>
-    <span class="no">[string]</span><span class="nv">$Name</span>
-    <span class="no">[scriptblock]</span><span class="nv">$Expression</span>
-    <span class="no">[hashtable]</span> <span class="n">getExpression</span><span class="p">()</span> <span class="p">{</span> 
-        <span class="k">return</span> <span class="p">@{</span> <span class="n">Name</span> <span class="p">=</span> <span class="nv">$this</span><span class="p">.</span><span class="n">Name</span><span class="p">;</span> <span class="n">Expression</span> <span class="p">=</span> <span class="nv">$this</span><span class="p">.</span><span class="n">Expression</span> <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>The second class is an array of the first class. This class also have overloaded methods for adding expressions or property names. The Get() method returns all expressions and properties (converted to expressions).</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">class</span> <span class="n">XpressionArray</span>
-<span class="p">{</span>
-    <span class="no">[Xpression[]]</span><span class="nv">$Expression</span>
-    <span class="no">[array]</span> <span class="n">Get</span><span class="p">()</span> <span class="p">{</span> 
-        <span class="k">return</span> <span class="nv">$this</span><span class="p">.</span><span class="n">Expression</span><span class="p">.</span><span class="n">getExpression</span><span class="p">()</span>
-    <span class="p">}</span>
-    <span class="n">Add</span><span class="p">(</span><span class="no">[string]</span><span class="nv">$n</span><span class="p">,</span> <span class="no">[scriptblock]</span><span class="nv">$x</span><span class="p">)</span> <span class="p">{</span> 
-        <span class="nv">$temp</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">Xpression</span>
-        <span class="nv">$temp</span><span class="p">.</span><span class="n">Name</span> <span class="p">=</span> <span class="nv">$n</span>
-        <span class="nv">$temp</span><span class="p">.</span><span class="n">Expression</span> <span class="p">=</span> <span class="nv">$x</span>
-        <span class="nv">$this</span><span class="p">.</span><span class="n">Expression</span> <span class="p">+=</span> <span class="nv">$temp</span>
-    <span class="p">}</span>
-    <span class="n">Add</span><span class="p">(</span><span class="no">[string]</span><span class="nv">$n</span><span class="p">)</span> <span class="p">{</span> 
-        <span class="nv">$temp</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">Xpression</span>
-        <span class="nv">$temp</span><span class="p">.</span><span class="n">Name</span> <span class="p">=</span> <span class="nv">$n</span>
-        <span class="nv">$temp</span><span class="p">.</span><span class="n">Expression</span> <span class="p">=</span> <span class="no">[Scriptblock]</span><span class="p">::</span><span class="n">Create</span><span class="p">(</span><span class="s1">&#39;$_.&#39;</span> <span class="p">+</span> <span class="nv">$n</span> <span class="p">)</span> 
-        <span class="nv">$this</span><span class="p">.</span><span class="n">Expression</span> <span class="p">+=</span> <span class="nv">$temp</span>
-         
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>So how can we use this? Its quite easy actually. First create an object with TypeName &ldquo;XpressionArray&rdquo;.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$exp</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">XpressionArray</span>
-</code></pre></div><p>Then add the properties or expressions you need using the Add() method.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$exp</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">)</span>
-<span class="nv">$exp</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s1">&#39;Id&#39;</span><span class="p">)</span>
-<span class="nv">$exp</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s1">&#39;KB&#39;</span><span class="p">,{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">WorkingSet</span> <span class="p">/</span> <span class="n">1Kb</span> <span class="p">})</span>
-<span class="nv">$exp</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s1">&#39;MB&#39;</span><span class="p">,{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">WorkingSet</span> <span class="p">/</span> <span class="n">1Mb</span> <span class="p">})</span>
-</code></pre></div><p>Now lets see if this works. Run the following command to use the method Get() in the pipeline.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Get-Process</span> <span class="n">-Name</span> <span class="n">powershell</span><span class="p">*</span> <span class="p">|</span> <span class="nb">select </span><span class="nv">$exp</span><span class="p">.</span><span class="n">Get</span><span class="p">()</span> <span class="p">|</span> <span class="nb">Format-Table</span>
-<span class="nb">Get-Process</span> <span class="n">-Name</span> <span class="n">powershell</span><span class="p">*</span> <span class="p">|</span> <span class="nb">select </span><span class="nv">$exp</span><span class="p">.</span><span class="n">Get</span><span class="p">()</span> <span class="p">|</span> <span class="nb">Get-Member</span>
-</code></pre></div><p>And it works! These classes can make the code look a bit more clean in some cases so try it for yourself to see if it fits your scenarios.</p>
-
-            </div>
-
-            
-            <div class="main-content-preview">
-                <h1>Making PowerShell expressions easier</h1>
-                
-                <p>Expressions in PowerShell have a weird syntax and can quickly become complicated and hard to read. I thought about a way to make the syntax a bit easier to read and came up with a solution that might work for some cases. This solution contains two classes which can be used when piping to Select-Object for example. The first class describes the actual expression.</p>
+            <p>Expressions in PowerShell have a weird syntax and can quickly become complicated and hard to read. I thought about a way to make the syntax a bit easier to read and came up with a solution that might work for some cases. This solution contains two classes which can be used when piping to Select-Object for example. The first class describes the actual expression.</p>
 <div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">class</span> <span class="n">Xpression</span>
 <span class="p">{</span>
     <span class="no">[string]</span><span class="nv">$Name</span>
@@ -334,15 +321,15 @@ if (!doNotTrack) {
 </code></pre></div><p>And it works! These classes can make the code look a bit more clean in some cases so try it for yourself to see if it fits your scenarios.</p>
 
 
-                <p>- Written by John  
+            <p>- Written by John  
+            
                 
-                    
-                    
-                    on July 14, 2015</p>
+                
+                on July 14, 2015</p>
 
-                
-                    <div class="disqus-section">
-                        <div id="disqus_thread"></div>
+            
+                <div class="disqus-section">
+                    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -362,11 +349,11 @@ if (!doNotTrack) {
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-                    </div>
-                
-            </div>
+                </div>
+            
+        </div>
 
-       </div>
+    </div>
     
 
 

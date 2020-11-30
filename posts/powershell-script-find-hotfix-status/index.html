@@ -205,65 +205,52 @@ if (!doNotTrack) {
             
             
             <div class='main'>
-     
-     
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-    
-       
-        <div class="main-path">
-            <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Powershell script: Find hotfix status.md</span>
-            
-                    
-                    
-                    <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2015-02-01">February 1, 2015</time>)</span>
+    <div class="main-path">
+        <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Powershell script: Find hotfix status.md</span>
+        
                 
+                
+                <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2015-02-01">February 1, 2015</time>)</span>
+            
+    </div>
+    
+    <div class="main-content-toggle">
+
+        
+        <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
+        <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
+
+        <input class="source-toggle" type="checkbox" id="source-toggle">
+        <label class="source-toggle-label" for="source-toggle"></label>
+
+        <div class="main-content">
+            ---<br />
+            <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Powershell script: Find hotfix status</span><br />
+            <span class="md-frontmatter">date</span>: 2015-02-01 14:14:00 &#43;0200 &#43;0200<br />
+            <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
+            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
+            ----
+            <p>I was browsing around the requests on the <a href="https://gallery.technet.microsoft.com/scriptcenter/site/requests">Microsoft Script Center</a> the other day and found one request where a user needed a PowerShell script for showing the status of specific hotfixes on multiple machines. I thought it would be a good idea since Get-Hotfix only shows where the hotfix is installed but not directly where its not installed.</p>
+<p>I created a simple small script that would list the patches to check for, along with each server and if its installed or not. The output looks something like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">ComputerName    Hotfix       Status
+------------    ------       ------
+server01        KB2991963    Installed
+server01        KB2923423    Not installed
+server02        KB2991963    Installed
+server02        KB2923423    Not installed
+</code></pre></div><p>The script outputs one object per server and hotfix. So each line in the output above represents one object. In this way you can easily format it or pipe it to other commands. Here is one example where I want to look for the status of hotfixes called KB2991963 and KB2923423 on two servers:</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="p">.\</span><span class="nb">Find-Hotfix</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Hotfix</span> <span class="s1">&#39;KB2991963&#39;</span><span class="p">,</span> <span class="s1">&#39;KB2923423&#39;</span> <span class="n">-ComputerName</span> <span class="s1">&#39;server01&#39;</span><span class="p">,</span> <span class="s1">&#39;server02&#39;</span>
+</code></pre></div><p>You could also use the FilePath parameters in case you have a list of servers and/or a list of hotfixes in text files:</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="p">.\</span><span class="nb">Find-Hotfix</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Hotfix_FilePath</span> <span class="s1">&#39;c:\hotfixes.txt&#39;</span> <span class="n">-ComputerName_FilePath</span> <span class="s1">&#39;c:\servers.txt&#39;</span>
+</code></pre></div><p>The script can be downloaded from Microsoft Script Center <a href="https://gallery.technet.microsoft.com/Powershell-Find-hotfix-312a7bc2">here</a>.</p>
+
         </div>
-        <div class="main-content-toggle">
 
+        
+        <div class="main-content-preview">
+            <h1>Powershell script: Find hotfix status</h1>
             
-            <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
-            <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
-
-            <input class="source-toggle" type="checkbox" id="source-toggle">
-            <label class="source-toggle-label" for="source-toggle"></label>
-
-            <div class="main-content">
-                ---<br />
-                <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Powershell script: Find hotfix status</span><br />
-                <span class="md-frontmatter">date</span>: 2015-02-01 14:14:00 &#43;0200 &#43;0200<br />
-                <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
-                <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
-                ----
-                <p>I was browsing around the requests on the <a href="https://gallery.technet.microsoft.com/scriptcenter/site/requests">Microsoft Script Center</a> the other day and found one request where a user needed a PowerShell script for showing the status of specific hotfixes on multiple machines. I thought it would be a good idea since Get-Hotfix only shows where the hotfix is installed but not directly where its not installed.</p>
-<p>I created a simple small script that would list the patches to check for, along with each server and if its installed or not. The output looks something like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">ComputerName    Hotfix       Status
-------------    ------       ------
-server01        KB2991963    Installed
-server01        KB2923423    Not installed
-server02        KB2991963    Installed
-server02        KB2923423    Not installed
-</code></pre></div><p>The script outputs one object per server and hotfix. So each line in the output above represents one object. In this way you can easily format it or pipe it to other commands. Here is one example where I want to look for the status of hotfixes called KB2991963 and KB2923423 on two servers:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="p">.\</span><span class="nb">Find-Hotfix</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Hotfix</span> <span class="s1">&#39;KB2991963&#39;</span><span class="p">,</span> <span class="s1">&#39;KB2923423&#39;</span> <span class="n">-ComputerName</span> <span class="s1">&#39;server01&#39;</span><span class="p">,</span> <span class="s1">&#39;server02&#39;</span>
-</code></pre></div><p>You could also use the FilePath parameters in case you have a list of servers and/or a list of hotfixes in text files:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="p">.\</span><span class="nb">Find-Hotfix</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Hotfix_FilePath</span> <span class="s1">&#39;c:\hotfixes.txt&#39;</span> <span class="n">-ComputerName_FilePath</span> <span class="s1">&#39;c:\servers.txt&#39;</span>
-</code></pre></div><p>The script can be downloaded from Microsoft Script Center <a href="https://gallery.technet.microsoft.com/Powershell-Find-hotfix-312a7bc2">here</a>.</p>
-
-            </div>
-
-            
-            <div class="main-content-preview">
-                <h1>Powershell script: Find hotfix status</h1>
-                
-                <p>I was browsing around the requests on the <a href="https://gallery.technet.microsoft.com/scriptcenter/site/requests">Microsoft Script Center</a> the other day and found one request where a user needed a PowerShell script for showing the status of specific hotfixes on multiple machines. I thought it would be a good idea since Get-Hotfix only shows where the hotfix is installed but not directly where its not installed.</p>
+            <p>I was browsing around the requests on the <a href="https://gallery.technet.microsoft.com/scriptcenter/site/requests">Microsoft Script Center</a> the other day and found one request where a user needed a PowerShell script for showing the status of specific hotfixes on multiple machines. I thought it would be a good idea since Get-Hotfix only shows where the hotfix is installed but not directly where its not installed.</p>
 <p>I created a simple small script that would list the patches to check for, along with each server and if its installed or not. The output looks something like this:</p>
 <div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">ComputerName    Hotfix       Status
 ------------    ------       ------
@@ -278,15 +265,15 @@ server02        KB2923423    Not installed
 </code></pre></div><p>The script can be downloaded from Microsoft Script Center <a href="https://gallery.technet.microsoft.com/Powershell-Find-hotfix-312a7bc2">here</a>.</p>
 
 
-                <p>- Written by John  
+            <p>- Written by John  
+            
                 
-                    
-                    
-                    on February 1, 2015</p>
+                
+                on February 1, 2015</p>
 
-                
-                    <div class="disqus-section">
-                        <div id="disqus_thread"></div>
+            
+                <div class="disqus-section">
+                    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -306,11 +293,11 @@ server02        KB2923423    Not installed
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-                    </div>
-                
-            </div>
+                </div>
+            
+        </div>
 
-       </div>
+    </div>
     
 
 

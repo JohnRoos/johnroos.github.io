@@ -207,81 +207,68 @@ if (!doNotTrack) {
             
             
             <div class='main'>
-     
-     
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-    
-       
-        <div class="main-path">
-            <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Compress files to Zip with Powershell.md</span>
-            
-                    
-                    
-                    <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2014-12-15">December 15, 2014</time>)</span>
+    <div class="main-path">
+        <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Compress files to Zip with Powershell.md</span>
+        
                 
+                
+                <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2014-12-15">December 15, 2014</time>)</span>
+            
+    </div>
+    
+    <div class="main-content-toggle">
+
+        
+        <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
+        <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
+
+        <input class="source-toggle" type="checkbox" id="source-toggle">
+        <label class="source-toggle-label" for="source-toggle"></label>
+
+        <div class="main-content">
+            ---<br />
+            <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Compress files to Zip with Powershell</span><br />
+            <span class="md-frontmatter">date</span>: 2014-12-15 14:14:00 &#43;0200 &#43;0200<br />
+            <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
+            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
+            ----
+            <p>I have seen a lot of people writing PowerShell scripts to compress files or folders by using external file compression programs. Often Winrar, 7-Zip or something similar is used since PowerShell does not have any built in cmdlet to do this (not until version 5 at least).</p>
+<p>There is however a pretty simple way of doing this with only PowerShell. This is how.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># First we add the .Net framework class needed for file compression.</span>
+<span class="nb">Add-Type</span> <span class="o">-As</span> <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">Compression</span><span class="p">.</span><span class="n">FileSystem</span>
+ 
+<span class="c"># Then we need a variable of the type System.IO.Compression.CompressionLevel. </span>
+<span class="c"># The options for compression level are &#34;Fastest&#34;, &#34;Optimal&#34; and &#34;NoCompression&#34;.</span>
+<span class="no">[System.IO.Compression.CompressionLevel]</span><span class="nv">$compression</span> <span class="p">=</span> <span class="s2">&#34;Optimal&#34;</span>
+ 
+<span class="c"># Which file do you want to compress?</span>
+<span class="nv">$file</span> <span class="p">=</span> <span class="s1">&#39;C:\temp\file.txt&#39;</span>
+ 
+<span class="c"># Set the path to where you want the zip file to be created.</span>
+<span class="nv">$zippath</span> <span class="p">=</span> <span class="s1">&#39;C:\temp\file.zip&#39;</span>
+ 
+<span class="c"># Open the zip file and set the mode. Options for mode are &#34;Create&#34;, &#34;Read&#34; and &#34;Update&#34;.</span>
+<span class="nv">$ziparchive</span> <span class="p">=</span> <span class="no">[System.IO.Compression.ZipFile]</span><span class="p">::</span><span class="n">Open</span><span class="p">(</span> <span class="nv">$zippath</span><span class="p">,</span> <span class="s2">&#34;Update&#34;</span> <span class="p">)</span>
+ 
+<span class="c"># The compression function likes relative file paths, so lets do that.</span>
+<span class="nv">$relativefilepath</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Resolve-Path</span> <span class="nv">$file</span> <span class="n">-Relative</span><span class="p">).</span><span class="n">TrimStart</span><span class="p">(</span><span class="s2">&#34;.\&#34;</span><span class="p">)</span>
+ 
+<span class="c"># This is where the magic happens. </span>
+<span class="c"># Compress the file with the variables you just created as parameters.</span>
+<span class="nv">$null</span> <span class="p">=</span> <span class="no">[System.IO.Compression.ZipFileExtensions]</span><span class="p">::</span><span class="n">CreateEntryFromFile</span><span class="p">(</span><span class="nv">$ziparchive</span><span class="p">,</span> <span class="nv">$file</span><span class="p">,</span> <span class="nv">$relativefilepath</span><span class="p">,</span> <span class="nv">$compression</span><span class="p">)</span>
+ 
+<span class="c"># Release the zip file. </span>
+<span class="c"># Otherwise the file will still be in read only if you are using Powershell ISE.</span>
+<span class="nv">$ziparchive</span><span class="p">.</span><span class="n">Dispose</span><span class="p">()</span>
+</code></pre></div><p>Read more about these features at <a href="http://msdn.microsoft.com/en-us/library/System.IO.Compression(v=vs.110).aspx">MSDN</a>.</p>
+
         </div>
-        <div class="main-content-toggle">
 
+        
+        <div class="main-content-preview">
+            <h1>Compress files to Zip with Powershell</h1>
             
-            <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
-            <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
-
-            <input class="source-toggle" type="checkbox" id="source-toggle">
-            <label class="source-toggle-label" for="source-toggle"></label>
-
-            <div class="main-content">
-                ---<br />
-                <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Compress files to Zip with Powershell</span><br />
-                <span class="md-frontmatter">date</span>: 2014-12-15 14:14:00 &#43;0200 &#43;0200<br />
-                <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
-                <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
-                ----
-                <p>I have seen a lot of people writing PowerShell scripts to compress files or folders by using external file compression programs. Often Winrar, 7-Zip or something similar is used since PowerShell does not have any built in cmdlet to do this (not until version 5 at least).</p>
-<p>There is however a pretty simple way of doing this with only PowerShell. This is how.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># First we add the .Net framework class needed for file compression.</span>
-<span class="nb">Add-Type</span> <span class="o">-As</span> <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">Compression</span><span class="p">.</span><span class="n">FileSystem</span>
- 
-<span class="c"># Then we need a variable of the type System.IO.Compression.CompressionLevel. </span>
-<span class="c"># The options for compression level are &#34;Fastest&#34;, &#34;Optimal&#34; and &#34;NoCompression&#34;.</span>
-<span class="no">[System.IO.Compression.CompressionLevel]</span><span class="nv">$compression</span> <span class="p">=</span> <span class="s2">&#34;Optimal&#34;</span>
- 
-<span class="c"># Which file do you want to compress?</span>
-<span class="nv">$file</span> <span class="p">=</span> <span class="s1">&#39;C:\temp\file.txt&#39;</span>
- 
-<span class="c"># Set the path to where you want the zip file to be created.</span>
-<span class="nv">$zippath</span> <span class="p">=</span> <span class="s1">&#39;C:\temp\file.zip&#39;</span>
- 
-<span class="c"># Open the zip file and set the mode. Options for mode are &#34;Create&#34;, &#34;Read&#34; and &#34;Update&#34;.</span>
-<span class="nv">$ziparchive</span> <span class="p">=</span> <span class="no">[System.IO.Compression.ZipFile]</span><span class="p">::</span><span class="n">Open</span><span class="p">(</span> <span class="nv">$zippath</span><span class="p">,</span> <span class="s2">&#34;Update&#34;</span> <span class="p">)</span>
- 
-<span class="c"># The compression function likes relative file paths, so lets do that.</span>
-<span class="nv">$relativefilepath</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Resolve-Path</span> <span class="nv">$file</span> <span class="n">-Relative</span><span class="p">).</span><span class="n">TrimStart</span><span class="p">(</span><span class="s2">&#34;.\&#34;</span><span class="p">)</span>
- 
-<span class="c"># This is where the magic happens. </span>
-<span class="c"># Compress the file with the variables you just created as parameters.</span>
-<span class="nv">$null</span> <span class="p">=</span> <span class="no">[System.IO.Compression.ZipFileExtensions]</span><span class="p">::</span><span class="n">CreateEntryFromFile</span><span class="p">(</span><span class="nv">$ziparchive</span><span class="p">,</span> <span class="nv">$file</span><span class="p">,</span> <span class="nv">$relativefilepath</span><span class="p">,</span> <span class="nv">$compression</span><span class="p">)</span>
- 
-<span class="c"># Release the zip file. </span>
-<span class="c"># Otherwise the file will still be in read only if you are using Powershell ISE.</span>
-<span class="nv">$ziparchive</span><span class="p">.</span><span class="n">Dispose</span><span class="p">()</span>
-</code></pre></div><p>Read more about these features at <a href="http://msdn.microsoft.com/en-us/library/System.IO.Compression(v=vs.110).aspx">MSDN</a>.</p>
-
-            </div>
-
-            
-            <div class="main-content-preview">
-                <h1>Compress files to Zip with Powershell</h1>
-                
-                <p>I have seen a lot of people writing PowerShell scripts to compress files or folders by using external file compression programs. Often Winrar, 7-Zip or something similar is used since PowerShell does not have any built in cmdlet to do this (not until version 5 at least).</p>
+            <p>I have seen a lot of people writing PowerShell scripts to compress files or folders by using external file compression programs. Often Winrar, 7-Zip or something similar is used since PowerShell does not have any built in cmdlet to do this (not until version 5 at least).</p>
 <p>There is however a pretty simple way of doing this with only PowerShell. This is how.</p>
 <div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># First we add the .Net framework class needed for file compression.</span>
 <span class="nb">Add-Type</span> <span class="o">-As</span> <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">Compression</span><span class="p">.</span><span class="n">FileSystem</span>
@@ -312,15 +299,15 @@ if (!doNotTrack) {
 </code></pre></div><p>Read more about these features at <a href="http://msdn.microsoft.com/en-us/library/System.IO.Compression(v=vs.110).aspx">MSDN</a>.</p>
 
 
-                <p>- Written by John  
+            <p>- Written by John  
+            
                 
-                    
-                    
-                    on December 15, 2014</p>
+                
+                on December 15, 2014</p>
 
-                
-                    <div class="disqus-section">
-                        <div id="disqus_thread"></div>
+            
+                <div class="disqus-section">
+                    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -340,11 +327,11 @@ if (!doNotTrack) {
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-                    </div>
-                
-            </div>
+                </div>
+            
+        </div>
 
-       </div>
+    </div>
     
 
 

@@ -205,198 +205,185 @@ if (!doNotTrack) {
             
             
             <div class='main'>
-     
-     
-     
-    
-     
-    
-     
-    
-     
-    
-     
-    
-    
-       
-        <div class="main-path">
-            <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Classes in Powershell 5.0.md</span>
-            
-                    
-                    
-                    <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2015-03-01">March 1, 2015</time>)</span>
+    <div class="main-path">
+        <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Classes in Powershell 5.0.md</span>
+        
                 
+                
+                <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2015-03-01">March 1, 2015</time>)</span>
+            
+    </div>
+    
+    <div class="main-content-toggle">
+
+        
+        <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
+        <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
+
+        <input class="source-toggle" type="checkbox" id="source-toggle">
+        <label class="source-toggle-label" for="source-toggle"></label>
+
+        <div class="main-content">
+            ---<br />
+            <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Classes in Powershell 5.0</span><br />
+            <span class="md-frontmatter">date</span>: 2015-03-01 14:14:00 &#43;0200 &#43;0200<br />
+            <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
+            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
+            ----
+            <p>One of the big new features in Powershell 5.0 is classes. You can now define your own classes and create objects based on those custom classes. You can even create your own version of an existing class using inheritance.</p>
+<p>In previous version of Powershell it was actually possible to create classes, but you had to write code in other languages like C# or Visual basic and then use that piece of code as the definition of the class. Now this is much easier.</p>
+<p>Lets get right into the code. In these examples I will create a class which contains two properties: ComputerName and Domain. Both will be simple strings. Further down I will add some methods to the class and show some examples on how to use those methods.</p>
+<p>First lets look at how we had to create classes before Powershell 5.</p>
+<h2 id="create-class-with-c">Create class with C#</h2>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Create class with C sharp</span>
+<span class="nv">$ComputerTypeCsharp</span> <span class="p">=</span> <span class="p">@</span><span class="err">”</span>
+    <span class="n">public</span> <span class="n">class</span> <span class="n">ComputerCsharp</span>
+    <span class="p">{</span>
+        <span class="n">public</span> <span class="n">string</span> <span class="n">ComputerName</span> <span class="p">{</span><span class="n">get</span><span class="p">;</span> <span class="n">set</span><span class="p">;}</span>
+        <span class="n">public</span> <span class="n">string</span> <span class="n">Domain</span> <span class="p">{</span><span class="n">get</span><span class="p">;</span> <span class="n">set</span><span class="p">;}</span>
+    <span class="p">}</span>
+<span class="err">“</span><span class="p">@</span>
+
+<span class="nb">Add-Type</span> <span class="n">-TypeDefinition</span> <span class="nv">$ComputerTypeCsharp</span> <span class="n">-Language</span> <span class="n">CSharpVersion3</span>
+ 
+<span class="nv">$x1</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">ComputerCsharp</span>
+<span class="nv">$x1</span><span class="p">.</span><span class="n">ComputerName</span> <span class="p">=</span> <span class="s1">&#39;Server01&#39;</span>
+<span class="nv">$x1</span><span class="p">.</span><span class="n">Domain</span> <span class="p">=</span> <span class="s1">&#39;domain.com&#39;</span>
+<span class="nv">$x1</span> <span class="p">|</span> <span class="nb">Get-Member</span>
+</code></pre></div><h2 id="create-class-with-visual-basic">Create class with Visual Basic</h2>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Create class with Visual Basic</span>
+<span class="nv">$ComputerTypeVB</span> <span class="p">=</span> <span class="p">@</span><span class="err">”</span>
+    <span class="n">Public</span> <span class="n">Class</span> <span class="n">ComputerVB</span>
+        <span class="n">Public</span> <span class="n">ComputerName</span> <span class="n">As</span> <span class="n">String</span>
+        <span class="n">Public</span> <span class="n">Domain</span> <span class="n">As</span> <span class="n">String</span>
+    <span class="k">End</span> <span class="n">Class</span>
+<span class="s2">&#34;@
+</span><span class="s2">
+</span><span class="s2">Add-Type -TypeDefinition $ComputerTypeVB -Language VisualBasic
+</span><span class="s2"> 
+</span><span class="s2">$x2 = New-Object -TypeName ComputerVB
+</span><span class="s2">$x2.ComputerName = &#39;Server01&#39;
+</span><span class="s2">$x2.Domain = &#39;domain.com&#39;
+</span><span class="s2">$x2 | Get-Member
+</span></code></pre></div><p>Thats fine for simple classes, but when they become more complex its not very easy to read since the whole definition is just one long string with no highlights and syntax which is quite different from Powershell.</p>
+<h2 id="powershell-classes">PowerShell classes</h2>
+<p>Now lets create the same class, but with Powershell. The syntax for creating a class is straight forward:</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">class</span> <span class="n">ComputerPS</span> 
+<span class="p">{</span>
+    <span class="no">[string]</span> <span class="nv">$ComputerName</span>
+    <span class="no">[string]</span> <span class="nv">$Domain</span>
+<span class="p">}</span>
+</code></pre></div><p>To create an object using this class we can use [ComputerPS]::new() and assign that to a variable. Then add the ComputerName and Domain strings. Pipe the variable to Get-Member for further inspection.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Create class with Powershell</span>
+<span class="n">class</span> <span class="n">ComputerPS</span> 
+<span class="p">{</span>
+    <span class="no">[string]</span> <span class="nv">$ComputerName</span>
+    <span class="no">[string]</span> <span class="nv">$Domain</span>
+<span class="p">}</span>
+<span class="c"># Create a new variable based on the class</span>
+<span class="nv">$x3</span> <span class="p">=</span> <span class="no">[ComputerPS]</span><span class="p">::</span><span class="n">new</span><span class="p">()</span>
+<span class="c"># Add a computername</span>
+<span class="nv">$x3</span><span class="p">.</span><span class="n">ComputerName</span> <span class="p">=</span> <span class="s1">&#39;server01&#39;</span>
+<span class="c"># Add a domain name</span>
+<span class="nv">$x3</span><span class="p">.</span><span class="n">Domain</span> <span class="p">=</span> <span class="s1">&#39;domain.com&#39;</span>
+<span class="c"># Pipe to Get-Member for inspection</span>
+<span class="nv">$x3</span> <span class="p">|</span> <span class="nb">Get-Member</span>
+</code></pre></div><h2 id="powershell-classes-with-methods">PowerShell classes with methods</h2>
+<p>So now we can add ComputerName and Domain to the object. What if we want to create a method?
+Methods are declared like functions within the class. As of the february release of Powershell 5.0, if a method needs to access variables from outside of the method but within the class then you need to add $this before the variable as you can see in the example below. The method added in this example simply merges the strings together to get a fully qualified domain name, but only if ComputerName and Domain contains text.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Powershell class with overloaded methods</span>
+<span class="n">class</span> <span class="n">ComputerPSwithMethodOverload</span>
+<span class="p">{</span>
+    <span class="no">[string]</span> <span class="nv">$ComputerName</span>
+    <span class="no">[string]</span> <span class="nv">$Domain</span>
+    <span class="c"># Create a method to return fully qualified domain name</span>
+    <span class="no">[string]</span> <span class="n">GetFQDN</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="p">.</span><span class="n">ComputerName</span> <span class="o">-ne</span> <span class="s1">&#39;&#39;</span> <span class="o">-and</span> <span class="nv">$this</span><span class="p">.</span><span class="n">Domain</span> <span class="o">-ne</span> <span class="s1">&#39;&#39;</span><span class="p">){</span>
+            <span class="k">return</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$this</span><span class="p">.</span><span class="n">ComputerName</span><span class="p">)</span><span class="s2">.</span><span class="p">$(</span><span class="nv">$this</span><span class="p">.</span><span class="n">Domain</span><span class="p">)</span><span class="s2">&#34;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+ 
+<span class="nv">$x4</span> <span class="p">=</span> <span class="no">[ComputerPSwithMethodOverload]</span><span class="p">::</span><span class="n">new</span><span class="p">()</span>
+<span class="nv">$x4</span><span class="p">.</span><span class="n">ComputerName</span> <span class="p">=</span> <span class="s1">&#39;server01&#39;</span>
+<span class="nv">$x4</span><span class="p">.</span><span class="n">Domain</span> <span class="p">=</span> <span class="s1">&#39;domain.com&#39;</span>
+<span class="nv">$x4</span> <span class="p">|</span> <span class="nb">Get-Member</span>
+<span class="c"># Call the method to get FQDN</span>
+<span class="nv">$x4</span><span class="p">.</span><span class="n">GetFQDN</span><span class="p">()</span>
+</code></pre></div><h2 id="powershell-classes-with-overloaded-methods">PowerShell classes with overloaded methods</h2>
+<p>You can also create overloaded methods. An overloaded method is a method with the same name as another method but in a different context, in this case with different parameters. In this way the method can be called either without parameters or with two parameters. Powershell will try to match with the most appropriate method depending on how many parameters you use. In this example I add two parameters so that we can create a FQDN for any servers, not just the ones in the current object.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Powershell class with overloaded methods</span>
+<span class="n">class</span> <span class="n">ComputerPSwithMethodOverload</span>
+<span class="p">{</span>
+    <span class="no">[string]</span> <span class="nv">$ComputerName</span>
+    <span class="no">[string]</span> <span class="nv">$Domain</span>
+    <span class="no">[string]</span> <span class="n">GetFQDN</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="p">.</span><span class="n">ComputerName</span> <span class="o">-ne</span> <span class="s1">&#39;&#39;</span> <span class="o">-and</span> <span class="nv">$this</span><span class="p">.</span><span class="n">Domain</span> <span class="o">-ne</span> <span class="s1">&#39;&#39;</span><span class="p">){</span>
+            <span class="k">return</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$this</span><span class="p">.</span><span class="n">ComputerName</span><span class="p">)</span><span class="s2">.</span><span class="p">$(</span><span class="nv">$this</span><span class="p">.</span><span class="n">Domain</span><span class="p">)</span><span class="s2">&#34;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="c"># Create another method with the same name, but with different parameters</span>
+    <span class="no">[string]</span> <span class="n">GetFQDN</span><span class="p">(</span><span class="no">[string]</span><span class="nv">$ComputerName</span><span class="p">,</span> <span class="no">[string]</span><span class="nv">$Domain</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$ComputerName</span> <span class="o">-ne</span> <span class="s1">&#39;&#39;</span> <span class="o">-and</span> <span class="nv">$Domain</span> <span class="o">-ne</span> <span class="s1">&#39;&#39;</span><span class="p">){</span>
+            <span class="k">return</span> <span class="s2">&#34;$ComputerName.$Domain&#34;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+ 
+<span class="nv">$x4</span> <span class="p">=</span> <span class="no">[ComputerPSwithMethodOverload]</span><span class="p">::</span><span class="n">new</span><span class="p">()</span>
+<span class="nv">$x4</span><span class="p">.</span><span class="n">ComputerName</span> <span class="p">=</span> <span class="s1">&#39;server01&#39;</span>
+<span class="nv">$x4</span><span class="p">.</span><span class="n">Domain</span> <span class="p">=</span> <span class="s1">&#39;domain.com&#39;</span>
+<span class="nv">$x4</span> <span class="p">|</span> <span class="nb">Get-Member</span>
+<span class="c"># Call first method</span>
+<span class="nv">$x4</span><span class="p">.</span><span class="n">GetFQDN</span><span class="p">()</span>
+<span class="c"># Call second method</span>
+<span class="nv">$x4</span><span class="p">.</span><span class="n">GetFQDN</span><span class="p">(</span><span class="s1">&#39;MyServer&#39;</span><span class="p">,</span><span class="s1">&#39;Example.com&#39;</span><span class="p">)</span>
+</code></pre></div><h2 id="powershell-class-inheritance">PowerShell class inheritance</h2>
+<p>There are cases when an existing class is almost what you need, but not exactly. You can then create your own class which is based on an already existing class. You can then add methods, properties or other things to fit your need. Here is an example where I use my previous class and add another overloaded method. The trick here is to add a &ldquo;:&rdquo; and then the name of the class you want to inherit from, when creating your new class. In the example below ComputerPSOverload2 inherits from ComputerPSOverload1.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Class inheritance: </span>
+<span class="n">class</span> <span class="n">ComputerPSOverload1</span>
+<span class="p">{</span>
+    <span class="no">[string]</span> <span class="nv">$ComputerName</span>
+    <span class="no">[string]</span> <span class="nv">$Domain</span>
+    <span class="no">[string]</span> <span class="n">GetFQDN</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="p">.</span><span class="n">ComputerName</span> <span class="o">-ne</span> <span class="s1">&#39;&#39;</span> <span class="o">-and</span> <span class="nv">$this</span><span class="p">.</span><span class="n">Domain</span> <span class="o">-ne</span> <span class="s1">&#39;&#39;</span><span class="p">){</span>
+            <span class="k">return</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$this</span><span class="p">.</span><span class="n">ComputerName</span><span class="p">)</span><span class="s2">.</span><span class="p">$(</span><span class="nv">$this</span><span class="p">.</span><span class="n">Domain</span><span class="p">)</span><span class="s2">&#34;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="no">[string]</span> <span class="n">GetFQDN</span><span class="p">(</span><span class="no">[string]</span><span class="nv">$ComputerName</span><span class="p">,</span> <span class="no">[string]</span><span class="nv">$Domain</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$ComputerName</span> <span class="o">-ne</span> <span class="s1">&#39;&#39;</span> <span class="o">-and</span> <span class="nv">$Domain</span> <span class="o">-ne</span> <span class="s1">&#39;&#39;</span><span class="p">){</span>
+            <span class="k">return</span> <span class="s2">&#34;$ComputerName.$Domain&#34;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="c"># Create a second class, based on the one above</span>
+<span class="n">class</span> <span class="n">ComputerPSOverload2</span> <span class="err">:</span> <span class="n">ComputerPSOverload1</span>
+<span class="p">{</span>
+    <span class="c"># Add another overloaded function, with just one parameter</span>
+    <span class="no">[string]</span> <span class="n">GetFQDN</span><span class="p">(</span><span class="no">[string]</span><span class="nv">$prefix</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="p">.</span><span class="n">ComputerName</span> <span class="o">-ne</span> <span class="s1">&#39;&#39;</span> <span class="o">-and</span> <span class="nv">$this</span><span class="p">.</span><span class="n">Domain</span> <span class="o">-ne</span> <span class="s1">&#39;&#39;</span><span class="p">){</span>
+            <span class="k">return</span> <span class="s2">&#34;$prefix</span><span class="p">$(</span><span class="nv">$this</span><span class="p">.</span><span class="n">ComputerName</span><span class="p">)</span><span class="s2">.</span><span class="p">$(</span><span class="nv">$this</span><span class="p">.</span><span class="n">Domain</span><span class="p">)</span><span class="s2">&#34;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+ 
+<span class="nv">$x5</span> <span class="p">=</span> <span class="no">[ComputerPSOverload2]</span><span class="p">::</span><span class="n">new</span><span class="p">()</span>
+<span class="nv">$x5</span><span class="p">.</span><span class="n">ComputerName</span> <span class="p">=</span> <span class="s1">&#39;server01&#39;</span>
+<span class="nv">$x5</span><span class="p">.</span><span class="n">Domain</span> <span class="p">=</span> <span class="s1">&#39;domain.com&#39;</span>
+<span class="nv">$x5</span> <span class="p">|</span> <span class="nb">Get-Member</span>
+<span class="c"># Try two of the methods</span>
+<span class="nv">$x5</span><span class="p">.</span><span class="n">GetFQDN</span><span class="p">()</span>
+<span class="nv">$x5</span><span class="p">.</span><span class="n">GetFQDN</span><span class="p">(</span><span class="s1">&#39;http://&#39;</span><span class="p">)</span>
+<span class="c"># Check what type the object is, and check the base type</span>
+<span class="nv">$x5</span><span class="p">.</span><span class="n">GetType</span><span class="p">()</span>
+</code></pre></div>
         </div>
-        <div class="main-content-toggle">
 
+        
+        <div class="main-content-preview">
+            <h1>Classes in Powershell 5.0</h1>
             
-            <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
-            <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
-
-            <input class="source-toggle" type="checkbox" id="source-toggle">
-            <label class="source-toggle-label" for="source-toggle"></label>
-
-            <div class="main-content">
-                ---<br />
-                <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Classes in Powershell 5.0</span><br />
-                <span class="md-frontmatter">date</span>: 2015-03-01 14:14:00 &#43;0200 &#43;0200<br />
-                <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
-                <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
-                ----
-                <p>One of the big new features in Powershell 5.0 is classes. You can now define your own classes and create objects based on those custom classes. You can even create your own version of an existing class using inheritance.</p>
-<p>In previous version of Powershell it was actually possible to create classes, but you had to write code in other languages like C# or Visual basic and then use that piece of code as the definition of the class. Now this is much easier.</p>
-<p>Lets get right into the code. In these examples I will create a class which contains two properties: ComputerName and Domain. Both will be simple strings. Further down I will add some methods to the class and show some examples on how to use those methods.</p>
-<p>First lets look at how we had to create classes before Powershell 5.</p>
-<h2 id="create-class-with-c">Create class with C#</h2>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Create class with C sharp</span>
-<span class="nv">$ComputerTypeCsharp</span> <span class="p">=</span> <span class="p">@</span><span class="err">”</span>
-    <span class="n">public</span> <span class="n">class</span> <span class="n">ComputerCsharp</span>
-    <span class="p">{</span>
-        <span class="n">public</span> <span class="n">string</span> <span class="n">ComputerName</span> <span class="p">{</span><span class="n">get</span><span class="p">;</span> <span class="n">set</span><span class="p">;}</span>
-        <span class="n">public</span> <span class="n">string</span> <span class="n">Domain</span> <span class="p">{</span><span class="n">get</span><span class="p">;</span> <span class="n">set</span><span class="p">;}</span>
-    <span class="p">}</span>
-<span class="err">“</span><span class="p">@</span>
-
-<span class="nb">Add-Type</span> <span class="n">-TypeDefinition</span> <span class="nv">$ComputerTypeCsharp</span> <span class="n">-Language</span> <span class="n">CSharpVersion3</span>
- 
-<span class="nv">$x1</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">ComputerCsharp</span>
-<span class="nv">$x1</span><span class="p">.</span><span class="n">ComputerName</span> <span class="p">=</span> <span class="s1">&#39;Server01&#39;</span>
-<span class="nv">$x1</span><span class="p">.</span><span class="n">Domain</span> <span class="p">=</span> <span class="s1">&#39;domain.com&#39;</span>
-<span class="nv">$x1</span> <span class="p">|</span> <span class="nb">Get-Member</span>
-</code></pre></div><h2 id="create-class-with-visual-basic">Create class with Visual Basic</h2>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Create class with Visual Basic</span>
-<span class="nv">$ComputerTypeVB</span> <span class="p">=</span> <span class="p">@</span><span class="err">”</span>
-    <span class="n">Public</span> <span class="n">Class</span> <span class="n">ComputerVB</span>
-        <span class="n">Public</span> <span class="n">ComputerName</span> <span class="n">As</span> <span class="n">String</span>
-        <span class="n">Public</span> <span class="n">Domain</span> <span class="n">As</span> <span class="n">String</span>
-    <span class="k">End</span> <span class="n">Class</span>
-<span class="s2">&#34;@
-</span><span class="s2">
-</span><span class="s2">Add-Type -TypeDefinition $ComputerTypeVB -Language VisualBasic
-</span><span class="s2"> 
-</span><span class="s2">$x2 = New-Object -TypeName ComputerVB
-</span><span class="s2">$x2.ComputerName = &#39;Server01&#39;
-</span><span class="s2">$x2.Domain = &#39;domain.com&#39;
-</span><span class="s2">$x2 | Get-Member
-</span></code></pre></div><p>Thats fine for simple classes, but when they become more complex its not very easy to read since the whole definition is just one long string with no highlights and syntax which is quite different from Powershell.</p>
-<h2 id="powershell-classes">PowerShell classes</h2>
-<p>Now lets create the same class, but with Powershell. The syntax for creating a class is straight forward:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">class</span> <span class="n">ComputerPS</span> 
-<span class="p">{</span>
-    <span class="no">[string]</span> <span class="nv">$ComputerName</span>
-    <span class="no">[string]</span> <span class="nv">$Domain</span>
-<span class="p">}</span>
-</code></pre></div><p>To create an object using this class we can use [ComputerPS]::new() and assign that to a variable. Then add the ComputerName and Domain strings. Pipe the variable to Get-Member for further inspection.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Create class with Powershell</span>
-<span class="n">class</span> <span class="n">ComputerPS</span> 
-<span class="p">{</span>
-    <span class="no">[string]</span> <span class="nv">$ComputerName</span>
-    <span class="no">[string]</span> <span class="nv">$Domain</span>
-<span class="p">}</span>
-<span class="c"># Create a new variable based on the class</span>
-<span class="nv">$x3</span> <span class="p">=</span> <span class="no">[ComputerPS]</span><span class="p">::</span><span class="n">new</span><span class="p">()</span>
-<span class="c"># Add a computername</span>
-<span class="nv">$x3</span><span class="p">.</span><span class="n">ComputerName</span> <span class="p">=</span> <span class="s1">&#39;server01&#39;</span>
-<span class="c"># Add a domain name</span>
-<span class="nv">$x3</span><span class="p">.</span><span class="n">Domain</span> <span class="p">=</span> <span class="s1">&#39;domain.com&#39;</span>
-<span class="c"># Pipe to Get-Member for inspection</span>
-<span class="nv">$x3</span> <span class="p">|</span> <span class="nb">Get-Member</span>
-</code></pre></div><h2 id="powershell-classes-with-methods">PowerShell classes with methods</h2>
-<p>So now we can add ComputerName and Domain to the object. What if we want to create a method?
-Methods are declared like functions within the class. As of the february release of Powershell 5.0, if a method needs to access variables from outside of the method but within the class then you need to add $this before the variable as you can see in the example below. The method added in this example simply merges the strings together to get a fully qualified domain name, but only if ComputerName and Domain contains text.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Powershell class with overloaded methods</span>
-<span class="n">class</span> <span class="n">ComputerPSwithMethodOverload</span>
-<span class="p">{</span>
-    <span class="no">[string]</span> <span class="nv">$ComputerName</span>
-    <span class="no">[string]</span> <span class="nv">$Domain</span>
-    <span class="c"># Create a method to return fully qualified domain name</span>
-    <span class="no">[string]</span> <span class="n">GetFQDN</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="p">.</span><span class="n">ComputerName</span> <span class="o">-ne</span> <span class="s1">&#39;&#39;</span> <span class="o">-and</span> <span class="nv">$this</span><span class="p">.</span><span class="n">Domain</span> <span class="o">-ne</span> <span class="s1">&#39;&#39;</span><span class="p">){</span>
-            <span class="k">return</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$this</span><span class="p">.</span><span class="n">ComputerName</span><span class="p">)</span><span class="s2">.</span><span class="p">$(</span><span class="nv">$this</span><span class="p">.</span><span class="n">Domain</span><span class="p">)</span><span class="s2">&#34;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
- 
-<span class="nv">$x4</span> <span class="p">=</span> <span class="no">[ComputerPSwithMethodOverload]</span><span class="p">::</span><span class="n">new</span><span class="p">()</span>
-<span class="nv">$x4</span><span class="p">.</span><span class="n">ComputerName</span> <span class="p">=</span> <span class="s1">&#39;server01&#39;</span>
-<span class="nv">$x4</span><span class="p">.</span><span class="n">Domain</span> <span class="p">=</span> <span class="s1">&#39;domain.com&#39;</span>
-<span class="nv">$x4</span> <span class="p">|</span> <span class="nb">Get-Member</span>
-<span class="c"># Call the method to get FQDN</span>
-<span class="nv">$x4</span><span class="p">.</span><span class="n">GetFQDN</span><span class="p">()</span>
-</code></pre></div><h2 id="powershell-classes-with-overloaded-methods">PowerShell classes with overloaded methods</h2>
-<p>You can also create overloaded methods. An overloaded method is a method with the same name as another method but in a different context, in this case with different parameters. In this way the method can be called either without parameters or with two parameters. Powershell will try to match with the most appropriate method depending on how many parameters you use. In this example I add two parameters so that we can create a FQDN for any servers, not just the ones in the current object.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Powershell class with overloaded methods</span>
-<span class="n">class</span> <span class="n">ComputerPSwithMethodOverload</span>
-<span class="p">{</span>
-    <span class="no">[string]</span> <span class="nv">$ComputerName</span>
-    <span class="no">[string]</span> <span class="nv">$Domain</span>
-    <span class="no">[string]</span> <span class="n">GetFQDN</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="p">.</span><span class="n">ComputerName</span> <span class="o">-ne</span> <span class="s1">&#39;&#39;</span> <span class="o">-and</span> <span class="nv">$this</span><span class="p">.</span><span class="n">Domain</span> <span class="o">-ne</span> <span class="s1">&#39;&#39;</span><span class="p">){</span>
-            <span class="k">return</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$this</span><span class="p">.</span><span class="n">ComputerName</span><span class="p">)</span><span class="s2">.</span><span class="p">$(</span><span class="nv">$this</span><span class="p">.</span><span class="n">Domain</span><span class="p">)</span><span class="s2">&#34;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="c"># Create another method with the same name, but with different parameters</span>
-    <span class="no">[string]</span> <span class="n">GetFQDN</span><span class="p">(</span><span class="no">[string]</span><span class="nv">$ComputerName</span><span class="p">,</span> <span class="no">[string]</span><span class="nv">$Domain</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nv">$ComputerName</span> <span class="o">-ne</span> <span class="s1">&#39;&#39;</span> <span class="o">-and</span> <span class="nv">$Domain</span> <span class="o">-ne</span> <span class="s1">&#39;&#39;</span><span class="p">){</span>
-            <span class="k">return</span> <span class="s2">&#34;$ComputerName.$Domain&#34;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
- 
-<span class="nv">$x4</span> <span class="p">=</span> <span class="no">[ComputerPSwithMethodOverload]</span><span class="p">::</span><span class="n">new</span><span class="p">()</span>
-<span class="nv">$x4</span><span class="p">.</span><span class="n">ComputerName</span> <span class="p">=</span> <span class="s1">&#39;server01&#39;</span>
-<span class="nv">$x4</span><span class="p">.</span><span class="n">Domain</span> <span class="p">=</span> <span class="s1">&#39;domain.com&#39;</span>
-<span class="nv">$x4</span> <span class="p">|</span> <span class="nb">Get-Member</span>
-<span class="c"># Call first method</span>
-<span class="nv">$x4</span><span class="p">.</span><span class="n">GetFQDN</span><span class="p">()</span>
-<span class="c"># Call second method</span>
-<span class="nv">$x4</span><span class="p">.</span><span class="n">GetFQDN</span><span class="p">(</span><span class="s1">&#39;MyServer&#39;</span><span class="p">,</span><span class="s1">&#39;Example.com&#39;</span><span class="p">)</span>
-</code></pre></div><h2 id="powershell-class-inheritance">PowerShell class inheritance</h2>
-<p>There are cases when an existing class is almost what you need, but not exactly. You can then create your own class which is based on an already existing class. You can then add methods, properties or other things to fit your need. Here is an example where I use my previous class and add another overloaded method. The trick here is to add a &ldquo;:&rdquo; and then the name of the class you want to inherit from, when creating your new class. In the example below ComputerPSOverload2 inherits from ComputerPSOverload1.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Class inheritance: </span>
-<span class="n">class</span> <span class="n">ComputerPSOverload1</span>
-<span class="p">{</span>
-    <span class="no">[string]</span> <span class="nv">$ComputerName</span>
-    <span class="no">[string]</span> <span class="nv">$Domain</span>
-    <span class="no">[string]</span> <span class="n">GetFQDN</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="p">.</span><span class="n">ComputerName</span> <span class="o">-ne</span> <span class="s1">&#39;&#39;</span> <span class="o">-and</span> <span class="nv">$this</span><span class="p">.</span><span class="n">Domain</span> <span class="o">-ne</span> <span class="s1">&#39;&#39;</span><span class="p">){</span>
-            <span class="k">return</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$this</span><span class="p">.</span><span class="n">ComputerName</span><span class="p">)</span><span class="s2">.</span><span class="p">$(</span><span class="nv">$this</span><span class="p">.</span><span class="n">Domain</span><span class="p">)</span><span class="s2">&#34;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="no">[string]</span> <span class="n">GetFQDN</span><span class="p">(</span><span class="no">[string]</span><span class="nv">$ComputerName</span><span class="p">,</span> <span class="no">[string]</span><span class="nv">$Domain</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nv">$ComputerName</span> <span class="o">-ne</span> <span class="s1">&#39;&#39;</span> <span class="o">-and</span> <span class="nv">$Domain</span> <span class="o">-ne</span> <span class="s1">&#39;&#39;</span><span class="p">){</span>
-            <span class="k">return</span> <span class="s2">&#34;$ComputerName.$Domain&#34;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="c"># Create a second class, based on the one above</span>
-<span class="n">class</span> <span class="n">ComputerPSOverload2</span> <span class="err">:</span> <span class="n">ComputerPSOverload1</span>
-<span class="p">{</span>
-    <span class="c"># Add another overloaded function, with just one parameter</span>
-    <span class="no">[string]</span> <span class="n">GetFQDN</span><span class="p">(</span><span class="no">[string]</span><span class="nv">$prefix</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="p">.</span><span class="n">ComputerName</span> <span class="o">-ne</span> <span class="s1">&#39;&#39;</span> <span class="o">-and</span> <span class="nv">$this</span><span class="p">.</span><span class="n">Domain</span> <span class="o">-ne</span> <span class="s1">&#39;&#39;</span><span class="p">){</span>
-            <span class="k">return</span> <span class="s2">&#34;$prefix</span><span class="p">$(</span><span class="nv">$this</span><span class="p">.</span><span class="n">ComputerName</span><span class="p">)</span><span class="s2">.</span><span class="p">$(</span><span class="nv">$this</span><span class="p">.</span><span class="n">Domain</span><span class="p">)</span><span class="s2">&#34;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
- 
-<span class="nv">$x5</span> <span class="p">=</span> <span class="no">[ComputerPSOverload2]</span><span class="p">::</span><span class="n">new</span><span class="p">()</span>
-<span class="nv">$x5</span><span class="p">.</span><span class="n">ComputerName</span> <span class="p">=</span> <span class="s1">&#39;server01&#39;</span>
-<span class="nv">$x5</span><span class="p">.</span><span class="n">Domain</span> <span class="p">=</span> <span class="s1">&#39;domain.com&#39;</span>
-<span class="nv">$x5</span> <span class="p">|</span> <span class="nb">Get-Member</span>
-<span class="c"># Try two of the methods</span>
-<span class="nv">$x5</span><span class="p">.</span><span class="n">GetFQDN</span><span class="p">()</span>
-<span class="nv">$x5</span><span class="p">.</span><span class="n">GetFQDN</span><span class="p">(</span><span class="s1">&#39;http://&#39;</span><span class="p">)</span>
-<span class="c"># Check what type the object is, and check the base type</span>
-<span class="nv">$x5</span><span class="p">.</span><span class="n">GetType</span><span class="p">()</span>
-</code></pre></div>
-            </div>
-
-            
-            <div class="main-content-preview">
-                <h1>Classes in Powershell 5.0</h1>
-                
-                <p>One of the big new features in Powershell 5.0 is classes. You can now define your own classes and create objects based on those custom classes. You can even create your own version of an existing class using inheritance.</p>
+            <p>One of the big new features in Powershell 5.0 is classes. You can now define your own classes and create objects based on those custom classes. You can even create your own version of an existing class using inheritance.</p>
 <p>In previous version of Powershell it was actually possible to create classes, but you had to write code in other languages like C# or Visual basic and then use that piece of code as the definition of the class. Now this is much easier.</p>
 <p>Lets get right into the code. In these examples I will create a class which contains two properties: ComputerName and Domain. Both will be simple strings. Further down I will add some methods to the class and show some examples on how to use those methods.</p>
 <p>First lets look at how we had to create classes before Powershell 5.</p>
@@ -544,15 +531,15 @@ Methods are declared like functions within the class. As of the february release
 <span class="nv">$x5</span><span class="p">.</span><span class="n">GetType</span><span class="p">()</span>
 </code></pre></div>
 
-                <p>- Written by John  
+            <p>- Written by John  
+            
                 
-                    
-                    
-                    on March 1, 2015</p>
+                
+                on March 1, 2015</p>
 
-                
-                    <div class="disqus-section">
-                        <div id="disqus_thread"></div>
+            
+                <div class="disqus-section">
+                    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -572,11 +559,11 @@ Methods are declared like functions within the class. As of the february release
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-                    </div>
-                
-            </div>
+                </div>
+            
+        </div>
 
-       </div>
+    </div>
     
 
 
