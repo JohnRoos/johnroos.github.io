@@ -3,37 +3,52 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.roostech.se/tags/azure-function-app/</loc>
+    <lastmod>2020-12-02T21:30:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.roostech.se/tags/configuration/</loc>
+    <lastmod>2020-12-02T21:30:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.roostech.se/posts/get-function-configuration-from-deployed-function-app/</loc>
+    <lastmod>2020-12-02T21:30:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.roostech.se/tags/kudu/</loc>
+    <lastmod>2020-12-02T21:30:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.roostech.se/posts/</loc>
+    <lastmod>2020-12-02T21:30:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.roostech.se/tags/powershell/</loc>
+    <lastmod>2020-12-02T21:30:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.roostech.se/</loc>
+    <lastmod>2020-12-02T21:30:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.roostech.se/tags/</loc>
+    <lastmod>2020-12-02T21:30:00+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.roostech.se/tags/azure-devops/</loc>
     <lastmod>2020-10-29T21:53:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.roostech.se/tags/azure-function-app/</loc>
-    <lastmod>2020-10-29T21:53:00+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.roostech.se/posts/deploy-azure-function-app-without-downtime/</loc>
-    <lastmod>2020-10-29T21:53:00+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.roostech.se/posts/</loc>
-    <lastmod>2020-10-29T21:53:00+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.roostech.se/tags/powershell/</loc>
-    <lastmod>2020-10-29T21:53:00+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.roostech.se/</loc>
-    <lastmod>2020-10-29T21:53:00+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.roostech.se/tags/</loc>
     <lastmod>2020-10-29T21:53:00+02:00</lastmod>
   </url>
   

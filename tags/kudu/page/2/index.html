@@ -1,0 +1,347 @@
+ 
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+    
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+
+    <meta name='twitter:card'        content='summary' />
+    <meta name='twitter:site'        content='@johnmroos'/>
+    <meta name='twitter:creator'     content='@johnmroos'/>
+    <meta name='twitter:title'       content='Kudu' />
+    <meta name='twitter:description' content='A blog about PowerShell, automation and technology in general.' />
+    
+    <meta name='twitter:domain'      content='https://blog.roostech.se/'/>
+    
+
+    <title>Kudu</title>
+    <meta name="description" content="A blog about PowerShell, automation and technology in general."/>
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-35019756-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+</head><body>
+        <div class="container">
+<input class="explorer-toggle" type="checkbox" id="explorer-toggle">
+<label class="explorer-toggle-label" for="explorer-toggle"><div class="explorer-toggle-label-clickablearea"></div></label>
+
+<div class="explorer-toggle-label-selection"></div>
+
+<div class="left-menu-button-bar"></div>
+
+<diV class='left-menu'>
+    
+    <ul class="root">
+        <li class="root"><div class="menu-item folder open"><a class="menu-item-site" href="https://blog.roostech.se/">blog.roostech.se (HUGOVSCODE)</a></div>
+            <ul>  
+                <li><span class="menu-item folder open">content</span>
+                    <ul>
+                        <li><span class="menu-item folder open">posts</span>
+                            <ul>
+                                
+                                <li ><a href="/posts/get-function-configuration-from-deployed-function-app/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Get function configuration from deployed Function App.md</span></a></li>
+                                
+                                <li ><a href="/posts/deploy-azure-function-app-without-downtime/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Deploy Azure Function App without downtime.md</span></a></li>
+                                
+                                <li ><a href="/posts/moving-from-blogger-to-github-pages-with-hugo/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Moving from Blogger to GitHub Pages using Hugo.md</span></a></li>
+                                
+                                <li ><a href="/posts/pester-5-discovery-and-testcases/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Pester 5: Discovery and TestCases.md</span></a></li>
+                                
+                                <li ><a href="/posts/create-and-use-azure-table-storage-with-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Create and use Azure Table storage with PowerShell.md</span></a></li>
+                                
+                                <li ><a href="/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Use Edit-Command to discover the code behind built-in cmdlets.md</span></a></li>
+                                
+                                <li ><a href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Invoke-RestMethod with anti-forgery tokens in header and cookie.md</span></a></li>
+                                
+                                <li ><a href="/posts/introducing-the-inimanager-module/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Introducing the IniManager module.md</span></a></li>
+                                
+                                <li ><a href="/posts/use-powershell-jobs-to-ping-many-from-many-with-log/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Use PowerShell jobs to ping many from many with log.md</span></a></li>
+                                
+                                <li ><a href="/posts/powershell-logo-made-with-css3/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">PowerShell logo made with CSS3.md</span></a></li>
+                                
+                                <li ><a href="/posts/what-is-this-here-string-people-are-talking-about/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">What is this here-string people are talking about?.md</span></a></li>
+                                
+                                <li ><a href="/posts/dynamic-parameters-in-powershell-executes-before-you-know-it/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Dynamic parameters in PowerShell executes before you know it.md</span></a></li>
+                                
+                                <li ><a href="/posts/making-powershell-expressions-easier/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Making PowerShell expressions easier.md</span></a></li>
+                                
+                                <li ><a href="/posts/simple-select-from-database-with-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Simple select from database with PowerShell.md</span></a></li>
+                                
+                                <li ><a href="/posts/how-to-use-splatting-in-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">How to use splatting in PowerShell.md</span></a></li>
+                                
+                                <li ><a href="/posts/get-imdbmovie-using-invoke-webrequest/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Get-IMDBmovie using Invoke-WebRequest.md</span></a></li>
+                                
+                                <li ><a href="/posts/classes-in-powershell-5.0/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Classes in Powershell 5.0.md</span></a></li>
+                                
+                                <li ><a href="/posts/how-to-get-started-with-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">How to get started with Powershell.md</span></a></li>
+                                
+                                <li ><a href="/posts/powershell-script-find-hotfix-status/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Powershell script: Find hotfix status.md</span></a></li>
+                                
+                                <li ><a href="/posts/powershell-script-write-object-to-sql/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Powershell script: Write object to SQL.md</span></a></li>
+                                
+                                <li ><a href="/posts/get-type-alternative-for-null-values/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Get-Type alternative for $null values.md</span></a></li>
+                                
+                                <li ><a href="/posts/compress-files-to-zip-with-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Compress files to Zip with Powershell.md</span></a></li>
+                                
+                                <li ><a href="/posts/enable-real-time-jmx-monitoring-in-cognos/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Enable real time JMX monitoring in Cognos.md</span></a></li>
+                                
+                                <li ><a href="/posts/move-data-or-log-files-for-tempdb-in-sql-server/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Move data or log files for TempDB in SQL Server.md</span></a></li>
+                                
+                                <li ><a href="/posts/resources-for-remotefx-in-windows-server-2012/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Resources for RemoteFX in Windows Server 2012.md</span></a></li>
+                                
+                                <li ><a href="/posts/rdp-8.0-for-windows-7-sp1/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">RDP 8.0 for Windows 7 SP1.md</span></a></li>
+                                
+                                <li ><a href="/posts/improving-remotefx-performance-in-hyper-v/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Improving RemoteFX performance in Hyper-V.md</span></a></li>
+                                
+                                <li ><a href="/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU.md</span></a></li>
+                                
+                                <li ><a href="/posts/sqlps-and-its-limitations/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">SQLPS and its limitations.md</span></a></li>
+                                
+                                <li ><a href="/posts/script-deployment-of-ssis-packages-from-folder/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Script deployment of SSIS packages from folder.md</span></a></li>
+                                
+                                <li ><a href="/posts/dynamic-deploy-of-ssrs-reports-using-rs.exe/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Dynamic deploy of SSRS reports using rs.exe.md</span></a></li>
+                                
+                                <li ><a href="/posts/remove-headers-in-excel-exports-to-fix-column-alignment/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Remove headers in Excel exports to fix column alignment.md</span></a></li>
+                                
+                                <li ><a href="/posts/using-executionlog2-for-statistics-and-monitoring/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Using ExecutionLog2 for statistics and monitoring.md</span></a></li>
+                                
+                            </ul>
+                        </li>
+                        <li><span class="menu-item folder open">pages</span>
+                            <ul>
+                                
+                                <li ><a href="/about/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">About me.md</span></a></li>
+                                
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><span class="menu-item folder">data</span></li>
+                <li><span class="menu-item folder">layouts</span></li>
+                <li><span class="menu-item folder">resources</span></li>
+                <li><span class="menu-item folder">static</span></li>
+                <li><span class="menu-item folder open">themes</span>
+                    <ul>
+                        <li><span class="menu-item folder open">hugovscode</span>
+                            <ul>
+                                <li><a href="https://github.com/JohnRoos/HugoVSCode/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">.git</span></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>config.toml</li>
+            </ul>
+        </li>
+    </ul>
+  
+
+    
+</diV>
+                <div class ="main-tabs">
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/">Home.md</a> 
+                    </div>
+                
+                    <div class="main-tab current">
+                        <span class="rotate-letter md-icon">&#10144;</span> <i></i> 
+                    </div>
+                
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/get-function-configuration-from-deployed-function-app/">Get function configuration from deployed Function App.md</a>
+                    </div>
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/deploy-azure-function-app-without-downtime/">Deploy Azure Function App without downtime.md</a>
+                    </div>
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo.md</a>
+                    </div>
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases.md</a>
+                    </div>
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/create-and-use-azure-table-storage-with-powershell/">Create and use Azure Table storage with PowerShell.md</a>
+                    </div>
+                
+                </div>
+            
+            
+            <div class='main'>
+    <div class="main-path">
+        <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">Home.md</span>
+    </div>
+    <div class="main-content-toggle">
+
+        <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
+        <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
+
+        <input class="source-toggle" type="checkbox" id="source-toggle">
+        <label class="source-toggle-label" for="source-toggle"></label>
+
+        <div class="main-content">
+            ---<br />
+            <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Home.md</span><br />
+            <span class="md-frontmatter">date</span>: 2020-11-16 00:00:00+02:00<br />
+            <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
+            ----
+            
+            
+                 
+                <h2><a href="/posts/what-is-this-here-string-people-are-talking-about/">What is this here-string people are talking about?</a></h2>        
+                <p>When long strings need to be generated it could sometimes be cumbersome to keep adding strings together, especially if you want the string to contain several lines, tabs and special characters. Here-string can solve that problem and is very easy to use.
+Lets first look at a simple example of how regular strings work with variables, new lines and tabs. After that we look at an example of how to use here-string instead to make the code easier to read.</p>
+                 
+                <h2><a href="/posts/dynamic-parameters-in-powershell-executes-before-you-know-it/">Dynamic parameters in PowerShell executes before you know it</a></h2>        
+                <p>When creating script cmdlets in PowerShell you can use dynamic parameters to create some advanced parameters. A few months back I was playing around a bit with dynamic parameters to see how it works and I noticed that the logic for the dynamic parameters is executed as soon as the verb is written in the console within PowerShell ISE.
+Let&rsquo;s create a cmdlet to prove this theory. The cmdlet below will simply open a text file in the PowerShell ISE from the folder C:\temp.</p>
+                 
+                <h2><a href="/posts/making-powershell-expressions-easier/">Making PowerShell expressions easier</a></h2>        
+                <p>Expressions in PowerShell have a weird syntax and can quickly become complicated and hard to read. I thought about a way to make the syntax a bit easier to read and came up with a solution that might work for some cases. This solution contains two classes which can be used when piping to Select-Object for example. The first class describes the actual expression.
+class Xpression { [string]$Name [scriptblock]$Expression [hashtable] getExpression() { return @{ Name = $this.</p>
+                 
+                <h2><a href="/posts/simple-select-from-database-with-powershell/">Simple select from database with PowerShell</a></h2>        
+                <p>There are a few ways of getting data from SQL Server in PowerShell. This is one way of doing it which is quite simple and does not require the SQL Server module. The sample below shows how to get started. If you are planning on creating a script for serious use you need to add error handling and investigate a bit more what each line actually does so that you are in full control.</p>
+                 
+                <h2><a href="/posts/how-to-use-splatting-in-powershell/">How to use splatting in PowerShell</a></h2>        
+                <p>I still hear a lot of people who don&rsquo;t know how splatting works in Powershell. Splatting was introduced in Powershell 2.0 so it has been around for a while and it can make scripts look more clean and easy to read. This is how Microsoft explains splatting:
+ Splatting is a method of passing a collection of parameter values to a command as unit. Windows PowerShell associates each value in the collection with a command parameter.</p>
+                 
+                <h2><a href="/posts/get-imdbmovie-using-invoke-webrequest/">Get-IMDBmovie using Invoke-WebRequest</a></h2>        
+                <p>Some time ago I was playing around a bit with Invoke-WebRequest and wanted to know a bit more about what I could do with that cmdlet. I ended up creating a cmdlet to get movie information from IMDB.com. I thought I would share how that script since the same principles can be applied in many situations.
+PS C:\&gt; Get-ImdbMovie -Title &#39;Star Trek&#39; Title : Star Trek Into Darkness Directors : J.</p>
+                 
+                <h2><a href="/posts/classes-in-powershell-5.0/">Classes in Powershell 5.0</a></h2>        
+                <p>One of the big new features in Powershell 5.0 is classes. You can now define your own classes and create objects based on those custom classes. You can even create your own version of an existing class using inheritance.
+In previous version of Powershell it was actually possible to create classes, but you had to write code in other languages like C# or Visual basic and then use that piece of code as the definition of the class.</p>
+                 
+                <h2><a href="/posts/how-to-get-started-with-powershell/">How to get started with Powershell</a></h2>        
+                <p>Do you want to get started with Powershell but you dont know where to start? To get you started I have collected a bunch of links which has helped a lot of people to get going with Powershell. These links range from the most basic introductions to advanced scripting and history lessons. Lets start with the basic stuff to anyone new to Powershell. These links are also good if you have learned by yourself over the years, since it might help you break bad habbits you dont know you have.</p>
+                 
+                <h2><a href="/posts/powershell-script-find-hotfix-status/">Powershell script: Find hotfix status</a></h2>        
+                <p>I was browsing around the requests on the Microsoft Script Center the other day and found one request where a user needed a PowerShell script for showing the status of specific hotfixes on multiple machines. I thought it would be a good idea since Get-Hotfix only shows where the hotfix is installed but not directly where its not installed.
+I created a simple small script that would list the patches to check for, along with each server and if its installed or not.</p>
+                 
+                <h2><a href="/posts/powershell-script-write-object-to-sql/">Powershell script: Write object to SQL</a></h2>        
+                <p>A while ago I was playing around with PowerShell, gathering information from a lot of servers and I felt that I needed to have a simple way of storing that information in a database. I could have written my own T-SQL statements for creating the tables and then do the inserts in the powerShell scripts I was playing around with. But that felt like it would just take time so I started to think about a function that would just accept any object and do the magic of creating a table and then inserting anything I piped to it.</p>
+            
+
+        </div>
+        <div class="main-content-preview">
+
+            
+            
+                <h2><a href="/posts/what-is-this-here-string-people-are-talking-about/">What is this here-string people are talking about?</a>&nbsp;<span class="h2-postdate">- July 24, 2015</span></h2>
+                <p>When long strings need to be generated it could sometimes be cumbersome to keep adding strings together, especially if you want the string to contain several lines, tabs and special characters. Here-string can solve that problem and is very easy to use.
+Lets first look at a simple example of how regular strings work with variables, new lines and tabs. After that we look at an example of how to use here-string instead to make the code easier to read.</p>                        
+            
+                <h2><a href="/posts/dynamic-parameters-in-powershell-executes-before-you-know-it/">Dynamic parameters in PowerShell executes before you know it</a>&nbsp;<span class="h2-postdate">- July 21, 2015</span></h2>
+                <p>When creating script cmdlets in PowerShell you can use dynamic parameters to create some advanced parameters. A few months back I was playing around a bit with dynamic parameters to see how it works and I noticed that the logic for the dynamic parameters is executed as soon as the verb is written in the console within PowerShell ISE.
+Let&rsquo;s create a cmdlet to prove this theory. The cmdlet below will simply open a text file in the PowerShell ISE from the folder C:\temp.</p>                        
+            
+                <h2><a href="/posts/making-powershell-expressions-easier/">Making PowerShell expressions easier</a>&nbsp;<span class="h2-postdate">- July 14, 2015</span></h2>
+                <p>Expressions in PowerShell have a weird syntax and can quickly become complicated and hard to read. I thought about a way to make the syntax a bit easier to read and came up with a solution that might work for some cases. This solution contains two classes which can be used when piping to Select-Object for example. The first class describes the actual expression.
+class Xpression { [string]$Name [scriptblock]$Expression [hashtable] getExpression() { return @{ Name = $this.</p>                        
+            
+                <h2><a href="/posts/simple-select-from-database-with-powershell/">Simple select from database with PowerShell</a>&nbsp;<span class="h2-postdate">- July 14, 2015</span></h2>
+                <p>There are a few ways of getting data from SQL Server in PowerShell. This is one way of doing it which is quite simple and does not require the SQL Server module. The sample below shows how to get started. If you are planning on creating a script for serious use you need to add error handling and investigate a bit more what each line actually does so that you are in full control.</p>                        
+            
+                <h2><a href="/posts/how-to-use-splatting-in-powershell/">How to use splatting in PowerShell</a>&nbsp;<span class="h2-postdate">- July 9, 2015</span></h2>
+                <p>I still hear a lot of people who don&rsquo;t know how splatting works in Powershell. Splatting was introduced in Powershell 2.0 so it has been around for a while and it can make scripts look more clean and easy to read. This is how Microsoft explains splatting:
+ Splatting is a method of passing a collection of parameter values to a command as unit. Windows PowerShell associates each value in the collection with a command parameter.</p>                        
+            
+                <h2><a href="/posts/get-imdbmovie-using-invoke-webrequest/">Get-IMDBmovie using Invoke-WebRequest</a>&nbsp;<span class="h2-postdate">- March 4, 2015</span></h2>
+                <p>Some time ago I was playing around a bit with Invoke-WebRequest and wanted to know a bit more about what I could do with that cmdlet. I ended up creating a cmdlet to get movie information from IMDB.com. I thought I would share how that script since the same principles can be applied in many situations.
+PS C:\&gt; Get-ImdbMovie -Title &#39;Star Trek&#39; Title : Star Trek Into Darkness Directors : J.</p>                        
+            
+                <h2><a href="/posts/classes-in-powershell-5.0/">Classes in Powershell 5.0</a>&nbsp;<span class="h2-postdate">- March 1, 2015</span></h2>
+                <p>One of the big new features in Powershell 5.0 is classes. You can now define your own classes and create objects based on those custom classes. You can even create your own version of an existing class using inheritance.
+In previous version of Powershell it was actually possible to create classes, but you had to write code in other languages like C# or Visual basic and then use that piece of code as the definition of the class.</p>                        
+            
+                <h2><a href="/posts/how-to-get-started-with-powershell/">How to get started with Powershell</a>&nbsp;<span class="h2-postdate">- February 22, 2015</span></h2>
+                <p>Do you want to get started with Powershell but you dont know where to start? To get you started I have collected a bunch of links which has helped a lot of people to get going with Powershell. These links range from the most basic introductions to advanced scripting and history lessons. Lets start with the basic stuff to anyone new to Powershell. These links are also good if you have learned by yourself over the years, since it might help you break bad habbits you dont know you have.</p>                        
+            
+                <h2><a href="/posts/powershell-script-find-hotfix-status/">Powershell script: Find hotfix status</a>&nbsp;<span class="h2-postdate">- February 1, 2015</span></h2>
+                <p>I was browsing around the requests on the Microsoft Script Center the other day and found one request where a user needed a PowerShell script for showing the status of specific hotfixes on multiple machines. I thought it would be a good idea since Get-Hotfix only shows where the hotfix is installed but not directly where its not installed.
+I created a simple small script that would list the patches to check for, along with each server and if its installed or not.</p>                        
+            
+                <h2><a href="/posts/powershell-script-write-object-to-sql/">Powershell script: Write object to SQL</a>&nbsp;<span class="h2-postdate">- February 1, 2015</span></h2>
+                <p>A while ago I was playing around with PowerShell, gathering information from a lot of servers and I felt that I needed to have a simple way of storing that information in a database. I could have written my own T-SQL statements for creating the tables and then do the inserts in the powerShell scripts I was playing around with. But that felt like it would just take time so I started to think about a function that would just accept any object and do the magic of creating a table and then inserting anything I piped to it.</p>                        
+            
+
+            <div class="internal-pagination">
+                
+<ul class="pagination">
+  <li class="page-item">
+    <a href="/tags/kudu/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+  </li>
+  <li class="page-item">
+    <a href="/tags/kudu/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/tags/kudu/">1</a>
+  </li>
+  <li class="page-item active">
+    <a class="page-link" href="/tags/kudu/page/2/">2</a>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/tags/kudu/page/3/">3</a>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/tags/kudu/page/4/">4</a>
+  </li>
+  <li class="page-item">
+    <a href="/tags/kudu/page/3/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+  </li>
+  <li class="page-item">
+    <a href="/tags/kudu/page/4/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+  </li>
+</ul>
+
+
+            </div>    
+        </div>
+    </div>
+
+
+            </div>
+        </div>
+    </body>
+</html>

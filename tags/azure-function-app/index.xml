@@ -6,7 +6,16 @@
     <description>Recent content in Azure Function App on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 29 Oct 2020 21:53:00 +0200</lastBuildDate><atom:link href="https://blog.roostech.se/tags/azure-function-app/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Dec 2020 21:30:00 +0200</lastBuildDate><atom:link href="https://blog.roostech.se/tags/azure-function-app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Get function configuration from deployed Function App</title>
+      <link>https://blog.roostech.se/posts/get-function-configuration-from-deployed-function-app/</link>
+      <pubDate>Wed, 02 Dec 2020 21:30:00 +0200</pubDate>
+      
+      <guid>https://blog.roostech.se/posts/get-function-configuration-from-deployed-function-app/</guid>
+      <description>When you deploy an Azure Function app you also deploy the configuration for each function within the app. What if you would like to inspect the configuration of a function within a function app? If the function is using a timerTrigger, you might want to be able to look at that schedule for example. That would be easy to do using the Azure Portal, but what if you need to do it using PowerShell?</description>
+    </item>
+    
     <item>
       <title>Deploy Azure Function App without downtime</title>
       <link>https://blog.roostech.se/posts/deploy-azure-function-app-without-downtime/</link>
