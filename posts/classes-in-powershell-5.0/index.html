@@ -152,6 +152,8 @@ if (!doNotTrack) {
                                 
                                 <li ><a href="/about/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">About me.md</span></a></li>
                                 
+                                <li ><a href="/chroma/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Chroma.md</span></a></li>
+                                
                             </ul>
                         </li>
                     </ul>
@@ -242,13 +244,13 @@ if (!doNotTrack) {
 <p>First lets look at how we had to create classes before Powershell 5.</p>
 <h2 id="create-class-with-c">Create class with C#</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># Create class with C sharp</span>
-</span></span><span class="line"><span class="cl"><span class="nv">$ComputerTypeCsharp</span> <span class="p">=</span> <span class="p">@</span><span class="err">”</span>
-</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="kd">class</span><span class="w"> </span><span class="nb">ComputerCsharp
-</span></span></span><span class="line"><span class="cl"><span class="nb">    </span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">public</span> <span class="n">string</span> <span class="n">ComputerName</span> <span class="p">{</span><span class="n">get</span><span class="p">;</span> <span class="n">set</span><span class="p">;}</span>
-</span></span><span class="line"><span class="cl">        <span class="n">public</span> <span class="n">string</span> <span class="n">Domain</span> <span class="p">{</span><span class="n">get</span><span class="p">;</span> <span class="n">set</span><span class="p">;}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="err">“</span><span class="p">@</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$ComputerTypeCsharp</span> <span class="p">=</span> <span class="sh">@&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sh">    public class ComputerCsharp
+</span></span></span><span class="line"><span class="cl"><span class="sh">    {
+</span></span></span><span class="line"><span class="cl"><span class="sh">        public string ComputerName {get; set;}
+</span></span></span><span class="line"><span class="cl"><span class="sh">        public string Domain {get; set;}
+</span></span></span><span class="line"><span class="cl"><span class="sh">    }
+</span></span></span><span class="line"><span class="cl"><span class="sh">&#34;@</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nb">Add-Type</span> <span class="n">-TypeDefinition</span> <span class="nv">$ComputerTypeCsharp</span> <span class="n">-Language</span> <span class="n">CSharpVersion3</span>
 </span></span><span class="line"><span class="cl"> 
@@ -258,20 +260,20 @@ if (!doNotTrack) {
 </span></span><span class="line"><span class="cl"><span class="nv">$x1</span> <span class="p">|</span> <span class="nb">Get-Member</span>
 </span></span></code></pre></div><h2 id="create-class-with-visual-basic">Create class with Visual Basic</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># Create class with Visual Basic</span>
-</span></span><span class="line"><span class="cl"><span class="nv">$ComputerTypeVB</span> <span class="p">=</span> <span class="p">@</span><span class="err">”</span>
-</span></span><span class="line"><span class="cl">    <span class="n">Public</span> <span class="kd">Class</span><span class="w"> </span><span class="nb">ComputerVB
-</span></span></span><span class="line"><span class="cl"><span class="nb">        </span><span class="n">Public</span> <span class="n">ComputerName</span> <span class="n">As</span> <span class="n">String</span>
-</span></span><span class="line"><span class="cl">        <span class="n">Public</span> <span class="n">Domain</span> <span class="n">As</span> <span class="n">String</span>
-</span></span><span class="line"><span class="cl">    <span class="k">End</span> <span class="n">Class</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;@
-</span></span></span><span class="line"><span class="cl"><span class="s2">
-</span></span></span><span class="line"><span class="cl"><span class="s2">Add-Type -TypeDefinition </span><span class="nv">$ComputerTypeVB</span><span class="s2"> -Language VisualBasic
-</span></span></span><span class="line"><span class="cl"><span class="s2"> 
-</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="nv">$x2</span><span class="s2"> = New-Object -TypeName ComputerVB
-</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="nv">$x2</span><span class="s2">.ComputerName = &#39;Server01&#39;
-</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="nv">$x2</span><span class="s2">.Domain = &#39;domain.com&#39;
-</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="nv">$x2</span><span class="s2"> | Get-Member
-</span></span></span></code></pre></div><p>Thats fine for simple classes, but when they become more complex its not very easy to read since the whole definition is just one long string with no highlights and syntax which is quite different from Powershell.</p>
+</span></span><span class="line"><span class="cl"><span class="nv">$ComputerTypeVB</span> <span class="p">=</span> <span class="sh">@&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sh">    Public Class ComputerVB
+</span></span></span><span class="line"><span class="cl"><span class="sh">        Public ComputerName As String
+</span></span></span><span class="line"><span class="cl"><span class="sh">        Public Domain As String
+</span></span></span><span class="line"><span class="cl"><span class="sh">    End Class
+</span></span></span><span class="line"><span class="cl"><span class="sh">&#34;@</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">Add-Type</span> <span class="n">-TypeDefinition</span> <span class="nv">$ComputerTypeVB</span> <span class="n">-Language</span> <span class="n">VisualBasic</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="nv">$x2</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">ComputerVB</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$x2</span><span class="p">.</span><span class="py">ComputerName</span> <span class="p">=</span> <span class="s1">&#39;Server01&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$x2</span><span class="p">.</span><span class="py">Domain</span> <span class="p">=</span> <span class="s1">&#39;domain.com&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$x2</span> <span class="p">|</span> <span class="nb">Get-Member</span>
+</span></span></code></pre></div><p>Thats fine for simple classes, but when they become more complex its not very easy to read since the whole definition is just one long string with no highlights and syntax which is quite different from Powershell.</p>
 <h2 id="powershell-classes">PowerShell classes</h2>
 <p>Now lets create the same class, but with Powershell. The syntax for creating a class is straight forward:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="kd">class</span><span class="w"> </span><span class="nb">ComputerPS 
@@ -395,13 +397,13 @@ Methods are declared like functions within the class. As of the february release
 <p>First lets look at how we had to create classes before Powershell 5.</p>
 <h2 id="create-class-with-c">Create class with C#</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># Create class with C sharp</span>
-</span></span><span class="line"><span class="cl"><span class="nv">$ComputerTypeCsharp</span> <span class="p">=</span> <span class="p">@</span><span class="err">”</span>
-</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="kd">class</span><span class="w"> </span><span class="nb">ComputerCsharp
-</span></span></span><span class="line"><span class="cl"><span class="nb">    </span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">public</span> <span class="n">string</span> <span class="n">ComputerName</span> <span class="p">{</span><span class="n">get</span><span class="p">;</span> <span class="n">set</span><span class="p">;}</span>
-</span></span><span class="line"><span class="cl">        <span class="n">public</span> <span class="n">string</span> <span class="n">Domain</span> <span class="p">{</span><span class="n">get</span><span class="p">;</span> <span class="n">set</span><span class="p">;}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="err">“</span><span class="p">@</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$ComputerTypeCsharp</span> <span class="p">=</span> <span class="sh">@&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sh">    public class ComputerCsharp
+</span></span></span><span class="line"><span class="cl"><span class="sh">    {
+</span></span></span><span class="line"><span class="cl"><span class="sh">        public string ComputerName {get; set;}
+</span></span></span><span class="line"><span class="cl"><span class="sh">        public string Domain {get; set;}
+</span></span></span><span class="line"><span class="cl"><span class="sh">    }
+</span></span></span><span class="line"><span class="cl"><span class="sh">&#34;@</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nb">Add-Type</span> <span class="n">-TypeDefinition</span> <span class="nv">$ComputerTypeCsharp</span> <span class="n">-Language</span> <span class="n">CSharpVersion3</span>
 </span></span><span class="line"><span class="cl"> 
@@ -411,20 +413,20 @@ Methods are declared like functions within the class. As of the february release
 </span></span><span class="line"><span class="cl"><span class="nv">$x1</span> <span class="p">|</span> <span class="nb">Get-Member</span>
 </span></span></code></pre></div><h2 id="create-class-with-visual-basic">Create class with Visual Basic</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># Create class with Visual Basic</span>
-</span></span><span class="line"><span class="cl"><span class="nv">$ComputerTypeVB</span> <span class="p">=</span> <span class="p">@</span><span class="err">”</span>
-</span></span><span class="line"><span class="cl">    <span class="n">Public</span> <span class="kd">Class</span><span class="w"> </span><span class="nb">ComputerVB
-</span></span></span><span class="line"><span class="cl"><span class="nb">        </span><span class="n">Public</span> <span class="n">ComputerName</span> <span class="n">As</span> <span class="n">String</span>
-</span></span><span class="line"><span class="cl">        <span class="n">Public</span> <span class="n">Domain</span> <span class="n">As</span> <span class="n">String</span>
-</span></span><span class="line"><span class="cl">    <span class="k">End</span> <span class="n">Class</span>
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;@
-</span></span></span><span class="line"><span class="cl"><span class="s2">
-</span></span></span><span class="line"><span class="cl"><span class="s2">Add-Type -TypeDefinition </span><span class="nv">$ComputerTypeVB</span><span class="s2"> -Language VisualBasic
-</span></span></span><span class="line"><span class="cl"><span class="s2"> 
-</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="nv">$x2</span><span class="s2"> = New-Object -TypeName ComputerVB
-</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="nv">$x2</span><span class="s2">.ComputerName = &#39;Server01&#39;
-</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="nv">$x2</span><span class="s2">.Domain = &#39;domain.com&#39;
-</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="nv">$x2</span><span class="s2"> | Get-Member
-</span></span></span></code></pre></div><p>Thats fine for simple classes, but when they become more complex its not very easy to read since the whole definition is just one long string with no highlights and syntax which is quite different from Powershell.</p>
+</span></span><span class="line"><span class="cl"><span class="nv">$ComputerTypeVB</span> <span class="p">=</span> <span class="sh">@&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sh">    Public Class ComputerVB
+</span></span></span><span class="line"><span class="cl"><span class="sh">        Public ComputerName As String
+</span></span></span><span class="line"><span class="cl"><span class="sh">        Public Domain As String
+</span></span></span><span class="line"><span class="cl"><span class="sh">    End Class
+</span></span></span><span class="line"><span class="cl"><span class="sh">&#34;@</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">Add-Type</span> <span class="n">-TypeDefinition</span> <span class="nv">$ComputerTypeVB</span> <span class="n">-Language</span> <span class="n">VisualBasic</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="nv">$x2</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">ComputerVB</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$x2</span><span class="p">.</span><span class="py">ComputerName</span> <span class="p">=</span> <span class="s1">&#39;Server01&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$x2</span><span class="p">.</span><span class="py">Domain</span> <span class="p">=</span> <span class="s1">&#39;domain.com&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$x2</span> <span class="p">|</span> <span class="nb">Get-Member</span>
+</span></span></code></pre></div><p>Thats fine for simple classes, but when they become more complex its not very easy to read since the whole definition is just one long string with no highlights and syntax which is quite different from Powershell.</p>
 <h2 id="powershell-classes">PowerShell classes</h2>
 <p>Now lets create the same class, but with Powershell. The syntax for creating a class is straight forward:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="kd">class</span><span class="w"> </span><span class="nb">ComputerPS 
