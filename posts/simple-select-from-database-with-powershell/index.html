@@ -26,8 +26,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    
+    <style>
+        body { font-size: 14px; }
+    </style>
+    
 
     <meta name='twitter:card'        content='summary' />
     <meta name='twitter:site'        content='@johnmroos'/>
@@ -53,7 +58,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 </head><body>
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle">
@@ -232,59 +236,59 @@ if (!doNotTrack) {
             ----
             <p>There are a few ways of getting data from SQL Server in PowerShell. This is one way of doing it which is quite simple and does not require the SQL Server module. The sample below shows how to get started. If you are planning on creating a script for serious use you need to add error handling and investigate a bit more what each line actually does so that you are in full control. Note that this is only for select statements. Insert, update and delete works slightly different, but I might get to that in the future.</p>
 <p>To get started I have added three variables which you can use to adapt to your environment.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$server</span>   <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
-<span class="nv">$database</span> <span class="p">=</span> <span class="s1">&#39;myDB&#39;</span>
-<span class="nv">$query</span>    <span class="p">=</span> <span class="s1">&#39;select * from myTable&#39;</span>
-</code></pre></div><p>After that we need to set up the objects needed to communicate with the database.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$connection</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="n">Data</span><span class="p">.</span><span class="n">SqlClient</span><span class="p">.</span><span class="n">SqlConnection</span>
-<span class="nv">$adapter</span>    <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="n">Data</span><span class="p">.</span><span class="n">SqlClient</span><span class="p">.</span><span class="n">SqlDataAdapter</span> <span class="nv">$command</span>
-<span class="nv">$dataset</span>    <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="n">Data</span><span class="p">.</span><span class="n">DataSet</span>
-</code></pre></div><p>Next is the connection string, which should work with most installations of SQL Server. After the connection string is created we open the connection to the server.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$connection</span><span class="p">.</span><span class="n">ConnectionString</span> <span class="p">=</span> <span class="s2">&#34;Server=$server;Database=$database;Trusted_Connection=True;&#34;</span>
-<span class="nv">$connection</span><span class="p">.</span><span class="n">Open</span><span class="p">()</span>
-</code></pre></div><p>The query need to be a proper command object, so lets do that.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$command</span> <span class="p">=</span> <span class="nv">$connection</span><span class="p">.</span><span class="n">CreateCommand</span><span class="p">()</span>
-<span class="nv">$command</span><span class="p">.</span><span class="n">CommandText</span> <span class="p">=</span> <span class="nv">$query</span>
-</code></pre></div><p>Fill the dataset with the result from the database. Lets also count the rows while we are at it.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$rowCount</span> <span class="p">=</span> <span class="nv">$adapter</span><span class="p">.</span><span class="n">Fill</span><span class="p">(</span><span class="nv">$dataset</span><span class="p">)</span>
-</code></pre></div><p>Now we dont need the connection to the database anymore, so lets close it.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$connection</span><span class="p">.</span><span class="n">Close</span><span class="p">()</span>
-</code></pre></div><p>Now we are done! Return the rows.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$dataset</span><span class="p">.</span><span class="n">Tables</span><span class="p">.</span><span class="n">rows</span>
-</code></pre></div><p>Optionally you can also print the row count to the screen.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Write-Host</span> <span class="s2">&#34;Rows returned: $rowCount&#34;</span>
-</code></pre></div><p>That&rsquo;s how simple it can be to use a select statement with SQL Server.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$server</span>   <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$database</span> <span class="p">=</span> <span class="s1">&#39;myDB&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$query</span>    <span class="p">=</span> <span class="s1">&#39;select * from myTable&#39;</span>
+</span></span></code></pre></div><p>After that we need to set up the objects needed to communicate with the database.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$connection</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="py">Data</span><span class="p">.</span><span class="py">SqlClient</span><span class="p">.</span><span class="py">SqlConnection</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$adapter</span>    <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="py">Data</span><span class="p">.</span><span class="py">SqlClient</span><span class="p">.</span><span class="py">SqlDataAdapter</span> <span class="nv">$command</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$dataset</span>    <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="py">Data</span><span class="p">.</span><span class="py">DataSet</span>
+</span></span></code></pre></div><p>Next is the connection string, which should work with most installations of SQL Server. After the connection string is created we open the connection to the server.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$connection</span><span class="p">.</span><span class="py">ConnectionString</span> <span class="p">=</span> <span class="s2">&#34;Server=</span><span class="nv">$server</span><span class="s2">;Database=</span><span class="nv">$database</span><span class="s2">;Trusted_Connection=True;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$connection</span><span class="p">.</span><span class="py">Open</span><span class="p">()</span>
+</span></span></code></pre></div><p>The query need to be a proper command object, so lets do that.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$command</span> <span class="p">=</span> <span class="nv">$connection</span><span class="p">.</span><span class="py">CreateCommand</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$command</span><span class="p">.</span><span class="py">CommandText</span> <span class="p">=</span> <span class="nv">$query</span>
+</span></span></code></pre></div><p>Fill the dataset with the result from the database. Lets also count the rows while we are at it.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$rowCount</span> <span class="p">=</span> <span class="nv">$adapter</span><span class="p">.</span><span class="py">Fill</span><span class="p">(</span><span class="nv">$dataset</span><span class="p">)</span>
+</span></span></code></pre></div><p>Now we dont need the connection to the database anymore, so lets close it.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$connection</span><span class="p">.</span><span class="py">Close</span><span class="p">()</span>
+</span></span></code></pre></div><p>Now we are done! Return the rows.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$dataset</span><span class="p">.</span><span class="py">Tables</span><span class="p">.</span><span class="py">rows</span>
+</span></span></code></pre></div><p>Optionally you can also print the row count to the screen.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Write-Host</span> <span class="s2">&#34;Rows returned: </span><span class="nv">$rowCount</span><span class="s2">&#34;</span>
+</span></span></code></pre></div><p>That&rsquo;s how simple it can be to use a select statement with SQL Server.</p>
 <h2 id="full-script">Full script</h2>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Variables for server, database and query</span>
-<span class="nv">$server</span>   <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
-<span class="nv">$database</span> <span class="p">=</span> <span class="s1">&#39;test&#39;</span>
-<span class="nv">$query</span>    <span class="p">=</span> <span class="s1">&#39;select top 10 * from fjutt&#39;</span>
-
-<span class="c"># Set up the objects needed</span>
-<span class="nv">$connection</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="n">Data</span><span class="p">.</span><span class="n">SqlClient</span><span class="p">.</span><span class="n">SqlConnection</span>
-<span class="nv">$adapter</span>    <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="n">Data</span><span class="p">.</span><span class="n">SqlClient</span><span class="p">.</span><span class="n">SqlDataAdapter</span> <span class="nv">$command</span>
-<span class="nv">$dataset</span>    <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="n">Data</span><span class="p">.</span><span class="n">DataSet</span>
-
-<span class="c"># Set the connection string (using single sign on) and open the connection</span>
-<span class="nv">$connection</span><span class="p">.</span><span class="n">ConnectionString</span> <span class="p">=</span> <span class="s2">&#34;Server=$server;Database=$database;Trusted_Connection=True;&#34;</span>
-<span class="nv">$connection</span><span class="p">.</span><span class="n">Open</span><span class="p">()</span>
-
-<span class="c"># Create a command object and assign the query</span>
-<span class="nv">$command</span> <span class="p">=</span> <span class="nv">$connection</span><span class="p">.</span><span class="n">CreateCommand</span><span class="p">()</span>
-<span class="nv">$command</span><span class="p">.</span><span class="n">CommandText</span> <span class="p">=</span> <span class="nv">$query</span>
-
-<span class="c"># Fill the dataset and count the rows returned at the same time</span>
-<span class="nv">$rowCount</span> <span class="p">=</span> <span class="nv">$adapter</span><span class="p">.</span><span class="n">Fill</span><span class="p">(</span><span class="nv">$dataset</span><span class="p">)</span>
-
-<span class="c"># Since the dataset is populated we can now close the connection</span>
-<span class="nv">$connection</span><span class="p">.</span><span class="n">Close</span><span class="p">()</span>
-
-<span class="c"># Return the results</span>
-<span class="nv">$dataset</span><span class="p">.</span><span class="n">Tables</span><span class="p">.</span><span class="n">rows</span>
-
-<span class="c"># Print amount of rows to screen (optional)</span>
-<span class="nb">Write-Host</span> <span class="s2">&#34;Rows returned: $rowCount&#34;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># Variables for server, database and query</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$server</span>   <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$database</span> <span class="p">=</span> <span class="s1">&#39;test&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$query</span>    <span class="p">=</span> <span class="s1">&#39;select top 10 * from fjutt&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Set up the objects needed</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$connection</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="py">Data</span><span class="p">.</span><span class="py">SqlClient</span><span class="p">.</span><span class="py">SqlConnection</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$adapter</span>    <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="py">Data</span><span class="p">.</span><span class="py">SqlClient</span><span class="p">.</span><span class="py">SqlDataAdapter</span> <span class="nv">$command</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$dataset</span>    <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="py">Data</span><span class="p">.</span><span class="py">DataSet</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Set the connection string (using single sign on) and open the connection</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$connection</span><span class="p">.</span><span class="py">ConnectionString</span> <span class="p">=</span> <span class="s2">&#34;Server=</span><span class="nv">$server</span><span class="s2">;Database=</span><span class="nv">$database</span><span class="s2">;Trusted_Connection=True;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$connection</span><span class="p">.</span><span class="py">Open</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Create a command object and assign the query</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$command</span> <span class="p">=</span> <span class="nv">$connection</span><span class="p">.</span><span class="py">CreateCommand</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$command</span><span class="p">.</span><span class="py">CommandText</span> <span class="p">=</span> <span class="nv">$query</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Fill the dataset and count the rows returned at the same time</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$rowCount</span> <span class="p">=</span> <span class="nv">$adapter</span><span class="p">.</span><span class="py">Fill</span><span class="p">(</span><span class="nv">$dataset</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Since the dataset is populated we can now close the connection</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$connection</span><span class="p">.</span><span class="py">Close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Return the results</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$dataset</span><span class="p">.</span><span class="py">Tables</span><span class="p">.</span><span class="py">rows</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Print amount of rows to screen (optional)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Write-Host</span> <span class="s2">&#34;Rows returned: </span><span class="nv">$rowCount</span><span class="s2">&#34;</span>
+</span></span></code></pre></div>
         </div>
 
         
@@ -293,59 +297,59 @@ if (!doNotTrack) {
             
             <p>There are a few ways of getting data from SQL Server in PowerShell. This is one way of doing it which is quite simple and does not require the SQL Server module. The sample below shows how to get started. If you are planning on creating a script for serious use you need to add error handling and investigate a bit more what each line actually does so that you are in full control. Note that this is only for select statements. Insert, update and delete works slightly different, but I might get to that in the future.</p>
 <p>To get started I have added three variables which you can use to adapt to your environment.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$server</span>   <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
-<span class="nv">$database</span> <span class="p">=</span> <span class="s1">&#39;myDB&#39;</span>
-<span class="nv">$query</span>    <span class="p">=</span> <span class="s1">&#39;select * from myTable&#39;</span>
-</code></pre></div><p>After that we need to set up the objects needed to communicate with the database.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$connection</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="n">Data</span><span class="p">.</span><span class="n">SqlClient</span><span class="p">.</span><span class="n">SqlConnection</span>
-<span class="nv">$adapter</span>    <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="n">Data</span><span class="p">.</span><span class="n">SqlClient</span><span class="p">.</span><span class="n">SqlDataAdapter</span> <span class="nv">$command</span>
-<span class="nv">$dataset</span>    <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="n">Data</span><span class="p">.</span><span class="n">DataSet</span>
-</code></pre></div><p>Next is the connection string, which should work with most installations of SQL Server. After the connection string is created we open the connection to the server.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$connection</span><span class="p">.</span><span class="n">ConnectionString</span> <span class="p">=</span> <span class="s2">&#34;Server=$server;Database=$database;Trusted_Connection=True;&#34;</span>
-<span class="nv">$connection</span><span class="p">.</span><span class="n">Open</span><span class="p">()</span>
-</code></pre></div><p>The query need to be a proper command object, so lets do that.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$command</span> <span class="p">=</span> <span class="nv">$connection</span><span class="p">.</span><span class="n">CreateCommand</span><span class="p">()</span>
-<span class="nv">$command</span><span class="p">.</span><span class="n">CommandText</span> <span class="p">=</span> <span class="nv">$query</span>
-</code></pre></div><p>Fill the dataset with the result from the database. Lets also count the rows while we are at it.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$rowCount</span> <span class="p">=</span> <span class="nv">$adapter</span><span class="p">.</span><span class="n">Fill</span><span class="p">(</span><span class="nv">$dataset</span><span class="p">)</span>
-</code></pre></div><p>Now we dont need the connection to the database anymore, so lets close it.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$connection</span><span class="p">.</span><span class="n">Close</span><span class="p">()</span>
-</code></pre></div><p>Now we are done! Return the rows.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$dataset</span><span class="p">.</span><span class="n">Tables</span><span class="p">.</span><span class="n">rows</span>
-</code></pre></div><p>Optionally you can also print the row count to the screen.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Write-Host</span> <span class="s2">&#34;Rows returned: $rowCount&#34;</span>
-</code></pre></div><p>That&rsquo;s how simple it can be to use a select statement with SQL Server.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$server</span>   <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$database</span> <span class="p">=</span> <span class="s1">&#39;myDB&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$query</span>    <span class="p">=</span> <span class="s1">&#39;select * from myTable&#39;</span>
+</span></span></code></pre></div><p>After that we need to set up the objects needed to communicate with the database.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$connection</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="py">Data</span><span class="p">.</span><span class="py">SqlClient</span><span class="p">.</span><span class="py">SqlConnection</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$adapter</span>    <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="py">Data</span><span class="p">.</span><span class="py">SqlClient</span><span class="p">.</span><span class="py">SqlDataAdapter</span> <span class="nv">$command</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$dataset</span>    <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="py">Data</span><span class="p">.</span><span class="py">DataSet</span>
+</span></span></code></pre></div><p>Next is the connection string, which should work with most installations of SQL Server. After the connection string is created we open the connection to the server.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$connection</span><span class="p">.</span><span class="py">ConnectionString</span> <span class="p">=</span> <span class="s2">&#34;Server=</span><span class="nv">$server</span><span class="s2">;Database=</span><span class="nv">$database</span><span class="s2">;Trusted_Connection=True;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$connection</span><span class="p">.</span><span class="py">Open</span><span class="p">()</span>
+</span></span></code></pre></div><p>The query need to be a proper command object, so lets do that.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$command</span> <span class="p">=</span> <span class="nv">$connection</span><span class="p">.</span><span class="py">CreateCommand</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$command</span><span class="p">.</span><span class="py">CommandText</span> <span class="p">=</span> <span class="nv">$query</span>
+</span></span></code></pre></div><p>Fill the dataset with the result from the database. Lets also count the rows while we are at it.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$rowCount</span> <span class="p">=</span> <span class="nv">$adapter</span><span class="p">.</span><span class="py">Fill</span><span class="p">(</span><span class="nv">$dataset</span><span class="p">)</span>
+</span></span></code></pre></div><p>Now we dont need the connection to the database anymore, so lets close it.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$connection</span><span class="p">.</span><span class="py">Close</span><span class="p">()</span>
+</span></span></code></pre></div><p>Now we are done! Return the rows.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$dataset</span><span class="p">.</span><span class="py">Tables</span><span class="p">.</span><span class="py">rows</span>
+</span></span></code></pre></div><p>Optionally you can also print the row count to the screen.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Write-Host</span> <span class="s2">&#34;Rows returned: </span><span class="nv">$rowCount</span><span class="s2">&#34;</span>
+</span></span></code></pre></div><p>That&rsquo;s how simple it can be to use a select statement with SQL Server.</p>
 <h2 id="full-script">Full script</h2>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Variables for server, database and query</span>
-<span class="nv">$server</span>   <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
-<span class="nv">$database</span> <span class="p">=</span> <span class="s1">&#39;test&#39;</span>
-<span class="nv">$query</span>    <span class="p">=</span> <span class="s1">&#39;select top 10 * from fjutt&#39;</span>
-
-<span class="c"># Set up the objects needed</span>
-<span class="nv">$connection</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="n">Data</span><span class="p">.</span><span class="n">SqlClient</span><span class="p">.</span><span class="n">SqlConnection</span>
-<span class="nv">$adapter</span>    <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="n">Data</span><span class="p">.</span><span class="n">SqlClient</span><span class="p">.</span><span class="n">SqlDataAdapter</span> <span class="nv">$command</span>
-<span class="nv">$dataset</span>    <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="n">Data</span><span class="p">.</span><span class="n">DataSet</span>
-
-<span class="c"># Set the connection string (using single sign on) and open the connection</span>
-<span class="nv">$connection</span><span class="p">.</span><span class="n">ConnectionString</span> <span class="p">=</span> <span class="s2">&#34;Server=$server;Database=$database;Trusted_Connection=True;&#34;</span>
-<span class="nv">$connection</span><span class="p">.</span><span class="n">Open</span><span class="p">()</span>
-
-<span class="c"># Create a command object and assign the query</span>
-<span class="nv">$command</span> <span class="p">=</span> <span class="nv">$connection</span><span class="p">.</span><span class="n">CreateCommand</span><span class="p">()</span>
-<span class="nv">$command</span><span class="p">.</span><span class="n">CommandText</span> <span class="p">=</span> <span class="nv">$query</span>
-
-<span class="c"># Fill the dataset and count the rows returned at the same time</span>
-<span class="nv">$rowCount</span> <span class="p">=</span> <span class="nv">$adapter</span><span class="p">.</span><span class="n">Fill</span><span class="p">(</span><span class="nv">$dataset</span><span class="p">)</span>
-
-<span class="c"># Since the dataset is populated we can now close the connection</span>
-<span class="nv">$connection</span><span class="p">.</span><span class="n">Close</span><span class="p">()</span>
-
-<span class="c"># Return the results</span>
-<span class="nv">$dataset</span><span class="p">.</span><span class="n">Tables</span><span class="p">.</span><span class="n">rows</span>
-
-<span class="c"># Print amount of rows to screen (optional)</span>
-<span class="nb">Write-Host</span> <span class="s2">&#34;Rows returned: $rowCount&#34;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># Variables for server, database and query</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$server</span>   <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$database</span> <span class="p">=</span> <span class="s1">&#39;test&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$query</span>    <span class="p">=</span> <span class="s1">&#39;select top 10 * from fjutt&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Set up the objects needed</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$connection</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="py">Data</span><span class="p">.</span><span class="py">SqlClient</span><span class="p">.</span><span class="py">SqlConnection</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$adapter</span>    <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="py">Data</span><span class="p">.</span><span class="py">SqlClient</span><span class="p">.</span><span class="py">SqlDataAdapter</span> <span class="nv">$command</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$dataset</span>    <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="py">Data</span><span class="p">.</span><span class="py">DataSet</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Set the connection string (using single sign on) and open the connection</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$connection</span><span class="p">.</span><span class="py">ConnectionString</span> <span class="p">=</span> <span class="s2">&#34;Server=</span><span class="nv">$server</span><span class="s2">;Database=</span><span class="nv">$database</span><span class="s2">;Trusted_Connection=True;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$connection</span><span class="p">.</span><span class="py">Open</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Create a command object and assign the query</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$command</span> <span class="p">=</span> <span class="nv">$connection</span><span class="p">.</span><span class="py">CreateCommand</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$command</span><span class="p">.</span><span class="py">CommandText</span> <span class="p">=</span> <span class="nv">$query</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Fill the dataset and count the rows returned at the same time</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$rowCount</span> <span class="p">=</span> <span class="nv">$adapter</span><span class="p">.</span><span class="py">Fill</span><span class="p">(</span><span class="nv">$dataset</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Since the dataset is populated we can now close the connection</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$connection</span><span class="p">.</span><span class="py">Close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Return the results</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$dataset</span><span class="p">.</span><span class="py">Tables</span><span class="p">.</span><span class="py">rows</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># Print amount of rows to screen (optional)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Write-Host</span> <span class="s2">&#34;Rows returned: </span><span class="nv">$rowCount</span><span class="s2">&#34;</span>
+</span></span></code></pre></div>
 
             <p>- Written by John  
             
@@ -357,7 +361,7 @@ if (!doNotTrack) {
                 <div class="disqus-section">
                     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

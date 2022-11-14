@@ -26,8 +26,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    
+    <style>
+        body { font-size: 14px; }
+    </style>
+    
 
     <meta name='twitter:card'        content='summary' />
     <meta name='twitter:site'        content='@johnmroos'/>
@@ -53,7 +58,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 </head><body>
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle">
@@ -242,7 +246,7 @@ class Xpression { [string]$Name [scriptblock]$Expression [hashtable] getExpressi
                  
                 <h2><a href="/posts/how-to-use-splatting-in-powershell/">How to use splatting in PowerShell</a></h2>        
                 <p>I still hear a lot of people who don&rsquo;t know how splatting works in Powershell. Splatting was introduced in Powershell 2.0 so it has been around for a while and it can make scripts look more clean and easy to read. This is how Microsoft explains splatting:
- Splatting is a method of passing a collection of parameter values to a command as unit. Windows PowerShell associates each value in the collection with a command parameter.</p>
+Splatting is a method of passing a collection of parameter values to a command as unit. Windows PowerShell associates each value in the collection with a command parameter.</p>
                  
                 <h2><a href="/posts/get-imdbmovie-using-invoke-webrequest/">Get-IMDBmovie using Invoke-WebRequest</a></h2>        
                 <p>Some time ago I was playing around a bit with Invoke-WebRequest and wanted to know a bit more about what I could do with that cmdlet. I ended up creating a cmdlet to get movie information from IMDB.com. I thought I would share how that script since the same principles can be applied in many situations.
@@ -285,7 +289,7 @@ class Xpression { [string]$Name [scriptblock]$Expression [hashtable] getExpressi
             
                 <h2><a href="/posts/how-to-use-splatting-in-powershell/">How to use splatting in PowerShell</a>&nbsp;<span class="h2-postdate">- July 9, 2015</span></h2>
                 <p>I still hear a lot of people who don&rsquo;t know how splatting works in Powershell. Splatting was introduced in Powershell 2.0 so it has been around for a while and it can make scripts look more clean and easy to read. This is how Microsoft explains splatting:
- Splatting is a method of passing a collection of parameter values to a command as unit. Windows PowerShell associates each value in the collection with a command parameter.</p>                        
+Splatting is a method of passing a collection of parameter values to a command as unit. Windows PowerShell associates each value in the collection with a command parameter.</p>                        
             
                 <h2><a href="/posts/get-imdbmovie-using-invoke-webrequest/">Get-IMDBmovie using Invoke-WebRequest</a>&nbsp;<span class="h2-postdate">- March 4, 2015</span></h2>
                 <p>Some time ago I was playing around a bit with Invoke-WebRequest and wanted to know a bit more about what I could do with that cmdlet. I ended up creating a cmdlet to get movie information from IMDB.com. I thought I would share how that script since the same principles can be applied in many situations.
@@ -308,34 +312,32 @@ I created a simple small script that would list the patches to check for, along 
 
             <div class="internal-pagination">
                 
-<ul class="pagination">
-  <li class="page-item">
-    <a href="/tags/parameters/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
-  </li>
-  <li class="page-item">
-    <a href="/tags/parameters/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-  </li>
-  <li class="page-item">
-    <a class="page-link" href="/tags/parameters/">1</a>
-  </li>
-  <li class="page-item active">
-    <a class="page-link" href="/tags/parameters/page/2/">2</a>
-  </li>
-  <li class="page-item">
-    <a class="page-link" href="/tags/parameters/page/3/">3</a>
-  </li>
-  <li class="page-item">
-    <a class="page-link" href="/tags/parameters/page/4/">4</a>
-  </li>
-  <li class="page-item">
-    <a href="/tags/parameters/page/3/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-  </li>
-  <li class="page-item">
-    <a href="/tags/parameters/page/4/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
-  </li>
-</ul>
-
-
+    <ul class="pagination pagination-default">
+      <li class="page-item">
+        <a href="/tags/parameters/" aria-label="First" class="page-link" role="button"><span aria-hidden="true">&laquo;&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/tags/parameters/" aria-label="Previous" class="page-link" role="button"><span aria-hidden="true">&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/tags/parameters/" aria-label="Page 1" class="page-link" role="button">1</a>
+      </li>
+      <li class="page-item active">
+        <a aria-current="page" aria-label="Page 2" class="page-link" role="button">2</a>
+      </li>
+      <li class="page-item">
+        <a href="/tags/parameters/page/3/" aria-label="Page 3" class="page-link" role="button">3</a>
+      </li>
+      <li class="page-item">
+        <a href="/tags/parameters/page/4/" aria-label="Page 4" class="page-link" role="button">4</a>
+      </li>
+      <li class="page-item">
+        <a href="/tags/parameters/page/3/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/tags/parameters/page/4/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+      </li>
+    </ul>
             </div>    
         </div>
     </div>

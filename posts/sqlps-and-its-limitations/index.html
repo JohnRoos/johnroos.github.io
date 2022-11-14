@@ -26,8 +26,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    
+    <style>
+        body { font-size: 14px; }
+    </style>
+    
 
     <meta name='twitter:card'        content='summary' />
     <meta name='twitter:site'        content='@johnmroos'/>
@@ -53,7 +58,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 </head><body>
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle">
@@ -233,9 +237,9 @@ if (!doNotTrack) {
             <p>SQL Server PowerShell (<a href="http://technet.microsoft.com/en-us/library/cc281954(v=sql.105).aspx">SQLPS</a>) enables some new possibilities when it comes to managing your instances, but it also comes with some limitations. These limitations are not always obvious and can sometimes be worked around. To understand the limitations you must first understand that SQLPS is not PowerShell V1, V2 or V3 but rather a mini shell on its own. It was created by Microsoft as a mini shell based on PowerShell V1 so the cmdlets available are based on V1. To get an idea of what is missing compared to newer versions of PowerShell there is a list of feature differences between versions on <a href="http://en.wikipedia.org/wiki/Powershell#Version_1.0">Wikipedia</a> which could give some pointers.</p>
 <p>You can still use all the PowerShell features from newer versions with some workarounds. When setting up jobs in SQL Server Agent for example you can select PowerShell as a job step type. This actually means that you will use SQLPS and not the regular PowerShell.
 If you want the job to run regular PowerShell commands from V2 or later (like Invoke-Command) you can use CmdExec as job step type instead and from there execute PowerShell with the PS script included, like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">&#39;Use with CmdExec
-powershell.exe -Command &#34;&amp; {Invoke-Command -ComputerName MyServername -ScriptBlock {Stop-Service -DisplayName &#39;MyServiceDisplayName&#39;}}&#34;
-</code></pre></div><p>When you run PS scripts in this way you will use the regular PowerShell from the operating system instead of SQLPS and it gives you all the features of newer versions of PowerShell in SQL Server Agent jobs. There is no difference in SQLPS in SQL Server 2008 and SQL Server 2008 R2. In SQL Server 2012 however, the PowerShell integration is much deeper and these kind of workarounds are much less needed.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">&#39;Use with CmdExec
+</span></span><span class="line"><span class="cl">powershell.exe -Command &#34;&amp; {Invoke-Command -ComputerName MyServername -ScriptBlock {Stop-Service -DisplayName &#39;MyServiceDisplayName&#39;}}&#34;
+</span></span></code></pre></div><p>When you run PS scripts in this way you will use the regular PowerShell from the operating system instead of SQLPS and it gives you all the features of newer versions of PowerShell in SQL Server Agent jobs. There is no difference in SQLPS in SQL Server 2008 and SQL Server 2008 R2. In SQL Server 2012 however, the PowerShell integration is much deeper and these kind of workarounds are much less needed.</p>
 
         </div>
 
@@ -246,9 +250,9 @@ powershell.exe -Command &#34;&amp; {Invoke-Command -ComputerName MyServername -S
             <p>SQL Server PowerShell (<a href="http://technet.microsoft.com/en-us/library/cc281954(v=sql.105).aspx">SQLPS</a>) enables some new possibilities when it comes to managing your instances, but it also comes with some limitations. These limitations are not always obvious and can sometimes be worked around. To understand the limitations you must first understand that SQLPS is not PowerShell V1, V2 or V3 but rather a mini shell on its own. It was created by Microsoft as a mini shell based on PowerShell V1 so the cmdlets available are based on V1. To get an idea of what is missing compared to newer versions of PowerShell there is a list of feature differences between versions on <a href="http://en.wikipedia.org/wiki/Powershell#Version_1.0">Wikipedia</a> which could give some pointers.</p>
 <p>You can still use all the PowerShell features from newer versions with some workarounds. When setting up jobs in SQL Server Agent for example you can select PowerShell as a job step type. This actually means that you will use SQLPS and not the regular PowerShell.
 If you want the job to run regular PowerShell commands from V2 or later (like Invoke-Command) you can use CmdExec as job step type instead and from there execute PowerShell with the PS script included, like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">&#39;Use with CmdExec
-powershell.exe -Command &#34;&amp; {Invoke-Command -ComputerName MyServername -ScriptBlock {Stop-Service -DisplayName &#39;MyServiceDisplayName&#39;}}&#34;
-</code></pre></div><p>When you run PS scripts in this way you will use the regular PowerShell from the operating system instead of SQLPS and it gives you all the features of newer versions of PowerShell in SQL Server Agent jobs. There is no difference in SQLPS in SQL Server 2008 and SQL Server 2008 R2. In SQL Server 2012 however, the PowerShell integration is much deeper and these kind of workarounds are much less needed.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">&#39;Use with CmdExec
+</span></span><span class="line"><span class="cl">powershell.exe -Command &#34;&amp; {Invoke-Command -ComputerName MyServername -ScriptBlock {Stop-Service -DisplayName &#39;MyServiceDisplayName&#39;}}&#34;
+</span></span></code></pre></div><p>When you run PS scripts in this way you will use the regular PowerShell from the operating system instead of SQLPS and it gives you all the features of newer versions of PowerShell in SQL Server Agent jobs. There is no difference in SQLPS in SQL Server 2008 and SQL Server 2008 R2. In SQL Server 2012 however, the PowerShell integration is much deeper and these kind of workarounds are much less needed.</p>
 
 
             <p>- Written by John  
@@ -261,7 +265,7 @@ powershell.exe -Command &#34;&amp; {Invoke-Command -ComputerName MyServername -S
                 <div class="disqus-section">
                     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

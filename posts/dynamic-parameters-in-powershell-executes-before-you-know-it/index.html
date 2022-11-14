@@ -26,8 +26,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    
+    <style>
+        body { font-size: 14px; }
+    </style>
+    
 
     <meta name='twitter:card'        content='summary' />
     <meta name='twitter:site'        content='@johnmroos'/>
@@ -55,7 +60,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 </head><body>
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle">
@@ -235,74 +239,74 @@ if (!doNotTrack) {
             <p>When creating script cmdlets in PowerShell you can use dynamic parameters to create some advanced parameters. A few months back I was playing around a bit with dynamic parameters to see how it works and I noticed that the logic for the dynamic parameters is executed as soon as the verb is written in the console within PowerShell ISE.</p>
 <p><img src="/images/dynamicparams.jpg#center" alt="Dynamic parameters in PowerShell"></p>
 <p>Let&rsquo;s create a cmdlet to prove this theory. The cmdlet below will simply open a text file in the PowerShell ISE from the folder C:\temp. The advanced parameter will show the available text files in the folder when using the console in PowerShell ISE.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="k">Function</span> <span class="nb">Open-TextFile</span> <span class="p">{</span>
-    <span class="p">[</span><span class="k">CmdletBinding</span><span class="p">()]</span>
-    <span class="k">Param</span><span class="p">()</span>
-    <span class="k">DynamicParam</span> <span class="p">{</span>
-        <span class="nv">$attributes</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">System</span><span class="p">.</span><span class="n">Management</span><span class="p">.</span><span class="n">Automation</span><span class="p">.</span><span class="n">ParameterAttribute</span>
-        <span class="nv">$attributes</span><span class="p">.</span><span class="k">ParameterSetName</span> <span class="p">=</span> <span class="s2">&#34;__AllParameterSets&#34;</span>
-        <span class="nv">$attributes</span><span class="p">.</span><span class="k">Mandatory</span> <span class="p">=</span> <span class="nv">$true</span>
-         
-        <span class="nv">$attributeCollection</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">-Type</span> <span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">ObjectModel</span><span class="p">.</span><span class="n">Collection</span><span class="no">[System.Attribute]</span>
-        <span class="nv">$attributeCollection</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="nv">$attributes</span><span class="p">)</span>
-         
-        <span class="nv">$folder</span> <span class="p">=</span> <span class="s1">&#39;C:\temp&#39;</span>
-        <span class="nv">$_Values</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-ChildItem</span> <span class="n">-Path</span> <span class="nv">$folder</span> <span class="n">-Name</span> <span class="p">*.</span><span class="n">txt</span><span class="p">).</span><span class="n">PSChildName</span>
-                 
-        <span class="nv">$ValidateSet</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">System</span><span class="p">.</span><span class="n">Management</span><span class="p">.</span><span class="n">Automation</span><span class="p">.</span><span class="n">ValidateSetAttribute</span><span class="p">(</span><span class="nv">$_Values</span><span class="p">)</span>
-                 
-        <span class="nv">$attributeCollection</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="nv">$ValidateSet</span><span class="p">)</span>
-         
-         
-        <span class="nv">$dynParam1</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">-Type</span> <span class="n">System</span><span class="p">.</span><span class="n">Management</span><span class="p">.</span><span class="n">Automation</span><span class="p">.</span><span class="n">RuntimeDefinedParameter</span><span class="p">(</span><span class="s2">&#34;File&#34;</span><span class="p">,</span> <span class="no">[string]</span><span class="p">,</span> <span class="nv">$attributeCollection</span><span class="p">)</span>
-         
-        <span class="nv">$paramDictionary</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">-Type</span> <span class="n">System</span><span class="p">.</span><span class="n">Management</span><span class="p">.</span><span class="n">Automation</span><span class="p">.</span><span class="n">RuntimeDefinedParameterDictionary</span>
-        <span class="nv">$paramDictionary</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s2">&#34;File&#34;</span><span class="p">,</span> <span class="nv">$dynParam1</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nv">$paramDictionary</span>
-    <span class="p">}</span>
- 
-    <span class="k">Process</span> 
-    <span class="p">{</span>
-        <span class="nv">$file</span> <span class="p">=</span> <span class="nv">$PSBoundParameters</span><span class="p">.</span><span class="n">file</span>
-        <span class="nb">ise </span><span class="s2">&#34;$folder\$file&#34;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>What if we add an extra line in there to add a new file in that folder when the dynamic parameter logic is executed, like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="k">Function</span> <span class="nb">Open-TextFile</span> <span class="p">{</span>
-    <span class="p">[</span><span class="k">CmdletBinding</span><span class="p">()]</span>
-    <span class="k">Param</span><span class="p">()</span>
-    <span class="k">DynamicParam</span> <span class="p">{</span>
-        <span class="nv">$attributes</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">System</span><span class="p">.</span><span class="n">Management</span><span class="p">.</span><span class="n">Automation</span><span class="p">.</span><span class="n">ParameterAttribute</span>
-        <span class="nv">$attributes</span><span class="p">.</span><span class="k">ParameterSetName</span> <span class="p">=</span> <span class="s2">&#34;__AllParameterSets&#34;</span>
-        <span class="nv">$attributes</span><span class="p">.</span><span class="k">Mandatory</span> <span class="p">=</span> <span class="nv">$true</span>
-         
-        <span class="nv">$attributeCollection</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">-Type</span> <span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">ObjectModel</span><span class="p">.</span><span class="n">Collection</span><span class="no">[System.Attribute]</span>
-        <span class="nv">$attributeCollection</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="nv">$attributes</span><span class="p">)</span>
-         
-        <span class="nv">$folder</span> <span class="p">=</span> <span class="s1">&#39;C:\temp&#39;</span>
-        <span class="c"># write a timestamp to a file. This will be executed as soon as you write &#34;Open-&#34; in the console without having to complete the full cmdlet name.</span>
-        <span class="nb">Get-Date</span> <span class="p">|</span> <span class="nb">Out-File</span> <span class="n">-FilePath</span> <span class="s2">&#34;$folder\test.txt&#34;</span> <span class="n">-Append</span>
-        <span class="nv">$_Values</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-ChildItem</span> <span class="n">-Path</span> <span class="nv">$folder</span> <span class="n">-Name</span> <span class="p">*.</span><span class="n">txt</span><span class="p">).</span><span class="n">PSChildName</span>
-                 
-        <span class="nv">$ValidateSet</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">System</span><span class="p">.</span><span class="n">Management</span><span class="p">.</span><span class="n">Automation</span><span class="p">.</span><span class="n">ValidateSetAttribute</span><span class="p">(</span><span class="nv">$_Values</span><span class="p">)</span>
-                 
-        <span class="nv">$attributeCollection</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="nv">$ValidateSet</span><span class="p">)</span>
-         
-         
-        <span class="nv">$dynParam1</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">-Type</span> <span class="n">System</span><span class="p">.</span><span class="n">Management</span><span class="p">.</span><span class="n">Automation</span><span class="p">.</span><span class="n">RuntimeDefinedParameter</span><span class="p">(</span><span class="s2">&#34;File&#34;</span><span class="p">,</span> <span class="no">[string]</span><span class="p">,</span> <span class="nv">$attributeCollection</span><span class="p">)</span>
-         
-        <span class="nv">$paramDictionary</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">-Type</span> <span class="n">System</span><span class="p">.</span><span class="n">Management</span><span class="p">.</span><span class="n">Automation</span><span class="p">.</span><span class="n">RuntimeDefinedParameterDictionary</span>
-        <span class="nv">$paramDictionary</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s2">&#34;File&#34;</span><span class="p">,</span> <span class="nv">$dynParam1</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nv">$paramDictionary</span>
-    <span class="p">}</span>
- 
-    <span class="k">Process</span> 
-    <span class="p">{</span>
-        <span class="nv">$file</span> <span class="p">=</span> <span class="nv">$PSBoundParameters</span><span class="p">.</span><span class="n">file</span>
-        <span class="nb">ise </span><span class="s2">&#34;$folder\$file&#34;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>Now load this cmdlet into memory and then write only &ldquo;open-&rdquo; in the console. Now check the folder c:\temp\ and you will find that a file has been created containing the timestamp for when the code was executed.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="kd">Function</span><span class="w"> </span><span class="nb">Open-TextFile</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">CmdletBinding</span><span class="p">()]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">Param</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">DynamicParam</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$attributes</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">System</span><span class="p">.</span><span class="py">Management</span><span class="p">.</span><span class="py">Automation</span><span class="p">.</span><span class="py">ParameterAttribute</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$attributes</span><span class="p">.</span><span class="na">ParameterSetName</span> <span class="p">=</span> <span class="s2">&#34;__AllParameterSets&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$attributes</span><span class="p">.</span><span class="na">Mandatory</span> <span class="p">=</span> <span class="vm">$true</span>
+</span></span><span class="line"><span class="cl">         
+</span></span><span class="line"><span class="cl">        <span class="nv">$attributeCollection</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">-Type</span> <span class="n">System</span><span class="p">.</span><span class="py">Collections</span><span class="p">.</span><span class="py">ObjectModel</span><span class="p">.</span><span class="n">Collection</span><span class="p">[</span><span class="no">System.Attribute</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$attributeCollection</span><span class="p">.</span><span class="py">Add</span><span class="p">(</span><span class="nv">$attributes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">         
+</span></span><span class="line"><span class="cl">        <span class="nv">$folder</span> <span class="p">=</span> <span class="s1">&#39;C:\temp&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$_Values</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-ChildItem</span> <span class="n">-Path</span> <span class="nv">$folder</span> <span class="n">-Name</span> <span class="p">*.</span><span class="n">txt</span><span class="p">).</span><span class="py">PSChildName</span>
+</span></span><span class="line"><span class="cl">                 
+</span></span><span class="line"><span class="cl">        <span class="nv">$ValidateSet</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">System</span><span class="p">.</span><span class="py">Management</span><span class="p">.</span><span class="py">Automation</span><span class="p">.</span><span class="py">ValidateSetAttribute</span><span class="p">(</span><span class="nv">$_Values</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                 
+</span></span><span class="line"><span class="cl">        <span class="nv">$attributeCollection</span><span class="p">.</span><span class="py">Add</span><span class="p">(</span><span class="nv">$ValidateSet</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">         
+</span></span><span class="line"><span class="cl">         
+</span></span><span class="line"><span class="cl">        <span class="nv">$dynParam1</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">-Type</span> <span class="n">System</span><span class="p">.</span><span class="py">Management</span><span class="p">.</span><span class="py">Automation</span><span class="p">.</span><span class="py">RuntimeDefinedParameter</span><span class="p">(</span><span class="s2">&#34;File&#34;</span><span class="p">,</span> <span class="p">[</span><span class="no">string</span><span class="p">],</span> <span class="nv">$attributeCollection</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">         
+</span></span><span class="line"><span class="cl">        <span class="nv">$paramDictionary</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">-Type</span> <span class="n">System</span><span class="p">.</span><span class="py">Management</span><span class="p">.</span><span class="py">Automation</span><span class="p">.</span><span class="py">RuntimeDefinedParameterDictionary</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$paramDictionary</span><span class="p">.</span><span class="py">Add</span><span class="p">(</span><span class="s2">&#34;File&#34;</span><span class="p">,</span> <span class="nv">$dynParam1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$paramDictionary</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">Process</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$file</span> <span class="p">=</span> <span class="nv">$PSBoundParameters</span><span class="p">.</span><span class="py">file</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">ise </span><span class="s2">&#34;</span><span class="nv">$folder</span><span class="s2">\</span><span class="nv">$file</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>What if we add an extra line in there to add a new file in that folder when the dynamic parameter logic is executed, like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="kd">Function</span><span class="w"> </span><span class="nb">Open-TextFile</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">CmdletBinding</span><span class="p">()]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">Param</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">DynamicParam</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$attributes</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">System</span><span class="p">.</span><span class="py">Management</span><span class="p">.</span><span class="py">Automation</span><span class="p">.</span><span class="py">ParameterAttribute</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$attributes</span><span class="p">.</span><span class="na">ParameterSetName</span> <span class="p">=</span> <span class="s2">&#34;__AllParameterSets&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$attributes</span><span class="p">.</span><span class="na">Mandatory</span> <span class="p">=</span> <span class="vm">$true</span>
+</span></span><span class="line"><span class="cl">         
+</span></span><span class="line"><span class="cl">        <span class="nv">$attributeCollection</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">-Type</span> <span class="n">System</span><span class="p">.</span><span class="py">Collections</span><span class="p">.</span><span class="py">ObjectModel</span><span class="p">.</span><span class="n">Collection</span><span class="p">[</span><span class="no">System.Attribute</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$attributeCollection</span><span class="p">.</span><span class="py">Add</span><span class="p">(</span><span class="nv">$attributes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">         
+</span></span><span class="line"><span class="cl">        <span class="nv">$folder</span> <span class="p">=</span> <span class="s1">&#39;C:\temp&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="c"># write a timestamp to a file. This will be executed as soon as you write &#34;Open-&#34; in the console without having to complete the full cmdlet name.</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">Get-Date</span> <span class="p">|</span> <span class="nb">Out-File</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">$folder</span><span class="s2">\test.txt&#34;</span> <span class="n">-Append</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$_Values</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-ChildItem</span> <span class="n">-Path</span> <span class="nv">$folder</span> <span class="n">-Name</span> <span class="p">*.</span><span class="n">txt</span><span class="p">).</span><span class="py">PSChildName</span>
+</span></span><span class="line"><span class="cl">                 
+</span></span><span class="line"><span class="cl">        <span class="nv">$ValidateSet</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">System</span><span class="p">.</span><span class="py">Management</span><span class="p">.</span><span class="py">Automation</span><span class="p">.</span><span class="py">ValidateSetAttribute</span><span class="p">(</span><span class="nv">$_Values</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                 
+</span></span><span class="line"><span class="cl">        <span class="nv">$attributeCollection</span><span class="p">.</span><span class="py">Add</span><span class="p">(</span><span class="nv">$ValidateSet</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">         
+</span></span><span class="line"><span class="cl">         
+</span></span><span class="line"><span class="cl">        <span class="nv">$dynParam1</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">-Type</span> <span class="n">System</span><span class="p">.</span><span class="py">Management</span><span class="p">.</span><span class="py">Automation</span><span class="p">.</span><span class="py">RuntimeDefinedParameter</span><span class="p">(</span><span class="s2">&#34;File&#34;</span><span class="p">,</span> <span class="p">[</span><span class="no">string</span><span class="p">],</span> <span class="nv">$attributeCollection</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">         
+</span></span><span class="line"><span class="cl">        <span class="nv">$paramDictionary</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">-Type</span> <span class="n">System</span><span class="p">.</span><span class="py">Management</span><span class="p">.</span><span class="py">Automation</span><span class="p">.</span><span class="py">RuntimeDefinedParameterDictionary</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$paramDictionary</span><span class="p">.</span><span class="py">Add</span><span class="p">(</span><span class="s2">&#34;File&#34;</span><span class="p">,</span> <span class="nv">$dynParam1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$paramDictionary</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">Process</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$file</span> <span class="p">=</span> <span class="nv">$PSBoundParameters</span><span class="p">.</span><span class="py">file</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">ise </span><span class="s2">&#34;</span><span class="nv">$folder</span><span class="s2">\</span><span class="nv">$file</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Now load this cmdlet into memory and then write only &ldquo;open-&rdquo; in the console. Now check the folder c:\temp\ and you will find that a file has been created containing the timestamp for when the code was executed.</p>
 <p>This means that the logic for dynamic parameters are executed at the same time as when the PowerShell ISE is trying to find which cmdlets are matching the verb you have written. I would have thought that the dynamic parameter logic would be executed when I have written the entire name of the cmdlet, but that is not the case.</p>
 
         </div>
@@ -314,74 +318,74 @@ if (!doNotTrack) {
             <p>When creating script cmdlets in PowerShell you can use dynamic parameters to create some advanced parameters. A few months back I was playing around a bit with dynamic parameters to see how it works and I noticed that the logic for the dynamic parameters is executed as soon as the verb is written in the console within PowerShell ISE.</p>
 <p><img src="/images/dynamicparams.jpg#center" alt="Dynamic parameters in PowerShell"></p>
 <p>Let&rsquo;s create a cmdlet to prove this theory. The cmdlet below will simply open a text file in the PowerShell ISE from the folder C:\temp. The advanced parameter will show the available text files in the folder when using the console in PowerShell ISE.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="k">Function</span> <span class="nb">Open-TextFile</span> <span class="p">{</span>
-    <span class="p">[</span><span class="k">CmdletBinding</span><span class="p">()]</span>
-    <span class="k">Param</span><span class="p">()</span>
-    <span class="k">DynamicParam</span> <span class="p">{</span>
-        <span class="nv">$attributes</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">System</span><span class="p">.</span><span class="n">Management</span><span class="p">.</span><span class="n">Automation</span><span class="p">.</span><span class="n">ParameterAttribute</span>
-        <span class="nv">$attributes</span><span class="p">.</span><span class="k">ParameterSetName</span> <span class="p">=</span> <span class="s2">&#34;__AllParameterSets&#34;</span>
-        <span class="nv">$attributes</span><span class="p">.</span><span class="k">Mandatory</span> <span class="p">=</span> <span class="nv">$true</span>
-         
-        <span class="nv">$attributeCollection</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">-Type</span> <span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">ObjectModel</span><span class="p">.</span><span class="n">Collection</span><span class="no">[System.Attribute]</span>
-        <span class="nv">$attributeCollection</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="nv">$attributes</span><span class="p">)</span>
-         
-        <span class="nv">$folder</span> <span class="p">=</span> <span class="s1">&#39;C:\temp&#39;</span>
-        <span class="nv">$_Values</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-ChildItem</span> <span class="n">-Path</span> <span class="nv">$folder</span> <span class="n">-Name</span> <span class="p">*.</span><span class="n">txt</span><span class="p">).</span><span class="n">PSChildName</span>
-                 
-        <span class="nv">$ValidateSet</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">System</span><span class="p">.</span><span class="n">Management</span><span class="p">.</span><span class="n">Automation</span><span class="p">.</span><span class="n">ValidateSetAttribute</span><span class="p">(</span><span class="nv">$_Values</span><span class="p">)</span>
-                 
-        <span class="nv">$attributeCollection</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="nv">$ValidateSet</span><span class="p">)</span>
-         
-         
-        <span class="nv">$dynParam1</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">-Type</span> <span class="n">System</span><span class="p">.</span><span class="n">Management</span><span class="p">.</span><span class="n">Automation</span><span class="p">.</span><span class="n">RuntimeDefinedParameter</span><span class="p">(</span><span class="s2">&#34;File&#34;</span><span class="p">,</span> <span class="no">[string]</span><span class="p">,</span> <span class="nv">$attributeCollection</span><span class="p">)</span>
-         
-        <span class="nv">$paramDictionary</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">-Type</span> <span class="n">System</span><span class="p">.</span><span class="n">Management</span><span class="p">.</span><span class="n">Automation</span><span class="p">.</span><span class="n">RuntimeDefinedParameterDictionary</span>
-        <span class="nv">$paramDictionary</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s2">&#34;File&#34;</span><span class="p">,</span> <span class="nv">$dynParam1</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nv">$paramDictionary</span>
-    <span class="p">}</span>
- 
-    <span class="k">Process</span> 
-    <span class="p">{</span>
-        <span class="nv">$file</span> <span class="p">=</span> <span class="nv">$PSBoundParameters</span><span class="p">.</span><span class="n">file</span>
-        <span class="nb">ise </span><span class="s2">&#34;$folder\$file&#34;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>What if we add an extra line in there to add a new file in that folder when the dynamic parameter logic is executed, like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="k">Function</span> <span class="nb">Open-TextFile</span> <span class="p">{</span>
-    <span class="p">[</span><span class="k">CmdletBinding</span><span class="p">()]</span>
-    <span class="k">Param</span><span class="p">()</span>
-    <span class="k">DynamicParam</span> <span class="p">{</span>
-        <span class="nv">$attributes</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">System</span><span class="p">.</span><span class="n">Management</span><span class="p">.</span><span class="n">Automation</span><span class="p">.</span><span class="n">ParameterAttribute</span>
-        <span class="nv">$attributes</span><span class="p">.</span><span class="k">ParameterSetName</span> <span class="p">=</span> <span class="s2">&#34;__AllParameterSets&#34;</span>
-        <span class="nv">$attributes</span><span class="p">.</span><span class="k">Mandatory</span> <span class="p">=</span> <span class="nv">$true</span>
-         
-        <span class="nv">$attributeCollection</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">-Type</span> <span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">ObjectModel</span><span class="p">.</span><span class="n">Collection</span><span class="no">[System.Attribute]</span>
-        <span class="nv">$attributeCollection</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="nv">$attributes</span><span class="p">)</span>
-         
-        <span class="nv">$folder</span> <span class="p">=</span> <span class="s1">&#39;C:\temp&#39;</span>
-        <span class="c"># write a timestamp to a file. This will be executed as soon as you write &#34;Open-&#34; in the console without having to complete the full cmdlet name.</span>
-        <span class="nb">Get-Date</span> <span class="p">|</span> <span class="nb">Out-File</span> <span class="n">-FilePath</span> <span class="s2">&#34;$folder\test.txt&#34;</span> <span class="n">-Append</span>
-        <span class="nv">$_Values</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-ChildItem</span> <span class="n">-Path</span> <span class="nv">$folder</span> <span class="n">-Name</span> <span class="p">*.</span><span class="n">txt</span><span class="p">).</span><span class="n">PSChildName</span>
-                 
-        <span class="nv">$ValidateSet</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">System</span><span class="p">.</span><span class="n">Management</span><span class="p">.</span><span class="n">Automation</span><span class="p">.</span><span class="n">ValidateSetAttribute</span><span class="p">(</span><span class="nv">$_Values</span><span class="p">)</span>
-                 
-        <span class="nv">$attributeCollection</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="nv">$ValidateSet</span><span class="p">)</span>
-         
-         
-        <span class="nv">$dynParam1</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">-Type</span> <span class="n">System</span><span class="p">.</span><span class="n">Management</span><span class="p">.</span><span class="n">Automation</span><span class="p">.</span><span class="n">RuntimeDefinedParameter</span><span class="p">(</span><span class="s2">&#34;File&#34;</span><span class="p">,</span> <span class="no">[string]</span><span class="p">,</span> <span class="nv">$attributeCollection</span><span class="p">)</span>
-         
-        <span class="nv">$paramDictionary</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">-Type</span> <span class="n">System</span><span class="p">.</span><span class="n">Management</span><span class="p">.</span><span class="n">Automation</span><span class="p">.</span><span class="n">RuntimeDefinedParameterDictionary</span>
-        <span class="nv">$paramDictionary</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s2">&#34;File&#34;</span><span class="p">,</span> <span class="nv">$dynParam1</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nv">$paramDictionary</span>
-    <span class="p">}</span>
- 
-    <span class="k">Process</span> 
-    <span class="p">{</span>
-        <span class="nv">$file</span> <span class="p">=</span> <span class="nv">$PSBoundParameters</span><span class="p">.</span><span class="n">file</span>
-        <span class="nb">ise </span><span class="s2">&#34;$folder\$file&#34;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>Now load this cmdlet into memory and then write only &ldquo;open-&rdquo; in the console. Now check the folder c:\temp\ and you will find that a file has been created containing the timestamp for when the code was executed.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="kd">Function</span><span class="w"> </span><span class="nb">Open-TextFile</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">CmdletBinding</span><span class="p">()]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">Param</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">DynamicParam</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$attributes</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">System</span><span class="p">.</span><span class="py">Management</span><span class="p">.</span><span class="py">Automation</span><span class="p">.</span><span class="py">ParameterAttribute</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$attributes</span><span class="p">.</span><span class="na">ParameterSetName</span> <span class="p">=</span> <span class="s2">&#34;__AllParameterSets&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$attributes</span><span class="p">.</span><span class="na">Mandatory</span> <span class="p">=</span> <span class="vm">$true</span>
+</span></span><span class="line"><span class="cl">         
+</span></span><span class="line"><span class="cl">        <span class="nv">$attributeCollection</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">-Type</span> <span class="n">System</span><span class="p">.</span><span class="py">Collections</span><span class="p">.</span><span class="py">ObjectModel</span><span class="p">.</span><span class="n">Collection</span><span class="p">[</span><span class="no">System.Attribute</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$attributeCollection</span><span class="p">.</span><span class="py">Add</span><span class="p">(</span><span class="nv">$attributes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">         
+</span></span><span class="line"><span class="cl">        <span class="nv">$folder</span> <span class="p">=</span> <span class="s1">&#39;C:\temp&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$_Values</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-ChildItem</span> <span class="n">-Path</span> <span class="nv">$folder</span> <span class="n">-Name</span> <span class="p">*.</span><span class="n">txt</span><span class="p">).</span><span class="py">PSChildName</span>
+</span></span><span class="line"><span class="cl">                 
+</span></span><span class="line"><span class="cl">        <span class="nv">$ValidateSet</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">System</span><span class="p">.</span><span class="py">Management</span><span class="p">.</span><span class="py">Automation</span><span class="p">.</span><span class="py">ValidateSetAttribute</span><span class="p">(</span><span class="nv">$_Values</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                 
+</span></span><span class="line"><span class="cl">        <span class="nv">$attributeCollection</span><span class="p">.</span><span class="py">Add</span><span class="p">(</span><span class="nv">$ValidateSet</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">         
+</span></span><span class="line"><span class="cl">         
+</span></span><span class="line"><span class="cl">        <span class="nv">$dynParam1</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">-Type</span> <span class="n">System</span><span class="p">.</span><span class="py">Management</span><span class="p">.</span><span class="py">Automation</span><span class="p">.</span><span class="py">RuntimeDefinedParameter</span><span class="p">(</span><span class="s2">&#34;File&#34;</span><span class="p">,</span> <span class="p">[</span><span class="no">string</span><span class="p">],</span> <span class="nv">$attributeCollection</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">         
+</span></span><span class="line"><span class="cl">        <span class="nv">$paramDictionary</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">-Type</span> <span class="n">System</span><span class="p">.</span><span class="py">Management</span><span class="p">.</span><span class="py">Automation</span><span class="p">.</span><span class="py">RuntimeDefinedParameterDictionary</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$paramDictionary</span><span class="p">.</span><span class="py">Add</span><span class="p">(</span><span class="s2">&#34;File&#34;</span><span class="p">,</span> <span class="nv">$dynParam1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$paramDictionary</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">Process</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$file</span> <span class="p">=</span> <span class="nv">$PSBoundParameters</span><span class="p">.</span><span class="py">file</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">ise </span><span class="s2">&#34;</span><span class="nv">$folder</span><span class="s2">\</span><span class="nv">$file</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>What if we add an extra line in there to add a new file in that folder when the dynamic parameter logic is executed, like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="kd">Function</span><span class="w"> </span><span class="nb">Open-TextFile</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">CmdletBinding</span><span class="p">()]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">Param</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">DynamicParam</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$attributes</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">System</span><span class="p">.</span><span class="py">Management</span><span class="p">.</span><span class="py">Automation</span><span class="p">.</span><span class="py">ParameterAttribute</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$attributes</span><span class="p">.</span><span class="na">ParameterSetName</span> <span class="p">=</span> <span class="s2">&#34;__AllParameterSets&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$attributes</span><span class="p">.</span><span class="na">Mandatory</span> <span class="p">=</span> <span class="vm">$true</span>
+</span></span><span class="line"><span class="cl">         
+</span></span><span class="line"><span class="cl">        <span class="nv">$attributeCollection</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">-Type</span> <span class="n">System</span><span class="p">.</span><span class="py">Collections</span><span class="p">.</span><span class="py">ObjectModel</span><span class="p">.</span><span class="n">Collection</span><span class="p">[</span><span class="no">System.Attribute</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$attributeCollection</span><span class="p">.</span><span class="py">Add</span><span class="p">(</span><span class="nv">$attributes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">         
+</span></span><span class="line"><span class="cl">        <span class="nv">$folder</span> <span class="p">=</span> <span class="s1">&#39;C:\temp&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="c"># write a timestamp to a file. This will be executed as soon as you write &#34;Open-&#34; in the console without having to complete the full cmdlet name.</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">Get-Date</span> <span class="p">|</span> <span class="nb">Out-File</span> <span class="n">-FilePath</span> <span class="s2">&#34;</span><span class="nv">$folder</span><span class="s2">\test.txt&#34;</span> <span class="n">-Append</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$_Values</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-ChildItem</span> <span class="n">-Path</span> <span class="nv">$folder</span> <span class="n">-Name</span> <span class="p">*.</span><span class="n">txt</span><span class="p">).</span><span class="py">PSChildName</span>
+</span></span><span class="line"><span class="cl">                 
+</span></span><span class="line"><span class="cl">        <span class="nv">$ValidateSet</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">System</span><span class="p">.</span><span class="py">Management</span><span class="p">.</span><span class="py">Automation</span><span class="p">.</span><span class="py">ValidateSetAttribute</span><span class="p">(</span><span class="nv">$_Values</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                 
+</span></span><span class="line"><span class="cl">        <span class="nv">$attributeCollection</span><span class="p">.</span><span class="py">Add</span><span class="p">(</span><span class="nv">$ValidateSet</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">         
+</span></span><span class="line"><span class="cl">         
+</span></span><span class="line"><span class="cl">        <span class="nv">$dynParam1</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">-Type</span> <span class="n">System</span><span class="p">.</span><span class="py">Management</span><span class="p">.</span><span class="py">Automation</span><span class="p">.</span><span class="py">RuntimeDefinedParameter</span><span class="p">(</span><span class="s2">&#34;File&#34;</span><span class="p">,</span> <span class="p">[</span><span class="no">string</span><span class="p">],</span> <span class="nv">$attributeCollection</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">         
+</span></span><span class="line"><span class="cl">        <span class="nv">$paramDictionary</span> <span class="p">=</span> <span class="nb">new-object</span> <span class="n">-Type</span> <span class="n">System</span><span class="p">.</span><span class="py">Management</span><span class="p">.</span><span class="py">Automation</span><span class="p">.</span><span class="py">RuntimeDefinedParameterDictionary</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$paramDictionary</span><span class="p">.</span><span class="py">Add</span><span class="p">(</span><span class="s2">&#34;File&#34;</span><span class="p">,</span> <span class="nv">$dynParam1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$paramDictionary</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">Process</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$file</span> <span class="p">=</span> <span class="nv">$PSBoundParameters</span><span class="p">.</span><span class="py">file</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">ise </span><span class="s2">&#34;</span><span class="nv">$folder</span><span class="s2">\</span><span class="nv">$file</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Now load this cmdlet into memory and then write only &ldquo;open-&rdquo; in the console. Now check the folder c:\temp\ and you will find that a file has been created containing the timestamp for when the code was executed.</p>
 <p>This means that the logic for dynamic parameters are executed at the same time as when the PowerShell ISE is trying to find which cmdlets are matching the verb you have written. I would have thought that the dynamic parameter logic would be executed when I have written the entire name of the cmdlet, but that is not the case.</p>
 
 
@@ -395,7 +399,7 @@ if (!doNotTrack) {
                 <div class="disqus-section">
                     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

@@ -26,8 +26,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    
+    <style>
+        body { font-size: 14px; }
+    </style>
+    
 
     <meta name='twitter:card'        content='summary' />
     <meta name='twitter:site'        content='@johnmroos'/>
@@ -53,7 +58,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 </head><body>
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle">
@@ -236,7 +240,7 @@ There is however a pretty simple way of doing this with only PowerShell. This is
                  
                 <h2><a href="/posts/enable-real-time-jmx-monitoring-in-cognos/">Enable real time JMX monitoring in Cognos</a></h2>        
                 <p>In Cognos BI its possible to enable JMX to be able to monitor the java engine. What IBM provides is not really what I was looking for. I wanted to be able to use for example VisualVM to see what happens in real time. This is how to enable the regular JMX monitoring in Cognos which comes out of the box with Tomcat.
-  Open the bootstrap file which is located in the following path: %installpath%\Bin64\bootstrap_winx64.</p>
+Open the bootstrap file which is located in the following path: %installpath%\Bin64\bootstrap_winx64.</p>
                  
                 <h2><a href="/posts/move-data-or-log-files-for-tempdb-in-sql-server/">Move data or log files for TempDB in SQL Server</a></h2>        
                 <p>Since TempDB is a system database you should not try to move the database with detach/attach or backup/restore. Instead you should move the files with a simple script and after the next restart of the instance the files will be relocated to the new location.
@@ -278,7 +282,7 @@ There is however a pretty simple way of doing this with only PowerShell. This is
             
                 <h2><a href="/posts/enable-real-time-jmx-monitoring-in-cognos/">Enable real time JMX monitoring in Cognos</a>&nbsp;<span class="h2-postdate">- September 30, 2014</span></h2>
                 <p>In Cognos BI its possible to enable JMX to be able to monitor the java engine. What IBM provides is not really what I was looking for. I wanted to be able to use for example VisualVM to see what happens in real time. This is how to enable the regular JMX monitoring in Cognos which comes out of the box with Tomcat.
-  Open the bootstrap file which is located in the following path: %installpath%\Bin64\bootstrap_winx64.</p>                        
+Open the bootstrap file which is located in the following path: %installpath%\Bin64\bootstrap_winx64.</p>                        
             
                 <h2><a href="/posts/move-data-or-log-files-for-tempdb-in-sql-server/">Move data or log files for TempDB in SQL Server</a>&nbsp;<span class="h2-postdate">- September 30, 2014</span></h2>
                 <p>Since TempDB is a system database you should not try to move the database with detach/attach or backup/restore. Instead you should move the files with a simple script and after the next restart of the instance the files will be relocated to the new location.
@@ -306,34 +310,32 @@ SELECT name, type_desc, physical_name FROM sys.</p>
 
             <div class="internal-pagination">
                 
-<ul class="pagination">
-  <li class="page-item">
-    <a href="/tags/powershell-ise/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
-  </li>
-  <li class="page-item">
-    <a href="/tags/powershell-ise/page/2/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-  </li>
-  <li class="page-item">
-    <a class="page-link" href="/tags/powershell-ise/">1</a>
-  </li>
-  <li class="page-item">
-    <a class="page-link" href="/tags/powershell-ise/page/2/">2</a>
-  </li>
-  <li class="page-item active">
-    <a class="page-link" href="/tags/powershell-ise/page/3/">3</a>
-  </li>
-  <li class="page-item">
-    <a class="page-link" href="/tags/powershell-ise/page/4/">4</a>
-  </li>
-  <li class="page-item">
-    <a href="/tags/powershell-ise/page/4/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-  </li>
-  <li class="page-item">
-    <a href="/tags/powershell-ise/page/4/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
-  </li>
-</ul>
-
-
+    <ul class="pagination pagination-default">
+      <li class="page-item">
+        <a href="/tags/powershell-ise/" aria-label="First" class="page-link" role="button"><span aria-hidden="true">&laquo;&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/tags/powershell-ise/page/2/" aria-label="Previous" class="page-link" role="button"><span aria-hidden="true">&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/tags/powershell-ise/" aria-label="Page 1" class="page-link" role="button">1</a>
+      </li>
+      <li class="page-item">
+        <a href="/tags/powershell-ise/page/2/" aria-label="Page 2" class="page-link" role="button">2</a>
+      </li>
+      <li class="page-item active">
+        <a aria-current="page" aria-label="Page 3" class="page-link" role="button">3</a>
+      </li>
+      <li class="page-item">
+        <a href="/tags/powershell-ise/page/4/" aria-label="Page 4" class="page-link" role="button">4</a>
+      </li>
+      <li class="page-item">
+        <a href="/tags/powershell-ise/page/4/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/tags/powershell-ise/page/4/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+      </li>
+    </ul>
             </div>    
         </div>
     </div>

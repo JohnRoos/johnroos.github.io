@@ -146,7 +146,7 @@ class Xpression { [string]$Name [scriptblock]$Expression [hashtable] getExpressi
       
       <guid>https://blog.roostech.se/posts/how-to-use-splatting-in-powershell/</guid>
       <description>I still hear a lot of people who don&amp;rsquo;t know how splatting works in Powershell. Splatting was introduced in Powershell 2.0 so it has been around for a while and it can make scripts look more clean and easy to read. This is how Microsoft explains splatting:
- Splatting is a method of passing a collection of parameter values to a command as unit. Windows PowerShell associates each value in the collection with a command parameter.</description>
+Splatting is a method of passing a collection of parameter values to a command as unit. Windows PowerShell associates each value in the collection with a command parameter.</description>
     </item>
     
     <item>
@@ -225,7 +225,7 @@ There is however a pretty simple way of doing this with only PowerShell. This is
       
       <guid>https://blog.roostech.se/posts/enable-real-time-jmx-monitoring-in-cognos/</guid>
       <description>In Cognos BI its possible to enable JMX to be able to monitor the java engine. What IBM provides is not really what I was looking for. I wanted to be able to use for example VisualVM to see what happens in real time. This is how to enable the regular JMX monitoring in Cognos which comes out of the box with Tomcat.
-  Open the bootstrap file which is located in the following path: %installpath%\Bin64\bootstrap_winx64.</description>
+Open the bootstrap file which is located in the following path: %installpath%\Bin64\bootstrap_winx64.</description>
     </item>
     
     <item>

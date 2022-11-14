@@ -26,8 +26,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    
+    <style>
+        body { font-size: 14px; }
+    </style>
+    
 
     <meta name='twitter:card'        content='summary' />
     <meta name='twitter:site'        content='@johnmroos'/>
@@ -57,7 +62,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 </head><body>
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle">
@@ -236,33 +240,33 @@ if (!doNotTrack) {
             ----
             <p>I have seen a lot of people writing PowerShell scripts to compress files or folders by using external file compression programs. Often Winrar, 7-Zip or something similar is used since PowerShell does not have any built in cmdlet to do this (not until version 5 at least).</p>
 <p>There is however a pretty simple way of doing this with only PowerShell. This is how.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># First we add the .Net framework class needed for file compression.</span>
-<span class="nb">Add-Type</span> <span class="o">-As</span> <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">Compression</span><span class="p">.</span><span class="n">FileSystem</span>
- 
-<span class="c"># Then we need a variable of the type System.IO.Compression.CompressionLevel. </span>
-<span class="c"># The options for compression level are &#34;Fastest&#34;, &#34;Optimal&#34; and &#34;NoCompression&#34;.</span>
-<span class="no">[System.IO.Compression.CompressionLevel]</span><span class="nv">$compression</span> <span class="p">=</span> <span class="s2">&#34;Optimal&#34;</span>
- 
-<span class="c"># Which file do you want to compress?</span>
-<span class="nv">$file</span> <span class="p">=</span> <span class="s1">&#39;C:\temp\file.txt&#39;</span>
- 
-<span class="c"># Set the path to where you want the zip file to be created.</span>
-<span class="nv">$zippath</span> <span class="p">=</span> <span class="s1">&#39;C:\temp\file.zip&#39;</span>
- 
-<span class="c"># Open the zip file and set the mode. Options for mode are &#34;Create&#34;, &#34;Read&#34; and &#34;Update&#34;.</span>
-<span class="nv">$ziparchive</span> <span class="p">=</span> <span class="no">[System.IO.Compression.ZipFile]</span><span class="p">::</span><span class="n">Open</span><span class="p">(</span> <span class="nv">$zippath</span><span class="p">,</span> <span class="s2">&#34;Update&#34;</span> <span class="p">)</span>
- 
-<span class="c"># The compression function likes relative file paths, so lets do that.</span>
-<span class="nv">$relativefilepath</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Resolve-Path</span> <span class="nv">$file</span> <span class="n">-Relative</span><span class="p">).</span><span class="n">TrimStart</span><span class="p">(</span><span class="s2">&#34;.\&#34;</span><span class="p">)</span>
- 
-<span class="c"># This is where the magic happens. </span>
-<span class="c"># Compress the file with the variables you just created as parameters.</span>
-<span class="nv">$null</span> <span class="p">=</span> <span class="no">[System.IO.Compression.ZipFileExtensions]</span><span class="p">::</span><span class="n">CreateEntryFromFile</span><span class="p">(</span><span class="nv">$ziparchive</span><span class="p">,</span> <span class="nv">$file</span><span class="p">,</span> <span class="nv">$relativefilepath</span><span class="p">,</span> <span class="nv">$compression</span><span class="p">)</span>
- 
-<span class="c"># Release the zip file. </span>
-<span class="c"># Otherwise the file will still be in read only if you are using Powershell ISE.</span>
-<span class="nv">$ziparchive</span><span class="p">.</span><span class="n">Dispose</span><span class="p">()</span>
-</code></pre></div><p>Read more about these features at <a href="http://msdn.microsoft.com/en-us/library/System.IO.Compression(v=vs.110).aspx">MSDN</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># First we add the .Net framework class needed for file compression.</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Add-Type</span> <span class="o">-As</span> <span class="n">System</span><span class="p">.</span><span class="py">IO</span><span class="p">.</span><span class="py">Compression</span><span class="p">.</span><span class="py">FileSystem</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c"># Then we need a variable of the type System.IO.Compression.CompressionLevel. </span>
+</span></span><span class="line"><span class="cl"><span class="c"># The options for compression level are &#34;Fastest&#34;, &#34;Optimal&#34; and &#34;NoCompression&#34;.</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="no">System.IO.Compression.CompressionLevel</span><span class="p">]</span><span class="nv">$compression</span> <span class="p">=</span> <span class="s2">&#34;Optimal&#34;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c"># Which file do you want to compress?</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$file</span> <span class="p">=</span> <span class="s1">&#39;C:\temp\file.txt&#39;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c"># Set the path to where you want the zip file to be created.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$zippath</span> <span class="p">=</span> <span class="s1">&#39;C:\temp\file.zip&#39;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c"># Open the zip file and set the mode. Options for mode are &#34;Create&#34;, &#34;Read&#34; and &#34;Update&#34;.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$ziparchive</span> <span class="p">=</span> <span class="p">[</span><span class="no">System.IO.Compression.ZipFile</span><span class="p">]::</span><span class="n">Open</span><span class="p">(</span> <span class="nv">$zippath</span><span class="p">,</span> <span class="s2">&#34;Update&#34;</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c"># The compression function likes relative file paths, so lets do that.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$relativefilepath</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Resolve-Path</span> <span class="nv">$file</span> <span class="n">-Relative</span><span class="p">).</span><span class="py">TrimStart</span><span class="p">(</span><span class="s2">&#34;.\&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c"># This is where the magic happens. </span>
+</span></span><span class="line"><span class="cl"><span class="c"># Compress the file with the variables you just created as parameters.</span>
+</span></span><span class="line"><span class="cl"><span class="vm">$null</span> <span class="p">=</span> <span class="p">[</span><span class="no">System.IO.Compression.ZipFileExtensions</span><span class="p">]::</span><span class="n">CreateEntryFromFile</span><span class="p">(</span><span class="nv">$ziparchive</span><span class="p">,</span> <span class="nv">$file</span><span class="p">,</span> <span class="nv">$relativefilepath</span><span class="p">,</span> <span class="nv">$compression</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c"># Release the zip file. </span>
+</span></span><span class="line"><span class="cl"><span class="c"># Otherwise the file will still be in read only if you are using Powershell ISE.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$ziparchive</span><span class="p">.</span><span class="py">Dispose</span><span class="p">()</span>
+</span></span></code></pre></div><p>Read more about these features at <a href="http://msdn.microsoft.com/en-us/library/System.IO.Compression(v=vs.110).aspx">MSDN</a>.</p>
 
         </div>
 
@@ -272,33 +276,33 @@ if (!doNotTrack) {
             
             <p>I have seen a lot of people writing PowerShell scripts to compress files or folders by using external file compression programs. Often Winrar, 7-Zip or something similar is used since PowerShell does not have any built in cmdlet to do this (not until version 5 at least).</p>
 <p>There is however a pretty simple way of doing this with only PowerShell. This is how.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># First we add the .Net framework class needed for file compression.</span>
-<span class="nb">Add-Type</span> <span class="o">-As</span> <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">Compression</span><span class="p">.</span><span class="n">FileSystem</span>
- 
-<span class="c"># Then we need a variable of the type System.IO.Compression.CompressionLevel. </span>
-<span class="c"># The options for compression level are &#34;Fastest&#34;, &#34;Optimal&#34; and &#34;NoCompression&#34;.</span>
-<span class="no">[System.IO.Compression.CompressionLevel]</span><span class="nv">$compression</span> <span class="p">=</span> <span class="s2">&#34;Optimal&#34;</span>
- 
-<span class="c"># Which file do you want to compress?</span>
-<span class="nv">$file</span> <span class="p">=</span> <span class="s1">&#39;C:\temp\file.txt&#39;</span>
- 
-<span class="c"># Set the path to where you want the zip file to be created.</span>
-<span class="nv">$zippath</span> <span class="p">=</span> <span class="s1">&#39;C:\temp\file.zip&#39;</span>
- 
-<span class="c"># Open the zip file and set the mode. Options for mode are &#34;Create&#34;, &#34;Read&#34; and &#34;Update&#34;.</span>
-<span class="nv">$ziparchive</span> <span class="p">=</span> <span class="no">[System.IO.Compression.ZipFile]</span><span class="p">::</span><span class="n">Open</span><span class="p">(</span> <span class="nv">$zippath</span><span class="p">,</span> <span class="s2">&#34;Update&#34;</span> <span class="p">)</span>
- 
-<span class="c"># The compression function likes relative file paths, so lets do that.</span>
-<span class="nv">$relativefilepath</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Resolve-Path</span> <span class="nv">$file</span> <span class="n">-Relative</span><span class="p">).</span><span class="n">TrimStart</span><span class="p">(</span><span class="s2">&#34;.\&#34;</span><span class="p">)</span>
- 
-<span class="c"># This is where the magic happens. </span>
-<span class="c"># Compress the file with the variables you just created as parameters.</span>
-<span class="nv">$null</span> <span class="p">=</span> <span class="no">[System.IO.Compression.ZipFileExtensions]</span><span class="p">::</span><span class="n">CreateEntryFromFile</span><span class="p">(</span><span class="nv">$ziparchive</span><span class="p">,</span> <span class="nv">$file</span><span class="p">,</span> <span class="nv">$relativefilepath</span><span class="p">,</span> <span class="nv">$compression</span><span class="p">)</span>
- 
-<span class="c"># Release the zip file. </span>
-<span class="c"># Otherwise the file will still be in read only if you are using Powershell ISE.</span>
-<span class="nv">$ziparchive</span><span class="p">.</span><span class="n">Dispose</span><span class="p">()</span>
-</code></pre></div><p>Read more about these features at <a href="http://msdn.microsoft.com/en-us/library/System.IO.Compression(v=vs.110).aspx">MSDN</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># First we add the .Net framework class needed for file compression.</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Add-Type</span> <span class="o">-As</span> <span class="n">System</span><span class="p">.</span><span class="py">IO</span><span class="p">.</span><span class="py">Compression</span><span class="p">.</span><span class="py">FileSystem</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c"># Then we need a variable of the type System.IO.Compression.CompressionLevel. </span>
+</span></span><span class="line"><span class="cl"><span class="c"># The options for compression level are &#34;Fastest&#34;, &#34;Optimal&#34; and &#34;NoCompression&#34;.</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="no">System.IO.Compression.CompressionLevel</span><span class="p">]</span><span class="nv">$compression</span> <span class="p">=</span> <span class="s2">&#34;Optimal&#34;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c"># Which file do you want to compress?</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$file</span> <span class="p">=</span> <span class="s1">&#39;C:\temp\file.txt&#39;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c"># Set the path to where you want the zip file to be created.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$zippath</span> <span class="p">=</span> <span class="s1">&#39;C:\temp\file.zip&#39;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c"># Open the zip file and set the mode. Options for mode are &#34;Create&#34;, &#34;Read&#34; and &#34;Update&#34;.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$ziparchive</span> <span class="p">=</span> <span class="p">[</span><span class="no">System.IO.Compression.ZipFile</span><span class="p">]::</span><span class="n">Open</span><span class="p">(</span> <span class="nv">$zippath</span><span class="p">,</span> <span class="s2">&#34;Update&#34;</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c"># The compression function likes relative file paths, so lets do that.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$relativefilepath</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Resolve-Path</span> <span class="nv">$file</span> <span class="n">-Relative</span><span class="p">).</span><span class="py">TrimStart</span><span class="p">(</span><span class="s2">&#34;.\&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c"># This is where the magic happens. </span>
+</span></span><span class="line"><span class="cl"><span class="c"># Compress the file with the variables you just created as parameters.</span>
+</span></span><span class="line"><span class="cl"><span class="vm">$null</span> <span class="p">=</span> <span class="p">[</span><span class="no">System.IO.Compression.ZipFileExtensions</span><span class="p">]::</span><span class="n">CreateEntryFromFile</span><span class="p">(</span><span class="nv">$ziparchive</span><span class="p">,</span> <span class="nv">$file</span><span class="p">,</span> <span class="nv">$relativefilepath</span><span class="p">,</span> <span class="nv">$compression</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c"># Release the zip file. </span>
+</span></span><span class="line"><span class="cl"><span class="c"># Otherwise the file will still be in read only if you are using Powershell ISE.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$ziparchive</span><span class="p">.</span><span class="py">Dispose</span><span class="p">()</span>
+</span></span></code></pre></div><p>Read more about these features at <a href="http://msdn.microsoft.com/en-us/library/System.IO.Compression(v=vs.110).aspx">MSDN</a>.</p>
 
 
             <p>- Written by John  
@@ -311,7 +315,7 @@ if (!doNotTrack) {
                 <div class="disqus-section">
                     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

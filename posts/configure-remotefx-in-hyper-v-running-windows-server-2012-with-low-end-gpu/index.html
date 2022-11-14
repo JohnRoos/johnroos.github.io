@@ -26,8 +26,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    
+    <style>
+        body { font-size: 14px; }
+    </style>
+    
 
     <meta name='twitter:card'        content='summary' />
     <meta name='twitter:site'        content='@johnmroos'/>
@@ -53,7 +58,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 </head><body>
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle">
@@ -268,14 +272,14 @@ This is an upgrade compared to 2008 R2 where 9.0c and 10.0 was required. I have 
 <p>This was important in Windows Server 2008 R2, but not as important in Windows Server 2012. On 2008 R2, once RemoteFX worked on the VM you would not be able to just &ldquo;Connect&rdquo; to the VM in Hyper-V manager. You had to use a terminal services client. So if remote connections was not enabled you could not connect to the machine. However, in Windows Server 2012 they have made some improvements so you actually can use Connect. However, I would still recommend remote desktop.</p>
 <h3 id="9-add-the-remotefx-gpu-to-the-vm">9. Add the RemoteFX GPU to the VM</h3>
 <p>You need to turn off the VM before adding a GPU. If you try to enable the GPU in the VM setting you will get a message saying that none of the installed GPU´s support RemoteFX. This seems to be a bug and can be easily worked around with a couple of PowerShell commands. First you need to import the module for remote desktop services:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Import-Module</span> <span class="n">RemoteDesktopServices</span>
-</code></pre></div><p>When the import is done (should be instant) you need to add the GPU adapter to the VM. Run the following command and replace VirtualMachineName with the name of your VM. If you have several VM´s you can run this command once for each VM:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Add-VMRemoteFx3dVideoAdapter</span> <span class="n">-VMName</span> <span class="n">VirtualMachineName</span>
-</code></pre></div><p>If you now check the settings on the VM you will see that your GPU has been added where it said you couldn&rsquo;t before. Here you can also limit the resolution on the VM which can help to avoid degraded performance.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Import-Module</span> <span class="n">RemoteDesktopServices</span>
+</span></span></code></pre></div><p>When the import is done (should be instant) you need to add the GPU adapter to the VM. Run the following command and replace VirtualMachineName with the name of your VM. If you have several VM´s you can run this command once for each VM:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Add-VMRemoteFx3dVideoAdapter</span> <span class="n">-VMName</span> <span class="n">VirtualMachineName</span>
+</span></span></code></pre></div><p>If you now check the settings on the VM you will see that your GPU has been added where it said you couldn&rsquo;t before. Here you can also limit the resolution on the VM which can help to avoid degraded performance.</p>
 <h3 id="10-verify-remotefx-is-working-on-the-vm">10. Verify RemoteFX is working on the VM</h3>
 <p>Start the VM. When booted into Windows you should check device manager to make sure it has installed drivers for the RemoteFX GPU. It might require an extra restart before its installed properly. Check the Event Logs as well to make sure everything looks ok. Run dxdiag to make sure its working. On the host you can also check the event logs to verify that the RemoteFX GPU was enabled on the client:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">Application Logs\Microsoft\Windows\RemoteDesktopServices-RemoteDesktopSession Manager
-</code></pre></div><p>Now you have enabled RemoteFX in a virtual machine. If you were using a poor GPU like I did first you will notice some poor performance. However, there are a couple of ways to tweak the performance for the GPU, mainly configuring group policies. There are some online resources for this but I might write another article about this later.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Application Logs\Microsoft\Windows\RemoteDesktopServices-RemoteDesktopSession Manager
+</span></span></code></pre></div><p>Now you have enabled RemoteFX in a virtual machine. If you were using a poor GPU like I did first you will notice some poor performance. However, there are a couple of ways to tweak the performance for the GPU, mainly configuring group policies. There are some online resources for this but I might write another article about this later.</p>
 
         </div>
 
@@ -321,14 +325,14 @@ This is an upgrade compared to 2008 R2 where 9.0c and 10.0 was required. I have 
 <p>This was important in Windows Server 2008 R2, but not as important in Windows Server 2012. On 2008 R2, once RemoteFX worked on the VM you would not be able to just &ldquo;Connect&rdquo; to the VM in Hyper-V manager. You had to use a terminal services client. So if remote connections was not enabled you could not connect to the machine. However, in Windows Server 2012 they have made some improvements so you actually can use Connect. However, I would still recommend remote desktop.</p>
 <h3 id="9-add-the-remotefx-gpu-to-the-vm">9. Add the RemoteFX GPU to the VM</h3>
 <p>You need to turn off the VM before adding a GPU. If you try to enable the GPU in the VM setting you will get a message saying that none of the installed GPU´s support RemoteFX. This seems to be a bug and can be easily worked around with a couple of PowerShell commands. First you need to import the module for remote desktop services:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Import-Module</span> <span class="n">RemoteDesktopServices</span>
-</code></pre></div><p>When the import is done (should be instant) you need to add the GPU adapter to the VM. Run the following command and replace VirtualMachineName with the name of your VM. If you have several VM´s you can run this command once for each VM:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Add-VMRemoteFx3dVideoAdapter</span> <span class="n">-VMName</span> <span class="n">VirtualMachineName</span>
-</code></pre></div><p>If you now check the settings on the VM you will see that your GPU has been added where it said you couldn&rsquo;t before. Here you can also limit the resolution on the VM which can help to avoid degraded performance.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Import-Module</span> <span class="n">RemoteDesktopServices</span>
+</span></span></code></pre></div><p>When the import is done (should be instant) you need to add the GPU adapter to the VM. Run the following command and replace VirtualMachineName with the name of your VM. If you have several VM´s you can run this command once for each VM:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Add-VMRemoteFx3dVideoAdapter</span> <span class="n">-VMName</span> <span class="n">VirtualMachineName</span>
+</span></span></code></pre></div><p>If you now check the settings on the VM you will see that your GPU has been added where it said you couldn&rsquo;t before. Here you can also limit the resolution on the VM which can help to avoid degraded performance.</p>
 <h3 id="10-verify-remotefx-is-working-on-the-vm">10. Verify RemoteFX is working on the VM</h3>
 <p>Start the VM. When booted into Windows you should check device manager to make sure it has installed drivers for the RemoteFX GPU. It might require an extra restart before its installed properly. Check the Event Logs as well to make sure everything looks ok. Run dxdiag to make sure its working. On the host you can also check the event logs to verify that the RemoteFX GPU was enabled on the client:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">Application Logs\Microsoft\Windows\RemoteDesktopServices-RemoteDesktopSession Manager
-</code></pre></div><p>Now you have enabled RemoteFX in a virtual machine. If you were using a poor GPU like I did first you will notice some poor performance. However, there are a couple of ways to tweak the performance for the GPU, mainly configuring group policies. There are some online resources for this but I might write another article about this later.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Application Logs\Microsoft\Windows\RemoteDesktopServices-RemoteDesktopSession Manager
+</span></span></code></pre></div><p>Now you have enabled RemoteFX in a virtual machine. If you were using a poor GPU like I did first you will notice some poor performance. However, there are a couple of ways to tweak the performance for the GPU, mainly configuring group policies. There are some online resources for this but I might write another article about this later.</p>
 
 
             <p>- Written by John  
@@ -341,7 +345,7 @@ This is an upgrade compared to 2008 R2 where 9.0c and 10.0 was required. I have 
                 <div class="disqus-section">
                     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

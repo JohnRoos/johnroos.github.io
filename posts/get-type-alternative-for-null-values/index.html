@@ -26,8 +26,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    
+    <style>
+        body { font-size: 14px; }
+    </style>
+    
 
     <meta name='twitter:card'        content='summary' />
     <meta name='twitter:site'        content='@johnmroos'/>
@@ -55,7 +60,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 </head><body>
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle">
@@ -237,51 +241,51 @@ if (!doNotTrack) {
 <p>So what is the problem? Well, it seems like PowerShell considers a property with a null value to not exist, kind of. Let me do an example with Get-Process.</p>
 <p>Lets start with how it usually works, when there is no problem: Get-Process for Internet Explorer. Get-Process returns one object per process as usual. Lets pick a property that we want to examine. I pick StartTime which I expect is when the process started, but I haven&rsquo;t checked. It doesn&rsquo;t matter what it means for this example.
 Then we check the data type for that property. Something like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Sample any object property. </span>
-<span class="c"># In this case StartTime from IE coming from from Get-Process.</span>
-<span class="nv">$sampleObject</span> <span class="p">=</span> <span class="nb">Get-Process</span> <span class="n">-Name</span> <span class="n">iexplore</span>
-<span class="nv">$sampleObject</span><span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">StartTime</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">Name</span>
-</code></pre></div><p>This will return &ldquo;DateTime&rdquo;. So far so good. What if we look for a process that doesn&rsquo;t have a value for StartTime? How about the mysterious Idle process?</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Doesnt work if the property is empty</span>
-<span class="nv">$sampleObject</span> <span class="p">=</span> <span class="nb">Get-Process</span> <span class="n">-Name</span> <span class="n">Idle</span>
-<span class="nv">$sampleObject</span><span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">StartTime</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">Name</span>
-</code></pre></div><p>This returns an error: &ldquo;You cannot call a method on a null-valued expression.&rdquo;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># Sample any object property. </span>
+</span></span><span class="line"><span class="cl"><span class="c"># In this case StartTime from IE coming from from Get-Process.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$sampleObject</span> <span class="p">=</span> <span class="nb">Get-Process</span> <span class="n">-Name</span> <span class="n">iexplore</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$sampleObject</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="py">StartTime</span><span class="p">.</span><span class="py">GetType</span><span class="p">().</span><span class="py">Name</span>
+</span></span></code></pre></div><p>This will return &ldquo;DateTime&rdquo;. So far so good. What if we look for a process that doesn&rsquo;t have a value for StartTime? How about the mysterious Idle process?</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># Doesnt work if the property is empty</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$sampleObject</span> <span class="p">=</span> <span class="nb">Get-Process</span> <span class="n">-Name</span> <span class="n">Idle</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$sampleObject</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="py">StartTime</span><span class="p">.</span><span class="py">GetType</span><span class="p">().</span><span class="py">Name</span>
+</span></span></code></pre></div><p>This returns an error: &ldquo;You cannot call a method on a null-valued expression.&rdquo;
 That&rsquo;s a bit weird since its the same kind of object. They are both of the type System.Diagnostics.Process, but they seem to be different. Well, they are the same type, but PowerShell behaves this way when the value is null. You can get the feeling that it doesn&rsquo;t exist, and cannot have any functions.</p>
 <p>There is other ways to get this information. One way is to use the output from Get-Member in a not-so-standard way. Parsing through the result to get what you need. This is a last resort, but works in most cases.</p>
 <p>This is what you get if you pipe the object to Get-Member:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">PS C:\&gt;$sampleObject | Get-Member -MemberType Properties | Where-Object {$_.Name -eq &#34;StartTime&#34;}
- 
-   TypeName: System.Diagnostics.Process
- 
-Name      MemberType Definition
-----      ---------- ----------
-StartTime Property   datetime StartTime {get;}
-</code></pre></div><p>Under Definition you can see &ldquo;datetime&rdquo;. That&rsquo;s what we need. So lets parse through Definition and remove everything after the first space.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># This time we are using the output from Get-Member, selecting StartTime </span>
-<span class="c"># and removing anything after the space (&#39; &#39;).</span>
-<span class="nv">$sampleObject</span> <span class="p">=</span> <span class="nb">Get-Process</span> <span class="n">-Name</span> <span class="n">Idle</span>
-<span class="nv">$propertyName</span> <span class="p">=</span> <span class="nv">$sampleObject</span> <span class="p">|</span> <span class="nb">Get-Member</span> <span class="n">-MemberType</span> <span class="n">Properties</span> <span class="p">`</span>
-                              <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="n">Name</span> <span class="o">-eq</span> <span class="s1">&#39;StartTime&#39;</span><span class="p">}</span>
-<span class="nv">$propertyName</span><span class="p">.</span><span class="n">Definition</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span> <span class="nv">$propertyName</span><span class="p">.</span><span class="n">Definition</span><span class="p">.</span><span class="n">IndexOf</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="p">)</span>
-</code></pre></div><p>This will output &ldquo;datetime&rdquo;. As long as you are not case sensitive, this could work as a workaround.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">PS C:\&gt;$sampleObject | Get-Member -MemberType Properties | Where-Object {$_.Name -eq &#34;StartTime&#34;}
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">   TypeName: System.Diagnostics.Process
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">Name      MemberType Definition
+</span></span><span class="line"><span class="cl">----      ---------- ----------
+</span></span><span class="line"><span class="cl">StartTime Property   datetime StartTime {get;}
+</span></span></code></pre></div><p>Under Definition you can see &ldquo;datetime&rdquo;. That&rsquo;s what we need. So lets parse through Definition and remove everything after the first space.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># This time we are using the output from Get-Member, selecting StartTime </span>
+</span></span><span class="line"><span class="cl"><span class="c"># and removing anything after the space (&#39; &#39;).</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$sampleObject</span> <span class="p">=</span> <span class="nb">Get-Process</span> <span class="n">-Name</span> <span class="n">Idle</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$propertyName</span> <span class="p">=</span> <span class="nv">$sampleObject</span> <span class="p">|</span> <span class="nb">Get-Member</span> <span class="n">-MemberType</span> <span class="n">Properties</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                              <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="py">Name</span> <span class="o">-eq</span> <span class="s1">&#39;StartTime&#39;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$propertyName</span><span class="p">.</span><span class="py">Definition</span><span class="p">.</span><span class="py">Remove</span><span class="p">(</span> <span class="nv">$propertyName</span><span class="p">.</span><span class="py">Definition</span><span class="p">.</span><span class="py">IndexOf</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="p">)</span>
+</span></span></code></pre></div><p>This will output &ldquo;datetime&rdquo;. As long as you are not case sensitive, this could work as a workaround.
 I would prefer the first option to use the GetType so why not use that one first and then fall back on the second option if it doesn&rsquo;t work. Lets try both iexplore and Idle while we&rsquo;re at it.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$processes</span> <span class="p">=</span> <span class="s1">&#39;Idle&#39;</span><span class="p">,</span><span class="s1">&#39;iexplore&#39;</span>
-<span class="k">foreach</span> <span class="p">(</span><span class="nv">$process</span> <span class="k">in</span> <span class="nv">$processes</span><span class="p">){</span>
-    <span class="nv">$sampleObject</span> <span class="p">=</span> <span class="nb">Get-Process</span> <span class="n">-Name</span> <span class="nv">$process</span>
-    <span class="k">try</span><span class="p">{</span>
-        <span class="nv">$typeName</span> <span class="p">=</span> <span class="nv">$sampleObject</span><span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">StartTime</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">Name</span>
-    <span class="p">}</span><span class="k">catch</span> <span class="p">{</span>
-        <span class="k">try</span><span class="p">{</span>
-            <span class="nv">$propertyName</span> <span class="p">=</span> <span class="nv">$sampleObject</span> <span class="p">|</span> <span class="nb">Get-Member</span> <span class="n">-MemberType</span> <span class="n">Properties</span> <span class="p">`</span>
-                                          <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="n">Name</span> <span class="o">-eq</span> <span class="s1">&#39;StartTime&#39;</span><span class="p">}</span>
-            <span class="nv">$typeName</span> <span class="p">=</span> <span class="nv">$propertyName</span><span class="p">.</span><span class="n">Definition</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span> <span class="nv">$propertyName</span><span class="p">.</span><span class="n">Definition</span><span class="p">.</span><span class="n">IndexOf</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="p">)</span>
-        <span class="p">}</span><span class="k">catch</span><span class="p">{</span>
-            <span class="nv">$typeName</span> <span class="p">=</span> <span class="s1">&#39;Doh!&#39;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="nb">Write-Host</span> <span class="s2">&#34;$process = $typeName&#34;</span>
-<span class="p">}</span>
-</code></pre></div><p>This should now output &ldquo;datetime&rdquo; for Idle and &ldquo;DateTime&rdquo; for iexplore.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$processes</span> <span class="p">=</span> <span class="s1">&#39;Idle&#39;</span><span class="p">,</span><span class="s1">&#39;iexplore&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">foreach</span> <span class="p">(</span><span class="nv">$process</span> <span class="k">in</span> <span class="nv">$processes</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$sampleObject</span> <span class="p">=</span> <span class="nb">Get-Process</span> <span class="n">-Name</span> <span class="nv">$process</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$typeName</span> <span class="p">=</span> <span class="nv">$sampleObject</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="py">StartTime</span><span class="p">.</span><span class="py">GetType</span><span class="p">().</span><span class="py">Name</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span><span class="k">catch</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$propertyName</span> <span class="p">=</span> <span class="nv">$sampleObject</span> <span class="p">|</span> <span class="nb">Get-Member</span> <span class="n">-MemberType</span> <span class="n">Properties</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                                          <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="py">Name</span> <span class="o">-eq</span> <span class="s1">&#39;StartTime&#39;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$typeName</span> <span class="p">=</span> <span class="nv">$propertyName</span><span class="p">.</span><span class="py">Definition</span><span class="p">.</span><span class="py">Remove</span><span class="p">(</span> <span class="nv">$propertyName</span><span class="p">.</span><span class="py">Definition</span><span class="p">.</span><span class="py">IndexOf</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="k">catch</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$typeName</span> <span class="p">=</span> <span class="s1">&#39;Doh!&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">Write-Host</span> <span class="s2">&#34;</span><span class="nv">$process</span><span class="s2"> = </span><span class="nv">$typeName</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>This should now output &ldquo;datetime&rdquo; for Idle and &ldquo;DateTime&rdquo; for iexplore.</p>
 <p>That&rsquo;s a workaround at least. I know this example with the Idle process is not really close to real life, but the concept is true for a lot of objects. Using Idle was just to prove the point. You can try these commands on your own machine. They should work on any machine, as long as Internet Explorer is running.
 For some reason the custom objects that I have tried this on doesn&rsquo;t work with this workaround. For me it has worked with the objects returned from several built-in cmdlets, so give it a try. It might just work.</p>
 
@@ -296,51 +300,51 @@ For some reason the custom objects that I have tried this on doesn&rsquo;t work 
 <p>So what is the problem? Well, it seems like PowerShell considers a property with a null value to not exist, kind of. Let me do an example with Get-Process.</p>
 <p>Lets start with how it usually works, when there is no problem: Get-Process for Internet Explorer. Get-Process returns one object per process as usual. Lets pick a property that we want to examine. I pick StartTime which I expect is when the process started, but I haven&rsquo;t checked. It doesn&rsquo;t matter what it means for this example.
 Then we check the data type for that property. Something like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Sample any object property. </span>
-<span class="c"># In this case StartTime from IE coming from from Get-Process.</span>
-<span class="nv">$sampleObject</span> <span class="p">=</span> <span class="nb">Get-Process</span> <span class="n">-Name</span> <span class="n">iexplore</span>
-<span class="nv">$sampleObject</span><span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">StartTime</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">Name</span>
-</code></pre></div><p>This will return &ldquo;DateTime&rdquo;. So far so good. What if we look for a process that doesn&rsquo;t have a value for StartTime? How about the mysterious Idle process?</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Doesnt work if the property is empty</span>
-<span class="nv">$sampleObject</span> <span class="p">=</span> <span class="nb">Get-Process</span> <span class="n">-Name</span> <span class="n">Idle</span>
-<span class="nv">$sampleObject</span><span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">StartTime</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">Name</span>
-</code></pre></div><p>This returns an error: &ldquo;You cannot call a method on a null-valued expression.&rdquo;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># Sample any object property. </span>
+</span></span><span class="line"><span class="cl"><span class="c"># In this case StartTime from IE coming from from Get-Process.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$sampleObject</span> <span class="p">=</span> <span class="nb">Get-Process</span> <span class="n">-Name</span> <span class="n">iexplore</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$sampleObject</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="py">StartTime</span><span class="p">.</span><span class="py">GetType</span><span class="p">().</span><span class="py">Name</span>
+</span></span></code></pre></div><p>This will return &ldquo;DateTime&rdquo;. So far so good. What if we look for a process that doesn&rsquo;t have a value for StartTime? How about the mysterious Idle process?</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># Doesnt work if the property is empty</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$sampleObject</span> <span class="p">=</span> <span class="nb">Get-Process</span> <span class="n">-Name</span> <span class="n">Idle</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$sampleObject</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="py">StartTime</span><span class="p">.</span><span class="py">GetType</span><span class="p">().</span><span class="py">Name</span>
+</span></span></code></pre></div><p>This returns an error: &ldquo;You cannot call a method on a null-valued expression.&rdquo;
 That&rsquo;s a bit weird since its the same kind of object. They are both of the type System.Diagnostics.Process, but they seem to be different. Well, they are the same type, but PowerShell behaves this way when the value is null. You can get the feeling that it doesn&rsquo;t exist, and cannot have any functions.</p>
 <p>There is other ways to get this information. One way is to use the output from Get-Member in a not-so-standard way. Parsing through the result to get what you need. This is a last resort, but works in most cases.</p>
 <p>This is what you get if you pipe the object to Get-Member:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">PS C:\&gt;$sampleObject | Get-Member -MemberType Properties | Where-Object {$_.Name -eq &#34;StartTime&#34;}
- 
-   TypeName: System.Diagnostics.Process
- 
-Name      MemberType Definition
-----      ---------- ----------
-StartTime Property   datetime StartTime {get;}
-</code></pre></div><p>Under Definition you can see &ldquo;datetime&rdquo;. That&rsquo;s what we need. So lets parse through Definition and remove everything after the first space.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># This time we are using the output from Get-Member, selecting StartTime </span>
-<span class="c"># and removing anything after the space (&#39; &#39;).</span>
-<span class="nv">$sampleObject</span> <span class="p">=</span> <span class="nb">Get-Process</span> <span class="n">-Name</span> <span class="n">Idle</span>
-<span class="nv">$propertyName</span> <span class="p">=</span> <span class="nv">$sampleObject</span> <span class="p">|</span> <span class="nb">Get-Member</span> <span class="n">-MemberType</span> <span class="n">Properties</span> <span class="p">`</span>
-                              <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="n">Name</span> <span class="o">-eq</span> <span class="s1">&#39;StartTime&#39;</span><span class="p">}</span>
-<span class="nv">$propertyName</span><span class="p">.</span><span class="n">Definition</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span> <span class="nv">$propertyName</span><span class="p">.</span><span class="n">Definition</span><span class="p">.</span><span class="n">IndexOf</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="p">)</span>
-</code></pre></div><p>This will output &ldquo;datetime&rdquo;. As long as you are not case sensitive, this could work as a workaround.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">PS C:\&gt;$sampleObject | Get-Member -MemberType Properties | Where-Object {$_.Name -eq &#34;StartTime&#34;}
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">   TypeName: System.Diagnostics.Process
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">Name      MemberType Definition
+</span></span><span class="line"><span class="cl">----      ---------- ----------
+</span></span><span class="line"><span class="cl">StartTime Property   datetime StartTime {get;}
+</span></span></code></pre></div><p>Under Definition you can see &ldquo;datetime&rdquo;. That&rsquo;s what we need. So lets parse through Definition and remove everything after the first space.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># This time we are using the output from Get-Member, selecting StartTime </span>
+</span></span><span class="line"><span class="cl"><span class="c"># and removing anything after the space (&#39; &#39;).</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$sampleObject</span> <span class="p">=</span> <span class="nb">Get-Process</span> <span class="n">-Name</span> <span class="n">Idle</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$propertyName</span> <span class="p">=</span> <span class="nv">$sampleObject</span> <span class="p">|</span> <span class="nb">Get-Member</span> <span class="n">-MemberType</span> <span class="n">Properties</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                              <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="py">Name</span> <span class="o">-eq</span> <span class="s1">&#39;StartTime&#39;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$propertyName</span><span class="p">.</span><span class="py">Definition</span><span class="p">.</span><span class="py">Remove</span><span class="p">(</span> <span class="nv">$propertyName</span><span class="p">.</span><span class="py">Definition</span><span class="p">.</span><span class="py">IndexOf</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="p">)</span>
+</span></span></code></pre></div><p>This will output &ldquo;datetime&rdquo;. As long as you are not case sensitive, this could work as a workaround.
 I would prefer the first option to use the GetType so why not use that one first and then fall back on the second option if it doesn&rsquo;t work. Lets try both iexplore and Idle while we&rsquo;re at it.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$processes</span> <span class="p">=</span> <span class="s1">&#39;Idle&#39;</span><span class="p">,</span><span class="s1">&#39;iexplore&#39;</span>
-<span class="k">foreach</span> <span class="p">(</span><span class="nv">$process</span> <span class="k">in</span> <span class="nv">$processes</span><span class="p">){</span>
-    <span class="nv">$sampleObject</span> <span class="p">=</span> <span class="nb">Get-Process</span> <span class="n">-Name</span> <span class="nv">$process</span>
-    <span class="k">try</span><span class="p">{</span>
-        <span class="nv">$typeName</span> <span class="p">=</span> <span class="nv">$sampleObject</span><span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">StartTime</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">Name</span>
-    <span class="p">}</span><span class="k">catch</span> <span class="p">{</span>
-        <span class="k">try</span><span class="p">{</span>
-            <span class="nv">$propertyName</span> <span class="p">=</span> <span class="nv">$sampleObject</span> <span class="p">|</span> <span class="nb">Get-Member</span> <span class="n">-MemberType</span> <span class="n">Properties</span> <span class="p">`</span>
-                                          <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="n">Name</span> <span class="o">-eq</span> <span class="s1">&#39;StartTime&#39;</span><span class="p">}</span>
-            <span class="nv">$typeName</span> <span class="p">=</span> <span class="nv">$propertyName</span><span class="p">.</span><span class="n">Definition</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span> <span class="nv">$propertyName</span><span class="p">.</span><span class="n">Definition</span><span class="p">.</span><span class="n">IndexOf</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="p">)</span>
-        <span class="p">}</span><span class="k">catch</span><span class="p">{</span>
-            <span class="nv">$typeName</span> <span class="p">=</span> <span class="s1">&#39;Doh!&#39;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="nb">Write-Host</span> <span class="s2">&#34;$process = $typeName&#34;</span>
-<span class="p">}</span>
-</code></pre></div><p>This should now output &ldquo;datetime&rdquo; for Idle and &ldquo;DateTime&rdquo; for iexplore.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$processes</span> <span class="p">=</span> <span class="s1">&#39;Idle&#39;</span><span class="p">,</span><span class="s1">&#39;iexplore&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">foreach</span> <span class="p">(</span><span class="nv">$process</span> <span class="k">in</span> <span class="nv">$processes</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$sampleObject</span> <span class="p">=</span> <span class="nb">Get-Process</span> <span class="n">-Name</span> <span class="nv">$process</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$typeName</span> <span class="p">=</span> <span class="nv">$sampleObject</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="py">StartTime</span><span class="p">.</span><span class="py">GetType</span><span class="p">().</span><span class="py">Name</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span><span class="k">catch</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$propertyName</span> <span class="p">=</span> <span class="nv">$sampleObject</span> <span class="p">|</span> <span class="nb">Get-Member</span> <span class="n">-MemberType</span> <span class="n">Properties</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                                          <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="py">Name</span> <span class="o">-eq</span> <span class="s1">&#39;StartTime&#39;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$typeName</span> <span class="p">=</span> <span class="nv">$propertyName</span><span class="p">.</span><span class="py">Definition</span><span class="p">.</span><span class="py">Remove</span><span class="p">(</span> <span class="nv">$propertyName</span><span class="p">.</span><span class="py">Definition</span><span class="p">.</span><span class="py">IndexOf</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="k">catch</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$typeName</span> <span class="p">=</span> <span class="s1">&#39;Doh!&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">Write-Host</span> <span class="s2">&#34;</span><span class="nv">$process</span><span class="s2"> = </span><span class="nv">$typeName</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>This should now output &ldquo;datetime&rdquo; for Idle and &ldquo;DateTime&rdquo; for iexplore.</p>
 <p>That&rsquo;s a workaround at least. I know this example with the Idle process is not really close to real life, but the concept is true for a lot of objects. Using Idle was just to prove the point. You can try these commands on your own machine. They should work on any machine, as long as Internet Explorer is running.
 For some reason the custom objects that I have tried this on doesn&rsquo;t work with this workaround. For me it has worked with the objects returned from several built-in cmdlets, so give it a try. It might just work.</p>
 
@@ -355,7 +359,7 @@ For some reason the custom objects that I have tried this on doesn&rsquo;t work 
                 <div class="disqus-section">
                     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

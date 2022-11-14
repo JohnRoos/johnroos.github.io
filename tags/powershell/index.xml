@@ -137,7 +137,7 @@ class Xpression { [string]$Name [scriptblock]$Expression [hashtable] getExpressi
       
       <guid>https://blog.roostech.se/posts/how-to-use-splatting-in-powershell/</guid>
       <description>I still hear a lot of people who don&amp;rsquo;t know how splatting works in Powershell. Splatting was introduced in Powershell 2.0 so it has been around for a while and it can make scripts look more clean and easy to read. This is how Microsoft explains splatting:
- Splatting is a method of passing a collection of parameter values to a command as unit. Windows PowerShell associates each value in the collection with a command parameter.</description>
+Splatting is a method of passing a collection of parameter values to a command as unit. Windows PowerShell associates each value in the collection with a command parameter.</description>
     </item>
     
     <item>

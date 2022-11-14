@@ -26,8 +26,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    
+    <style>
+        body { font-size: 14px; }
+    </style>
+    
 
     <meta name='twitter:card'        content='summary' />
     <meta name='twitter:site'        content='@johnmroos'/>
@@ -53,7 +58,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 </head><body>
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle">
@@ -233,50 +237,50 @@ if (!doNotTrack) {
             <p>Once in a while you want to check how stable a connection is between computers. You might want to ping one or two machines from several others to find out if there is some issues with the network somewhere. You could use the built-in cmdlet Test-Connection and log the results to a log file but then you will not be able to log timeouts since the cmdlet returns an error when timeouts occur. A few lines of code is all you need to get around that.</p>
 <h2 id="use-powershell-jobs-for-ping">Use PowerShell jobs for ping</h2>
 <p>I wrote a small script for this which can come in handy. You can use this script to ping several machines from multiple machines and store the results to logfiles in csv format. If a ping gets a timeout then the response time will be set to 9999.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$sources</span> <span class="p">=</span> <span class="s1">&#39;server1&#39;</span><span class="p">,</span> <span class="s1">&#39;server2&#39;</span><span class="p">,</span> <span class="s1">&#39;server3&#39;</span>
-<span class="nv">$targets</span> <span class="p">=</span> <span class="s1">&#39;server4&#39;</span><span class="p">,</span> <span class="s1">&#39;server5&#39;</span>
-<span class="nv">$logpath</span> <span class="p">=</span> <span class="s1">&#39;C:\Ping_logs\&#39;</span>
- 
-<span class="nv">$pingscript</span> <span class="p">=</span> <span class="p">{</span> 
-    <span class="k">while</span> <span class="p">(</span><span class="nv">$true</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nv">$pingdate</span> <span class="p">=</span> <span class="nb">Get-Date</span> <span class="n">-Format</span> <span class="n">u</span>
-        <span class="nv">$logpath</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$args</span><span class="p">[</span><span class="n">2</span><span class="p">])$(</span><span class="nv">$args</span><span class="p">[</span><span class="n">0</span><span class="p">])</span><span class="s2">_</span><span class="p">$(</span><span class="nv">$args</span><span class="p">[</span><span class="n">1</span><span class="p">])</span><span class="s2">_</span><span class="p">$(</span><span class="nb">Get-Date</span> <span class="o">-f</span> <span class="n">yyyy-MM-dd</span><span class="p">)</span><span class="s2">.log&#34;</span>
-        <span class="k">Try</span> <span class="p">{</span>
-            <span class="nb">Test-Connection</span> <span class="n">-Count</span> <span class="n">1</span> <span class="n">-ErrorAction</span> <span class="n">Stop</span> <span class="n">-Source</span> <span class="p">$(</span><span class="nv">$args</span><span class="p">[</span><span class="n">0</span><span class="p">])</span> <span class="n">-ComputerName</span> <span class="p">$(</span><span class="nv">$args</span><span class="p">[</span><span class="n">1</span><span class="p">])</span> <span class="p">`</span>
-                <span class="p">|</span> <span class="nb">Select-Object</span> <span class="p">{</span><span class="nv">$pingdate</span><span class="p">},</span> <span class="n">__SERVER</span><span class="p">,</span> <span class="n">Address</span><span class="p">,</span> <span class="n">ResponseTime</span> <span class="p">`</span>
-                <span class="p">|</span> <span class="nb">ConvertTo-Csv</span> <span class="p">`</span>
-                <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-Skip</span> <span class="n">2</span> <span class="p">`</span>
-                <span class="p">|</span> <span class="nb">Out-File</span> <span class="n">-FilePath</span> <span class="nv">$logpath</span> <span class="n">-Append</span>
-        <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
-            <span class="nv">$responseprops</span> <span class="p">=</span> <span class="no">[ordered]</span><span class="p">@{</span>
-                <span class="s1">&#39;datetime&#39;</span> <span class="p">=</span> <span class="nv">$pingdate</span>
-                <span class="s1">&#39;__SERVER&#39;</span> <span class="p">=</span> <span class="nv">$args</span><span class="p">[</span><span class="n">0</span><span class="p">]</span>
-                <span class="s1">&#39;Address&#39;</span> <span class="p">=</span> <span class="nv">$args</span><span class="p">[</span><span class="n">1</span><span class="p">]</span>
-                <span class="s1">&#39;ResponseTime&#39;</span> <span class="p">=</span> <span class="s1">&#39;9999&#39;</span>
-            <span class="p">}</span>
-            <span class="nv">$response</span>  <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">psobject</span> <span class="n">-Property</span> <span class="nv">$responseprops</span>
-            <span class="nb">ConvertTo-Csv</span> <span class="n">-InputObject</span> <span class="nv">$response</span> <span class="p">`</span>
-                <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-Skip</span> <span class="n">2</span> <span class="p">`</span>
-                <span class="p">|</span> <span class="nb">Out-File</span> <span class="n">-FilePath</span> <span class="nv">$logpath</span> <span class="n">-Append</span>
-        <span class="p">}</span>
-        <span class="nb">Start-Sleep</span> <span class="n">-Seconds</span> <span class="n">1</span>
-    <span class="p">}</span> 
-<span class="p">}</span>
- 
-<span class="k">foreach</span> <span class="p">(</span><span class="nv">$source</span> <span class="k">in</span> <span class="nv">$sources</span><span class="p">){</span>
-    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$target</span> <span class="k">in</span> <span class="nv">$targets</span><span class="p">){</span>
-        <span class="nb">Start-Job</span> <span class="n">-Name</span> <span class="s2">&#34;$source ping $target&#34;</span> <span class="p">`</span>
-                  <span class="n">-ScriptBlock</span> <span class="nv">$pingscript</span> <span class="p">`</span>
-                  <span class="n">-ArgumentList</span> <span class="nv">$source</span><span class="p">,</span> <span class="nv">$target</span><span class="p">,</span> <span class="nv">$logpath</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>There will be one logfile for each source-target combination. In the example above there will be six logfiles per day. The script creates powershell jobs which runs in the background as long as the session is active or until you stop the jobs. You can easily stop and remove the jobs with the following command line:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Get-Job</span> <span class="p">|</span> <span class="nb">Stop-Job</span> <span class="n">-PassThru</span> <span class="p">|</span> <span class="nb">Remove-Job</span>
-</code></pre></div><h2 id="store-log-files-in-database">Store log files in database</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$sources</span> <span class="p">=</span> <span class="s1">&#39;server1&#39;</span><span class="p">,</span> <span class="s1">&#39;server2&#39;</span><span class="p">,</span> <span class="s1">&#39;server3&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$targets</span> <span class="p">=</span> <span class="s1">&#39;server4&#39;</span><span class="p">,</span> <span class="s1">&#39;server5&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$logpath</span> <span class="p">=</span> <span class="s1">&#39;C:\Ping_logs\&#39;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="nv">$pingscript</span> <span class="p">=</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="vm">$true</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$pingdate</span> <span class="p">=</span> <span class="nb">Get-Date</span> <span class="n">-Format</span> <span class="n">u</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$logpath</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$args</span><span class="p">[</span><span class="mf">2</span><span class="p">])$(</span><span class="nv">$args</span><span class="p">[</span><span class="mf">0</span><span class="p">])</span><span class="s2">_</span><span class="p">$(</span><span class="nv">$args</span><span class="p">[</span><span class="mf">1</span><span class="p">])</span><span class="s2">_</span><span class="p">$(</span><span class="nb">Get-Date</span> <span class="o">-f</span> <span class="nb">yyyy-MM</span><span class="n">-dd</span><span class="p">)</span><span class="s2">.log&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">Try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">Test-Connection</span> <span class="n">-Count</span> <span class="mf">1</span> <span class="n">-ErrorAction</span> <span class="n">Stop</span> <span class="n">-Source</span> <span class="vm">$</span><span class="p">(</span><span class="nv">$args</span><span class="p">[</span><span class="mf">0</span><span class="p">])</span> <span class="n">-ComputerName</span> <span class="vm">$</span><span class="p">(</span><span class="nv">$args</span><span class="p">[</span><span class="mf">1</span><span class="p">])</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                <span class="p">|</span> <span class="nb">Select-Object</span> <span class="p">{</span><span class="nv">$pingdate</span><span class="p">},</span> <span class="n">__SERVER</span><span class="p">,</span> <span class="n">Address</span><span class="p">,</span> <span class="n">ResponseTime</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                <span class="p">|</span> <span class="nb">ConvertTo-Csv</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-Skip</span> <span class="mf">2</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                <span class="p">|</span> <span class="nb">Out-File</span> <span class="n">-FilePath</span> <span class="nv">$logpath</span> <span class="n">-Append</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$responseprops</span> <span class="p">=</span> <span class="p">[</span><span class="no">ordered</span><span class="p">]</span><span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;datetime&#39;</span> <span class="p">=</span> <span class="nv">$pingdate</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;__SERVER&#39;</span> <span class="p">=</span> <span class="nv">$args</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;Address&#39;</span> <span class="p">=</span> <span class="nv">$args</span><span class="p">[</span><span class="mf">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;ResponseTime&#39;</span> <span class="p">=</span> <span class="s1">&#39;9999&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$response</span>  <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">psobject</span> <span class="n">-Property</span> <span class="nv">$responseprops</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">ConvertTo-Csv</span> <span class="n">-InputObject</span> <span class="nv">$response</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-Skip</span> <span class="mf">2</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                <span class="p">|</span> <span class="nb">Out-File</span> <span class="n">-FilePath</span> <span class="nv">$logpath</span> <span class="n">-Append</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">Start-Sleep</span> <span class="n">-Seconds</span> <span class="mf">1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="k">foreach</span> <span class="p">(</span><span class="nv">$source</span> <span class="k">in</span> <span class="nv">$sources</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$target</span> <span class="k">in</span> <span class="nv">$targets</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">Start-Job</span> <span class="n">-Name</span> <span class="s2">&#34;</span><span class="nv">$source</span><span class="s2"> ping </span><span class="nv">$target</span><span class="s2">&#34;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                  <span class="n">-ScriptBlock</span> <span class="nv">$pingscript</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                  <span class="n">-ArgumentList</span> <span class="nv">$source</span><span class="p">,</span> <span class="nv">$target</span><span class="p">,</span> <span class="nv">$logpath</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>There will be one logfile for each source-target combination. In the example above there will be six logfiles per day. The script creates powershell jobs which runs in the background as long as the session is active or until you stop the jobs. You can easily stop and remove the jobs with the following command line:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-Job</span> <span class="p">|</span> <span class="nb">Stop-Job</span> <span class="n">-PassThru</span> <span class="p">|</span> <span class="nb">Remove-Job</span>
+</span></span></code></pre></div><h2 id="store-log-files-in-database">Store log files in database</h2>
 <p>If you want the jobs to run for a long time (I had this running for a couple if weeks at one point) you will end up with a large amount of data. In this case its really helpful to put all the results into a database, whuch you can do with Write-ObjectToSQL which I have written about in the past. This is how you can import the csv files into a database.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$csv</span> <span class="p">=</span> <span class="nb">Import-Csv</span> <span class="n">-Path</span> <span class="n">C:</span><span class="p">\</span><span class="n">Ping_logs</span><span class="p">\</span><span class="n">Server1_Server2_2016</span><span class="p">-</span><span class="n">02</span><span class="p">-</span><span class="n">06</span><span class="p">.</span><span class="n">log</span>
-<span class="nb">Write-ObjectToSQL</span> <span class="nv">$csv</span> <span class="n">-Server</span> <span class="n">localhost</span> <span class="n">-Database</span> <span class="n">PingDB</span> <span class="n">-TableName</span> <span class="n">PingLog</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$csv</span> <span class="p">=</span> <span class="nb">Import-Csv</span> <span class="n">-Path</span> <span class="n">C:</span><span class="p">\</span><span class="n">Ping_logs</span><span class="p">\</span><span class="n">Server1_Server2_2016</span><span class="p">-</span><span class="mf">02</span><span class="p">-</span><span class="mf">06</span><span class="p">.</span><span class="py">log</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Write-ObjectToSQL</span> <span class="nv">$csv</span> <span class="n">-Server</span> <span class="n">localhost</span> <span class="n">-Database</span> <span class="n">PingDB</span> <span class="n">-TableName</span> <span class="n">PingLog</span>
+</span></span></code></pre></div>
         </div>
 
         
@@ -286,50 +290,50 @@ if (!doNotTrack) {
             <p>Once in a while you want to check how stable a connection is between computers. You might want to ping one or two machines from several others to find out if there is some issues with the network somewhere. You could use the built-in cmdlet Test-Connection and log the results to a log file but then you will not be able to log timeouts since the cmdlet returns an error when timeouts occur. A few lines of code is all you need to get around that.</p>
 <h2 id="use-powershell-jobs-for-ping">Use PowerShell jobs for ping</h2>
 <p>I wrote a small script for this which can come in handy. You can use this script to ping several machines from multiple machines and store the results to logfiles in csv format. If a ping gets a timeout then the response time will be set to 9999.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$sources</span> <span class="p">=</span> <span class="s1">&#39;server1&#39;</span><span class="p">,</span> <span class="s1">&#39;server2&#39;</span><span class="p">,</span> <span class="s1">&#39;server3&#39;</span>
-<span class="nv">$targets</span> <span class="p">=</span> <span class="s1">&#39;server4&#39;</span><span class="p">,</span> <span class="s1">&#39;server5&#39;</span>
-<span class="nv">$logpath</span> <span class="p">=</span> <span class="s1">&#39;C:\Ping_logs\&#39;</span>
- 
-<span class="nv">$pingscript</span> <span class="p">=</span> <span class="p">{</span> 
-    <span class="k">while</span> <span class="p">(</span><span class="nv">$true</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nv">$pingdate</span> <span class="p">=</span> <span class="nb">Get-Date</span> <span class="n">-Format</span> <span class="n">u</span>
-        <span class="nv">$logpath</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$args</span><span class="p">[</span><span class="n">2</span><span class="p">])$(</span><span class="nv">$args</span><span class="p">[</span><span class="n">0</span><span class="p">])</span><span class="s2">_</span><span class="p">$(</span><span class="nv">$args</span><span class="p">[</span><span class="n">1</span><span class="p">])</span><span class="s2">_</span><span class="p">$(</span><span class="nb">Get-Date</span> <span class="o">-f</span> <span class="n">yyyy-MM-dd</span><span class="p">)</span><span class="s2">.log&#34;</span>
-        <span class="k">Try</span> <span class="p">{</span>
-            <span class="nb">Test-Connection</span> <span class="n">-Count</span> <span class="n">1</span> <span class="n">-ErrorAction</span> <span class="n">Stop</span> <span class="n">-Source</span> <span class="p">$(</span><span class="nv">$args</span><span class="p">[</span><span class="n">0</span><span class="p">])</span> <span class="n">-ComputerName</span> <span class="p">$(</span><span class="nv">$args</span><span class="p">[</span><span class="n">1</span><span class="p">])</span> <span class="p">`</span>
-                <span class="p">|</span> <span class="nb">Select-Object</span> <span class="p">{</span><span class="nv">$pingdate</span><span class="p">},</span> <span class="n">__SERVER</span><span class="p">,</span> <span class="n">Address</span><span class="p">,</span> <span class="n">ResponseTime</span> <span class="p">`</span>
-                <span class="p">|</span> <span class="nb">ConvertTo-Csv</span> <span class="p">`</span>
-                <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-Skip</span> <span class="n">2</span> <span class="p">`</span>
-                <span class="p">|</span> <span class="nb">Out-File</span> <span class="n">-FilePath</span> <span class="nv">$logpath</span> <span class="n">-Append</span>
-        <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
-            <span class="nv">$responseprops</span> <span class="p">=</span> <span class="no">[ordered]</span><span class="p">@{</span>
-                <span class="s1">&#39;datetime&#39;</span> <span class="p">=</span> <span class="nv">$pingdate</span>
-                <span class="s1">&#39;__SERVER&#39;</span> <span class="p">=</span> <span class="nv">$args</span><span class="p">[</span><span class="n">0</span><span class="p">]</span>
-                <span class="s1">&#39;Address&#39;</span> <span class="p">=</span> <span class="nv">$args</span><span class="p">[</span><span class="n">1</span><span class="p">]</span>
-                <span class="s1">&#39;ResponseTime&#39;</span> <span class="p">=</span> <span class="s1">&#39;9999&#39;</span>
-            <span class="p">}</span>
-            <span class="nv">$response</span>  <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">psobject</span> <span class="n">-Property</span> <span class="nv">$responseprops</span>
-            <span class="nb">ConvertTo-Csv</span> <span class="n">-InputObject</span> <span class="nv">$response</span> <span class="p">`</span>
-                <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-Skip</span> <span class="n">2</span> <span class="p">`</span>
-                <span class="p">|</span> <span class="nb">Out-File</span> <span class="n">-FilePath</span> <span class="nv">$logpath</span> <span class="n">-Append</span>
-        <span class="p">}</span>
-        <span class="nb">Start-Sleep</span> <span class="n">-Seconds</span> <span class="n">1</span>
-    <span class="p">}</span> 
-<span class="p">}</span>
- 
-<span class="k">foreach</span> <span class="p">(</span><span class="nv">$source</span> <span class="k">in</span> <span class="nv">$sources</span><span class="p">){</span>
-    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$target</span> <span class="k">in</span> <span class="nv">$targets</span><span class="p">){</span>
-        <span class="nb">Start-Job</span> <span class="n">-Name</span> <span class="s2">&#34;$source ping $target&#34;</span> <span class="p">`</span>
-                  <span class="n">-ScriptBlock</span> <span class="nv">$pingscript</span> <span class="p">`</span>
-                  <span class="n">-ArgumentList</span> <span class="nv">$source</span><span class="p">,</span> <span class="nv">$target</span><span class="p">,</span> <span class="nv">$logpath</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>There will be one logfile for each source-target combination. In the example above there will be six logfiles per day. The script creates powershell jobs which runs in the background as long as the session is active or until you stop the jobs. You can easily stop and remove the jobs with the following command line:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Get-Job</span> <span class="p">|</span> <span class="nb">Stop-Job</span> <span class="n">-PassThru</span> <span class="p">|</span> <span class="nb">Remove-Job</span>
-</code></pre></div><h2 id="store-log-files-in-database">Store log files in database</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$sources</span> <span class="p">=</span> <span class="s1">&#39;server1&#39;</span><span class="p">,</span> <span class="s1">&#39;server2&#39;</span><span class="p">,</span> <span class="s1">&#39;server3&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$targets</span> <span class="p">=</span> <span class="s1">&#39;server4&#39;</span><span class="p">,</span> <span class="s1">&#39;server5&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$logpath</span> <span class="p">=</span> <span class="s1">&#39;C:\Ping_logs\&#39;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="nv">$pingscript</span> <span class="p">=</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="vm">$true</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$pingdate</span> <span class="p">=</span> <span class="nb">Get-Date</span> <span class="n">-Format</span> <span class="n">u</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$logpath</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="p">$(</span><span class="nv">$args</span><span class="p">[</span><span class="mf">2</span><span class="p">])$(</span><span class="nv">$args</span><span class="p">[</span><span class="mf">0</span><span class="p">])</span><span class="s2">_</span><span class="p">$(</span><span class="nv">$args</span><span class="p">[</span><span class="mf">1</span><span class="p">])</span><span class="s2">_</span><span class="p">$(</span><span class="nb">Get-Date</span> <span class="o">-f</span> <span class="nb">yyyy-MM</span><span class="n">-dd</span><span class="p">)</span><span class="s2">.log&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">Try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">Test-Connection</span> <span class="n">-Count</span> <span class="mf">1</span> <span class="n">-ErrorAction</span> <span class="n">Stop</span> <span class="n">-Source</span> <span class="vm">$</span><span class="p">(</span><span class="nv">$args</span><span class="p">[</span><span class="mf">0</span><span class="p">])</span> <span class="n">-ComputerName</span> <span class="vm">$</span><span class="p">(</span><span class="nv">$args</span><span class="p">[</span><span class="mf">1</span><span class="p">])</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                <span class="p">|</span> <span class="nb">Select-Object</span> <span class="p">{</span><span class="nv">$pingdate</span><span class="p">},</span> <span class="n">__SERVER</span><span class="p">,</span> <span class="n">Address</span><span class="p">,</span> <span class="n">ResponseTime</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                <span class="p">|</span> <span class="nb">ConvertTo-Csv</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-Skip</span> <span class="mf">2</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                <span class="p">|</span> <span class="nb">Out-File</span> <span class="n">-FilePath</span> <span class="nv">$logpath</span> <span class="n">-Append</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$responseprops</span> <span class="p">=</span> <span class="p">[</span><span class="no">ordered</span><span class="p">]</span><span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;datetime&#39;</span> <span class="p">=</span> <span class="nv">$pingdate</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;__SERVER&#39;</span> <span class="p">=</span> <span class="nv">$args</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;Address&#39;</span> <span class="p">=</span> <span class="nv">$args</span><span class="p">[</span><span class="mf">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;ResponseTime&#39;</span> <span class="p">=</span> <span class="s1">&#39;9999&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$response</span>  <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">psobject</span> <span class="n">-Property</span> <span class="nv">$responseprops</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">ConvertTo-Csv</span> <span class="n">-InputObject</span> <span class="nv">$response</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-Skip</span> <span class="mf">2</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                <span class="p">|</span> <span class="nb">Out-File</span> <span class="n">-FilePath</span> <span class="nv">$logpath</span> <span class="n">-Append</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">Start-Sleep</span> <span class="n">-Seconds</span> <span class="mf">1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="k">foreach</span> <span class="p">(</span><span class="nv">$source</span> <span class="k">in</span> <span class="nv">$sources</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$target</span> <span class="k">in</span> <span class="nv">$targets</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">Start-Job</span> <span class="n">-Name</span> <span class="s2">&#34;</span><span class="nv">$source</span><span class="s2"> ping </span><span class="nv">$target</span><span class="s2">&#34;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                  <span class="n">-ScriptBlock</span> <span class="nv">$pingscript</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                  <span class="n">-ArgumentList</span> <span class="nv">$source</span><span class="p">,</span> <span class="nv">$target</span><span class="p">,</span> <span class="nv">$logpath</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>There will be one logfile for each source-target combination. In the example above there will be six logfiles per day. The script creates powershell jobs which runs in the background as long as the session is active or until you stop the jobs. You can easily stop and remove the jobs with the following command line:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-Job</span> <span class="p">|</span> <span class="nb">Stop-Job</span> <span class="n">-PassThru</span> <span class="p">|</span> <span class="nb">Remove-Job</span>
+</span></span></code></pre></div><h2 id="store-log-files-in-database">Store log files in database</h2>
 <p>If you want the jobs to run for a long time (I had this running for a couple if weeks at one point) you will end up with a large amount of data. In this case its really helpful to put all the results into a database, whuch you can do with Write-ObjectToSQL which I have written about in the past. This is how you can import the csv files into a database.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$csv</span> <span class="p">=</span> <span class="nb">Import-Csv</span> <span class="n">-Path</span> <span class="n">C:</span><span class="p">\</span><span class="n">Ping_logs</span><span class="p">\</span><span class="n">Server1_Server2_2016</span><span class="p">-</span><span class="n">02</span><span class="p">-</span><span class="n">06</span><span class="p">.</span><span class="n">log</span>
-<span class="nb">Write-ObjectToSQL</span> <span class="nv">$csv</span> <span class="n">-Server</span> <span class="n">localhost</span> <span class="n">-Database</span> <span class="n">PingDB</span> <span class="n">-TableName</span> <span class="n">PingLog</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$csv</span> <span class="p">=</span> <span class="nb">Import-Csv</span> <span class="n">-Path</span> <span class="n">C:</span><span class="p">\</span><span class="n">Ping_logs</span><span class="p">\</span><span class="n">Server1_Server2_2016</span><span class="p">-</span><span class="mf">02</span><span class="p">-</span><span class="mf">06</span><span class="p">.</span><span class="py">log</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Write-ObjectToSQL</span> <span class="nv">$csv</span> <span class="n">-Server</span> <span class="n">localhost</span> <span class="n">-Database</span> <span class="n">PingDB</span> <span class="n">-TableName</span> <span class="n">PingLog</span>
+</span></span></code></pre></div>
 
             <p>- Written by John  
             
@@ -341,7 +345,7 @@ if (!doNotTrack) {
                 <div class="disqus-section">
                     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

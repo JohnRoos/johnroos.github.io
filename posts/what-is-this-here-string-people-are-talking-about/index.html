@@ -26,8 +26,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    
+    <style>
+        body { font-size: 14px; }
+    </style>
+    
 
     <meta name='twitter:card'        content='summary' />
     <meta name='twitter:site'        content='@johnmroos'/>
@@ -55,7 +60,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 </head><body>
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle">
@@ -236,32 +240,32 @@ if (!doNotTrack) {
 <p>Lets first look at a simple example of how regular strings work with variables, new lines and tabs. After that we look at an example of how to use here-string instead to make the code easier to read.
 PowerShell here-string
 The following code example generates a regular string with seven lines including special characters and variables.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$x</span> <span class="p">=</span> <span class="s1">&#39;Hello&#39;</span>
- 
-<span class="nv">$y</span> <span class="p">=</span> <span class="s1">&#39;World&#39;</span>
-<span class="nv">$str</span> <span class="p">=</span> <span class="s2">&#34;#This is the first line</span><span class="se">`n`n</span><span class="s2">x = $x</span><span class="se">`n</span><span class="s2">y = $y</span><span class="se">`n`n</span><span class="s2">&#34;</span>
-<span class="nv">$str</span> <span class="p">+=</span> <span class="s2">&#34;</span><span class="se">`t</span><span class="s2">You can even use</span><span class="se">`&#34;</span><span class="s2">quotes</span><span class="se">`&#34;</span><span class="s2">!</span><span class="se">`n</span><span class="s2">This is the seventh line&#34;</span>
-<span class="nb">Write-Host</span> <span class="nv">$str</span>
-</code></pre></div><p><img src="/images/string3.jpg#center" alt="Console output: string"></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$x</span> <span class="p">=</span> <span class="s1">&#39;Hello&#39;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="nv">$y</span> <span class="p">=</span> <span class="s1">&#39;World&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$str</span> <span class="p">=</span> <span class="s2">&#34;#This is the first line</span><span class="se">`n`n</span><span class="s2">x = </span><span class="nv">$x</span><span class="se">`n</span><span class="s2">y = </span><span class="nv">$y</span><span class="se">`n`n</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$str</span> <span class="p">+=</span> <span class="s2">&#34;</span><span class="se">`t</span><span class="s2">You can even use</span><span class="se">`&#34;</span><span class="s2">quotes</span><span class="se">`&#34;</span><span class="s2">!</span><span class="se">`n</span><span class="s2">This is the seventh line&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Write-Host</span> <span class="nv">$str</span>
+</span></span></code></pre></div><p><img src="/images/string3.jpg#center" alt="Console output: string"></p>
 <p>Even if this example is very simple it can quickly get cluttered things like <code> `n</code> and <code> `t</code> in the string so that is one of the things we want to get rid of with here-string.
 Here-strings starts with the @ symbol and ends with the @ symbol. The first line must contain only the @ symbol and a quote and the last line must have first a quote and then the @ symbol, like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$str</span> <span class="p">=</span> <span class="sh">@&#34;
-</span><span class="sh">This is my string. There are many like it, but this one is mine.
-</span><span class="sh">&#34;@</span>
-</code></pre></div><p>Putting it together it might look like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$x</span> <span class="p">=</span> <span class="s1">&#39;Hello&#39;</span>
-<span class="nv">$y</span> <span class="p">=</span> <span class="s1">&#39;World&#39;</span>
-<span class="nv">$str</span> <span class="p">=</span> <span class="sh">@&#34;
-</span><span class="sh">#This is the &#34;first&#34; line
-</span><span class="sh"> 
-</span><span class="sh">x = $x
-</span><span class="sh">y = $y
-</span><span class="sh"> 
-</span><span class="sh">    You can even use &#34;quotes&#34;!
-</span><span class="sh">#This is the seventh line
-</span><span class="sh">&#34;@</span>
-<span class="nb">Write-Host</span> <span class="nv">$str</span>
-</code></pre></div><p>This give the same output as the first example. As you can see I don&rsquo;t need to use <code> `n</code> for new lines and no <code>`t</code> for tabs so the code is a bit easier to read. Even quotes are accepted in the middle of the string so all that clutter is gone. This can be extra useful if you want to generate html pages. If you have tried <a href="http://www.poshserver.net/">PowerShell Web Server</a> you might have noticed that its using here-strings quite a lot when generating HTML pages and now you know why.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$str</span> <span class="p">=</span> <span class="sh">@&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sh">This is my string. There are many like it, but this one is mine.
+</span></span></span><span class="line"><span class="cl"><span class="sh">&#34;@</span>
+</span></span></code></pre></div><p>Putting it together it might look like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$x</span> <span class="p">=</span> <span class="s1">&#39;Hello&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$y</span> <span class="p">=</span> <span class="s1">&#39;World&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$str</span> <span class="p">=</span> <span class="sh">@&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sh">#This is the &#34;first&#34; line
+</span></span></span><span class="line"><span class="cl"><span class="sh"> 
+</span></span></span><span class="line"><span class="cl"><span class="sh">x = </span><span class="nv">$x</span><span class="sh">
+</span></span></span><span class="line"><span class="cl"><span class="sh">y = </span><span class="nv">$y</span><span class="sh">
+</span></span></span><span class="line"><span class="cl"><span class="sh"> 
+</span></span></span><span class="line"><span class="cl"><span class="sh">    You can even use &#34;quotes&#34;!
+</span></span></span><span class="line"><span class="cl"><span class="sh">#This is the seventh line
+</span></span></span><span class="line"><span class="cl"><span class="sh">&#34;@</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Write-Host</span> <span class="nv">$str</span>
+</span></span></code></pre></div><p>This give the same output as the first example. As you can see I don&rsquo;t need to use <code> `n</code> for new lines and no <code>`t</code> for tabs so the code is a bit easier to read. Even quotes are accepted in the middle of the string so all that clutter is gone. This can be extra useful if you want to generate html pages. If you have tried <a href="http://www.poshserver.net/">PowerShell Web Server</a> you might have noticed that its using here-strings quite a lot when generating HTML pages and now you know why.</p>
 
         </div>
 
@@ -273,32 +277,32 @@ Here-strings starts with the @ symbol and ends with the @ symbol. The first line
 <p>Lets first look at a simple example of how regular strings work with variables, new lines and tabs. After that we look at an example of how to use here-string instead to make the code easier to read.
 PowerShell here-string
 The following code example generates a regular string with seven lines including special characters and variables.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$x</span> <span class="p">=</span> <span class="s1">&#39;Hello&#39;</span>
- 
-<span class="nv">$y</span> <span class="p">=</span> <span class="s1">&#39;World&#39;</span>
-<span class="nv">$str</span> <span class="p">=</span> <span class="s2">&#34;#This is the first line</span><span class="se">`n`n</span><span class="s2">x = $x</span><span class="se">`n</span><span class="s2">y = $y</span><span class="se">`n`n</span><span class="s2">&#34;</span>
-<span class="nv">$str</span> <span class="p">+=</span> <span class="s2">&#34;</span><span class="se">`t</span><span class="s2">You can even use</span><span class="se">`&#34;</span><span class="s2">quotes</span><span class="se">`&#34;</span><span class="s2">!</span><span class="se">`n</span><span class="s2">This is the seventh line&#34;</span>
-<span class="nb">Write-Host</span> <span class="nv">$str</span>
-</code></pre></div><p><img src="/images/string3.jpg#center" alt="Console output: string"></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$x</span> <span class="p">=</span> <span class="s1">&#39;Hello&#39;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="nv">$y</span> <span class="p">=</span> <span class="s1">&#39;World&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$str</span> <span class="p">=</span> <span class="s2">&#34;#This is the first line</span><span class="se">`n`n</span><span class="s2">x = </span><span class="nv">$x</span><span class="se">`n</span><span class="s2">y = </span><span class="nv">$y</span><span class="se">`n`n</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$str</span> <span class="p">+=</span> <span class="s2">&#34;</span><span class="se">`t</span><span class="s2">You can even use</span><span class="se">`&#34;</span><span class="s2">quotes</span><span class="se">`&#34;</span><span class="s2">!</span><span class="se">`n</span><span class="s2">This is the seventh line&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Write-Host</span> <span class="nv">$str</span>
+</span></span></code></pre></div><p><img src="/images/string3.jpg#center" alt="Console output: string"></p>
 <p>Even if this example is very simple it can quickly get cluttered things like <code> `n</code> and <code> `t</code> in the string so that is one of the things we want to get rid of with here-string.
 Here-strings starts with the @ symbol and ends with the @ symbol. The first line must contain only the @ symbol and a quote and the last line must have first a quote and then the @ symbol, like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$str</span> <span class="p">=</span> <span class="sh">@&#34;
-</span><span class="sh">This is my string. There are many like it, but this one is mine.
-</span><span class="sh">&#34;@</span>
-</code></pre></div><p>Putting it together it might look like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$x</span> <span class="p">=</span> <span class="s1">&#39;Hello&#39;</span>
-<span class="nv">$y</span> <span class="p">=</span> <span class="s1">&#39;World&#39;</span>
-<span class="nv">$str</span> <span class="p">=</span> <span class="sh">@&#34;
-</span><span class="sh">#This is the &#34;first&#34; line
-</span><span class="sh"> 
-</span><span class="sh">x = $x
-</span><span class="sh">y = $y
-</span><span class="sh"> 
-</span><span class="sh">    You can even use &#34;quotes&#34;!
-</span><span class="sh">#This is the seventh line
-</span><span class="sh">&#34;@</span>
-<span class="nb">Write-Host</span> <span class="nv">$str</span>
-</code></pre></div><p>This give the same output as the first example. As you can see I don&rsquo;t need to use <code> `n</code> for new lines and no <code>`t</code> for tabs so the code is a bit easier to read. Even quotes are accepted in the middle of the string so all that clutter is gone. This can be extra useful if you want to generate html pages. If you have tried <a href="http://www.poshserver.net/">PowerShell Web Server</a> you might have noticed that its using here-strings quite a lot when generating HTML pages and now you know why.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$str</span> <span class="p">=</span> <span class="sh">@&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sh">This is my string. There are many like it, but this one is mine.
+</span></span></span><span class="line"><span class="cl"><span class="sh">&#34;@</span>
+</span></span></code></pre></div><p>Putting it together it might look like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$x</span> <span class="p">=</span> <span class="s1">&#39;Hello&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$y</span> <span class="p">=</span> <span class="s1">&#39;World&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$str</span> <span class="p">=</span> <span class="sh">@&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sh">#This is the &#34;first&#34; line
+</span></span></span><span class="line"><span class="cl"><span class="sh"> 
+</span></span></span><span class="line"><span class="cl"><span class="sh">x = </span><span class="nv">$x</span><span class="sh">
+</span></span></span><span class="line"><span class="cl"><span class="sh">y = </span><span class="nv">$y</span><span class="sh">
+</span></span></span><span class="line"><span class="cl"><span class="sh"> 
+</span></span></span><span class="line"><span class="cl"><span class="sh">    You can even use &#34;quotes&#34;!
+</span></span></span><span class="line"><span class="cl"><span class="sh">#This is the seventh line
+</span></span></span><span class="line"><span class="cl"><span class="sh">&#34;@</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Write-Host</span> <span class="nv">$str</span>
+</span></span></code></pre></div><p>This give the same output as the first example. As you can see I don&rsquo;t need to use <code> `n</code> for new lines and no <code>`t</code> for tabs so the code is a bit easier to read. Even quotes are accepted in the middle of the string so all that clutter is gone. This can be extra useful if you want to generate html pages. If you have tried <a href="http://www.poshserver.net/">PowerShell Web Server</a> you might have noticed that its using here-strings quite a lot when generating HTML pages and now you know why.</p>
 
 
             <p>- Written by John  
@@ -311,7 +315,7 @@ Here-strings starts with the @ symbol and ends with the @ symbol. The first line
                 <div class="disqus-section">
                     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

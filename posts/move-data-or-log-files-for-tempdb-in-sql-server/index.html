@@ -26,8 +26,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    
+    <style>
+        body { font-size: 14px; }
+    </style>
+    
 
     <meta name='twitter:card'        content='summary' />
     <meta name='twitter:site'        content='@johnmroos'/>
@@ -57,7 +62,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 </head><body>
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle">
@@ -236,14 +240,14 @@ if (!doNotTrack) {
             ----
             <p>Since TempDB is a system database you should not try to move the database with detach/attach or backup/restore. Instead you should move the files with a simple script and after the next restart of the instance the files will be relocated to the new location.</p>
 <p>First check where the files are currently located so that you can easily just copy and paste the name and paths if needed:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">name</span><span class="p">,</span> <span class="n">type_desc</span><span class="p">,</span> <span class="n">physical_name</span> 
-<span class="k">FROM</span> <span class="n">sys</span><span class="p">.</span><span class="n">master_files</span> 
-<span class="k">WHERE</span> <span class="n">database_id</span> <span class="o">=</span> <span class="n">DB_ID</span><span class="p">(</span><span class="n">N</span><span class="s1">&#39;tempdb&#39;</span><span class="p">)</span>
-</code></pre></div><p>To do the actual change you can use the following script:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span> <span class="k">DATABASE</span> <span class="n">tempdb</span> 
-<span class="k">MODIFY</span> <span class="n">FILE</span> <span class="p">(</span><span class="n">NAME</span> <span class="o">=</span> <span class="n">tempdbfile</span><span class="p">,</span> 
-               <span class="n">FILENAME</span> <span class="o">=</span> <span class="s1">&#39;C:\MyFolder\tempdb.mdf&#39;</span><span class="p">)</span>
-</code></pre></div><p>Change the name of the file and path to your needs. After you have executed the script you will receive a message saying that the instance needs to be started for the changes to have effect. Restart the instance and verify that the files have been relocated properly.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">type_desc</span><span class="p">,</span><span class="w"> </span><span class="n">physical_name</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">master_files</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">database_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DB_ID</span><span class="p">(</span><span class="n">N</span><span class="s1">&#39;tempdb&#39;</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></div><p>To do the actual change you can use the following script:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">ALTER</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">tempdb</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">MODIFY</span><span class="w"> </span><span class="n">FILE</span><span class="w"> </span><span class="p">(</span><span class="n">NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tempdbfile</span><span class="p">,</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">               </span><span class="n">FILENAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;C:\MyFolder\tempdb.mdf&#39;</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></div><p>Change the name of the file and path to your needs. After you have executed the script you will receive a message saying that the instance needs to be started for the changes to have effect. Restart the instance and verify that the files have been relocated properly.</p>
 
         </div>
 
@@ -253,14 +257,14 @@ if (!doNotTrack) {
             
             <p>Since TempDB is a system database you should not try to move the database with detach/attach or backup/restore. Instead you should move the files with a simple script and after the next restart of the instance the files will be relocated to the new location.</p>
 <p>First check where the files are currently located so that you can easily just copy and paste the name and paths if needed:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">name</span><span class="p">,</span> <span class="n">type_desc</span><span class="p">,</span> <span class="n">physical_name</span> 
-<span class="k">FROM</span> <span class="n">sys</span><span class="p">.</span><span class="n">master_files</span> 
-<span class="k">WHERE</span> <span class="n">database_id</span> <span class="o">=</span> <span class="n">DB_ID</span><span class="p">(</span><span class="n">N</span><span class="s1">&#39;tempdb&#39;</span><span class="p">)</span>
-</code></pre></div><p>To do the actual change you can use the following script:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span> <span class="k">DATABASE</span> <span class="n">tempdb</span> 
-<span class="k">MODIFY</span> <span class="n">FILE</span> <span class="p">(</span><span class="n">NAME</span> <span class="o">=</span> <span class="n">tempdbfile</span><span class="p">,</span> 
-               <span class="n">FILENAME</span> <span class="o">=</span> <span class="s1">&#39;C:\MyFolder\tempdb.mdf&#39;</span><span class="p">)</span>
-</code></pre></div><p>Change the name of the file and path to your needs. After you have executed the script you will receive a message saying that the instance needs to be started for the changes to have effect. Restart the instance and verify that the files have been relocated properly.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">type_desc</span><span class="p">,</span><span class="w"> </span><span class="n">physical_name</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">master_files</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">database_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DB_ID</span><span class="p">(</span><span class="n">N</span><span class="s1">&#39;tempdb&#39;</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></div><p>To do the actual change you can use the following script:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">ALTER</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">tempdb</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">MODIFY</span><span class="w"> </span><span class="n">FILE</span><span class="w"> </span><span class="p">(</span><span class="n">NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tempdbfile</span><span class="p">,</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">               </span><span class="n">FILENAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;C:\MyFolder\tempdb.mdf&#39;</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></div><p>Change the name of the file and path to your needs. After you have executed the script you will receive a message saying that the instance needs to be started for the changes to have effect. Restart the instance and verify that the files have been relocated properly.</p>
 
 
             <p>- Written by John  
@@ -273,7 +277,7 @@ if (!doNotTrack) {
                 <div class="disqus-section">
                     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

@@ -26,22 +26,27 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    
+    <style>
+        body { font-size: 14px; }
+    </style>
+    
 
     <meta name='twitter:card'        content='summary' />
     <meta name='twitter:site'        content='@johnmroos'/>
     <meta name='twitter:creator'     content='@johnmroos'/>
     <meta name='twitter:title'       content='Enable real time JMX monitoring in Cognos' />
     <meta name='twitter:description' content='In Cognos BI its possible to enable JMX to be able to monitor the java engine. What IBM provides is not really what I was looking for. I wanted to be able to use for example VisualVM to see what happens in real time. This is how to enable the regular JMX monitoring in Cognos which comes out of the box with Tomcat.
-  Open the bootstrap file which is located in the following path: %installpath%\Bin64\bootstrap_winx64.' />
+Open the bootstrap file which is located in the following path: %installpath%\Bin64\bootstrap_winx64.' />
     
     <meta name='twitter:domain'      content='https://blog.roostech.se/'/>
     
 
     <title>Enable real time JMX monitoring in Cognos</title>
     <meta name="description" content="In Cognos BI its possible to enable JMX to be able to monitor the java engine. What IBM provides is not really what I was looking for. I wanted to be able to use for example VisualVM to see what happens in real time. This is how to enable the regular JMX monitoring in Cognos which comes out of the box with Tomcat.
-  Open the bootstrap file which is located in the following path: %installpath%\Bin64\bootstrap_winx64."/>
+Open the bootstrap file which is located in the following path: %installpath%\Bin64\bootstrap_winx64."/>
     
 <script type="application/javascript">
 var doNotTrack = false;
@@ -55,7 +60,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 </head><body>
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle">
@@ -241,13 +245,13 @@ if (!doNotTrack) {
 <p>Add the following lines directly after <strong>&lt;!&ndash; end debug params &ndash;&gt;</strong></p>
 </li>
 </ol>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">&lt;!-- JMX config start --&gt;
-&lt;param&gt;-Dcom.sun.management.jmxremote&lt;/param&gt;
-&lt;param&gt;-Dcom.sun.management.jmxremote.port=29001&lt;/param&gt;
-&lt;param&gt;-Dcom.sun.management.jmxremote.ssl=false&lt;/param&gt;
-&lt;param&gt;-Dcom.sun.management.jmxremote.authenticate=true&lt;/param&gt;
-&lt;!-- JMX config end --&gt;
-</code></pre></div><p><img src="/images/cognos01.png#center" alt="JMX config"></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">&lt;!-- JMX config start --&gt;
+</span></span><span class="line"><span class="cl">&lt;param&gt;-Dcom.sun.management.jmxremote&lt;/param&gt;
+</span></span><span class="line"><span class="cl">&lt;param&gt;-Dcom.sun.management.jmxremote.port=29001&lt;/param&gt;
+</span></span><span class="line"><span class="cl">&lt;param&gt;-Dcom.sun.management.jmxremote.ssl=false&lt;/param&gt;
+</span></span><span class="line"><span class="cl">&lt;param&gt;-Dcom.sun.management.jmxremote.authenticate=true&lt;/param&gt;
+</span></span><span class="line"><span class="cl">&lt;!-- JMX config end --&gt;
+</span></span></code></pre></div><p><img src="/images/cognos01.png#center" alt="JMX config"></p>
 <ol start="3">
 <li>
 <p>Save the file.</p>
@@ -286,13 +290,13 @@ if (!doNotTrack) {
 <p>Add the following lines directly after <strong>&lt;!&ndash; end debug params &ndash;&gt;</strong></p>
 </li>
 </ol>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">&lt;!-- JMX config start --&gt;
-&lt;param&gt;-Dcom.sun.management.jmxremote&lt;/param&gt;
-&lt;param&gt;-Dcom.sun.management.jmxremote.port=29001&lt;/param&gt;
-&lt;param&gt;-Dcom.sun.management.jmxremote.ssl=false&lt;/param&gt;
-&lt;param&gt;-Dcom.sun.management.jmxremote.authenticate=true&lt;/param&gt;
-&lt;!-- JMX config end --&gt;
-</code></pre></div><p><img src="/images/cognos01.png#center" alt="JMX config"></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">&lt;!-- JMX config start --&gt;
+</span></span><span class="line"><span class="cl">&lt;param&gt;-Dcom.sun.management.jmxremote&lt;/param&gt;
+</span></span><span class="line"><span class="cl">&lt;param&gt;-Dcom.sun.management.jmxremote.port=29001&lt;/param&gt;
+</span></span><span class="line"><span class="cl">&lt;param&gt;-Dcom.sun.management.jmxremote.ssl=false&lt;/param&gt;
+</span></span><span class="line"><span class="cl">&lt;param&gt;-Dcom.sun.management.jmxremote.authenticate=true&lt;/param&gt;
+</span></span><span class="line"><span class="cl">&lt;!-- JMX config end --&gt;
+</span></span></code></pre></div><p><img src="/images/cognos01.png#center" alt="JMX config"></p>
 <ol start="3">
 <li>
 <p>Save the file.</p>
@@ -327,7 +331,7 @@ if (!doNotTrack) {
                 <div class="disqus-section">
                     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

@@ -26,22 +26,27 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    
+    <style>
+        body { font-size: 14px; }
+    </style>
+    
 
     <meta name='twitter:card'        content='summary' />
     <meta name='twitter:site'        content='@johnmroos'/>
     <meta name='twitter:creator'     content='@johnmroos'/>
     <meta name='twitter:title'       content='How to use splatting in PowerShell' />
     <meta name='twitter:description' content='I still hear a lot of people who don&rsquo;t know how splatting works in Powershell. Splatting was introduced in Powershell 2.0 so it has been around for a while and it can make scripts look more clean and easy to read. This is how Microsoft explains splatting:
- Splatting is a method of passing a collection of parameter values to a command as unit. Windows PowerShell associates each value in the collection with a command parameter.' />
+Splatting is a method of passing a collection of parameter values to a command as unit. Windows PowerShell associates each value in the collection with a command parameter.' />
     
     <meta name='twitter:domain'      content='https://blog.roostech.se/'/>
     
 
     <title>How to use splatting in PowerShell</title>
     <meta name="description" content="I still hear a lot of people who don&rsquo;t know how splatting works in Powershell. Splatting was introduced in Powershell 2.0 so it has been around for a while and it can make scripts look more clean and easy to read. This is how Microsoft explains splatting:
- Splatting is a method of passing a collection of parameter values to a command as unit. Windows PowerShell associates each value in the collection with a command parameter."/>
+Splatting is a method of passing a collection of parameter values to a command as unit. Windows PowerShell associates each value in the collection with a command parameter."/>
     
 <script type="application/javascript">
 var doNotTrack = false;
@@ -55,7 +60,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 </head><body>
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle">
@@ -239,56 +243,56 @@ if (!doNotTrack) {
 <p>I will give some examples on how to use splatting and show why it can be useful. Splatting can be used either with arrays or hashtables. Arrays are used for commands that have positional parameters and hash tables are used when named parameters are needed.</p>
 <h2 id="array-splatting">Array splatting</h2>
 <p>Lets start with an example and splat parameters into an array. First you need a command that accepts positional parameters (parameters you can use without naming them). I will use Invoke-Command in this example, which has two positional parameters (ComputerName and ScriptBlock) and can be used in the following way:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Invoke-Command</span> <span class="n">Server01</span> <span class="s1">&#39;C:\script.ps1&#39;</span>
-</code></pre></div><p>If we want to use splatting on this we would add these two parameter values to an array first and then add the array to the command instead of the parameters.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$params</span> <span class="p">=</span> <span class="s1">&#39;Server01&#39;</span><span class="p">,</span> <span class="s1">&#39;C:\script.ps1&#39;</span>
-<span class="nb">Invoke-Command</span> <span class="nv">@params</span>
-</code></pre></div><p>If you look closely you can see that the variable $params starts with a dollar symbol, but when its used in splatting the &ldquo;@&rdquo; symbol is used. The &ldquo;@&rdquo; symbol tells PowerShell that this variable is a collection of parameters and should be treated as parameters. If a dollar symbol was used PowerShell would just consider it to be an array of values to the first positional parameter and that&rsquo;s not what we want in this case.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Invoke-Command</span> <span class="n">Server01</span> <span class="s1">&#39;C:\script.ps1&#39;</span>
+</span></span></code></pre></div><p>If we want to use splatting on this we would add these two parameter values to an array first and then add the array to the command instead of the parameters.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$params</span> <span class="p">=</span> <span class="s1">&#39;Server01&#39;</span><span class="p">,</span> <span class="s1">&#39;C:\script.ps1&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Invoke-Command</span> <span class="nv">@params</span>
+</span></span></code></pre></div><p>If you look closely you can see that the variable $params starts with a dollar symbol, but when its used in splatting the &ldquo;@&rdquo; symbol is used. The &ldquo;@&rdquo; symbol tells PowerShell that this variable is a collection of parameters and should be treated as parameters. If a dollar symbol was used PowerShell would just consider it to be an array of values to the first positional parameter and that&rsquo;s not what we want in this case.</p>
 <p>You can also mix this technique with regular parameters if needed:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$params</span> <span class="p">=</span> <span class="s1">&#39;Server01&#39;</span><span class="p">,</span> <span class="s1">&#39;C:\script.ps1&#39;</span>
-<span class="nb">Invoke-Command</span> <span class="nv">@params</span> <span class="n">-ErrorVariable</span> <span class="n">Err</span>
-</code></pre></div><h2 id="hash-table-splatting">Hash table splatting</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$params</span> <span class="p">=</span> <span class="s1">&#39;Server01&#39;</span><span class="p">,</span> <span class="s1">&#39;C:\script.ps1&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Invoke-Command</span> <span class="nv">@params</span> <span class="n">-ErrorVariable</span> <span class="n">Err</span>
+</span></span></code></pre></div><h2 id="hash-table-splatting">Hash table splatting</h2>
 <p>Not all parameters are positional and using positional parameters can make the code harder to read. I prefer to use named parameters as often as possible, even if it means more letters to punch in. If we want to use splatting with named parameters we need to use a hash table instead of an array.</p>
 <p>I will go straight to examples which probably explains this better than words. I will use my own cmdlet, Write-ObjectToSQL, which I wrote about some time back. This cmdlet has quite a few parameters which makes it a good candidate, since the command line can get quite long as you can see in the example below.</p>
 <p>The command below will get all the processes running on the machine and write all the information to a database table. Exactly what it does is not important for this topic. You can read more details about this cmdlet here.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="n">-Server</span> <span class="n">localhost</span><span class="p">\</span><span class="n">sqlexpress</span> <span class="n">-Database</span> <span class="n">MyDB</span> <span class="n">-TableName</span> <span class="n">MyTable</span> <span class="n">-ReportEveryXObject</span> <span class="n">100</span>
-</code></pre></div><p>Now lets use splatting with a hash table where every key/value pair represents a named parameter.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$params</span> <span class="p">=</span> <span class="p">@{</span>
-    <span class="s1">&#39;Server&#39;</span>             <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
-    <span class="s1">&#39;Database&#39;</span>           <span class="p">=</span> <span class="s1">&#39;MyDB&#39;</span>
-    <span class="s1">&#39;TableName&#39;</span>          <span class="p">=</span> <span class="s1">&#39;MyTable&#39;</span>
-    <span class="s1">&#39;ReportEveryXObject&#39;</span> <span class="p">=</span> <span class="n">100</span>
-<span class="p">}</span>
-<span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="nv">@params</span>
-</code></pre></div><p>Again, the &ldquo;@&rdquo; symbol on the last line is the magic here, just like when using an array. This works with all kinds of parameters, including switch parameters and common parameters:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$params</span> <span class="p">=</span> <span class="p">@{</span>
-    <span class="s1">&#39;Server&#39;</span>             <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
-    <span class="s1">&#39;Database&#39;</span>           <span class="p">=</span> <span class="s1">&#39;MyDB&#39;</span>
-    <span class="s1">&#39;TableName&#39;</span>          <span class="p">=</span> <span class="s1">&#39;MyTable&#39;</span>
-    <span class="s1">&#39;ReportEveryXObject&#39;</span> <span class="p">=</span> <span class="n">100</span>
-    <span class="s1">&#39;DoNotCreateTable&#39;</span>   <span class="p">=</span> <span class="nv">$true</span>
-    <span class="s1">&#39;ErrorVariable&#39;</span>      <span class="p">=</span> <span class="s1">&#39;err&#39;</span>
-<span class="p">}</span>
-<span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="nv">@params</span>
-</code></pre></div><p>You can mix with regular parameters as well.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$params</span> <span class="p">=</span> <span class="p">@{</span>
-    <span class="s1">&#39;Server&#39;</span>             <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
-    <span class="s1">&#39;Database&#39;</span>           <span class="p">=</span> <span class="s1">&#39;MyDB&#39;</span>
-    <span class="s1">&#39;TableName&#39;</span>          <span class="p">=</span> <span class="s1">&#39;MyTable&#39;</span>
-    <span class="s1">&#39;ReportEveryXObject&#39;</span> <span class="p">=</span> <span class="n">100</span>
-    <span class="s1">&#39;DoNotCreateTable&#39;</span>   <span class="p">=</span> <span class="nv">$true</span>
-    <span class="s1">&#39;ErrorVariable&#39;</span>      <span class="p">=</span> <span class="s1">&#39;err&#39;</span>
-<span class="p">}</span>
-<span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="nv">@params</span> <span class="n">-Verbose</span>
-</code></pre></div><p>However, you cannot add the same parameter more than once.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$params</span> <span class="p">=</span> <span class="p">@{</span>
-    <span class="s1">&#39;Server&#39;</span>             <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
-    <span class="s1">&#39;Database&#39;</span>           <span class="p">=</span> <span class="s1">&#39;MyDB&#39;</span>
-    <span class="s1">&#39;TableName&#39;</span>          <span class="p">=</span> <span class="s1">&#39;MyTable&#39;</span>
-<span class="p">}</span>
-<span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="nv">@params</span> <span class="n">-TableName</span> <span class="n">MyOtherTable</span>
-<span class="c">#Error: Cannot bind parameter because parameter TableName is specified more than once</span>
-</code></pre></div><p>To read more about this topic write &ldquo;Get-Help about_splatting&rdquo; in the PowerShell console or read the web version <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_splatting">here</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="n">-Server</span> <span class="n">localhost</span><span class="p">\</span><span class="n">sqlexpress</span> <span class="n">-Database</span> <span class="n">MyDB</span> <span class="n">-TableName</span> <span class="n">MyTable</span> <span class="n">-ReportEveryXObject</span> <span class="mf">100</span>
+</span></span></code></pre></div><p>Now lets use splatting with a hash table where every key/value pair represents a named parameter.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$params</span> <span class="p">=</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Server&#39;</span>             <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Database&#39;</span>           <span class="p">=</span> <span class="s1">&#39;MyDB&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;TableName&#39;</span>          <span class="p">=</span> <span class="s1">&#39;MyTable&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;ReportEveryXObject&#39;</span> <span class="p">=</span> <span class="mf">100</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="nv">@params</span>
+</span></span></code></pre></div><p>Again, the &ldquo;@&rdquo; symbol on the last line is the magic here, just like when using an array. This works with all kinds of parameters, including switch parameters and common parameters:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$params</span> <span class="p">=</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Server&#39;</span>             <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Database&#39;</span>           <span class="p">=</span> <span class="s1">&#39;MyDB&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;TableName&#39;</span>          <span class="p">=</span> <span class="s1">&#39;MyTable&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;ReportEveryXObject&#39;</span> <span class="p">=</span> <span class="mf">100</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;DoNotCreateTable&#39;</span>   <span class="p">=</span> <span class="vm">$true</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;ErrorVariable&#39;</span>      <span class="p">=</span> <span class="s1">&#39;err&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="nv">@params</span>
+</span></span></code></pre></div><p>You can mix with regular parameters as well.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$params</span> <span class="p">=</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Server&#39;</span>             <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Database&#39;</span>           <span class="p">=</span> <span class="s1">&#39;MyDB&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;TableName&#39;</span>          <span class="p">=</span> <span class="s1">&#39;MyTable&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;ReportEveryXObject&#39;</span> <span class="p">=</span> <span class="mf">100</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;DoNotCreateTable&#39;</span>   <span class="p">=</span> <span class="vm">$true</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;ErrorVariable&#39;</span>      <span class="p">=</span> <span class="s1">&#39;err&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="nv">@params</span> <span class="n">-Verbose</span>
+</span></span></code></pre></div><p>However, you cannot add the same parameter more than once.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$params</span> <span class="p">=</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Server&#39;</span>             <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Database&#39;</span>           <span class="p">=</span> <span class="s1">&#39;MyDB&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;TableName&#39;</span>          <span class="p">=</span> <span class="s1">&#39;MyTable&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="nv">@params</span> <span class="n">-TableName</span> <span class="n">MyOtherTable</span>
+</span></span><span class="line"><span class="cl"><span class="c">#Error: Cannot bind parameter because parameter TableName is specified more than once</span>
+</span></span></code></pre></div><p>To read more about this topic write &ldquo;Get-Help about_splatting&rdquo; in the PowerShell console or read the web version <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_splatting">here</a>.</p>
 
         </div>
 
@@ -303,56 +307,56 @@ if (!doNotTrack) {
 <p>I will give some examples on how to use splatting and show why it can be useful. Splatting can be used either with arrays or hashtables. Arrays are used for commands that have positional parameters and hash tables are used when named parameters are needed.</p>
 <h2 id="array-splatting">Array splatting</h2>
 <p>Lets start with an example and splat parameters into an array. First you need a command that accepts positional parameters (parameters you can use without naming them). I will use Invoke-Command in this example, which has two positional parameters (ComputerName and ScriptBlock) and can be used in the following way:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Invoke-Command</span> <span class="n">Server01</span> <span class="s1">&#39;C:\script.ps1&#39;</span>
-</code></pre></div><p>If we want to use splatting on this we would add these two parameter values to an array first and then add the array to the command instead of the parameters.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$params</span> <span class="p">=</span> <span class="s1">&#39;Server01&#39;</span><span class="p">,</span> <span class="s1">&#39;C:\script.ps1&#39;</span>
-<span class="nb">Invoke-Command</span> <span class="nv">@params</span>
-</code></pre></div><p>If you look closely you can see that the variable $params starts with a dollar symbol, but when its used in splatting the &ldquo;@&rdquo; symbol is used. The &ldquo;@&rdquo; symbol tells PowerShell that this variable is a collection of parameters and should be treated as parameters. If a dollar symbol was used PowerShell would just consider it to be an array of values to the first positional parameter and that&rsquo;s not what we want in this case.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Invoke-Command</span> <span class="n">Server01</span> <span class="s1">&#39;C:\script.ps1&#39;</span>
+</span></span></code></pre></div><p>If we want to use splatting on this we would add these two parameter values to an array first and then add the array to the command instead of the parameters.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$params</span> <span class="p">=</span> <span class="s1">&#39;Server01&#39;</span><span class="p">,</span> <span class="s1">&#39;C:\script.ps1&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Invoke-Command</span> <span class="nv">@params</span>
+</span></span></code></pre></div><p>If you look closely you can see that the variable $params starts with a dollar symbol, but when its used in splatting the &ldquo;@&rdquo; symbol is used. The &ldquo;@&rdquo; symbol tells PowerShell that this variable is a collection of parameters and should be treated as parameters. If a dollar symbol was used PowerShell would just consider it to be an array of values to the first positional parameter and that&rsquo;s not what we want in this case.</p>
 <p>You can also mix this technique with regular parameters if needed:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$params</span> <span class="p">=</span> <span class="s1">&#39;Server01&#39;</span><span class="p">,</span> <span class="s1">&#39;C:\script.ps1&#39;</span>
-<span class="nb">Invoke-Command</span> <span class="nv">@params</span> <span class="n">-ErrorVariable</span> <span class="n">Err</span>
-</code></pre></div><h2 id="hash-table-splatting">Hash table splatting</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$params</span> <span class="p">=</span> <span class="s1">&#39;Server01&#39;</span><span class="p">,</span> <span class="s1">&#39;C:\script.ps1&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Invoke-Command</span> <span class="nv">@params</span> <span class="n">-ErrorVariable</span> <span class="n">Err</span>
+</span></span></code></pre></div><h2 id="hash-table-splatting">Hash table splatting</h2>
 <p>Not all parameters are positional and using positional parameters can make the code harder to read. I prefer to use named parameters as often as possible, even if it means more letters to punch in. If we want to use splatting with named parameters we need to use a hash table instead of an array.</p>
 <p>I will go straight to examples which probably explains this better than words. I will use my own cmdlet, Write-ObjectToSQL, which I wrote about some time back. This cmdlet has quite a few parameters which makes it a good candidate, since the command line can get quite long as you can see in the example below.</p>
 <p>The command below will get all the processes running on the machine and write all the information to a database table. Exactly what it does is not important for this topic. You can read more details about this cmdlet here.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="n">-Server</span> <span class="n">localhost</span><span class="p">\</span><span class="n">sqlexpress</span> <span class="n">-Database</span> <span class="n">MyDB</span> <span class="n">-TableName</span> <span class="n">MyTable</span> <span class="n">-ReportEveryXObject</span> <span class="n">100</span>
-</code></pre></div><p>Now lets use splatting with a hash table where every key/value pair represents a named parameter.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$params</span> <span class="p">=</span> <span class="p">@{</span>
-    <span class="s1">&#39;Server&#39;</span>             <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
-    <span class="s1">&#39;Database&#39;</span>           <span class="p">=</span> <span class="s1">&#39;MyDB&#39;</span>
-    <span class="s1">&#39;TableName&#39;</span>          <span class="p">=</span> <span class="s1">&#39;MyTable&#39;</span>
-    <span class="s1">&#39;ReportEveryXObject&#39;</span> <span class="p">=</span> <span class="n">100</span>
-<span class="p">}</span>
-<span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="nv">@params</span>
-</code></pre></div><p>Again, the &ldquo;@&rdquo; symbol on the last line is the magic here, just like when using an array. This works with all kinds of parameters, including switch parameters and common parameters:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$params</span> <span class="p">=</span> <span class="p">@{</span>
-    <span class="s1">&#39;Server&#39;</span>             <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
-    <span class="s1">&#39;Database&#39;</span>           <span class="p">=</span> <span class="s1">&#39;MyDB&#39;</span>
-    <span class="s1">&#39;TableName&#39;</span>          <span class="p">=</span> <span class="s1">&#39;MyTable&#39;</span>
-    <span class="s1">&#39;ReportEveryXObject&#39;</span> <span class="p">=</span> <span class="n">100</span>
-    <span class="s1">&#39;DoNotCreateTable&#39;</span>   <span class="p">=</span> <span class="nv">$true</span>
-    <span class="s1">&#39;ErrorVariable&#39;</span>      <span class="p">=</span> <span class="s1">&#39;err&#39;</span>
-<span class="p">}</span>
-<span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="nv">@params</span>
-</code></pre></div><p>You can mix with regular parameters as well.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$params</span> <span class="p">=</span> <span class="p">@{</span>
-    <span class="s1">&#39;Server&#39;</span>             <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
-    <span class="s1">&#39;Database&#39;</span>           <span class="p">=</span> <span class="s1">&#39;MyDB&#39;</span>
-    <span class="s1">&#39;TableName&#39;</span>          <span class="p">=</span> <span class="s1">&#39;MyTable&#39;</span>
-    <span class="s1">&#39;ReportEveryXObject&#39;</span> <span class="p">=</span> <span class="n">100</span>
-    <span class="s1">&#39;DoNotCreateTable&#39;</span>   <span class="p">=</span> <span class="nv">$true</span>
-    <span class="s1">&#39;ErrorVariable&#39;</span>      <span class="p">=</span> <span class="s1">&#39;err&#39;</span>
-<span class="p">}</span>
-<span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="nv">@params</span> <span class="n">-Verbose</span>
-</code></pre></div><p>However, you cannot add the same parameter more than once.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$params</span> <span class="p">=</span> <span class="p">@{</span>
-    <span class="s1">&#39;Server&#39;</span>             <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
-    <span class="s1">&#39;Database&#39;</span>           <span class="p">=</span> <span class="s1">&#39;MyDB&#39;</span>
-    <span class="s1">&#39;TableName&#39;</span>          <span class="p">=</span> <span class="s1">&#39;MyTable&#39;</span>
-<span class="p">}</span>
-<span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="nv">@params</span> <span class="n">-TableName</span> <span class="n">MyOtherTable</span>
-<span class="c">#Error: Cannot bind parameter because parameter TableName is specified more than once</span>
-</code></pre></div><p>To read more about this topic write &ldquo;Get-Help about_splatting&rdquo; in the PowerShell console or read the web version <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_splatting">here</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="n">-Server</span> <span class="n">localhost</span><span class="p">\</span><span class="n">sqlexpress</span> <span class="n">-Database</span> <span class="n">MyDB</span> <span class="n">-TableName</span> <span class="n">MyTable</span> <span class="n">-ReportEveryXObject</span> <span class="mf">100</span>
+</span></span></code></pre></div><p>Now lets use splatting with a hash table where every key/value pair represents a named parameter.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$params</span> <span class="p">=</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Server&#39;</span>             <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Database&#39;</span>           <span class="p">=</span> <span class="s1">&#39;MyDB&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;TableName&#39;</span>          <span class="p">=</span> <span class="s1">&#39;MyTable&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;ReportEveryXObject&#39;</span> <span class="p">=</span> <span class="mf">100</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="nv">@params</span>
+</span></span></code></pre></div><p>Again, the &ldquo;@&rdquo; symbol on the last line is the magic here, just like when using an array. This works with all kinds of parameters, including switch parameters and common parameters:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$params</span> <span class="p">=</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Server&#39;</span>             <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Database&#39;</span>           <span class="p">=</span> <span class="s1">&#39;MyDB&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;TableName&#39;</span>          <span class="p">=</span> <span class="s1">&#39;MyTable&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;ReportEveryXObject&#39;</span> <span class="p">=</span> <span class="mf">100</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;DoNotCreateTable&#39;</span>   <span class="p">=</span> <span class="vm">$true</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;ErrorVariable&#39;</span>      <span class="p">=</span> <span class="s1">&#39;err&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="nv">@params</span>
+</span></span></code></pre></div><p>You can mix with regular parameters as well.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$params</span> <span class="p">=</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Server&#39;</span>             <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Database&#39;</span>           <span class="p">=</span> <span class="s1">&#39;MyDB&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;TableName&#39;</span>          <span class="p">=</span> <span class="s1">&#39;MyTable&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;ReportEveryXObject&#39;</span> <span class="p">=</span> <span class="mf">100</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;DoNotCreateTable&#39;</span>   <span class="p">=</span> <span class="vm">$true</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;ErrorVariable&#39;</span>      <span class="p">=</span> <span class="s1">&#39;err&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="nv">@params</span> <span class="n">-Verbose</span>
+</span></span></code></pre></div><p>However, you cannot add the same parameter more than once.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$params</span> <span class="p">=</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Server&#39;</span>             <span class="p">=</span> <span class="s1">&#39;localhost\sqlexpress&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Database&#39;</span>           <span class="p">=</span> <span class="s1">&#39;MyDB&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;TableName&#39;</span>          <span class="p">=</span> <span class="s1">&#39;MyTable&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Write-ObjectToSQL</span> <span class="nv">@params</span> <span class="n">-TableName</span> <span class="n">MyOtherTable</span>
+</span></span><span class="line"><span class="cl"><span class="c">#Error: Cannot bind parameter because parameter TableName is specified more than once</span>
+</span></span></code></pre></div><p>To read more about this topic write &ldquo;Get-Help about_splatting&rdquo; in the PowerShell console or read the web version <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_splatting">here</a>.</p>
 
 
             <p>- Written by John  
@@ -365,7 +369,7 @@ if (!doNotTrack) {
                 <div class="disqus-section">
                     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

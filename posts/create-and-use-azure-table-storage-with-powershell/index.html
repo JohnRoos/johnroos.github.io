@@ -28,8 +28,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    
+    <style>
+        body { font-size: 14px; }
+    </style>
+    
 
     <meta name='twitter:card'        content='summary' />
     <meta name='twitter:site'        content='@johnmroos'/>
@@ -57,7 +62,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 </head><body>
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle">
@@ -233,51 +237,51 @@ if (!doNotTrack) {
             <p>Azure Table storage is a quick and easy way to store data in the cloud. If you have an Azure subscription you can play around with you are up and running within minutes. Here is a short example on how to get started.</p>
 <h2 id="create-table">Create table</h2>
 <p>To create an Azure Table we need to first have a resource group. Lets create one that is called &ldquo;MyAwesomeResourceGroup&rdquo; and place it in &ldquo;West Europe&rdquo;. When the resource group is created we need to create a storage account. In this example I have set it to use locally redundant storage since its cheap and for lab purposes.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">New-AzResourceGroup</span> <span class="n">-Name</span> <span class="s1">&#39;MyAwesomeResourceGroup&#39;</span> <span class="p">`</span> 
-                    <span class="n">-Location</span> <span class="s1">&#39;West Europe&#39;</span>
- 
-<span class="nb">New-AzStorageAccount</span> <span class="n">-ResourceGroupName</span> <span class="s1">&#39;MyAwesomeResourceGroup&#39;</span> <span class="p">`</span>
-                     <span class="n">-Name</span> <span class="s1">&#39;fancystorageaccount&#39;</span> <span class="p">`</span>
-                     <span class="n">-SkuName</span> <span class="s1">&#39;Standard_LRS&#39;</span> <span class="p">`</span>
-                     <span class="n">-Kind</span> <span class="s1">&#39;StorageV2&#39;</span> <span class="p">`</span>
-                     <span class="n">-AccessTier</span> <span class="s1">&#39;Hot&#39;</span> 
-                     <span class="n">-Location</span> <span class="s1">&#39;West Europe&#39;</span>
-</code></pre></div><p>To continue, we also need a storage account key, so lets use the first one when we create the storage context. The storage context is needed when we create the table.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$StorageAccountKeys</span> <span class="p">=</span> <span class="nb">Get-AzStorageAccountKey</span> <span class="n">-ResourceGroupName</span> <span class="s1">&#39;MyAwesomeResourceGroup&#39;</span> <span class="p">`</span>
-                                              <span class="n">-Name</span> <span class="s1">&#39;fancystorageaccount&#39;</span>
- 
-<span class="nv">$StorageContext</span> <span class="p">=</span> <span class="nb">New-AzStorageContext</span> <span class="n">-StorageAccountName</span> <span class="s1">&#39;fancystorageaccount&#39;</span> <span class="p">`</span>
-                                       <span class="n">-StorageAccountKey</span> <span class="nv">$StorageAccountKeys</span><span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">Value</span>
-</code></pre></div><p>Now we are ready to create the Azure Table using the storage context. Lets name it &ldquo;KickassTable&rdquo;, because that&rsquo;s the name it deserves.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$StorageTable</span> <span class="p">=</span> <span class="nb">New-AzStorageTable</span> <span class="n">-Name</span> <span class="s1">&#39;KickassTable&#39;</span> <span class="n">-Context</span> <span class="nv">$StorageContext</span>
-</code></pre></div><p>That&rsquo;s it. Now we have a new Azure Table storage.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">New-AzResourceGroup</span> <span class="n">-Name</span> <span class="s1">&#39;MyAwesomeResourceGroup&#39;</span> <span class="p">`</span> 
+</span></span><span class="line"><span class="cl">                    <span class="n">-Location</span> <span class="s1">&#39;West Europe&#39;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="nb">New-AzStorageAccount</span> <span class="n">-ResourceGroupName</span> <span class="s1">&#39;MyAwesomeResourceGroup&#39;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                     <span class="n">-Name</span> <span class="s1">&#39;fancystorageaccount&#39;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                     <span class="n">-SkuName</span> <span class="s1">&#39;Standard_LRS&#39;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                     <span class="n">-Kind</span> <span class="s1">&#39;StorageV2&#39;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                     <span class="n">-AccessTier</span> <span class="s1">&#39;Hot&#39;</span> 
+</span></span><span class="line"><span class="cl">                     <span class="n">-Location</span> <span class="s1">&#39;West Europe&#39;</span>
+</span></span></code></pre></div><p>To continue, we also need a storage account key, so lets use the first one when we create the storage context. The storage context is needed when we create the table.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$StorageAccountKeys</span> <span class="p">=</span> <span class="nb">Get-AzStorageAccountKey</span> <span class="n">-ResourceGroupName</span> <span class="s1">&#39;MyAwesomeResourceGroup&#39;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                                              <span class="n">-Name</span> <span class="s1">&#39;fancystorageaccount&#39;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="nv">$StorageContext</span> <span class="p">=</span> <span class="nb">New-AzStorageContext</span> <span class="n">-StorageAccountName</span> <span class="s1">&#39;fancystorageaccount&#39;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                                       <span class="n">-StorageAccountKey</span> <span class="nv">$StorageAccountKeys</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="py">Value</span>
+</span></span></code></pre></div><p>Now we are ready to create the Azure Table using the storage context. Lets name it &ldquo;KickassTable&rdquo;, because that&rsquo;s the name it deserves.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$StorageTable</span> <span class="p">=</span> <span class="nb">New-AzStorageTable</span> <span class="n">-Name</span> <span class="s1">&#39;KickassTable&#39;</span> <span class="n">-Context</span> <span class="nv">$StorageContext</span>
+</span></span></code></pre></div><p>That&rsquo;s it. Now we have a new Azure Table storage.</p>
 <h2 id="query-table">Query table</h2>
 <p>So how do we use it then? Its actually fairly simple. Especially if you are using the AzTable module. Install the AzTable module, then create the Azure table object. This object is needed later when we query for data.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Install-Module</span> <span class="n">-Name</span> <span class="n">AzTable</span>
- 
-<span class="nv">$AzureTable</span> <span class="p">=</span> <span class="nb">Get-AzTableTable</span> <span class="n">-TableName</span> <span class="s1">&#39;KickassTable&#39;</span> <span class="p">`</span>
-                               <span class="n">-ResourceGroup</span> <span class="s1">&#39;MyAwesomeResourceGroup&#39;</span> <span class="p">`</span>
-                               <span class="n">-StorageAccountName</span> <span class="s1">&#39;fancystorageaccount&#39;</span>
-</code></pre></div><p>Now we are ready to add some rows into the table. We need to set a partition key and a row key before adding the actual data, which is represented as properties.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Add-AzTableRow</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span> <span class="p">`</span>
-               <span class="n">-PartitionKey</span> <span class="s1">&#39;Test&#39;</span> <span class="p">`</span>
-               <span class="n">-RowKey</span> <span class="s1">&#39;Lab01&#39;</span> <span class="p">`</span>
-               <span class="n">-Property</span> <span class="p">@{</span><span class="s1">&#39;SomeKey&#39;</span><span class="p">=</span><span class="s1">&#39;some value&#39;</span><span class="p">}</span>
-</code></pre></div><p>To query the table we use the command Get-AzTableRow.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># If you don&#39;t provide any filters all rows will be returned.</span>
-<span class="nb">Get-AzTableRow</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span>
- 
-<span class="c"># Perhaps you want only the rows matching a certain partition key and row key.</span>
-<span class="nb">Get-AzTableRow</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span> <span class="n">-PartitionKey</span> <span class="s1">&#39;Test&#39;</span> <span class="n">-RowKey</span> <span class="s1">&#39;Lab01&#39;</span>
- 
-<span class="c"># You can even query the properties you provided earlier (which are stored as key-value pairs).</span>
-<span class="nb">Get-AzTableRow</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span> <span class="n">-ColumnName</span> <span class="n">SomeKey</span> <span class="n">-Value</span> <span class="s1">&#39;some value&#39;</span> <span class="n">-Operator</span> <span class="n">Equal</span>
-</code></pre></div><p>Now that we feel that we have worked enough with our data, its time to remove it. A row can be removed with filters in the same way as when you get a row, but its also possible to use an entire row as parameter value.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Install-Module</span> <span class="n">-Name</span> <span class="n">AzTable</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="nv">$AzureTable</span> <span class="p">=</span> <span class="nb">Get-AzTableTable</span> <span class="n">-TableName</span> <span class="s1">&#39;KickassTable&#39;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                               <span class="n">-ResourceGroup</span> <span class="s1">&#39;MyAwesomeResourceGroup&#39;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                               <span class="n">-StorageAccountName</span> <span class="s1">&#39;fancystorageaccount&#39;</span>
+</span></span></code></pre></div><p>Now we are ready to add some rows into the table. We need to set a partition key and a row key before adding the actual data, which is represented as properties.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Add-AzTableRow</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">               <span class="n">-PartitionKey</span> <span class="s1">&#39;Test&#39;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">               <span class="n">-RowKey</span> <span class="s1">&#39;Lab01&#39;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">               <span class="n">-Property</span> <span class="vm">@</span><span class="p">{</span><span class="s1">&#39;SomeKey&#39;</span><span class="p">=</span><span class="s1">&#39;some value&#39;</span><span class="p">}</span>
+</span></span></code></pre></div><p>To query the table we use the command Get-AzTableRow.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># If you don&#39;t provide any filters all rows will be returned.</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-AzTableRow</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c"># Perhaps you want only the rows matching a certain partition key and row key.</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-AzTableRow</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span> <span class="n">-PartitionKey</span> <span class="s1">&#39;Test&#39;</span> <span class="n">-RowKey</span> <span class="s1">&#39;Lab01&#39;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c"># You can even query the properties you provided earlier (which are stored as key-value pairs).</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-AzTableRow</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span> <span class="n">-ColumnName</span> <span class="n">SomeKey</span> <span class="n">-Value</span> <span class="s1">&#39;some value&#39;</span> <span class="n">-Operator</span> <span class="n">Equal</span>
+</span></span></code></pre></div><p>Now that we feel that we have worked enough with our data, its time to remove it. A row can be removed with filters in the same way as when you get a row, but its also possible to use an entire row as parameter value.</p>
 <p>First, lets get the row. Then remove the row by using it as a parameter value.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$rows</span> <span class="p">=</span> <span class="nb">Get-AzTableRow</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span> <span class="n">-ColumnName</span> <span class="n">SomeKey</span> <span class="n">-Value</span> <span class="s1">&#39;some value&#39;</span> <span class="n">-Operator</span> <span class="n">Equal</span>
- 
-<span class="nb">Remove-AzTableRow</span> <span class="n">-entity</span> <span class="nv">$rows</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span>
-</code></pre></div><p>Thats it. This is a very quick introduction to how to create a table and manage the data in it.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$rows</span> <span class="p">=</span> <span class="nb">Get-AzTableRow</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span> <span class="n">-ColumnName</span> <span class="n">SomeKey</span> <span class="n">-Value</span> <span class="s1">&#39;some value&#39;</span> <span class="n">-Operator</span> <span class="n">Equal</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="nb">Remove-AzTableRow</span> <span class="n">-entity</span> <span class="nv">$rows</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span>
+</span></span></code></pre></div><p>Thats it. This is a very quick introduction to how to create a table and manage the data in it.</p>
 
         </div>
 
@@ -288,51 +292,51 @@ if (!doNotTrack) {
             <p>Azure Table storage is a quick and easy way to store data in the cloud. If you have an Azure subscription you can play around with you are up and running within minutes. Here is a short example on how to get started.</p>
 <h2 id="create-table">Create table</h2>
 <p>To create an Azure Table we need to first have a resource group. Lets create one that is called &ldquo;MyAwesomeResourceGroup&rdquo; and place it in &ldquo;West Europe&rdquo;. When the resource group is created we need to create a storage account. In this example I have set it to use locally redundant storage since its cheap and for lab purposes.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">New-AzResourceGroup</span> <span class="n">-Name</span> <span class="s1">&#39;MyAwesomeResourceGroup&#39;</span> <span class="p">`</span> 
-                    <span class="n">-Location</span> <span class="s1">&#39;West Europe&#39;</span>
- 
-<span class="nb">New-AzStorageAccount</span> <span class="n">-ResourceGroupName</span> <span class="s1">&#39;MyAwesomeResourceGroup&#39;</span> <span class="p">`</span>
-                     <span class="n">-Name</span> <span class="s1">&#39;fancystorageaccount&#39;</span> <span class="p">`</span>
-                     <span class="n">-SkuName</span> <span class="s1">&#39;Standard_LRS&#39;</span> <span class="p">`</span>
-                     <span class="n">-Kind</span> <span class="s1">&#39;StorageV2&#39;</span> <span class="p">`</span>
-                     <span class="n">-AccessTier</span> <span class="s1">&#39;Hot&#39;</span> 
-                     <span class="n">-Location</span> <span class="s1">&#39;West Europe&#39;</span>
-</code></pre></div><p>To continue, we also need a storage account key, so lets use the first one when we create the storage context. The storage context is needed when we create the table.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$StorageAccountKeys</span> <span class="p">=</span> <span class="nb">Get-AzStorageAccountKey</span> <span class="n">-ResourceGroupName</span> <span class="s1">&#39;MyAwesomeResourceGroup&#39;</span> <span class="p">`</span>
-                                              <span class="n">-Name</span> <span class="s1">&#39;fancystorageaccount&#39;</span>
- 
-<span class="nv">$StorageContext</span> <span class="p">=</span> <span class="nb">New-AzStorageContext</span> <span class="n">-StorageAccountName</span> <span class="s1">&#39;fancystorageaccount&#39;</span> <span class="p">`</span>
-                                       <span class="n">-StorageAccountKey</span> <span class="nv">$StorageAccountKeys</span><span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">Value</span>
-</code></pre></div><p>Now we are ready to create the Azure Table using the storage context. Lets name it &ldquo;KickassTable&rdquo;, because that&rsquo;s the name it deserves.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$StorageTable</span> <span class="p">=</span> <span class="nb">New-AzStorageTable</span> <span class="n">-Name</span> <span class="s1">&#39;KickassTable&#39;</span> <span class="n">-Context</span> <span class="nv">$StorageContext</span>
-</code></pre></div><p>That&rsquo;s it. Now we have a new Azure Table storage.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">New-AzResourceGroup</span> <span class="n">-Name</span> <span class="s1">&#39;MyAwesomeResourceGroup&#39;</span> <span class="p">`</span> 
+</span></span><span class="line"><span class="cl">                    <span class="n">-Location</span> <span class="s1">&#39;West Europe&#39;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="nb">New-AzStorageAccount</span> <span class="n">-ResourceGroupName</span> <span class="s1">&#39;MyAwesomeResourceGroup&#39;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                     <span class="n">-Name</span> <span class="s1">&#39;fancystorageaccount&#39;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                     <span class="n">-SkuName</span> <span class="s1">&#39;Standard_LRS&#39;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                     <span class="n">-Kind</span> <span class="s1">&#39;StorageV2&#39;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                     <span class="n">-AccessTier</span> <span class="s1">&#39;Hot&#39;</span> 
+</span></span><span class="line"><span class="cl">                     <span class="n">-Location</span> <span class="s1">&#39;West Europe&#39;</span>
+</span></span></code></pre></div><p>To continue, we also need a storage account key, so lets use the first one when we create the storage context. The storage context is needed when we create the table.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$StorageAccountKeys</span> <span class="p">=</span> <span class="nb">Get-AzStorageAccountKey</span> <span class="n">-ResourceGroupName</span> <span class="s1">&#39;MyAwesomeResourceGroup&#39;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                                              <span class="n">-Name</span> <span class="s1">&#39;fancystorageaccount&#39;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="nv">$StorageContext</span> <span class="p">=</span> <span class="nb">New-AzStorageContext</span> <span class="n">-StorageAccountName</span> <span class="s1">&#39;fancystorageaccount&#39;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                                       <span class="n">-StorageAccountKey</span> <span class="nv">$StorageAccountKeys</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="py">Value</span>
+</span></span></code></pre></div><p>Now we are ready to create the Azure Table using the storage context. Lets name it &ldquo;KickassTable&rdquo;, because that&rsquo;s the name it deserves.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$StorageTable</span> <span class="p">=</span> <span class="nb">New-AzStorageTable</span> <span class="n">-Name</span> <span class="s1">&#39;KickassTable&#39;</span> <span class="n">-Context</span> <span class="nv">$StorageContext</span>
+</span></span></code></pre></div><p>That&rsquo;s it. Now we have a new Azure Table storage.</p>
 <h2 id="query-table">Query table</h2>
 <p>So how do we use it then? Its actually fairly simple. Especially if you are using the AzTable module. Install the AzTable module, then create the Azure table object. This object is needed later when we query for data.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Install-Module</span> <span class="n">-Name</span> <span class="n">AzTable</span>
- 
-<span class="nv">$AzureTable</span> <span class="p">=</span> <span class="nb">Get-AzTableTable</span> <span class="n">-TableName</span> <span class="s1">&#39;KickassTable&#39;</span> <span class="p">`</span>
-                               <span class="n">-ResourceGroup</span> <span class="s1">&#39;MyAwesomeResourceGroup&#39;</span> <span class="p">`</span>
-                               <span class="n">-StorageAccountName</span> <span class="s1">&#39;fancystorageaccount&#39;</span>
-</code></pre></div><p>Now we are ready to add some rows into the table. We need to set a partition key and a row key before adding the actual data, which is represented as properties.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Add-AzTableRow</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span> <span class="p">`</span>
-               <span class="n">-PartitionKey</span> <span class="s1">&#39;Test&#39;</span> <span class="p">`</span>
-               <span class="n">-RowKey</span> <span class="s1">&#39;Lab01&#39;</span> <span class="p">`</span>
-               <span class="n">-Property</span> <span class="p">@{</span><span class="s1">&#39;SomeKey&#39;</span><span class="p">=</span><span class="s1">&#39;some value&#39;</span><span class="p">}</span>
-</code></pre></div><p>To query the table we use the command Get-AzTableRow.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># If you don&#39;t provide any filters all rows will be returned.</span>
-<span class="nb">Get-AzTableRow</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span>
- 
-<span class="c"># Perhaps you want only the rows matching a certain partition key and row key.</span>
-<span class="nb">Get-AzTableRow</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span> <span class="n">-PartitionKey</span> <span class="s1">&#39;Test&#39;</span> <span class="n">-RowKey</span> <span class="s1">&#39;Lab01&#39;</span>
- 
-<span class="c"># You can even query the properties you provided earlier (which are stored as key-value pairs).</span>
-<span class="nb">Get-AzTableRow</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span> <span class="n">-ColumnName</span> <span class="n">SomeKey</span> <span class="n">-Value</span> <span class="s1">&#39;some value&#39;</span> <span class="n">-Operator</span> <span class="n">Equal</span>
-</code></pre></div><p>Now that we feel that we have worked enough with our data, its time to remove it. A row can be removed with filters in the same way as when you get a row, but its also possible to use an entire row as parameter value.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Install-Module</span> <span class="n">-Name</span> <span class="n">AzTable</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="nv">$AzureTable</span> <span class="p">=</span> <span class="nb">Get-AzTableTable</span> <span class="n">-TableName</span> <span class="s1">&#39;KickassTable&#39;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                               <span class="n">-ResourceGroup</span> <span class="s1">&#39;MyAwesomeResourceGroup&#39;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">                               <span class="n">-StorageAccountName</span> <span class="s1">&#39;fancystorageaccount&#39;</span>
+</span></span></code></pre></div><p>Now we are ready to add some rows into the table. We need to set a partition key and a row key before adding the actual data, which is represented as properties.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Add-AzTableRow</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">               <span class="n">-PartitionKey</span> <span class="s1">&#39;Test&#39;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">               <span class="n">-RowKey</span> <span class="s1">&#39;Lab01&#39;</span> <span class="p">`</span>
+</span></span><span class="line"><span class="cl">               <span class="n">-Property</span> <span class="vm">@</span><span class="p">{</span><span class="s1">&#39;SomeKey&#39;</span><span class="p">=</span><span class="s1">&#39;some value&#39;</span><span class="p">}</span>
+</span></span></code></pre></div><p>To query the table we use the command Get-AzTableRow.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># If you don&#39;t provide any filters all rows will be returned.</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-AzTableRow</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c"># Perhaps you want only the rows matching a certain partition key and row key.</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-AzTableRow</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span> <span class="n">-PartitionKey</span> <span class="s1">&#39;Test&#39;</span> <span class="n">-RowKey</span> <span class="s1">&#39;Lab01&#39;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="c"># You can even query the properties you provided earlier (which are stored as key-value pairs).</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Get-AzTableRow</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span> <span class="n">-ColumnName</span> <span class="n">SomeKey</span> <span class="n">-Value</span> <span class="s1">&#39;some value&#39;</span> <span class="n">-Operator</span> <span class="n">Equal</span>
+</span></span></code></pre></div><p>Now that we feel that we have worked enough with our data, its time to remove it. A row can be removed with filters in the same way as when you get a row, but its also possible to use an entire row as parameter value.</p>
 <p>First, lets get the row. Then remove the row by using it as a parameter value.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$rows</span> <span class="p">=</span> <span class="nb">Get-AzTableRow</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span> <span class="n">-ColumnName</span> <span class="n">SomeKey</span> <span class="n">-Value</span> <span class="s1">&#39;some value&#39;</span> <span class="n">-Operator</span> <span class="n">Equal</span>
- 
-<span class="nb">Remove-AzTableRow</span> <span class="n">-entity</span> <span class="nv">$rows</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span>
-</code></pre></div><p>Thats it. This is a very quick introduction to how to create a table and manage the data in it.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$rows</span> <span class="p">=</span> <span class="nb">Get-AzTableRow</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span> <span class="n">-ColumnName</span> <span class="n">SomeKey</span> <span class="n">-Value</span> <span class="s1">&#39;some value&#39;</span> <span class="n">-Operator</span> <span class="n">Equal</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="nb">Remove-AzTableRow</span> <span class="n">-entity</span> <span class="nv">$rows</span> <span class="n">-Table</span> <span class="nv">$AzureTable</span>
+</span></span></code></pre></div><p>Thats it. This is a very quick introduction to how to create a table and manage the data in it.</p>
 
 
             <p>- Written by John  
@@ -345,7 +349,7 @@ if (!doNotTrack) {
                 <div class="disqus-section">
                     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

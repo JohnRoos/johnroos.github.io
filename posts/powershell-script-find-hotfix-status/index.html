@@ -26,8 +26,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    
+    <style>
+        body { font-size: 14px; }
+    </style>
+    
 
     <meta name='twitter:card'        content='summary' />
     <meta name='twitter:site'        content='@johnmroos'/>
@@ -55,7 +60,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 </head><body>
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle">
@@ -234,17 +238,17 @@ if (!doNotTrack) {
             ----
             <p>I was browsing around the requests on the <a href="https://gallery.technet.microsoft.com/scriptcenter/site/requests">Microsoft Script Center</a> the other day and found one request where a user needed a PowerShell script for showing the status of specific hotfixes on multiple machines. I thought it would be a good idea since Get-Hotfix only shows where the hotfix is installed but not directly where its not installed.</p>
 <p>I created a simple small script that would list the patches to check for, along with each server and if its installed or not. The output looks something like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">ComputerName    Hotfix       Status
-------------    ------       ------
-server01        KB2991963    Installed
-server01        KB2923423    Not installed
-server02        KB2991963    Installed
-server02        KB2923423    Not installed
-</code></pre></div><p>The script outputs one object per server and hotfix. So each line in the output above represents one object. In this way you can easily format it or pipe it to other commands. Here is one example where I want to look for the status of hotfixes called KB2991963 and KB2923423 on two servers:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="p">.\</span><span class="nb">Find-Hotfix</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Hotfix</span> <span class="s1">&#39;KB2991963&#39;</span><span class="p">,</span> <span class="s1">&#39;KB2923423&#39;</span> <span class="n">-ComputerName</span> <span class="s1">&#39;server01&#39;</span><span class="p">,</span> <span class="s1">&#39;server02&#39;</span>
-</code></pre></div><p>You could also use the FilePath parameters in case you have a list of servers and/or a list of hotfixes in text files:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="p">.\</span><span class="nb">Find-Hotfix</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Hotfix_FilePath</span> <span class="s1">&#39;c:\hotfixes.txt&#39;</span> <span class="n">-ComputerName_FilePath</span> <span class="s1">&#39;c:\servers.txt&#39;</span>
-</code></pre></div><p>The script can be downloaded from Microsoft Script Center <a href="https://gallery.technet.microsoft.com/Powershell-Find-hotfix-312a7bc2">here</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">ComputerName    Hotfix       Status
+</span></span><span class="line"><span class="cl">------------    ------       ------
+</span></span><span class="line"><span class="cl">server01        KB2991963    Installed
+</span></span><span class="line"><span class="cl">server01        KB2923423    Not installed
+</span></span><span class="line"><span class="cl">server02        KB2991963    Installed
+</span></span><span class="line"><span class="cl">server02        KB2923423    Not installed
+</span></span></code></pre></div><p>The script outputs one object per server and hotfix. So each line in the output above represents one object. In this way you can easily format it or pipe it to other commands. Here is one example where I want to look for the status of hotfixes called KB2991963 and KB2923423 on two servers:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="nb">Find-Hotfix</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-Hotfix</span> <span class="s1">&#39;KB2991963&#39;</span><span class="p">,</span> <span class="s1">&#39;KB2923423&#39;</span> <span class="n">-ComputerName</span> <span class="s1">&#39;server01&#39;</span><span class="p">,</span> <span class="s1">&#39;server02&#39;</span>
+</span></span></code></pre></div><p>You could also use the FilePath parameters in case you have a list of servers and/or a list of hotfixes in text files:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="nb">Find-Hotfix</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-Hotfix_FilePath</span> <span class="s1">&#39;c:\hotfixes.txt&#39;</span> <span class="n">-ComputerName_FilePath</span> <span class="s1">&#39;c:\servers.txt&#39;</span>
+</span></span></code></pre></div><p>The script can be downloaded from Microsoft Script Center <a href="https://gallery.technet.microsoft.com/Powershell-Find-hotfix-312a7bc2">here</a>.</p>
 
         </div>
 
@@ -254,17 +258,17 @@ server02        KB2923423    Not installed
             
             <p>I was browsing around the requests on the <a href="https://gallery.technet.microsoft.com/scriptcenter/site/requests">Microsoft Script Center</a> the other day and found one request where a user needed a PowerShell script for showing the status of specific hotfixes on multiple machines. I thought it would be a good idea since Get-Hotfix only shows where the hotfix is installed but not directly where its not installed.</p>
 <p>I created a simple small script that would list the patches to check for, along with each server and if its installed or not. The output looks something like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">ComputerName    Hotfix       Status
-------------    ------       ------
-server01        KB2991963    Installed
-server01        KB2923423    Not installed
-server02        KB2991963    Installed
-server02        KB2923423    Not installed
-</code></pre></div><p>The script outputs one object per server and hotfix. So each line in the output above represents one object. In this way you can easily format it or pipe it to other commands. Here is one example where I want to look for the status of hotfixes called KB2991963 and KB2923423 on two servers:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="p">.\</span><span class="nb">Find-Hotfix</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Hotfix</span> <span class="s1">&#39;KB2991963&#39;</span><span class="p">,</span> <span class="s1">&#39;KB2923423&#39;</span> <span class="n">-ComputerName</span> <span class="s1">&#39;server01&#39;</span><span class="p">,</span> <span class="s1">&#39;server02&#39;</span>
-</code></pre></div><p>You could also use the FilePath parameters in case you have a list of servers and/or a list of hotfixes in text files:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="p">.\</span><span class="nb">Find-Hotfix</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Hotfix_FilePath</span> <span class="s1">&#39;c:\hotfixes.txt&#39;</span> <span class="n">-ComputerName_FilePath</span> <span class="s1">&#39;c:\servers.txt&#39;</span>
-</code></pre></div><p>The script can be downloaded from Microsoft Script Center <a href="https://gallery.technet.microsoft.com/Powershell-Find-hotfix-312a7bc2">here</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">ComputerName    Hotfix       Status
+</span></span><span class="line"><span class="cl">------------    ------       ------
+</span></span><span class="line"><span class="cl">server01        KB2991963    Installed
+</span></span><span class="line"><span class="cl">server01        KB2923423    Not installed
+</span></span><span class="line"><span class="cl">server02        KB2991963    Installed
+</span></span><span class="line"><span class="cl">server02        KB2923423    Not installed
+</span></span></code></pre></div><p>The script outputs one object per server and hotfix. So each line in the output above represents one object. In this way you can easily format it or pipe it to other commands. Here is one example where I want to look for the status of hotfixes called KB2991963 and KB2923423 on two servers:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="nb">Find-Hotfix</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-Hotfix</span> <span class="s1">&#39;KB2991963&#39;</span><span class="p">,</span> <span class="s1">&#39;KB2923423&#39;</span> <span class="n">-ComputerName</span> <span class="s1">&#39;server01&#39;</span><span class="p">,</span> <span class="s1">&#39;server02&#39;</span>
+</span></span></code></pre></div><p>You could also use the FilePath parameters in case you have a list of servers and/or a list of hotfixes in text files:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">.\</span><span class="nb">Find-Hotfix</span><span class="p">.</span><span class="py">ps1</span> <span class="n">-Hotfix_FilePath</span> <span class="s1">&#39;c:\hotfixes.txt&#39;</span> <span class="n">-ComputerName_FilePath</span> <span class="s1">&#39;c:\servers.txt&#39;</span>
+</span></span></code></pre></div><p>The script can be downloaded from Microsoft Script Center <a href="https://gallery.technet.microsoft.com/Powershell-Find-hotfix-312a7bc2">here</a>.</p>
 
 
             <p>- Written by John  
@@ -277,7 +281,7 @@ server02        KB2923423    Not installed
                 <div class="disqus-section">
                     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

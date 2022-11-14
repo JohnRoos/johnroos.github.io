@@ -28,8 +28,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    
+    <style>
+        body { font-size: 14px; }
+    </style>
+    
 
     <meta name='twitter:card'        content='summary' />
     <meta name='twitter:site'        content='@johnmroos'/>
@@ -55,7 +60,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 </head><body>
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle">
@@ -233,126 +237,126 @@ if (!doNotTrack) {
 <p>When viewing the function app in the Azure Portal, you have the option to open Kudu. Kudu can be reached by clicking on <strong>Advanced tools</strong> under <strong>Development tools</strong> in the menu. On the start page for Kudu you will find a link to list all Functions.</p>
 <p><img src="/images/kudu01.png#center" alt="Kudu"></p>
 <p>Click the link and you should see something like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">[</span>
-    <span class="p">{</span>
-        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;myfunction&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;function_app_id&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="nt">&#34;script_root_path_href&#34;</span><span class="p">:</span> <span class="s2">&#34;https://myfunctionapp.scm.azurewebsites.net/api/vfs/site/wwwroot/myfunction/&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;script_href&#34;</span><span class="p">:</span> <span class="s2">&#34;https://myfunctionapp.scm.azurewebsites.net/api/vfs/site/wwwroot/myfunction/myfunction.ps1&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;config_href&#34;</span><span class="p">:</span> <span class="s2">&#34;https://myfunctionapp.scm.azurewebsites.net/api/vfs/site/wwwroot/myfunction/function.json&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;secrets_file_href&#34;</span><span class="p">:</span> <span class="s2">&#34;https://myfunctionapp.scm.azurewebsites.net/api/vfs/data/functions/secrets/myfunction.json&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;href&#34;</span><span class="p">:</span> <span class="s2">&#34;https://myfunctionapp.scm.azurewebsites.net/api/functions/myfunction&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;config&#34;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;scriptFile&#34;</span><span class="p">:</span> <span class="s2">&#34;myfunction.ps1&#34;</span><span class="p">,</span>
-            <span class="nt">&#34;bindings&#34;</span><span class="p">:</span> <span class="p">[</span>
-                 <span class="p">{</span>
-                    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Timer&#34;</span><span class="p">,</span>
-                    <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;timerTrigger&#34;</span><span class="p">,</span>
-                    <span class="nt">&#34;direction&#34;</span><span class="p">:</span> <span class="s2">&#34;in&#34;</span><span class="p">,</span>
-                    <span class="nt">&#34;schedule&#34;</span><span class="p">:</span> <span class="s2">&#34;0 1 * * * *&#34;</span>
-                <span class="p">}</span>
-            <span class="p">]</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;files&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="nt">&#34;test_data&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span>
-    <span class="p">}</span>
-<span class="p">]</span>
-</code></pre></div><p>In the JSON we can see that we have the bindings among other things. Now we just need to invoke this endpoint and get the information we need, right?</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;myfunction&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;function_app_id&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;script_root_path_href&#34;</span><span class="p">:</span> <span class="s2">&#34;https://myfunctionapp.scm.azurewebsites.net/api/vfs/site/wwwroot/myfunction/&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;script_href&#34;</span><span class="p">:</span> <span class="s2">&#34;https://myfunctionapp.scm.azurewebsites.net/api/vfs/site/wwwroot/myfunction/myfunction.ps1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;config_href&#34;</span><span class="p">:</span> <span class="s2">&#34;https://myfunctionapp.scm.azurewebsites.net/api/vfs/site/wwwroot/myfunction/function.json&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;secrets_file_href&#34;</span><span class="p">:</span> <span class="s2">&#34;https://myfunctionapp.scm.azurewebsites.net/api/vfs/data/functions/secrets/myfunction.json&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;href&#34;</span><span class="p">:</span> <span class="s2">&#34;https://myfunctionapp.scm.azurewebsites.net/api/functions/myfunction&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;config&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;scriptFile&#34;</span><span class="p">:</span> <span class="s2">&#34;myfunction.ps1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;bindings&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                 <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Timer&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;timerTrigger&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&#34;direction&#34;</span><span class="p">:</span> <span class="s2">&#34;in&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&#34;schedule&#34;</span><span class="p">:</span> <span class="s2">&#34;0 1 * * * *&#34;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;files&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;test_data&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span></code></pre></div><p>In the JSON we can see that we have the bindings among other things. Now we just need to invoke this endpoint and get the information we need, right?</p>
 <h2 id="get-the-credentials">Get the credentials</h2>
 <p>Unfortunately, its not that straightforward. The Kudu API is not reachable with the same account as the account you normally use when scripting in Azure. Kudu requires you to use the same account which is used when publishing the app. These credentials are created automatically in the background and, in most cases, you don’t have to think about it.</p>
 <p>So the first thing we need to do is to get the publishing credentials. These credentials can be found using the <a href="https://resources.azure.com">Azure Resource Explorer</a>, but to save time, here is the command that is needed:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$resourceActionParameters</span> <span class="p">=</span> <span class="p">@{</span>
-    <span class="n">ResourceGroupName</span> <span class="p">=</span> <span class="s1">&#39;myresourcegroup&#39;</span>
-    <span class="n">ResourceType</span>      <span class="p">=</span> <span class="s1">&#39;Microsoft.Web/sites/config&#39;</span>
-    <span class="n">ResourceName</span>      <span class="p">=</span> <span class="s1">&#39;myfunctionapp/publishingcredentials&#39;</span>
-    <span class="n">Action</span>            <span class="p">=</span> <span class="s1">&#39;list&#39;</span>
-    <span class="n">ApiVersion</span>        <span class="p">=</span> <span class="s1">&#39;2020-06-01&#39;</span>
-<span class="p">}</span>
-<span class="nv">$KuduCredentials</span> <span class="p">=</span> <span class="nb">Invoke-AzResourceAction</span> <span class="nv">@resourceActionParameters</span> <span class="n">-Force</span>
-</code></pre></div><p>Make sure you are connected to Azure before running this command. The command will return a result where we have the username and password in the property called <strong>properties</strong>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">id         : /subscriptions/d5d4f110-b7dc-4e21-a1a0-67c5098a91e5/resourceGroups/myresourcegroup/providers/Microsoft.Web/sites/myfunctionapp/publishingcredentials/$myfunctionapp
-name       : myfunctionapp
-type       : Microsoft.Web/sites/publishingcredentials
-location   : North Europe
-properties : @{
-    name=;
-    publishingUserName=$myfunctionapp;
-    publishingPassword=zjlDtWlputfTzjxsVvn8ilsQCHylGXWiTTEdd6bZvtYqjsnojjrWjSh3eMzQ;
-    publishingPasswordHash=;
-    publishingPasswordHashSalt=;
-    metadata=;
-    isDeleted=False;
-    scmUri=https://$myfunctionapp:zjlDtWlputfTzjxsVvn8ilsQCHylGXWiTTEdd6bZvtYqjsnojjrWjSh3eMzQ@myfunctionapp.scm.azurewebsites.net
-}
-</code></pre></div><h2 id="create-the-authorization-header">Create the authorization header</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$resourceActionParameters</span> <span class="p">=</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ResourceGroupName</span> <span class="p">=</span> <span class="s1">&#39;myresourcegroup&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ResourceType</span>      <span class="p">=</span> <span class="s1">&#39;Microsoft.Web/sites/config&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ResourceName</span>      <span class="p">=</span> <span class="s1">&#39;myfunctionapp/publishingcredentials&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Action</span>            <span class="p">=</span> <span class="s1">&#39;list&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ApiVersion</span>        <span class="p">=</span> <span class="s1">&#39;2020-06-01&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$KuduCredentials</span> <span class="p">=</span> <span class="nb">Invoke-AzResourceAction</span> <span class="nv">@resourceActionParameters</span> <span class="n">-Force</span>
+</span></span></code></pre></div><p>Make sure you are connected to Azure before running this command. The command will return a result where we have the username and password in the property called <strong>properties</strong>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">id         : /subscriptions/d5d4f110-b7dc-4e21-a1a0-67c5098a91e5/resourceGroups/myresourcegroup/providers/Microsoft.Web/sites/myfunctionapp/publishingcredentials/$myfunctionapp
+</span></span><span class="line"><span class="cl">name       : myfunctionapp
+</span></span><span class="line"><span class="cl">type       : Microsoft.Web/sites/publishingcredentials
+</span></span><span class="line"><span class="cl">location   : North Europe
+</span></span><span class="line"><span class="cl">properties : @{
+</span></span><span class="line"><span class="cl">    name=;
+</span></span><span class="line"><span class="cl">    publishingUserName=$myfunctionapp;
+</span></span><span class="line"><span class="cl">    publishingPassword=zjlDtWlputfTzjxsVvn8ilsQCHylGXWiTTEdd6bZvtYqjsnojjrWjSh3eMzQ;
+</span></span><span class="line"><span class="cl">    publishingPasswordHash=;
+</span></span><span class="line"><span class="cl">    publishingPasswordHashSalt=;
+</span></span><span class="line"><span class="cl">    metadata=;
+</span></span><span class="line"><span class="cl">    isDeleted=False;
+</span></span><span class="line"><span class="cl">    scmUri=https://$myfunctionapp:zjlDtWlputfTzjxsVvn8ilsQCHylGXWiTTEdd6bZvtYqjsnojjrWjSh3eMzQ@myfunctionapp.scm.azurewebsites.net
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><h2 id="create-the-authorization-header">Create the authorization header</h2>
 <p>The Kudu API requires you to use basic authentication. This is fairly straight forward. First we need to put the username and password into a string, separated by a colon. Then we need to convert the string to an array of bytes. Finally, we convert the byte array to a base64 string. Add the result to the authorization header.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$Username</span> <span class="p">=</span> <span class="nv">$KuduCredentials</span><span class="p">.</span><span class="n">Properties</span><span class="p">.</span><span class="n">PublishingUserName</span>
-<span class="nv">$Password</span> <span class="p">=</span> <span class="nv">$KuduCredentials</span><span class="p">.</span><span class="n">Properties</span><span class="p">.</span><span class="n">PublishingPassword</span>
-
-<span class="nv">$stringKuduCredentials</span> <span class="p">=</span> <span class="s2">&#34;$Username:$Password&#34;</span>
-<span class="nv">$BytesKuduCredentials</span>  <span class="p">=</span> <span class="no">[Text.Encoding]</span><span class="p">::</span><span class="n">ASCII</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="nv">$stringKuduCredentials</span><span class="p">)</span>
-<span class="nv">$Base64KuduCredentials</span> <span class="p">=</span> <span class="no">[Convert]</span><span class="p">::</span><span class="n">ToBase64String</span><span class="p">(</span><span class="nv">$BytesKuduCredentials</span><span class="p">)</span>
-
-<span class="nv">$Headers</span> <span class="p">=</span> <span class="p">@{</span>
-    <span class="n">Authorization</span> <span class="p">=</span> <span class="s2">&#34;Basic $Base64KuduCredentials&#34;</span>
-<span class="p">}</span>
-</code></pre></div><h2 id="invoke-and-inspect">Invoke and inspect</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$Username</span> <span class="p">=</span> <span class="nv">$KuduCredentials</span><span class="p">.</span><span class="py">Properties</span><span class="p">.</span><span class="py">PublishingUserName</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$Password</span> <span class="p">=</span> <span class="nv">$KuduCredentials</span><span class="p">.</span><span class="py">Properties</span><span class="p">.</span><span class="py">PublishingPassword</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$stringKuduCredentials</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="nv">$Username</span><span class="s2">:</span><span class="nv">$Password</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$BytesKuduCredentials</span>  <span class="p">=</span> <span class="p">[</span><span class="no">Text.Encoding</span><span class="p">]::</span><span class="n">ASCII</span><span class="p">.</span><span class="py">GetBytes</span><span class="p">(</span><span class="nv">$stringKuduCredentials</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$Base64KuduCredentials</span> <span class="p">=</span> <span class="p">[</span><span class="no">Convert</span><span class="p">]::</span><span class="n">ToBase64String</span><span class="p">(</span><span class="nv">$BytesKuduCredentials</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$Headers</span> <span class="p">=</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Authorization</span> <span class="p">=</span> <span class="s2">&#34;Basic </span><span class="nv">$Base64KuduCredentials</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="invoke-and-inspect">Invoke and inspect</h2>
 <p>Now invoke the endpoint using the header.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Invoke-RestMethod</span> <span class="n">-Method</span> <span class="s1">&#39;Get&#39;</span> <span class="n">-Uri</span> <span class="s2">&#34;https://myfunctionappname.scm.azurewebsites.net/api/functions&#34;</span> <span class="n">-Headers</span> <span class="nv">$Headers</span>
-</code></pre></div><p>This will return one object per function inside your function app. Each object should look similar to this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">name                  : myfunction
-function_app_id       :
-script_root_path_href : https://fa-functionlab2.scm.azurewebsites.net/api/vfs/site/wwwroot/myfunction/
-script_href           : https://fa-functionlab2.scm.azurewebsites.net/api/vfs/site/wwwroot/myfunction/run.ps1
-config_href           : https://fa-functionlab2.scm.azurewebsites.net/api/vfs/site/wwwroot/myfunction/function.json 
-secrets_file_href     : https://fa-functionlab2.scm.azurewebsites.net/api/vfs/data/functions/secrets/myfunction.json
-href                  : https://fa-functionlab2.scm.azurewebsites.net/api/functions/myfunction
-config                : @{bindings=System.Object[]}
-files                 :
-test_data             :
-</code></pre></div><p>If we inspect the <strong>config</strong> property you will find a <strong>bindings</strong> property, which contains the following:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">name  type         direction schedule
-----  ----         --------- --------
-Timer timerTrigger in        0 */5 * * * *
-</code></pre></div><p>There we have it! An easy way to get the configuration for each function inside a function app.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Invoke-RestMethod</span> <span class="n">-Method</span> <span class="s1">&#39;Get&#39;</span> <span class="n">-Uri</span> <span class="s2">&#34;https://myfunctionappname.scm.azurewebsites.net/api/functions&#34;</span> <span class="n">-Headers</span> <span class="nv">$Headers</span>
+</span></span></code></pre></div><p>This will return one object per function inside your function app. Each object should look similar to this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">name                  : myfunction
+</span></span><span class="line"><span class="cl">function_app_id       :
+</span></span><span class="line"><span class="cl">script_root_path_href : https://fa-functionlab2.scm.azurewebsites.net/api/vfs/site/wwwroot/myfunction/
+</span></span><span class="line"><span class="cl">script_href           : https://fa-functionlab2.scm.azurewebsites.net/api/vfs/site/wwwroot/myfunction/run.ps1
+</span></span><span class="line"><span class="cl">config_href           : https://fa-functionlab2.scm.azurewebsites.net/api/vfs/site/wwwroot/myfunction/function.json 
+</span></span><span class="line"><span class="cl">secrets_file_href     : https://fa-functionlab2.scm.azurewebsites.net/api/vfs/data/functions/secrets/myfunction.json
+</span></span><span class="line"><span class="cl">href                  : https://fa-functionlab2.scm.azurewebsites.net/api/functions/myfunction
+</span></span><span class="line"><span class="cl">config                : @{bindings=System.Object[]}
+</span></span><span class="line"><span class="cl">files                 :
+</span></span><span class="line"><span class="cl">test_data             :
+</span></span></code></pre></div><p>If we inspect the <strong>config</strong> property you will find a <strong>bindings</strong> property, which contains the following:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">name  type         direction schedule
+</span></span><span class="line"><span class="cl">----  ----         --------- --------
+</span></span><span class="line"><span class="cl">Timer timerTrigger in        0 */5 * * * *
+</span></span></code></pre></div><p>There we have it! An easy way to get the configuration for each function inside a function app.</p>
 <h2 id="summary">Summary</h2>
 <p>To get the configuration of a function inside a Function App you need to use the Kudu API. The trick to use the Kudu API is to find the publishing credentials. Below you can find this whole solution as a Cmdlet.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="k">function</span> <span class="nb">Get-AzureFunctionAppFunction</span> <span class="p">{</span>
-    <span class="p">[</span><span class="k">CmdletBinding</span><span class="p">()]</span>
-    <span class="k">param</span> <span class="p">(</span>
-        <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">)]</span>
-        <span class="p">[</span><span class="n">ValidateNotNullOrEmpty</span><span class="p">()]</span>
-        <span class="no">[string]</span><span class="nv">$ResourceGroupName</span><span class="p">,</span>
-
-        <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">)]</span>
-        <span class="p">[</span><span class="n">ValidateNotNullOrEmpty</span><span class="p">()]</span>
-        <span class="no">[string]</span><span class="nv">$FunctionName</span>
-    <span class="p">)</span>
-    <span class="k">Process</span> <span class="p">{</span>
-        <span class="nv">$resourceActionParameters</span> <span class="p">=</span> <span class="p">@{</span>
-            <span class="n">ResourceGroupName</span> <span class="p">=</span> <span class="nv">$ResourceGroupName</span>
-            <span class="n">ResourceType</span>      <span class="p">=</span> <span class="s1">&#39;Microsoft.Web/sites/config&#39;</span>
-            <span class="n">ResourceName</span>      <span class="p">=</span> <span class="s2">&#34;$FunctionName/publishingcredentials&#34;</span>
-            <span class="n">Action</span>            <span class="p">=</span> <span class="s1">&#39;list&#39;</span>
-            <span class="n">ApiVersion</span>        <span class="p">=</span> <span class="s1">&#39;2020-06-01&#39;</span>
-        <span class="p">}</span>
-        <span class="nv">$KuduCredentials</span>       <span class="p">=</span> <span class="nb">Invoke-AzResourceAction</span> <span class="nv">@resourceActionParameters</span> <span class="n">-Force</span>
-
-        <span class="nv">$Username</span> <span class="p">=</span> <span class="nv">$KuduCredentials</span><span class="p">.</span><span class="n">Properties</span><span class="p">.</span><span class="n">PublishingUserName</span>
-        <span class="nv">$Password</span> <span class="p">=</span> <span class="nv">$KuduCredentials</span><span class="p">.</span><span class="n">Properties</span><span class="p">.</span><span class="n">PublishingPassword</span>
-
-        <span class="nv">$stringKuduCredentials</span> <span class="p">=</span> <span class="s2">&#34;$Username:$Password&#34;</span>
-        <span class="nv">$BytesKuduCredentials</span>  <span class="p">=</span> <span class="no">[Text.Encoding]</span><span class="p">::</span><span class="n">ASCII</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="nv">$stringKuduCredentials</span><span class="p">)</span>
-        <span class="nv">$Base64KuduCredentials</span> <span class="p">=</span> <span class="no">[Convert]</span><span class="p">::</span><span class="n">ToBase64String</span><span class="p">(</span><span class="nv">$BytesKuduCredentials</span><span class="p">)</span>
-
-        <span class="nv">$Headers</span> <span class="p">=</span> <span class="p">@{</span>
-            <span class="n">Authorization</span> <span class="p">=</span> <span class="s2">&#34;Basic $Base64KuduCredentials&#34;</span>
-        <span class="p">}</span>
-
-        <span class="nb">Invoke-RestMethod</span> <span class="n">-Method</span> <span class="s1">&#39;Get&#39;</span> <span class="n">-Uri</span> <span class="s2">&#34;https://$FunctionName.scm.azurewebsites.net/api/functions&#34;</span> <span class="n">-Headers</span> <span class="nv">$Headers</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>I hope you find this post useful. For me this opened up a whole range of possibilities which I might write about in the future.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Get-AzureFunctionAppFunction</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">CmdletBinding</span><span class="p">()]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">param</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">Mandatory</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="nb">ValidateNotNullOrEmpty</span><span class="p">()]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="no">string</span><span class="p">]</span><span class="nv">$ResourceGroupName</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">Mandatory</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="nb">ValidateNotNullOrEmpty</span><span class="p">()]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="no">string</span><span class="p">]</span><span class="nv">$FunctionName</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">Process</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$resourceActionParameters</span> <span class="p">=</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ResourceGroupName</span> <span class="p">=</span> <span class="nv">$ResourceGroupName</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ResourceType</span>      <span class="p">=</span> <span class="s1">&#39;Microsoft.Web/sites/config&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ResourceName</span>      <span class="p">=</span> <span class="s2">&#34;</span><span class="nv">$FunctionName</span><span class="s2">/publishingcredentials&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Action</span>            <span class="p">=</span> <span class="s1">&#39;list&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ApiVersion</span>        <span class="p">=</span> <span class="s1">&#39;2020-06-01&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$KuduCredentials</span>       <span class="p">=</span> <span class="nb">Invoke-AzResourceAction</span> <span class="nv">@resourceActionParameters</span> <span class="n">-Force</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$Username</span> <span class="p">=</span> <span class="nv">$KuduCredentials</span><span class="p">.</span><span class="py">Properties</span><span class="p">.</span><span class="py">PublishingUserName</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$Password</span> <span class="p">=</span> <span class="nv">$KuduCredentials</span><span class="p">.</span><span class="py">Properties</span><span class="p">.</span><span class="py">PublishingPassword</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$stringKuduCredentials</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="nv">$Username</span><span class="s2">:</span><span class="nv">$Password</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$BytesKuduCredentials</span>  <span class="p">=</span> <span class="p">[</span><span class="no">Text.Encoding</span><span class="p">]::</span><span class="n">ASCII</span><span class="p">.</span><span class="py">GetBytes</span><span class="p">(</span><span class="nv">$stringKuduCredentials</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$Base64KuduCredentials</span> <span class="p">=</span> <span class="p">[</span><span class="no">Convert</span><span class="p">]::</span><span class="n">ToBase64String</span><span class="p">(</span><span class="nv">$BytesKuduCredentials</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$Headers</span> <span class="p">=</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Authorization</span> <span class="p">=</span> <span class="s2">&#34;Basic </span><span class="nv">$Base64KuduCredentials</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nb">Invoke-RestMethod</span> <span class="n">-Method</span> <span class="s1">&#39;Get&#39;</span> <span class="n">-Uri</span> <span class="s2">&#34;https://</span><span class="nv">$FunctionName</span><span class="s2">.scm.azurewebsites.net/api/functions&#34;</span> <span class="n">-Headers</span> <span class="nv">$Headers</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>I hope you find this post useful. For me this opened up a whole range of possibilities which I might write about in the future.</p>
 
         </div>
 
@@ -365,126 +369,126 @@ Timer timerTrigger in        0 */5 * * * *
 <p>When viewing the function app in the Azure Portal, you have the option to open Kudu. Kudu can be reached by clicking on <strong>Advanced tools</strong> under <strong>Development tools</strong> in the menu. On the start page for Kudu you will find a link to list all Functions.</p>
 <p><img src="/images/kudu01.png#center" alt="Kudu"></p>
 <p>Click the link and you should see something like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">[</span>
-    <span class="p">{</span>
-        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;myfunction&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;function_app_id&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="nt">&#34;script_root_path_href&#34;</span><span class="p">:</span> <span class="s2">&#34;https://myfunctionapp.scm.azurewebsites.net/api/vfs/site/wwwroot/myfunction/&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;script_href&#34;</span><span class="p">:</span> <span class="s2">&#34;https://myfunctionapp.scm.azurewebsites.net/api/vfs/site/wwwroot/myfunction/myfunction.ps1&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;config_href&#34;</span><span class="p">:</span> <span class="s2">&#34;https://myfunctionapp.scm.azurewebsites.net/api/vfs/site/wwwroot/myfunction/function.json&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;secrets_file_href&#34;</span><span class="p">:</span> <span class="s2">&#34;https://myfunctionapp.scm.azurewebsites.net/api/vfs/data/functions/secrets/myfunction.json&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;href&#34;</span><span class="p">:</span> <span class="s2">&#34;https://myfunctionapp.scm.azurewebsites.net/api/functions/myfunction&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;config&#34;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;scriptFile&#34;</span><span class="p">:</span> <span class="s2">&#34;myfunction.ps1&#34;</span><span class="p">,</span>
-            <span class="nt">&#34;bindings&#34;</span><span class="p">:</span> <span class="p">[</span>
-                 <span class="p">{</span>
-                    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Timer&#34;</span><span class="p">,</span>
-                    <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;timerTrigger&#34;</span><span class="p">,</span>
-                    <span class="nt">&#34;direction&#34;</span><span class="p">:</span> <span class="s2">&#34;in&#34;</span><span class="p">,</span>
-                    <span class="nt">&#34;schedule&#34;</span><span class="p">:</span> <span class="s2">&#34;0 1 * * * *&#34;</span>
-                <span class="p">}</span>
-            <span class="p">]</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;files&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-        <span class="nt">&#34;test_data&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span>
-    <span class="p">}</span>
-<span class="p">]</span>
-</code></pre></div><p>In the JSON we can see that we have the bindings among other things. Now we just need to invoke this endpoint and get the information we need, right?</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;myfunction&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;function_app_id&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;script_root_path_href&#34;</span><span class="p">:</span> <span class="s2">&#34;https://myfunctionapp.scm.azurewebsites.net/api/vfs/site/wwwroot/myfunction/&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;script_href&#34;</span><span class="p">:</span> <span class="s2">&#34;https://myfunctionapp.scm.azurewebsites.net/api/vfs/site/wwwroot/myfunction/myfunction.ps1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;config_href&#34;</span><span class="p">:</span> <span class="s2">&#34;https://myfunctionapp.scm.azurewebsites.net/api/vfs/site/wwwroot/myfunction/function.json&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;secrets_file_href&#34;</span><span class="p">:</span> <span class="s2">&#34;https://myfunctionapp.scm.azurewebsites.net/api/vfs/data/functions/secrets/myfunction.json&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;href&#34;</span><span class="p">:</span> <span class="s2">&#34;https://myfunctionapp.scm.azurewebsites.net/api/functions/myfunction&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;config&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;scriptFile&#34;</span><span class="p">:</span> <span class="s2">&#34;myfunction.ps1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;bindings&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                 <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Timer&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;timerTrigger&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&#34;direction&#34;</span><span class="p">:</span> <span class="s2">&#34;in&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&#34;schedule&#34;</span><span class="p">:</span> <span class="s2">&#34;0 1 * * * *&#34;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;files&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;test_data&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span></code></pre></div><p>In the JSON we can see that we have the bindings among other things. Now we just need to invoke this endpoint and get the information we need, right?</p>
 <h2 id="get-the-credentials">Get the credentials</h2>
 <p>Unfortunately, its not that straightforward. The Kudu API is not reachable with the same account as the account you normally use when scripting in Azure. Kudu requires you to use the same account which is used when publishing the app. These credentials are created automatically in the background and, in most cases, you don’t have to think about it.</p>
 <p>So the first thing we need to do is to get the publishing credentials. These credentials can be found using the <a href="https://resources.azure.com">Azure Resource Explorer</a>, but to save time, here is the command that is needed:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$resourceActionParameters</span> <span class="p">=</span> <span class="p">@{</span>
-    <span class="n">ResourceGroupName</span> <span class="p">=</span> <span class="s1">&#39;myresourcegroup&#39;</span>
-    <span class="n">ResourceType</span>      <span class="p">=</span> <span class="s1">&#39;Microsoft.Web/sites/config&#39;</span>
-    <span class="n">ResourceName</span>      <span class="p">=</span> <span class="s1">&#39;myfunctionapp/publishingcredentials&#39;</span>
-    <span class="n">Action</span>            <span class="p">=</span> <span class="s1">&#39;list&#39;</span>
-    <span class="n">ApiVersion</span>        <span class="p">=</span> <span class="s1">&#39;2020-06-01&#39;</span>
-<span class="p">}</span>
-<span class="nv">$KuduCredentials</span> <span class="p">=</span> <span class="nb">Invoke-AzResourceAction</span> <span class="nv">@resourceActionParameters</span> <span class="n">-Force</span>
-</code></pre></div><p>Make sure you are connected to Azure before running this command. The command will return a result where we have the username and password in the property called <strong>properties</strong>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">id         : /subscriptions/d5d4f110-b7dc-4e21-a1a0-67c5098a91e5/resourceGroups/myresourcegroup/providers/Microsoft.Web/sites/myfunctionapp/publishingcredentials/$myfunctionapp
-name       : myfunctionapp
-type       : Microsoft.Web/sites/publishingcredentials
-location   : North Europe
-properties : @{
-    name=;
-    publishingUserName=$myfunctionapp;
-    publishingPassword=zjlDtWlputfTzjxsVvn8ilsQCHylGXWiTTEdd6bZvtYqjsnojjrWjSh3eMzQ;
-    publishingPasswordHash=;
-    publishingPasswordHashSalt=;
-    metadata=;
-    isDeleted=False;
-    scmUri=https://$myfunctionapp:zjlDtWlputfTzjxsVvn8ilsQCHylGXWiTTEdd6bZvtYqjsnojjrWjSh3eMzQ@myfunctionapp.scm.azurewebsites.net
-}
-</code></pre></div><h2 id="create-the-authorization-header">Create the authorization header</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$resourceActionParameters</span> <span class="p">=</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ResourceGroupName</span> <span class="p">=</span> <span class="s1">&#39;myresourcegroup&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ResourceType</span>      <span class="p">=</span> <span class="s1">&#39;Microsoft.Web/sites/config&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ResourceName</span>      <span class="p">=</span> <span class="s1">&#39;myfunctionapp/publishingcredentials&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Action</span>            <span class="p">=</span> <span class="s1">&#39;list&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ApiVersion</span>        <span class="p">=</span> <span class="s1">&#39;2020-06-01&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$KuduCredentials</span> <span class="p">=</span> <span class="nb">Invoke-AzResourceAction</span> <span class="nv">@resourceActionParameters</span> <span class="n">-Force</span>
+</span></span></code></pre></div><p>Make sure you are connected to Azure before running this command. The command will return a result where we have the username and password in the property called <strong>properties</strong>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">id         : /subscriptions/d5d4f110-b7dc-4e21-a1a0-67c5098a91e5/resourceGroups/myresourcegroup/providers/Microsoft.Web/sites/myfunctionapp/publishingcredentials/$myfunctionapp
+</span></span><span class="line"><span class="cl">name       : myfunctionapp
+</span></span><span class="line"><span class="cl">type       : Microsoft.Web/sites/publishingcredentials
+</span></span><span class="line"><span class="cl">location   : North Europe
+</span></span><span class="line"><span class="cl">properties : @{
+</span></span><span class="line"><span class="cl">    name=;
+</span></span><span class="line"><span class="cl">    publishingUserName=$myfunctionapp;
+</span></span><span class="line"><span class="cl">    publishingPassword=zjlDtWlputfTzjxsVvn8ilsQCHylGXWiTTEdd6bZvtYqjsnojjrWjSh3eMzQ;
+</span></span><span class="line"><span class="cl">    publishingPasswordHash=;
+</span></span><span class="line"><span class="cl">    publishingPasswordHashSalt=;
+</span></span><span class="line"><span class="cl">    metadata=;
+</span></span><span class="line"><span class="cl">    isDeleted=False;
+</span></span><span class="line"><span class="cl">    scmUri=https://$myfunctionapp:zjlDtWlputfTzjxsVvn8ilsQCHylGXWiTTEdd6bZvtYqjsnojjrWjSh3eMzQ@myfunctionapp.scm.azurewebsites.net
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><h2 id="create-the-authorization-header">Create the authorization header</h2>
 <p>The Kudu API requires you to use basic authentication. This is fairly straight forward. First we need to put the username and password into a string, separated by a colon. Then we need to convert the string to an array of bytes. Finally, we convert the byte array to a base64 string. Add the result to the authorization header.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$Username</span> <span class="p">=</span> <span class="nv">$KuduCredentials</span><span class="p">.</span><span class="n">Properties</span><span class="p">.</span><span class="n">PublishingUserName</span>
-<span class="nv">$Password</span> <span class="p">=</span> <span class="nv">$KuduCredentials</span><span class="p">.</span><span class="n">Properties</span><span class="p">.</span><span class="n">PublishingPassword</span>
-
-<span class="nv">$stringKuduCredentials</span> <span class="p">=</span> <span class="s2">&#34;$Username:$Password&#34;</span>
-<span class="nv">$BytesKuduCredentials</span>  <span class="p">=</span> <span class="no">[Text.Encoding]</span><span class="p">::</span><span class="n">ASCII</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="nv">$stringKuduCredentials</span><span class="p">)</span>
-<span class="nv">$Base64KuduCredentials</span> <span class="p">=</span> <span class="no">[Convert]</span><span class="p">::</span><span class="n">ToBase64String</span><span class="p">(</span><span class="nv">$BytesKuduCredentials</span><span class="p">)</span>
-
-<span class="nv">$Headers</span> <span class="p">=</span> <span class="p">@{</span>
-    <span class="n">Authorization</span> <span class="p">=</span> <span class="s2">&#34;Basic $Base64KuduCredentials&#34;</span>
-<span class="p">}</span>
-</code></pre></div><h2 id="invoke-and-inspect">Invoke and inspect</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$Username</span> <span class="p">=</span> <span class="nv">$KuduCredentials</span><span class="p">.</span><span class="py">Properties</span><span class="p">.</span><span class="py">PublishingUserName</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$Password</span> <span class="p">=</span> <span class="nv">$KuduCredentials</span><span class="p">.</span><span class="py">Properties</span><span class="p">.</span><span class="py">PublishingPassword</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$stringKuduCredentials</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="nv">$Username</span><span class="s2">:</span><span class="nv">$Password</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$BytesKuduCredentials</span>  <span class="p">=</span> <span class="p">[</span><span class="no">Text.Encoding</span><span class="p">]::</span><span class="n">ASCII</span><span class="p">.</span><span class="py">GetBytes</span><span class="p">(</span><span class="nv">$stringKuduCredentials</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$Base64KuduCredentials</span> <span class="p">=</span> <span class="p">[</span><span class="no">Convert</span><span class="p">]::</span><span class="n">ToBase64String</span><span class="p">(</span><span class="nv">$BytesKuduCredentials</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$Headers</span> <span class="p">=</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Authorization</span> <span class="p">=</span> <span class="s2">&#34;Basic </span><span class="nv">$Base64KuduCredentials</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="invoke-and-inspect">Invoke and inspect</h2>
 <p>Now invoke the endpoint using the header.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Invoke-RestMethod</span> <span class="n">-Method</span> <span class="s1">&#39;Get&#39;</span> <span class="n">-Uri</span> <span class="s2">&#34;https://myfunctionappname.scm.azurewebsites.net/api/functions&#34;</span> <span class="n">-Headers</span> <span class="nv">$Headers</span>
-</code></pre></div><p>This will return one object per function inside your function app. Each object should look similar to this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">name                  : myfunction
-function_app_id       :
-script_root_path_href : https://fa-functionlab2.scm.azurewebsites.net/api/vfs/site/wwwroot/myfunction/
-script_href           : https://fa-functionlab2.scm.azurewebsites.net/api/vfs/site/wwwroot/myfunction/run.ps1
-config_href           : https://fa-functionlab2.scm.azurewebsites.net/api/vfs/site/wwwroot/myfunction/function.json 
-secrets_file_href     : https://fa-functionlab2.scm.azurewebsites.net/api/vfs/data/functions/secrets/myfunction.json
-href                  : https://fa-functionlab2.scm.azurewebsites.net/api/functions/myfunction
-config                : @{bindings=System.Object[]}
-files                 :
-test_data             :
-</code></pre></div><p>If we inspect the <strong>config</strong> property you will find a <strong>bindings</strong> property, which contains the following:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">name  type         direction schedule
-----  ----         --------- --------
-Timer timerTrigger in        0 */5 * * * *
-</code></pre></div><p>There we have it! An easy way to get the configuration for each function inside a function app.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Invoke-RestMethod</span> <span class="n">-Method</span> <span class="s1">&#39;Get&#39;</span> <span class="n">-Uri</span> <span class="s2">&#34;https://myfunctionappname.scm.azurewebsites.net/api/functions&#34;</span> <span class="n">-Headers</span> <span class="nv">$Headers</span>
+</span></span></code></pre></div><p>This will return one object per function inside your function app. Each object should look similar to this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">name                  : myfunction
+</span></span><span class="line"><span class="cl">function_app_id       :
+</span></span><span class="line"><span class="cl">script_root_path_href : https://fa-functionlab2.scm.azurewebsites.net/api/vfs/site/wwwroot/myfunction/
+</span></span><span class="line"><span class="cl">script_href           : https://fa-functionlab2.scm.azurewebsites.net/api/vfs/site/wwwroot/myfunction/run.ps1
+</span></span><span class="line"><span class="cl">config_href           : https://fa-functionlab2.scm.azurewebsites.net/api/vfs/site/wwwroot/myfunction/function.json 
+</span></span><span class="line"><span class="cl">secrets_file_href     : https://fa-functionlab2.scm.azurewebsites.net/api/vfs/data/functions/secrets/myfunction.json
+</span></span><span class="line"><span class="cl">href                  : https://fa-functionlab2.scm.azurewebsites.net/api/functions/myfunction
+</span></span><span class="line"><span class="cl">config                : @{bindings=System.Object[]}
+</span></span><span class="line"><span class="cl">files                 :
+</span></span><span class="line"><span class="cl">test_data             :
+</span></span></code></pre></div><p>If we inspect the <strong>config</strong> property you will find a <strong>bindings</strong> property, which contains the following:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">name  type         direction schedule
+</span></span><span class="line"><span class="cl">----  ----         --------- --------
+</span></span><span class="line"><span class="cl">Timer timerTrigger in        0 */5 * * * *
+</span></span></code></pre></div><p>There we have it! An easy way to get the configuration for each function inside a function app.</p>
 <h2 id="summary">Summary</h2>
 <p>To get the configuration of a function inside a Function App you need to use the Kudu API. The trick to use the Kudu API is to find the publishing credentials. Below you can find this whole solution as a Cmdlet.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="k">function</span> <span class="nb">Get-AzureFunctionAppFunction</span> <span class="p">{</span>
-    <span class="p">[</span><span class="k">CmdletBinding</span><span class="p">()]</span>
-    <span class="k">param</span> <span class="p">(</span>
-        <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">)]</span>
-        <span class="p">[</span><span class="n">ValidateNotNullOrEmpty</span><span class="p">()]</span>
-        <span class="no">[string]</span><span class="nv">$ResourceGroupName</span><span class="p">,</span>
-
-        <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">)]</span>
-        <span class="p">[</span><span class="n">ValidateNotNullOrEmpty</span><span class="p">()]</span>
-        <span class="no">[string]</span><span class="nv">$FunctionName</span>
-    <span class="p">)</span>
-    <span class="k">Process</span> <span class="p">{</span>
-        <span class="nv">$resourceActionParameters</span> <span class="p">=</span> <span class="p">@{</span>
-            <span class="n">ResourceGroupName</span> <span class="p">=</span> <span class="nv">$ResourceGroupName</span>
-            <span class="n">ResourceType</span>      <span class="p">=</span> <span class="s1">&#39;Microsoft.Web/sites/config&#39;</span>
-            <span class="n">ResourceName</span>      <span class="p">=</span> <span class="s2">&#34;$FunctionName/publishingcredentials&#34;</span>
-            <span class="n">Action</span>            <span class="p">=</span> <span class="s1">&#39;list&#39;</span>
-            <span class="n">ApiVersion</span>        <span class="p">=</span> <span class="s1">&#39;2020-06-01&#39;</span>
-        <span class="p">}</span>
-        <span class="nv">$KuduCredentials</span>       <span class="p">=</span> <span class="nb">Invoke-AzResourceAction</span> <span class="nv">@resourceActionParameters</span> <span class="n">-Force</span>
-
-        <span class="nv">$Username</span> <span class="p">=</span> <span class="nv">$KuduCredentials</span><span class="p">.</span><span class="n">Properties</span><span class="p">.</span><span class="n">PublishingUserName</span>
-        <span class="nv">$Password</span> <span class="p">=</span> <span class="nv">$KuduCredentials</span><span class="p">.</span><span class="n">Properties</span><span class="p">.</span><span class="n">PublishingPassword</span>
-
-        <span class="nv">$stringKuduCredentials</span> <span class="p">=</span> <span class="s2">&#34;$Username:$Password&#34;</span>
-        <span class="nv">$BytesKuduCredentials</span>  <span class="p">=</span> <span class="no">[Text.Encoding]</span><span class="p">::</span><span class="n">ASCII</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="nv">$stringKuduCredentials</span><span class="p">)</span>
-        <span class="nv">$Base64KuduCredentials</span> <span class="p">=</span> <span class="no">[Convert]</span><span class="p">::</span><span class="n">ToBase64String</span><span class="p">(</span><span class="nv">$BytesKuduCredentials</span><span class="p">)</span>
-
-        <span class="nv">$Headers</span> <span class="p">=</span> <span class="p">@{</span>
-            <span class="n">Authorization</span> <span class="p">=</span> <span class="s2">&#34;Basic $Base64KuduCredentials&#34;</span>
-        <span class="p">}</span>
-
-        <span class="nb">Invoke-RestMethod</span> <span class="n">-Method</span> <span class="s1">&#39;Get&#39;</span> <span class="n">-Uri</span> <span class="s2">&#34;https://$FunctionName.scm.azurewebsites.net/api/functions&#34;</span> <span class="n">-Headers</span> <span class="nv">$Headers</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>I hope you find this post useful. For me this opened up a whole range of possibilities which I might write about in the future.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Get-AzureFunctionAppFunction</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">CmdletBinding</span><span class="p">()]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">param</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">Mandatory</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="nb">ValidateNotNullOrEmpty</span><span class="p">()]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="no">string</span><span class="p">]</span><span class="nv">$ResourceGroupName</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">Mandatory</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="nb">ValidateNotNullOrEmpty</span><span class="p">()]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="no">string</span><span class="p">]</span><span class="nv">$FunctionName</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">Process</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$resourceActionParameters</span> <span class="p">=</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ResourceGroupName</span> <span class="p">=</span> <span class="nv">$ResourceGroupName</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ResourceType</span>      <span class="p">=</span> <span class="s1">&#39;Microsoft.Web/sites/config&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ResourceName</span>      <span class="p">=</span> <span class="s2">&#34;</span><span class="nv">$FunctionName</span><span class="s2">/publishingcredentials&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Action</span>            <span class="p">=</span> <span class="s1">&#39;list&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ApiVersion</span>        <span class="p">=</span> <span class="s1">&#39;2020-06-01&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$KuduCredentials</span>       <span class="p">=</span> <span class="nb">Invoke-AzResourceAction</span> <span class="nv">@resourceActionParameters</span> <span class="n">-Force</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$Username</span> <span class="p">=</span> <span class="nv">$KuduCredentials</span><span class="p">.</span><span class="py">Properties</span><span class="p">.</span><span class="py">PublishingUserName</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$Password</span> <span class="p">=</span> <span class="nv">$KuduCredentials</span><span class="p">.</span><span class="py">Properties</span><span class="p">.</span><span class="py">PublishingPassword</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$stringKuduCredentials</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="nv">$Username</span><span class="s2">:</span><span class="nv">$Password</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$BytesKuduCredentials</span>  <span class="p">=</span> <span class="p">[</span><span class="no">Text.Encoding</span><span class="p">]::</span><span class="n">ASCII</span><span class="p">.</span><span class="py">GetBytes</span><span class="p">(</span><span class="nv">$stringKuduCredentials</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$Base64KuduCredentials</span> <span class="p">=</span> <span class="p">[</span><span class="no">Convert</span><span class="p">]::</span><span class="n">ToBase64String</span><span class="p">(</span><span class="nv">$BytesKuduCredentials</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$Headers</span> <span class="p">=</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Authorization</span> <span class="p">=</span> <span class="s2">&#34;Basic </span><span class="nv">$Base64KuduCredentials</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nb">Invoke-RestMethod</span> <span class="n">-Method</span> <span class="s1">&#39;Get&#39;</span> <span class="n">-Uri</span> <span class="s2">&#34;https://</span><span class="nv">$FunctionName</span><span class="s2">.scm.azurewebsites.net/api/functions&#34;</span> <span class="n">-Headers</span> <span class="nv">$Headers</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>I hope you find this post useful. For me this opened up a whole range of possibilities which I might write about in the future.</p>
 
 
             <p>- Written by John  
@@ -497,7 +501,7 @@ Timer timerTrigger in        0 */5 * * * *
                 <div class="disqus-section">
                     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

@@ -28,8 +28,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    
+    <style>
+        body { font-size: 14px; }
+    </style>
+    
 
     <meta name='twitter:card'        content='summary' />
     <meta name='twitter:site'        content='@johnmroos'/>
@@ -57,7 +62,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 </head><body>
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle">
@@ -239,112 +243,112 @@ if (!doNotTrack) {
 <p>When you run a test, Pester will first start the discovery of your test script. During discovery Pester tries to figure out which tests should be executed. Once it has figured out which tests the next phase should run, it stores all the relevant script blocks from <strong>BeforeAll</strong>, <strong>BeforeEach</strong>, <strong>It</strong>, <strong>AfterAll</strong> and <strong>AfterEach</strong>. Now Pester is ready to execute the Run phase where the actual tests are processed.</p>
 <h2 id="what-runs-when">What runs when</h2>
 <p>All code within the script blocks for BeforeAll, BeforeEach, It, AfterAll and AfterEach will be executed during the Run phase and not during Discovery. Notice that I mentioned script blocks? That&rsquo;s right, everything else will be executed during Discovery. Lets do an example.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">Describe</span> <span class="s1">&#39;Discovery example&#39;</span> <span class="p">{</span>
-    <span class="n">Context</span> <span class="s1">&#39;Some tests&#39;</span> <span class="p">{</span>
-        <span class="n">BeforeAll</span> <span class="p">{</span>
-            <span class="nv">$ExpectedResult</span> <span class="p">=</span> <span class="s1">&#39;true&#39;</span>
-        <span class="p">}</span>
-        <span class="nv">$MyVariable</span> <span class="p">=</span> <span class="s1">&#39;true&#39;</span>
-        <span class="n">It</span> <span class="s2">&#34;$MyVariable is true&#34;</span> <span class="p">{</span>
-            <span class="s1">&#39;true&#39;</span> <span class="p">|</span> <span class="n">Should</span> <span class="n">-Be</span> <span class="nv">$ExpectedResult</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>This example would kind of look like this from a Discovery point of view:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">Describe</span> <span class="s1">&#39;Discovery example&#39;</span> <span class="p">{</span>
-    <span class="n">Context</span> <span class="s1">&#39;Some tests&#39;</span> <span class="p">{</span>
-        <span class="n">BeforeAll</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
-        <span class="nv">$MyVariable</span> <span class="p">=</span> <span class="s1">&#39;true&#39;</span>
-        <span class="n">It</span> <span class="s2">&#34;$MyVariable is true&#34;</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>The content of the script blocks for BeforeAll and It will not be executed, but everything else will. This has some interesting consequences. The variable <strong>$MyVariable</strong> will be processed during discovery. So will the name of the It block. The test itself will fail, because the <strong>$MyVariable</strong> has not been set inside either BeforeAll or It.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">Describe</span> <span class="s1">&#39;Discovery example&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Context</span> <span class="s1">&#39;Some tests&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">BeforeAll</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$ExpectedResult</span> <span class="p">=</span> <span class="s1">&#39;true&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$MyVariable</span> <span class="p">=</span> <span class="s1">&#39;true&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">It</span> <span class="s2">&#34;</span><span class="nv">$MyVariable</span><span class="s2"> is true&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;true&#39;</span> <span class="p">|</span> <span class="n">Should</span> <span class="n">-Be</span> <span class="nv">$ExpectedResult</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>This example would kind of look like this from a Discovery point of view:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">Describe</span> <span class="s1">&#39;Discovery example&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Context</span> <span class="s1">&#39;Some tests&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">BeforeAll</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$MyVariable</span> <span class="p">=</span> <span class="s1">&#39;true&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">It</span> <span class="s2">&#34;</span><span class="nv">$MyVariable</span><span class="s2"> is true&#34;</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>The content of the script blocks for BeforeAll and It will not be executed, but everything else will. This has some interesting consequences. The variable <strong>$MyVariable</strong> will be processed during discovery. So will the name of the It block. The test itself will fail, because the <strong>$MyVariable</strong> has not been set inside either BeforeAll or It.</p>
 <p>When discovery is completed, you could say that the remaining script to run for the Run phase would be the following:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">Describe</span> <span class="s1">&#39;Discovery example&#39;</span> <span class="p">{</span>
-    <span class="n">Context</span> <span class="s1">&#39;Some tests&#39;</span> <span class="p">{</span>
-        <span class="n">BeforeAll</span> <span class="p">{</span>
-            <span class="nv">$ExpectedResult</span> <span class="p">=</span> <span class="s1">&#39;true&#39;</span>
-        <span class="p">}</span>
-        <span class="n">It</span> <span class="s2">&#34;true is true&#34;</span> <span class="p">{</span>
-            <span class="s1">&#39;true&#39;</span> <span class="p">|</span> <span class="n">Should</span> <span class="n">-Be</span> <span class="nv">$ExpectedResult</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><h2 id="will-this-execute-in-discovery-or-run">Will this execute in Discovery or Run?</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">Describe</span> <span class="s1">&#39;Discovery example&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Context</span> <span class="s1">&#39;Some tests&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">BeforeAll</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$ExpectedResult</span> <span class="p">=</span> <span class="s1">&#39;true&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">It</span> <span class="s2">&#34;true is true&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;true&#39;</span> <span class="p">|</span> <span class="n">Should</span> <span class="n">-Be</span> <span class="nv">$ExpectedResult</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="will-this-execute-in-discovery-or-run">Will this execute in Discovery or Run?</h2>
 <p>The following example shows what parts of a test script runs during the Discovery versus the Run phase.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Discovery</span>
-<span class="n">BeforeAll</span> <span class="p">{</span>
-    <span class="c"># Run</span>
-<span class="p">}</span>
-<span class="n">Describe</span> <span class="s1">&#39;Discovery&#39;</span> <span class="n">-Tag</span> <span class="s1">&#39;Discovery&#39;</span> <span class="n">-Skip</span><span class="err">:</span><span class="nv">$Discovery</span> <span class="p">{</span>
-    <span class="c"># Discovery</span>
-    <span class="n">BeforeAll</span> <span class="p">{</span>
-        <span class="c"># Run</span>
-    <span class="p">}</span>
-    <span class="n">BeforeEach</span> <span class="p">{</span>
-        <span class="c"># Run</span>
-    <span class="p">}</span>
-    <span class="n">Context</span> <span class="s1">&#39;Discovery&#39;</span> <span class="n">-Tag</span> <span class="s1">&#39;Discovery&#39;</span> <span class="n">-Skip</span><span class="err">:</span><span class="nv">$Discovery</span> <span class="p">{</span>
-        <span class="n">BeforeAll</span> <span class="p">{</span>
-            <span class="c"># Run</span>
-        <span class="p">}</span>
-        <span class="n">BeforeEach</span> <span class="p">{</span>
-            <span class="c"># Run</span>
-        <span class="p">}</span>
-        <span class="c"># Discovery</span>
-        <span class="n">It</span> <span class="s2">&#34;Discovery&#34;</span> <span class="n">-Tag</span> <span class="s1">&#39;Discovery&#39;</span> <span class="n">-TestCases</span> <span class="p">@{</span><span class="s1">&#39;Discovery&#39;</span> <span class="p">=</span> <span class="s1">&#39;Discovery&#39;</span><span class="p">}</span> <span class="n">-Skip</span><span class="err">:</span><span class="nv">$Discovery</span> <span class="p">{</span>
-            <span class="c"># Run</span>
-        <span class="p">}</span>
-        <span class="n">AfterEach</span> <span class="p">{</span>
-            <span class="c"># Run</span>
-        <span class="p">}</span>
-        <span class="n">AfterAll</span> <span class="p">{</span>
-            <span class="c"># Run</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="n">AfterEach</span> <span class="p">{</span>
-        <span class="c"># Run</span>
-    <span class="p">}</span>
-    <span class="n">AfterAll</span> <span class="p">{</span>
-        <span class="c"># Run</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="n">AfterAll</span> <span class="p">{</span>
-    <span class="c"># Run</span>
-<span class="p">}</span>
-<span class="c"># Discovery</span>
-</code></pre></div><h2 id="generating-tests-with-testcases">Generating tests with TestCases</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># Discovery</span>
+</span></span><span class="line"><span class="cl"><span class="n">BeforeAll</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># Run</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">Describe</span> <span class="s1">&#39;Discovery&#39;</span> <span class="n">-Tag</span> <span class="s1">&#39;Discovery&#39;</span> <span class="n">-Skip</span><span class="err">:</span><span class="nv">$Discovery</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># Discovery</span>
+</span></span><span class="line"><span class="cl">    <span class="n">BeforeAll</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c"># Run</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">BeforeEach</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c"># Run</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Context</span> <span class="s1">&#39;Discovery&#39;</span> <span class="n">-Tag</span> <span class="s1">&#39;Discovery&#39;</span> <span class="n">-Skip</span><span class="err">:</span><span class="nv">$Discovery</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">BeforeAll</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c"># Run</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">BeforeEach</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c"># Run</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="c"># Discovery</span>
+</span></span><span class="line"><span class="cl">        <span class="n">It</span> <span class="s2">&#34;Discovery&#34;</span> <span class="n">-Tag</span> <span class="s1">&#39;Discovery&#39;</span> <span class="n">-TestCases</span> <span class="vm">@</span><span class="p">{</span><span class="s1">&#39;Discovery&#39;</span> <span class="p">=</span> <span class="s1">&#39;Discovery&#39;</span><span class="p">}</span> <span class="n">-Skip</span><span class="err">:</span><span class="nv">$Discovery</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c"># Run</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">AfterEach</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c"># Run</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">AfterAll</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c"># Run</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">AfterEach</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c"># Run</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">AfterAll</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c"># Run</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">AfterAll</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># Run</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c"># Discovery</span>
+</span></span></code></pre></div><h2 id="generating-tests-with-testcases">Generating tests with TestCases</h2>
 <p>If you want to dynamically generate tests in your scripts you have to write the script a bit different compared to Pester 4. Previously we could generate tests like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Pester 4</span>
-<span class="n">Describe</span> <span class="s1">&#39;Pester 4 Example&#39;</span> <span class="p">{</span>
-    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$number</span> <span class="k">in</span> <span class="n">1</span><span class="p">..</span><span class="n">10</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">It</span> <span class="s2">&#34;$number is a number&#34;</span> <span class="p">{</span>
-            <span class="nv">$number</span> <span class="p">|</span> <span class="n">Should</span> <span class="n">-BeOfType</span> <span class="no">[int]</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>This would generate 10 tests in Pester 4 and everything would work. But in Pester 5 this would not work since we now have the discovery phase and the <strong>$number</strong> parameter would not be available inside the It block during the Test phase. Instead you can use the TestCases parameter.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Pester 5</span>
-<span class="n">Describe</span> <span class="s1">&#39;Pester 5 Example&#39;</span> <span class="p">{</span>
-    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$number</span> <span class="k">in</span> <span class="n">1</span><span class="p">..</span><span class="n">10</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">It</span> <span class="s2">&#34;$number is a number&#34;</span> <span class="n">-TestCases</span> <span class="p">@{</span><span class="s1">&#39;digit&#39;</span> <span class="p">=</span> <span class="nv">$number</span><span class="p">}</span> <span class="p">{</span>
-            <span class="nv">$digit</span> <span class="p">|</span> <span class="n">Should</span> <span class="n">-BeOfType</span> <span class="no">[int]</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>The reason for this is that <strong>all the parameters for the It command is evaluated in Discovery, except the script block</strong>. The foreach loop is located directly in the Describe block which means that it will be processed during Discovery as well.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># Pester 4</span>
+</span></span><span class="line"><span class="cl"><span class="n">Describe</span> <span class="s1">&#39;Pester 4 Example&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$number</span> <span class="k">in</span> <span class="mf">1</span><span class="p">.</span><span class="mf">.10</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">It</span> <span class="s2">&#34;</span><span class="nv">$number</span><span class="s2"> is a number&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$number</span> <span class="p">|</span> <span class="n">Should</span> <span class="n">-BeOfType</span> <span class="p">[</span><span class="no">int</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>This would generate 10 tests in Pester 4 and everything would work. But in Pester 5 this would not work since we now have the discovery phase and the <strong>$number</strong> parameter would not be available inside the It block during the Test phase. Instead you can use the TestCases parameter.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># Pester 5</span>
+</span></span><span class="line"><span class="cl"><span class="n">Describe</span> <span class="s1">&#39;Pester 5 Example&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$number</span> <span class="k">in</span> <span class="mf">1</span><span class="p">.</span><span class="mf">.10</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">It</span> <span class="s2">&#34;</span><span class="nv">$number</span><span class="s2"> is a number&#34;</span> <span class="n">-TestCases</span> <span class="vm">@</span><span class="p">{</span><span class="s1">&#39;digit&#39;</span> <span class="p">=</span> <span class="nv">$number</span><span class="p">}</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$digit</span> <span class="p">|</span> <span class="n">Should</span> <span class="n">-BeOfType</span> <span class="p">[</span><span class="no">int</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>The reason for this is that <strong>all the parameters for the It command is evaluated in Discovery, except the script block</strong>. The foreach loop is located directly in the Describe block which means that it will be processed during Discovery as well.</p>
 <h2 id="how-testcases-work">How TestCases work</h2>
 <p>Notice that the variable <strong>$digit</strong> just magically appeared in the script block for It in the last example? Let me try to explain what happened there.</p>
 <p>The TestCases parameter accepts a hash table. When the script block executes Pester will create variables for each key in the hash table. The following example shows how two variables are created from the TestCases parameter.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$tests</span> <span class="p">=</span> <span class="p">@{</span>
-    <span class="s1">&#39;First&#39;</span>  <span class="p">=</span> <span class="s1">&#39;word&#39;</span>
-    <span class="s1">&#39;Second&#39;</span> <span class="p">=</span> <span class="s1">&#39;word&#39;</span>
-<span class="p">}</span>
-
-<span class="n">It</span> <span class="s2">&#34;first and second is the same&#34;</span> <span class="n">-TestCases</span> <span class="nv">$tests</span> <span class="p">{</span>
-    <span class="nv">$First</span> <span class="p">|</span> <span class="n">Should</span> <span class="n">-Be</span> <span class="nv">$Second</span>
-<span class="p">}</span>
-</code></pre></div><p>Understanding discovery is a major part of understanding Pester 5. I hope this post has helped answer a few questions.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$tests</span> <span class="p">=</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;First&#39;</span>  <span class="p">=</span> <span class="s1">&#39;word&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Second&#39;</span> <span class="p">=</span> <span class="s1">&#39;word&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">It</span> <span class="s2">&#34;first and second is the same&#34;</span> <span class="n">-TestCases</span> <span class="nv">$tests</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$First</span> <span class="p">|</span> <span class="n">Should</span> <span class="n">-Be</span> <span class="nv">$Second</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Understanding discovery is a major part of understanding Pester 5. I hope this post has helped answer a few questions.</p>
 
         </div>
 
@@ -361,112 +365,112 @@ if (!doNotTrack) {
 <p>When you run a test, Pester will first start the discovery of your test script. During discovery Pester tries to figure out which tests should be executed. Once it has figured out which tests the next phase should run, it stores all the relevant script blocks from <strong>BeforeAll</strong>, <strong>BeforeEach</strong>, <strong>It</strong>, <strong>AfterAll</strong> and <strong>AfterEach</strong>. Now Pester is ready to execute the Run phase where the actual tests are processed.</p>
 <h2 id="what-runs-when">What runs when</h2>
 <p>All code within the script blocks for BeforeAll, BeforeEach, It, AfterAll and AfterEach will be executed during the Run phase and not during Discovery. Notice that I mentioned script blocks? That&rsquo;s right, everything else will be executed during Discovery. Lets do an example.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">Describe</span> <span class="s1">&#39;Discovery example&#39;</span> <span class="p">{</span>
-    <span class="n">Context</span> <span class="s1">&#39;Some tests&#39;</span> <span class="p">{</span>
-        <span class="n">BeforeAll</span> <span class="p">{</span>
-            <span class="nv">$ExpectedResult</span> <span class="p">=</span> <span class="s1">&#39;true&#39;</span>
-        <span class="p">}</span>
-        <span class="nv">$MyVariable</span> <span class="p">=</span> <span class="s1">&#39;true&#39;</span>
-        <span class="n">It</span> <span class="s2">&#34;$MyVariable is true&#34;</span> <span class="p">{</span>
-            <span class="s1">&#39;true&#39;</span> <span class="p">|</span> <span class="n">Should</span> <span class="n">-Be</span> <span class="nv">$ExpectedResult</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>This example would kind of look like this from a Discovery point of view:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">Describe</span> <span class="s1">&#39;Discovery example&#39;</span> <span class="p">{</span>
-    <span class="n">Context</span> <span class="s1">&#39;Some tests&#39;</span> <span class="p">{</span>
-        <span class="n">BeforeAll</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
-        <span class="nv">$MyVariable</span> <span class="p">=</span> <span class="s1">&#39;true&#39;</span>
-        <span class="n">It</span> <span class="s2">&#34;$MyVariable is true&#34;</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>The content of the script blocks for BeforeAll and It will not be executed, but everything else will. This has some interesting consequences. The variable <strong>$MyVariable</strong> will be processed during discovery. So will the name of the It block. The test itself will fail, because the <strong>$MyVariable</strong> has not been set inside either BeforeAll or It.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">Describe</span> <span class="s1">&#39;Discovery example&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Context</span> <span class="s1">&#39;Some tests&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">BeforeAll</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$ExpectedResult</span> <span class="p">=</span> <span class="s1">&#39;true&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$MyVariable</span> <span class="p">=</span> <span class="s1">&#39;true&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">It</span> <span class="s2">&#34;</span><span class="nv">$MyVariable</span><span class="s2"> is true&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;true&#39;</span> <span class="p">|</span> <span class="n">Should</span> <span class="n">-Be</span> <span class="nv">$ExpectedResult</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>This example would kind of look like this from a Discovery point of view:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">Describe</span> <span class="s1">&#39;Discovery example&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Context</span> <span class="s1">&#39;Some tests&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">BeforeAll</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$MyVariable</span> <span class="p">=</span> <span class="s1">&#39;true&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">It</span> <span class="s2">&#34;</span><span class="nv">$MyVariable</span><span class="s2"> is true&#34;</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>The content of the script blocks for BeforeAll and It will not be executed, but everything else will. This has some interesting consequences. The variable <strong>$MyVariable</strong> will be processed during discovery. So will the name of the It block. The test itself will fail, because the <strong>$MyVariable</strong> has not been set inside either BeforeAll or It.</p>
 <p>When discovery is completed, you could say that the remaining script to run for the Run phase would be the following:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">Describe</span> <span class="s1">&#39;Discovery example&#39;</span> <span class="p">{</span>
-    <span class="n">Context</span> <span class="s1">&#39;Some tests&#39;</span> <span class="p">{</span>
-        <span class="n">BeforeAll</span> <span class="p">{</span>
-            <span class="nv">$ExpectedResult</span> <span class="p">=</span> <span class="s1">&#39;true&#39;</span>
-        <span class="p">}</span>
-        <span class="n">It</span> <span class="s2">&#34;true is true&#34;</span> <span class="p">{</span>
-            <span class="s1">&#39;true&#39;</span> <span class="p">|</span> <span class="n">Should</span> <span class="n">-Be</span> <span class="nv">$ExpectedResult</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><h2 id="will-this-execute-in-discovery-or-run">Will this execute in Discovery or Run?</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">Describe</span> <span class="s1">&#39;Discovery example&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Context</span> <span class="s1">&#39;Some tests&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">BeforeAll</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$ExpectedResult</span> <span class="p">=</span> <span class="s1">&#39;true&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">It</span> <span class="s2">&#34;true is true&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;true&#39;</span> <span class="p">|</span> <span class="n">Should</span> <span class="n">-Be</span> <span class="nv">$ExpectedResult</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="will-this-execute-in-discovery-or-run">Will this execute in Discovery or Run?</h2>
 <p>The following example shows what parts of a test script runs during the Discovery versus the Run phase.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Discovery</span>
-<span class="n">BeforeAll</span> <span class="p">{</span>
-    <span class="c"># Run</span>
-<span class="p">}</span>
-<span class="n">Describe</span> <span class="s1">&#39;Discovery&#39;</span> <span class="n">-Tag</span> <span class="s1">&#39;Discovery&#39;</span> <span class="n">-Skip</span><span class="err">:</span><span class="nv">$Discovery</span> <span class="p">{</span>
-    <span class="c"># Discovery</span>
-    <span class="n">BeforeAll</span> <span class="p">{</span>
-        <span class="c"># Run</span>
-    <span class="p">}</span>
-    <span class="n">BeforeEach</span> <span class="p">{</span>
-        <span class="c"># Run</span>
-    <span class="p">}</span>
-    <span class="n">Context</span> <span class="s1">&#39;Discovery&#39;</span> <span class="n">-Tag</span> <span class="s1">&#39;Discovery&#39;</span> <span class="n">-Skip</span><span class="err">:</span><span class="nv">$Discovery</span> <span class="p">{</span>
-        <span class="n">BeforeAll</span> <span class="p">{</span>
-            <span class="c"># Run</span>
-        <span class="p">}</span>
-        <span class="n">BeforeEach</span> <span class="p">{</span>
-            <span class="c"># Run</span>
-        <span class="p">}</span>
-        <span class="c"># Discovery</span>
-        <span class="n">It</span> <span class="s2">&#34;Discovery&#34;</span> <span class="n">-Tag</span> <span class="s1">&#39;Discovery&#39;</span> <span class="n">-TestCases</span> <span class="p">@{</span><span class="s1">&#39;Discovery&#39;</span> <span class="p">=</span> <span class="s1">&#39;Discovery&#39;</span><span class="p">}</span> <span class="n">-Skip</span><span class="err">:</span><span class="nv">$Discovery</span> <span class="p">{</span>
-            <span class="c"># Run</span>
-        <span class="p">}</span>
-        <span class="n">AfterEach</span> <span class="p">{</span>
-            <span class="c"># Run</span>
-        <span class="p">}</span>
-        <span class="n">AfterAll</span> <span class="p">{</span>
-            <span class="c"># Run</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="n">AfterEach</span> <span class="p">{</span>
-        <span class="c"># Run</span>
-    <span class="p">}</span>
-    <span class="n">AfterAll</span> <span class="p">{</span>
-        <span class="c"># Run</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="n">AfterAll</span> <span class="p">{</span>
-    <span class="c"># Run</span>
-<span class="p">}</span>
-<span class="c"># Discovery</span>
-</code></pre></div><h2 id="generating-tests-with-testcases">Generating tests with TestCases</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># Discovery</span>
+</span></span><span class="line"><span class="cl"><span class="n">BeforeAll</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># Run</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">Describe</span> <span class="s1">&#39;Discovery&#39;</span> <span class="n">-Tag</span> <span class="s1">&#39;Discovery&#39;</span> <span class="n">-Skip</span><span class="err">:</span><span class="nv">$Discovery</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># Discovery</span>
+</span></span><span class="line"><span class="cl">    <span class="n">BeforeAll</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c"># Run</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">BeforeEach</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c"># Run</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Context</span> <span class="s1">&#39;Discovery&#39;</span> <span class="n">-Tag</span> <span class="s1">&#39;Discovery&#39;</span> <span class="n">-Skip</span><span class="err">:</span><span class="nv">$Discovery</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">BeforeAll</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c"># Run</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">BeforeEach</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c"># Run</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="c"># Discovery</span>
+</span></span><span class="line"><span class="cl">        <span class="n">It</span> <span class="s2">&#34;Discovery&#34;</span> <span class="n">-Tag</span> <span class="s1">&#39;Discovery&#39;</span> <span class="n">-TestCases</span> <span class="vm">@</span><span class="p">{</span><span class="s1">&#39;Discovery&#39;</span> <span class="p">=</span> <span class="s1">&#39;Discovery&#39;</span><span class="p">}</span> <span class="n">-Skip</span><span class="err">:</span><span class="nv">$Discovery</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c"># Run</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">AfterEach</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c"># Run</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">AfterAll</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c"># Run</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">AfterEach</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c"># Run</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">AfterAll</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c"># Run</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">AfterAll</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># Run</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c"># Discovery</span>
+</span></span></code></pre></div><h2 id="generating-tests-with-testcases">Generating tests with TestCases</h2>
 <p>If you want to dynamically generate tests in your scripts you have to write the script a bit different compared to Pester 4. Previously we could generate tests like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Pester 4</span>
-<span class="n">Describe</span> <span class="s1">&#39;Pester 4 Example&#39;</span> <span class="p">{</span>
-    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$number</span> <span class="k">in</span> <span class="n">1</span><span class="p">..</span><span class="n">10</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">It</span> <span class="s2">&#34;$number is a number&#34;</span> <span class="p">{</span>
-            <span class="nv">$number</span> <span class="p">|</span> <span class="n">Should</span> <span class="n">-BeOfType</span> <span class="no">[int]</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>This would generate 10 tests in Pester 4 and everything would work. But in Pester 5 this would not work since we now have the discovery phase and the <strong>$number</strong> parameter would not be available inside the It block during the Test phase. Instead you can use the TestCases parameter.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># Pester 5</span>
-<span class="n">Describe</span> <span class="s1">&#39;Pester 5 Example&#39;</span> <span class="p">{</span>
-    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$number</span> <span class="k">in</span> <span class="n">1</span><span class="p">..</span><span class="n">10</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">It</span> <span class="s2">&#34;$number is a number&#34;</span> <span class="n">-TestCases</span> <span class="p">@{</span><span class="s1">&#39;digit&#39;</span> <span class="p">=</span> <span class="nv">$number</span><span class="p">}</span> <span class="p">{</span>
-            <span class="nv">$digit</span> <span class="p">|</span> <span class="n">Should</span> <span class="n">-BeOfType</span> <span class="no">[int]</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>The reason for this is that <strong>all the parameters for the It command is evaluated in Discovery, except the script block</strong>. The foreach loop is located directly in the Describe block which means that it will be processed during Discovery as well.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># Pester 4</span>
+</span></span><span class="line"><span class="cl"><span class="n">Describe</span> <span class="s1">&#39;Pester 4 Example&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$number</span> <span class="k">in</span> <span class="mf">1</span><span class="p">.</span><span class="mf">.10</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">It</span> <span class="s2">&#34;</span><span class="nv">$number</span><span class="s2"> is a number&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$number</span> <span class="p">|</span> <span class="n">Should</span> <span class="n">-BeOfType</span> <span class="p">[</span><span class="no">int</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>This would generate 10 tests in Pester 4 and everything would work. But in Pester 5 this would not work since we now have the discovery phase and the <strong>$number</strong> parameter would not be available inside the It block during the Test phase. Instead you can use the TestCases parameter.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># Pester 5</span>
+</span></span><span class="line"><span class="cl"><span class="n">Describe</span> <span class="s1">&#39;Pester 5 Example&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$number</span> <span class="k">in</span> <span class="mf">1</span><span class="p">.</span><span class="mf">.10</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">It</span> <span class="s2">&#34;</span><span class="nv">$number</span><span class="s2"> is a number&#34;</span> <span class="n">-TestCases</span> <span class="vm">@</span><span class="p">{</span><span class="s1">&#39;digit&#39;</span> <span class="p">=</span> <span class="nv">$number</span><span class="p">}</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$digit</span> <span class="p">|</span> <span class="n">Should</span> <span class="n">-BeOfType</span> <span class="p">[</span><span class="no">int</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>The reason for this is that <strong>all the parameters for the It command is evaluated in Discovery, except the script block</strong>. The foreach loop is located directly in the Describe block which means that it will be processed during Discovery as well.</p>
 <h2 id="how-testcases-work">How TestCases work</h2>
 <p>Notice that the variable <strong>$digit</strong> just magically appeared in the script block for It in the last example? Let me try to explain what happened there.</p>
 <p>The TestCases parameter accepts a hash table. When the script block executes Pester will create variables for each key in the hash table. The following example shows how two variables are created from the TestCases parameter.</p>
-<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nv">$tests</span> <span class="p">=</span> <span class="p">@{</span>
-    <span class="s1">&#39;First&#39;</span>  <span class="p">=</span> <span class="s1">&#39;word&#39;</span>
-    <span class="s1">&#39;Second&#39;</span> <span class="p">=</span> <span class="s1">&#39;word&#39;</span>
-<span class="p">}</span>
-
-<span class="n">It</span> <span class="s2">&#34;first and second is the same&#34;</span> <span class="n">-TestCases</span> <span class="nv">$tests</span> <span class="p">{</span>
-    <span class="nv">$First</span> <span class="p">|</span> <span class="n">Should</span> <span class="n">-Be</span> <span class="nv">$Second</span>
-<span class="p">}</span>
-</code></pre></div><p>Understanding discovery is a major part of understanding Pester 5. I hope this post has helped answer a few questions.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nv">$tests</span> <span class="p">=</span> <span class="vm">@</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;First&#39;</span>  <span class="p">=</span> <span class="s1">&#39;word&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Second&#39;</span> <span class="p">=</span> <span class="s1">&#39;word&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">It</span> <span class="s2">&#34;first and second is the same&#34;</span> <span class="n">-TestCases</span> <span class="nv">$tests</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$First</span> <span class="p">|</span> <span class="n">Should</span> <span class="n">-Be</span> <span class="nv">$Second</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Understanding discovery is a major part of understanding Pester 5. I hope this post has helped answer a few questions.</p>
 
 
             <p>- Written by John  
@@ -479,7 +483,7 @@ if (!doNotTrack) {
                 <div class="disqus-section">
                     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
