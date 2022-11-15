@@ -339,7 +339,7 @@ I will add more information to this page when I have time.</description>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://blog.roostech.se/chroma/</guid>
-      <description>This page is testing code highlights for https://github.com/alecthomas/chroma.
+      <description>This page is testing code highlights for Chroma.
 #REQUIRES -Version 4.0 &amp;lt;# .Synopsis Reads an ini file and creates an object based on the content of the file .DESCRIPTION Reads an ini file and creates an object based on the content of the file. One property per key/value. Sections will be named with surrounding brackets and will contain a list of objects based on the keys within that section. Comments will be ignored.</description>
     </item>
     
