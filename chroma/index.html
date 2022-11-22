@@ -26,13 +26,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="stylesheet" type="text/css" href="/css/syntax.css">
-    
-    <style>
-        body { font-size: 14px; }
-    </style>
-    
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 
     <meta name='twitter:card'        content='summary' />
     <meta name='twitter:site'        content='@johnmroos'/>
@@ -236,8 +231,6 @@ if (!doNotTrack) {
             ----
             <p>This page is testing code highlights for <a href="https://github.com/alecthomas/chroma">Chroma</a>.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c">#</span><span class="k">REQUIRES</span><span class="w"> </span><span class="kd">-Version</span><span class="na"> 4.0</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cm">&lt;#
 </span></span></span><span class="line"><span class="cl"><span class="cm">.</span><span class="sd">Synopsis</span><span class="cm">
 </span></span></span><span class="line"><span class="cl"><span class="cm">    Reads an ini file and creates an object based on the content of the file
@@ -245,33 +238,30 @@ if (!doNotTrack) {
 </span></span></span><span class="line"><span class="cl"><span class="cm">    Reads an ini file and creates an object based on the content of the file. One property per key/value. Sections will be named with surrounding brackets and will contain a list of objects based on the keys within that section.
 </span></span></span><span class="line"><span class="cl"><span class="cm">    Comments will be ignored.
 </span></span></span><span class="line"><span class="cl"><span class="cm">
-</span></span></span><span class="line"><span class="cl"><span class="cm">   Created by John Roos 
-</span></span></span><span class="line"><span class="cl"><span class="cm">   Email: john@roostech.se
-</span></span></span><span class="line"><span class="cl"><span class="cm">   Web: http://blog.roostech.se
+</span></span></span><span class="line"><span class="cl"><span class="cm">    Created by John Roos 
+</span></span></span><span class="line"><span class="cl"><span class="cm">    Web: http://blog.roostech.se
 </span></span></span><span class="line"><span class="cl"><span class="cm">.</span><span class="sd">EXAMPLE</span><span class="cm">
-</span></span></span><span class="line"><span class="cl"><span class="cm">   get-ini -Path &#34;C:\config.ini&#34;
+</span></span></span><span class="line"><span class="cl"><span class="cm">    Get-Ini -Path &#34;C:\config.ini&#34;
 </span></span></span><span class="line"><span class="cl"><span class="cm">
-</span></span></span><span class="line"><span class="cl"><span class="cm">   Opens the file config.ini and creates an object based on that file.
+</span></span></span><span class="line"><span class="cl"><span class="cm">    Opens the file config.ini and creates an object based on that file.
 </span></span></span><span class="line"><span class="cl"><span class="cm">.</span><span class="sd">OUTPUTS</span><span class="cm">
-</span></span></span><span class="line"><span class="cl"><span class="cm">   Outputs an custom object of the type File.Ini
+</span></span></span><span class="line"><span class="cl"><span class="cm">    Outputs an custom object of the type File.Ini
 </span></span></span><span class="line"><span class="cl"><span class="cm">#&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Get-Ini</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">CmdletBinding</span><span class="p">(</span><span class="na">DefaultParameterSetName</span><span class="p">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl">    <span class="k">param</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="k">param</span> <span class="p">(</span>
 </span></span><span class="line"><span class="cl">        <span class="c"># Enter the path for the ini file</span>
 </span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">Mandatory</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                   <span class="na">ValueFromPipelineByPropertyName</span><span class="p">=</span><span class="vm">$true</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                   <span class="na">Position</span><span class="p">=</span><span class="mf">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                   <span class="na">ParameterSetName</span><span class="p">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">                   <span class="na">ParameterSetName</span><span class="p">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                   <span class="na">HelpMessage</span><span class="p">=</span><span class="s1">&#39;Enter the path for the ini file&#39;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="nb">ValidateScript</span><span class="p">({</span><span class="nb">Test-Path</span> <span class="nv">$_</span><span class="p">})]</span>
 </span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="no">string</span><span class="p">]</span><span class="nv">$Path</span>
 </span></span><span class="line"><span class="cl">    <span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">Process</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(!(</span><span class="nb">Test-Path</span> <span class="nv">$Path</span><span class="p">))</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nb">Write-Error</span> <span class="s1">&#39;Invalid path&#39;</span>
-</span></span><span class="line"><span class="cl">            <span class="k">break</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">Process</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nv">$iniFile</span> <span class="p">=</span> <span class="nb">Get-Content</span> <span class="nv">$Path</span> <span class="n">-Verbose:</span><span class="vm">$false</span>
 </span></span><span class="line"><span class="cl">        <span class="nv">$currentSection</span> <span class="p">=</span> <span class="s1">&#39;&#39;</span>
 </span></span><span class="line"><span class="cl">        <span class="nv">$currentKey</span> <span class="p">=</span> <span class="s1">&#39;&#39;</span>
@@ -435,8 +425,6 @@ if (!doNotTrack) {
             
             <p>This page is testing code highlights for <a href="https://github.com/alecthomas/chroma">Chroma</a>.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c">#</span><span class="k">REQUIRES</span><span class="w"> </span><span class="kd">-Version</span><span class="na"> 4.0</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cm">&lt;#
 </span></span></span><span class="line"><span class="cl"><span class="cm">.</span><span class="sd">Synopsis</span><span class="cm">
 </span></span></span><span class="line"><span class="cl"><span class="cm">    Reads an ini file and creates an object based on the content of the file
@@ -444,33 +432,30 @@ if (!doNotTrack) {
 </span></span></span><span class="line"><span class="cl"><span class="cm">    Reads an ini file and creates an object based on the content of the file. One property per key/value. Sections will be named with surrounding brackets and will contain a list of objects based on the keys within that section.
 </span></span></span><span class="line"><span class="cl"><span class="cm">    Comments will be ignored.
 </span></span></span><span class="line"><span class="cl"><span class="cm">
-</span></span></span><span class="line"><span class="cl"><span class="cm">   Created by John Roos 
-</span></span></span><span class="line"><span class="cl"><span class="cm">   Email: john@roostech.se
-</span></span></span><span class="line"><span class="cl"><span class="cm">   Web: http://blog.roostech.se
+</span></span></span><span class="line"><span class="cl"><span class="cm">    Created by John Roos 
+</span></span></span><span class="line"><span class="cl"><span class="cm">    Web: http://blog.roostech.se
 </span></span></span><span class="line"><span class="cl"><span class="cm">.</span><span class="sd">EXAMPLE</span><span class="cm">
-</span></span></span><span class="line"><span class="cl"><span class="cm">   get-ini -Path &#34;C:\config.ini&#34;
+</span></span></span><span class="line"><span class="cl"><span class="cm">    Get-Ini -Path &#34;C:\config.ini&#34;
 </span></span></span><span class="line"><span class="cl"><span class="cm">
-</span></span></span><span class="line"><span class="cl"><span class="cm">   Opens the file config.ini and creates an object based on that file.
+</span></span></span><span class="line"><span class="cl"><span class="cm">    Opens the file config.ini and creates an object based on that file.
 </span></span></span><span class="line"><span class="cl"><span class="cm">.</span><span class="sd">OUTPUTS</span><span class="cm">
-</span></span></span><span class="line"><span class="cl"><span class="cm">   Outputs an custom object of the type File.Ini
+</span></span></span><span class="line"><span class="cl"><span class="cm">    Outputs an custom object of the type File.Ini
 </span></span></span><span class="line"><span class="cl"><span class="cm">#&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="w"> </span><span class="nb">Get-Ini</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nb">CmdletBinding</span><span class="p">(</span><span class="na">DefaultParameterSetName</span><span class="p">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl">    <span class="k">param</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="k">param</span> <span class="p">(</span>
 </span></span><span class="line"><span class="cl">        <span class="c"># Enter the path for the ini file</span>
 </span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="nb">Parameter</span><span class="p">(</span><span class="na">Mandatory</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                   <span class="na">ValueFromPipelineByPropertyName</span><span class="p">=</span><span class="vm">$true</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                   <span class="na">Position</span><span class="p">=</span><span class="mf">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                   <span class="na">ParameterSetName</span><span class="p">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">                   <span class="na">ParameterSetName</span><span class="p">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                   <span class="na">HelpMessage</span><span class="p">=</span><span class="s1">&#39;Enter the path for the ini file&#39;</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="nb">ValidateScript</span><span class="p">({</span><span class="nb">Test-Path</span> <span class="nv">$_</span><span class="p">})]</span>
 </span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="no">string</span><span class="p">]</span><span class="nv">$Path</span>
 </span></span><span class="line"><span class="cl">    <span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">Process</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(!(</span><span class="nb">Test-Path</span> <span class="nv">$Path</span><span class="p">))</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nb">Write-Error</span> <span class="s1">&#39;Invalid path&#39;</span>
-</span></span><span class="line"><span class="cl">            <span class="k">break</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">Process</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nv">$iniFile</span> <span class="p">=</span> <span class="nb">Get-Content</span> <span class="nv">$Path</span> <span class="n">-Verbose:</span><span class="vm">$false</span>
 </span></span><span class="line"><span class="cl">        <span class="nv">$currentSection</span> <span class="p">=</span> <span class="s1">&#39;&#39;</span>
 </span></span><span class="line"><span class="cl">        <span class="nv">$currentKey</span> <span class="p">=</span> <span class="s1">&#39;&#39;</span>
