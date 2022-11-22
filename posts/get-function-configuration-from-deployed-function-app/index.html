@@ -43,18 +43,17 @@
     <title>Get function configuration from deployed Function App</title>
     <meta name="description" content="When you deploy an Azure Function app you also deploy the configuration for each function within the app. What if you would like to inspect the configuration of a function within a function app? If the function is using a timerTrigger, you might want to be able to look at that schedule for example. That would be easy to do using the Azure Portal, but what if you need to do it using PowerShell?"/>
     
-<script type="application/javascript">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9F2VG64X4H"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-35019756-1', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9F2VG64X4H', { 'anonymize_ip': false });
 }
 </script>
+
 </head><body>
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle">
