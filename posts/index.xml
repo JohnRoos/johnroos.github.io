@@ -6,7 +6,16 @@
     <description>Recent content in Posts on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Dec 2020 21:30:00 +0200</lastBuildDate><atom:link href="https://blog.roostech.se/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 30 Apr 2023 08:48:00 +0200</lastBuildDate><atom:link href="https://blog.roostech.se/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Deploy Azure Static Web App using Bicep and YAML pipeline</title>
+      <link>https://blog.roostech.se/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/</link>
+      <pubDate>Sun, 30 Apr 2023 08:48:00 +0200</pubDate>
+      
+      <guid>https://blog.roostech.se/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/</guid>
+      <description>When you build some kind of web application it might be interesting to have a look at Azure Static Web Apps. This is a very light weight service which doesn&amp;rsquo;t have to cost much, and can even be free. This is the first in a series of posts about Azure Static Web Apps. In this post I will start with the basics and show how to deploy a html page to a free Static Web App.</description>
+    </item>
+    
     <item>
       <title>Get function configuration from deployed Function App</title>
       <link>https://blog.roostech.se/posts/get-function-configuration-from-deployed-function-app/</link>

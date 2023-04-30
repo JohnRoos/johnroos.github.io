@@ -55,9 +55,6 @@ if (!doNotTrack) {
 </script>
 
 </head><body>
-        
-        
-        
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle">
 <label class="explorer-toggle-label" for="explorer-toggle"><div class="explorer-toggle-label-clickablearea"></div></label>
@@ -75,6 +72,8 @@ if (!doNotTrack) {
                     <ul>
                         <li><span class="menu-item folder open">posts</span>
                             <ul>
+                                
+                                <li ><a href="/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Deploy Azure Static Web App using Bicep and YAML pipeline.md</span></a></li>
                                 
                                 <li ><a href="/posts/get-function-configuration-from-deployed-function-app/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Get function configuration from deployed Function App.md</span></a></li>
                                 
@@ -187,6 +186,10 @@ if (!doNotTrack) {
                 
                 
                     <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/">Deploy Azure Static Web App using Bicep and YAML pipeline.md</a>
+                    </div>
+                
+                    <div class="main-tab">
                         <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/get-function-configuration-from-deployed-function-app/">Get function configuration from deployed Function App.md</a>
                     </div>
                 
@@ -200,10 +203,6 @@ if (!doNotTrack) {
                 
                     <div class="main-tab">
                         <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases.md</a>
-                    </div>
-                
-                    <div class="main-tab">
-                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/create-and-use-azure-table-storage-with-powershell/">Create and use Azure Table storage with PowerShell.md</a>
                     </div>
                 
                 </div>
@@ -233,7 +232,7 @@ if (!doNotTrack) {
             <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Invoke-RestMethod with anti-forgery tokens in header and cookie</span><br />
             <span class="md-frontmatter">date</span>: 2017-02-21 14:14:00 &#43;0200 &#43;0200<br />
             <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
-            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
+            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John Roos</span><br />
             ----
             <p>To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell cmdlet Invoke-RestMethod. I have seen some people suggesting that Invoke-RestMethod does not have support for this, which is not true. It&rsquo;s just a little bit more complicated than expected.</p>
 <p>What&rsquo;s needed is basically a custom header and a cookie. It’s the last part with the cookie which makes people think that Invoke-RestMethod does not work because it does not support cookies. It does. The header goes into the header parameter as expected, but the cookie need to go into a web session variable which is used for the websession parameter.</p>
@@ -362,7 +361,7 @@ That’s it. Now we can talk to a secure REST API.</p>
 </span></span><span class="line"><span class="cl"><span class="nb">Invoke-RestMethod</span> <span class="nv">@props</span>
 </span></span></code></pre></div>
 
-            <p>- Written by John  
+            <p>- Written by John Roos  
             
                 
                 
@@ -381,6 +380,5 @@ That’s it. Now we can talk to a secure REST API.</p>
 
             </div>
         </div>
-        
     </body>
 </html>

@@ -53,9 +53,6 @@ if (!doNotTrack) {
 </script>
 
 </head><body>
-        
-        
-        
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle">
 <label class="explorer-toggle-label" for="explorer-toggle"><div class="explorer-toggle-label-clickablearea"></div></label>
@@ -73,6 +70,8 @@ if (!doNotTrack) {
                     <ul>
                         <li><span class="menu-item folder open">posts</span>
                             <ul>
+                                
+                                <li ><a href="/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Deploy Azure Static Web App using Bicep and YAML pipeline.md</span></a></li>
                                 
                                 <li ><a href="/posts/get-function-configuration-from-deployed-function-app/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Get function configuration from deployed Function App.md</span></a></li>
                                 
@@ -185,6 +184,10 @@ if (!doNotTrack) {
                 
                 
                     <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/">Deploy Azure Static Web App using Bicep and YAML pipeline.md</a>
+                    </div>
+                
+                    <div class="main-tab">
                         <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/get-function-configuration-from-deployed-function-app/">Get function configuration from deployed Function App.md</a>
                     </div>
                 
@@ -198,10 +201,6 @@ if (!doNotTrack) {
                 
                     <div class="main-tab">
                         <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases.md</a>
-                    </div>
-                
-                    <div class="main-tab">
-                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/create-and-use-azure-table-storage-with-powershell/">Create and use Azure Table storage with PowerShell.md</a>
                     </div>
                 
                 </div>
@@ -231,7 +230,7 @@ if (!doNotTrack) {
             <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Script deployment of SSIS packages from folder</span><br />
             <span class="md-frontmatter">date</span>: 2012-03-08 14:14:00 &#43;0200 &#43;0200<br />
             <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
-            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
+            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John Roos</span><br />
             ----
             <p>This is a very easy way to automate something which can take quite some time to do manually if you have lots of environments. Its made as easy as possible in this example rather than fancy and complicated. This script will create a SQL Server Agent Job which will execute a number of SSIS packages (dtsx files). The script will look for dtsx files in the selected folder DTSVirtualPath and also a config file (dtsConfig). Each file will get its own step in the job in alphabetical order. If you want to have a different order you could just rename the files with a number in the front or rearrange it manually afterwards in the job properties.</p>
 <p>To make it as easy and quick as possible I got the base for the script by using one of the jobs which was already configured. Just right click on a job which already exist and select Script Job as, Create to, New Query Editor Window. I then edited the script to make it a bit dynamic. I included two schedules for the job in case schedules are needed. Just edit the highlighted lines to adapt to your environment and give it a go. I have only tested this on SQL Server 2008 R2 but it will probably work on 2005 with a few or no tweaks.</p>
@@ -568,7 +567,7 @@ if (!doNotTrack) {
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">GO</span><span class="w">
 </span></span></span></code></pre></div>
 
-            <p>- Written by John  
+            <p>- Written by John Roos  
             
                 
                 
@@ -587,6 +586,5 @@ if (!doNotTrack) {
 
             </div>
         </div>
-        
     </body>
 </html>

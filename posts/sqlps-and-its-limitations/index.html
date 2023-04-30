@@ -53,9 +53,6 @@ if (!doNotTrack) {
 </script>
 
 </head><body>
-        
-        
-        
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle">
 <label class="explorer-toggle-label" for="explorer-toggle"><div class="explorer-toggle-label-clickablearea"></div></label>
@@ -73,6 +70,8 @@ if (!doNotTrack) {
                     <ul>
                         <li><span class="menu-item folder open">posts</span>
                             <ul>
+                                
+                                <li ><a href="/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Deploy Azure Static Web App using Bicep and YAML pipeline.md</span></a></li>
                                 
                                 <li ><a href="/posts/get-function-configuration-from-deployed-function-app/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Get function configuration from deployed Function App.md</span></a></li>
                                 
@@ -185,6 +184,10 @@ if (!doNotTrack) {
                 
                 
                     <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/">Deploy Azure Static Web App using Bicep and YAML pipeline.md</a>
+                    </div>
+                
+                    <div class="main-tab">
                         <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/get-function-configuration-from-deployed-function-app/">Get function configuration from deployed Function App.md</a>
                     </div>
                 
@@ -198,10 +201,6 @@ if (!doNotTrack) {
                 
                     <div class="main-tab">
                         <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases.md</a>
-                    </div>
-                
-                    <div class="main-tab">
-                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/create-and-use-azure-table-storage-with-powershell/">Create and use Azure Table storage with PowerShell.md</a>
                     </div>
                 
                 </div>
@@ -231,7 +230,7 @@ if (!doNotTrack) {
             <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">SQLPS and its limitations</span><br />
             <span class="md-frontmatter">date</span>: 2012-06-15 14:14:00 &#43;0200 CEST<br />
             <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
-            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
+            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John Roos</span><br />
             ----
             <p>SQL Server PowerShell (<a href="http://technet.microsoft.com/en-us/library/cc281954(v=sql.105).aspx">SQLPS</a>) enables some new possibilities when it comes to managing your instances, but it also comes with some limitations. These limitations are not always obvious and can sometimes be worked around. To understand the limitations you must first understand that SQLPS is not PowerShell V1, V2 or V3 but rather a mini shell on its own. It was created by Microsoft as a mini shell based on PowerShell V1 so the cmdlets available are based on V1. To get an idea of what is missing compared to newer versions of PowerShell there is a list of feature differences between versions on <a href="http://en.wikipedia.org/wiki/Powershell#Version_1.0">Wikipedia</a> which could give some pointers.</p>
 <p>You can still use all the PowerShell features from newer versions with some workarounds. When setting up jobs in SQL Server Agent for example you can select PowerShell as a job step type. This actually means that you will use SQLPS and not the regular PowerShell.
@@ -254,7 +253,7 @@ If you want the job to run regular PowerShell commands from V2 or later (like In
 </span></span></code></pre></div><p>When you run PS scripts in this way you will use the regular PowerShell from the operating system instead of SQLPS and it gives you all the features of newer versions of PowerShell in SQL Server Agent jobs. There is no difference in SQLPS in SQL Server 2008 and SQL Server 2008 R2. In SQL Server 2012 however, the PowerShell integration is much deeper and these kind of workarounds are much less needed.</p>
 
 
-            <p>- Written by John  
+            <p>- Written by John Roos  
             
                 
                 
@@ -273,6 +272,5 @@ If you want the job to run regular PowerShell commands from V2 or later (like In
 
             </div>
         </div>
-        
     </body>
 </html>

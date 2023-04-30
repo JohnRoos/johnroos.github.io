@@ -1,0 +1,410 @@
+ 
+ 
+
+ 
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+    
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+
+    <meta name='twitter:card'        content='summary' />
+    <meta name='twitter:site'        content='@johnmroos'/>
+    <meta name='twitter:creator'     content='@johnmroos'/>
+    <meta name='twitter:title'       content='Deploy Azure Static Web App using Bicep and YAML pipeline' />
+    <meta name='twitter:description' content='When you build some kind of web application it might be interesting to have a look at Azure Static Web Apps. This is a very light weight service which doesn&rsquo;t have to cost much, and can even be free. This is the first in a series of posts about Azure Static Web Apps. In this post I will start with the basics and show how to deploy a html page to a free Static Web App.' />
+    
+    <meta name='twitter:domain'      content='https://blog.roostech.se/'/>
+    
+
+    <title>Deploy Azure Static Web App using Bicep and YAML pipeline</title>
+    <meta name="description" content="When you build some kind of web application it might be interesting to have a look at Azure Static Web Apps. This is a very light weight service which doesn&rsquo;t have to cost much, and can even be free. This is the first in a series of posts about Azure Static Web Apps. In this post I will start with the basics and show how to deploy a html page to a free Static Web App."/>
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9F2VG64X4H"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9F2VG64X4H', { 'anonymize_ip': false });
+}
+</script>
+
+</head><body>
+        <div class="container">
+<input class="explorer-toggle" type="checkbox" id="explorer-toggle">
+<label class="explorer-toggle-label" for="explorer-toggle"><div class="explorer-toggle-label-clickablearea"></div></label>
+
+<div class="explorer-toggle-label-selection"></div>
+
+<div class="left-menu-button-bar"></div>
+
+<diV class='left-menu'>
+    
+    <ul class="root">
+        <li class="root"><div class="menu-item folder open"><a class="menu-item-site" href="https://blog.roostech.se/">blog.roostech.se (HUGOVSCODE)</a></div>
+            <ul>  
+                <li><span class="menu-item folder open">content</span>
+                    <ul>
+                        <li><span class="menu-item folder open">posts</span>
+                            <ul>
+                                
+                                <li class="current"><a href="/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Deploy Azure Static Web App using Bicep and YAML pipeline.md</span></a></li>
+                                
+                                <li ><a href="/posts/get-function-configuration-from-deployed-function-app/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Get function configuration from deployed Function App.md</span></a></li>
+                                
+                                <li ><a href="/posts/deploy-azure-function-app-without-downtime/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Deploy Azure Function App without downtime.md</span></a></li>
+                                
+                                <li ><a href="/posts/moving-from-blogger-to-github-pages-with-hugo/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Moving from Blogger to GitHub Pages using Hugo.md</span></a></li>
+                                
+                                <li ><a href="/posts/pester-5-discovery-and-testcases/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Pester 5: Discovery and TestCases.md</span></a></li>
+                                
+                                <li ><a href="/posts/create-and-use-azure-table-storage-with-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Create and use Azure Table storage with PowerShell.md</span></a></li>
+                                
+                                <li ><a href="/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Use Edit-Command to discover the code behind built-in cmdlets.md</span></a></li>
+                                
+                                <li ><a href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Invoke-RestMethod with anti-forgery tokens in header and cookie.md</span></a></li>
+                                
+                                <li ><a href="/posts/introducing-the-inimanager-module/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Introducing the IniManager module.md</span></a></li>
+                                
+                                <li ><a href="/posts/use-powershell-jobs-to-ping-many-from-many-with-log/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Use PowerShell jobs to ping many from many with log.md</span></a></li>
+                                
+                                <li ><a href="/posts/powershell-logo-made-with-css3/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">PowerShell logo made with CSS3.md</span></a></li>
+                                
+                                <li ><a href="/posts/what-is-this-here-string-people-are-talking-about/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">What is this here-string people are talking about?.md</span></a></li>
+                                
+                                <li ><a href="/posts/dynamic-parameters-in-powershell-executes-before-you-know-it/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Dynamic parameters in PowerShell executes before you know it.md</span></a></li>
+                                
+                                <li ><a href="/posts/making-powershell-expressions-easier/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Making PowerShell expressions easier.md</span></a></li>
+                                
+                                <li ><a href="/posts/simple-select-from-database-with-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Simple select from database with PowerShell.md</span></a></li>
+                                
+                                <li ><a href="/posts/how-to-use-splatting-in-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">How to use splatting in PowerShell.md</span></a></li>
+                                
+                                <li ><a href="/posts/get-imdbmovie-using-invoke-webrequest/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Get-IMDBmovie using Invoke-WebRequest.md</span></a></li>
+                                
+                                <li ><a href="/posts/classes-in-powershell-5.0/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Classes in Powershell 5.0.md</span></a></li>
+                                
+                                <li ><a href="/posts/how-to-get-started-with-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">How to get started with Powershell.md</span></a></li>
+                                
+                                <li ><a href="/posts/powershell-script-find-hotfix-status/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Powershell script: Find hotfix status.md</span></a></li>
+                                
+                                <li ><a href="/posts/powershell-script-write-object-to-sql/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Powershell script: Write object to SQL.md</span></a></li>
+                                
+                                <li ><a href="/posts/get-type-alternative-for-null-values/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Get-Type alternative for $null values.md</span></a></li>
+                                
+                                <li ><a href="/posts/compress-files-to-zip-with-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Compress files to Zip with Powershell.md</span></a></li>
+                                
+                                <li ><a href="/posts/enable-real-time-jmx-monitoring-in-cognos/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Enable real time JMX monitoring in Cognos.md</span></a></li>
+                                
+                                <li ><a href="/posts/move-data-or-log-files-for-tempdb-in-sql-server/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Move data or log files for TempDB in SQL Server.md</span></a></li>
+                                
+                                <li ><a href="/posts/resources-for-remotefx-in-windows-server-2012/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Resources for RemoteFX in Windows Server 2012.md</span></a></li>
+                                
+                                <li ><a href="/posts/rdp-8.0-for-windows-7-sp1/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">RDP 8.0 for Windows 7 SP1.md</span></a></li>
+                                
+                                <li ><a href="/posts/improving-remotefx-performance-in-hyper-v/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Improving RemoteFX performance in Hyper-V.md</span></a></li>
+                                
+                                <li ><a href="/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU.md</span></a></li>
+                                
+                                <li ><a href="/posts/sqlps-and-its-limitations/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">SQLPS and its limitations.md</span></a></li>
+                                
+                                <li ><a href="/posts/script-deployment-of-ssis-packages-from-folder/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Script deployment of SSIS packages from folder.md</span></a></li>
+                                
+                                <li ><a href="/posts/dynamic-deploy-of-ssrs-reports-using-rs.exe/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Dynamic deploy of SSRS reports using rs.exe.md</span></a></li>
+                                
+                                <li ><a href="/posts/remove-headers-in-excel-exports-to-fix-column-alignment/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Remove headers in Excel exports to fix column alignment.md</span></a></li>
+                                
+                                <li ><a href="/posts/using-executionlog2-for-statistics-and-monitoring/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Using ExecutionLog2 for statistics and monitoring.md</span></a></li>
+                                
+                            </ul>
+                        </li>
+                        <li><span class="menu-item folder open">pages</span>
+                            <ul>
+                                
+                                <li ><a href="/about/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">About me.md</span></a></li>
+                                
+                                <li ><a href="/chroma/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Chroma.md</span></a></li>
+                                
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><span class="menu-item folder">data</span></li>
+                <li><span class="menu-item folder">layouts</span></li>
+                <li><span class="menu-item folder">resources</span></li>
+                <li><span class="menu-item folder">static</span></li>
+                <li><span class="menu-item folder open">themes</span>
+                    <ul>
+                        <li><span class="menu-item folder open">hugovscode</span>
+                            <ul>
+                                <li><a href="https://github.com/JohnRoos/HugoVSCode/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">.git</span></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>config.toml</li>
+            </ul>
+        </li>
+    </ul>
+  
+
+    
+</diV>
+                <div class ="main-tabs">
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/">Home.md</a> 
+                    </div>
+                
+                
+                    <div class="main-tab current">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/">Deploy Azure Static Web App using Bicep and YAML pipeline.md</a>
+                    </div>
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/get-function-configuration-from-deployed-function-app/">Get function configuration from deployed Function App.md</a>
+                    </div>
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/deploy-azure-function-app-without-downtime/">Deploy Azure Function App without downtime.md</a>
+                    </div>
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo.md</a>
+                    </div>
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases.md</a>
+                    </div>
+                
+                </div>
+            
+            
+            <div class='main'>
+    <div class="main-path">
+        <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Deploy Azure Static Web App using Bicep and YAML pipeline.md</span>
+        
+                
+                
+                <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2023-04-30">April 30, 2023</time>)</span>
+            
+    </div>
+    
+    <div class="main-content-toggle">
+
+        
+        <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
+        <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
+
+        <input class="source-toggle" type="checkbox" id="source-toggle">
+        <label class="source-toggle-label" for="source-toggle"></label>
+
+        <div class="main-content">
+            ---<br />
+            <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Deploy Azure Static Web App using Bicep and YAML pipeline</span><br />
+            <span class="md-frontmatter">date</span>: 2023-04-30 08:48:00 &#43;0200 CEST<br />
+            <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
+            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John Roos</span><br />
+            ----
+            <p>When you build some kind of web application it might be interesting to have a look at Azure Static Web Apps. This is a very light weight service which doesn&rsquo;t have to cost much, and can even be free. This is the first in a series of posts about Azure Static Web Apps. In this post I will start with the basics and show how to deploy a html page to a free Static Web App. Compared to many other Azure services, the process of creating and deploying a solution is rather simple.</p>
+<h2 id="the-content">The content</h2>
+<p>Imagine you have this awesome website:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="c">&lt;!-- StaticWebApp\index.html --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>This is an awesome website<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>The <em>index.html</em> file is stored in the <em>StaticWebApp</em> folder. In this scenario we want to deploy any file located in this folder.</p>
+<h2 id="bicep-template">Bicep template</h2>
+<p>Before we can deploy the website we need to create the resources in Azure. We only need one resource with minimal configuration. Notice that the Free tier is used.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bicep" data-lang="bicep"><span class="line"><span class="cl"><span class="c1">// StaticWebApp.bicep</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">resource</span><span class="w"> </span>staticWebApp<span class="w"> </span><span class="s">&#39;Microsoft.Web/staticSites@2022-09-01&#39;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="py">name</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;MyStaticWebApp&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="py">location</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;West Europe&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="py">properties</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="py">sku</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="py">name</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;Free&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>If you read the <a href="https://learn.microsoft.com/en-us/azure/templates/microsoft.web/staticsites?pivots=deployment-language-bicep">documentation</a> you will notice that there are more options available, especially when it comes to configuring build and deployment. Its even more obvious if you decide to click your way through the portal to create the resource. In this case I prefer to skip the deployment part of the configuration and instead create a pipeline in Azure DevOps manually later. If you create the resource by clicking in the portal, you can select <em>Other</em> as <em>Deployment Source</em> and you will end up with the same result.</p>
+<h2 id="resource-deployment-script">Resource deployment script</h2>
+<p>Deployment can be done with your language of choice. I prefer PowerShell and I am using the <a href="https://www.powershellgallery.com/packages/Bicep/">Bicep PowerShell module</a> to build my Bicep templates (and so should you).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># DeployStaticWebApp.ps1</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$ResourceGroupName</span> <span class="p">=</span> <span class="s1">&#39;rg-MyStaticWebApp&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$Template</span> <span class="p">=</span> <span class="s1">&#39;.\StaticWebApp.bicep&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">Build-Bicep</span> <span class="n">-Path</span> <span class="nv">$Template</span> <span class="n">-ErrorAction</span> <span class="n">Stop</span> 
+</span></span><span class="line"><span class="cl"><span class="nb">New-AzResourceGroupDeployment</span> <span class="n">-ResourceGroupName</span> <span class="nv">$ResourceGroupName</span> <span class="n">-TemplateFile</span> <span class="nv">$Template</span><span class="p">.</span><span class="py">Replace</span><span class="p">(</span><span class="s1">&#39;.bicep&#39;</span><span class="p">,</span><span class="s1">&#39;.json&#39;</span><span class="p">)</span> <span class="n">-Verbose</span>
+</span></span></code></pre></div><p>Now that the infrastructure is in place, its time to get the website up and running.</p>
+<h2 id="azure-devops-pipeline">Azure DevOps pipeline</h2>
+<p>In this scenario I am using Azure DevOps for the source code and deployment pipeline. I create a new pipeline with the following content.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># DeployStaticWebApp.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Static Web App - Deploy&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">trigger</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">branches</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">include</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s1">&#39;main&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">stages</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">jobs</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">job</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;Deploy&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">pool</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">vmImage</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;ubuntu-latest&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">variables</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">StaticWebApp</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">checkout</span><span class="p">:</span><span class="w"> </span><span class="l">self</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">task</span><span class="p">:</span><span class="w"> </span><span class="l">AzureStaticWebApp@0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;Deploy Static Web App&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">inputs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">azure_static_web_apps_api_token</span><span class="p">:</span><span class="w"> </span><span class="l">$(AzureStaticWebAppApiToken)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">app_location</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/StaticWebApp&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">api_location</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">skip_app_build</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">skip_api_build</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">is_static_export</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">output_location</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span></span></span></code></pre></div><p>There are a couple of things to keep in mind here. The pipeline will trigger any time a commit is pushed to the main branch. The task input <em>app_location</em> is set to &ldquo;/StaticWebApp&rdquo; which means that the website need to be in a folder with that name. Since we are only deploying regular html we disable the build features. More information can be found <a href="https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-static-web-app-v0?view=azure-pipelines">here</a>.</p>
+<p>Note: The AzureStaticWebApp task requires Linux to run. If you want to build your app on a Windows host, you would probably want to publish your build artifacts so that you can use them on the Linux host during deployment. This is outside the scope of this post and not needed to continue.</p>
+<h2 id="deployment-token">Deployment token</h2>
+<p>In the pipeline yaml, there is a variable called &ldquo;AzureStaticWebAppApiToken&rdquo; (which belongs to variable group &ldquo;StaticWebApp&rdquo;). This variable should contain the deployment token for your Static Web App. You can get the token in the portal, by clicking &ldquo;Manage deployment token&rdquo; on the Overview page for your Static Web App.</p>
+<p>When you have copied the deployment token, go back to Azure DevOps and create a variable group called &ldquo;StaticWebApp&rdquo;. In the variable group, add a variable called &ldquo;AzureStaticWebAppApiToken&rdquo;. Paste the deployment token into the Value field.</p>
+<p><img src="/images/variablegroup.png#center" alt="Report Execution Statistics Overview"></p>
+<h2 id="verify-deployment">Verify deployment</h2>
+<p>When the pipeline and variable has been saved we are ready to go. During the first run, it might ask you to assign permissions for the pipeline to the variable group. From now on, any time you commit to the main branch a new deploy will start.</p>
+<p>It doesn&rsquo;t have to be harder than that to get a website up and running. In the next post will show how to add authentication to the Static Web App.</p>
+
+        </div>
+
+        
+        <div class="main-content-preview">
+            <h1>Deploy Azure Static Web App using Bicep and YAML pipeline</h1>
+            
+            <p>When you build some kind of web application it might be interesting to have a look at Azure Static Web Apps. This is a very light weight service which doesn&rsquo;t have to cost much, and can even be free. This is the first in a series of posts about Azure Static Web Apps. In this post I will start with the basics and show how to deploy a html page to a free Static Web App. Compared to many other Azure services, the process of creating and deploying a solution is rather simple.</p>
+<h2 id="the-content">The content</h2>
+<p>Imagine you have this awesome website:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="c">&lt;!-- StaticWebApp\index.html --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>This is an awesome website<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>The <em>index.html</em> file is stored in the <em>StaticWebApp</em> folder. In this scenario we want to deploy any file located in this folder.</p>
+<h2 id="bicep-template">Bicep template</h2>
+<p>Before we can deploy the website we need to create the resources in Azure. We only need one resource with minimal configuration. Notice that the Free tier is used.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bicep" data-lang="bicep"><span class="line"><span class="cl"><span class="c1">// StaticWebApp.bicep</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">resource</span><span class="w"> </span>staticWebApp<span class="w"> </span><span class="s">&#39;Microsoft.Web/staticSites@2022-09-01&#39;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="py">name</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;MyStaticWebApp&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="py">location</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;West Europe&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="py">properties</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="py">sku</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="py">name</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;Free&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>If you read the <a href="https://learn.microsoft.com/en-us/azure/templates/microsoft.web/staticsites?pivots=deployment-language-bicep">documentation</a> you will notice that there are more options available, especially when it comes to configuring build and deployment. Its even more obvious if you decide to click your way through the portal to create the resource. In this case I prefer to skip the deployment part of the configuration and instead create a pipeline in Azure DevOps manually later. If you create the resource by clicking in the portal, you can select <em>Other</em> as <em>Deployment Source</em> and you will end up with the same result.</p>
+<h2 id="resource-deployment-script">Resource deployment script</h2>
+<p>Deployment can be done with your language of choice. I prefer PowerShell and I am using the <a href="https://www.powershellgallery.com/packages/Bicep/">Bicep PowerShell module</a> to build my Bicep templates (and so should you).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># DeployStaticWebApp.ps1</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$ResourceGroupName</span> <span class="p">=</span> <span class="s1">&#39;rg-MyStaticWebApp&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$Template</span> <span class="p">=</span> <span class="s1">&#39;.\StaticWebApp.bicep&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">Build-Bicep</span> <span class="n">-Path</span> <span class="nv">$Template</span> <span class="n">-ErrorAction</span> <span class="n">Stop</span> 
+</span></span><span class="line"><span class="cl"><span class="nb">New-AzResourceGroupDeployment</span> <span class="n">-ResourceGroupName</span> <span class="nv">$ResourceGroupName</span> <span class="n">-TemplateFile</span> <span class="nv">$Template</span><span class="p">.</span><span class="py">Replace</span><span class="p">(</span><span class="s1">&#39;.bicep&#39;</span><span class="p">,</span><span class="s1">&#39;.json&#39;</span><span class="p">)</span> <span class="n">-Verbose</span>
+</span></span></code></pre></div><p>Now that the infrastructure is in place, its time to get the website up and running.</p>
+<h2 id="azure-devops-pipeline">Azure DevOps pipeline</h2>
+<p>In this scenario I am using Azure DevOps for the source code and deployment pipeline. I create a new pipeline with the following content.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># DeployStaticWebApp.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Static Web App - Deploy&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">trigger</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">branches</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">include</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s1">&#39;main&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">stages</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">jobs</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">job</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;Deploy&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">pool</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">vmImage</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;ubuntu-latest&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">variables</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">StaticWebApp</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">checkout</span><span class="p">:</span><span class="w"> </span><span class="l">self</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">task</span><span class="p">:</span><span class="w"> </span><span class="l">AzureStaticWebApp@0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;Deploy Static Web App&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">inputs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">azure_static_web_apps_api_token</span><span class="p">:</span><span class="w"> </span><span class="l">$(AzureStaticWebAppApiToken)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">app_location</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/StaticWebApp&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">api_location</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">skip_app_build</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">skip_api_build</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">is_static_export</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">output_location</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span></span></span></code></pre></div><p>There are a couple of things to keep in mind here. The pipeline will trigger any time a commit is pushed to the main branch. The task input <em>app_location</em> is set to &ldquo;/StaticWebApp&rdquo; which means that the website need to be in a folder with that name. Since we are only deploying regular html we disable the build features. More information can be found <a href="https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-static-web-app-v0?view=azure-pipelines">here</a>.</p>
+<p>Note: The AzureStaticWebApp task requires Linux to run. If you want to build your app on a Windows host, you would probably want to publish your build artifacts so that you can use them on the Linux host during deployment. This is outside the scope of this post and not needed to continue.</p>
+<h2 id="deployment-token">Deployment token</h2>
+<p>In the pipeline yaml, there is a variable called &ldquo;AzureStaticWebAppApiToken&rdquo; (which belongs to variable group &ldquo;StaticWebApp&rdquo;). This variable should contain the deployment token for your Static Web App. You can get the token in the portal, by clicking &ldquo;Manage deployment token&rdquo; on the Overview page for your Static Web App.</p>
+<p>When you have copied the deployment token, go back to Azure DevOps and create a variable group called &ldquo;StaticWebApp&rdquo;. In the variable group, add a variable called &ldquo;AzureStaticWebAppApiToken&rdquo;. Paste the deployment token into the Value field.</p>
+<p><img src="/images/variablegroup.png#center" alt="Report Execution Statistics Overview"></p>
+<h2 id="verify-deployment">Verify deployment</h2>
+<p>When the pipeline and variable has been saved we are ready to go. During the first run, it might ask you to assign permissions for the pipeline to the variable group. From now on, any time you commit to the main branch a new deploy will start.</p>
+<p>It doesn&rsquo;t have to be harder than that to get a website up and running. In the next post will show how to add authentication to the Static Web App.</p>
+
+
+            <p>- Written by John Roos  
+            
+                
+                
+                on April 30, 2023</p>
+
+            
+                <div class="disqus-section">
+                    
+                </div>
+            
+        </div>
+
+    </div>
+    
+
+
+            </div>
+        </div>
+    </body>
+</html>

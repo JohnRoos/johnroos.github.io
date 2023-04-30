@@ -6,7 +6,52 @@
     <description>Recent content in Tags on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Dec 2020 21:30:00 +0200</lastBuildDate><atom:link href="https://blog.roostech.se/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 30 Apr 2023 08:48:00 +0200</lastBuildDate><atom:link href="https://blog.roostech.se/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Azure DevOps</title>
+      <link>https://blog.roostech.se/tags/azure-devops/</link>
+      <pubDate>Sun, 30 Apr 2023 08:48:00 +0200</pubDate>
+      
+      <guid>https://blog.roostech.se/tags/azure-devops/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Azure Static Web App</title>
+      <link>https://blog.roostech.se/tags/azure-static-web-app/</link>
+      <pubDate>Sun, 30 Apr 2023 08:48:00 +0200</pubDate>
+      
+      <guid>https://blog.roostech.se/tags/azure-static-web-app/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Bicep</title>
+      <link>https://blog.roostech.se/tags/bicep/</link>
+      <pubDate>Sun, 30 Apr 2023 08:48:00 +0200</pubDate>
+      
+      <guid>https://blog.roostech.se/tags/bicep/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>PowerShell</title>
+      <link>https://blog.roostech.se/tags/powershell/</link>
+      <pubDate>Sun, 30 Apr 2023 08:48:00 +0200</pubDate>
+      
+      <guid>https://blog.roostech.se/tags/powershell/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>YAML</title>
+      <link>https://blog.roostech.se/tags/yaml/</link>
+      <pubDate>Sun, 30 Apr 2023 08:48:00 +0200</pubDate>
+      
+      <guid>https://blog.roostech.se/tags/yaml/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Azure Function App</title>
       <link>https://blog.roostech.se/tags/azure-function-app/</link>
@@ -31,24 +76,6 @@
       <pubDate>Wed, 02 Dec 2020 21:30:00 +0200</pubDate>
       
       <guid>https://blog.roostech.se/tags/kudu/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>PowerShell</title>
-      <link>https://blog.roostech.se/tags/powershell/</link>
-      <pubDate>Wed, 02 Dec 2020 21:30:00 +0200</pubDate>
-      
-      <guid>https://blog.roostech.se/tags/powershell/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Azure DevOps</title>
-      <link>https://blog.roostech.se/tags/azure-devops/</link>
-      <pubDate>Thu, 29 Oct 2020 21:53:00 +0200</pubDate>
-      
-      <guid>https://blog.roostech.se/tags/azure-devops/</guid>
       <description></description>
     </item>
     

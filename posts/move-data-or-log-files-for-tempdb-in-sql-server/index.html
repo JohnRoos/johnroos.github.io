@@ -57,9 +57,6 @@ if (!doNotTrack) {
 </script>
 
 </head><body>
-        
-        
-        
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle">
 <label class="explorer-toggle-label" for="explorer-toggle"><div class="explorer-toggle-label-clickablearea"></div></label>
@@ -77,6 +74,8 @@ if (!doNotTrack) {
                     <ul>
                         <li><span class="menu-item folder open">posts</span>
                             <ul>
+                                
+                                <li ><a href="/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Deploy Azure Static Web App using Bicep and YAML pipeline.md</span></a></li>
                                 
                                 <li ><a href="/posts/get-function-configuration-from-deployed-function-app/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Get function configuration from deployed Function App.md</span></a></li>
                                 
@@ -189,6 +188,10 @@ if (!doNotTrack) {
                 
                 
                     <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/">Deploy Azure Static Web App using Bicep and YAML pipeline.md</a>
+                    </div>
+                
+                    <div class="main-tab">
                         <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/get-function-configuration-from-deployed-function-app/">Get function configuration from deployed Function App.md</a>
                     </div>
                 
@@ -202,10 +205,6 @@ if (!doNotTrack) {
                 
                     <div class="main-tab">
                         <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases.md</a>
-                    </div>
-                
-                    <div class="main-tab">
-                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/create-and-use-azure-table-storage-with-powershell/">Create and use Azure Table storage with PowerShell.md</a>
                     </div>
                 
                 </div>
@@ -235,7 +234,7 @@ if (!doNotTrack) {
             <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Move data or log files for TempDB in SQL Server</span><br />
             <span class="md-frontmatter">date</span>: 2014-09-30 14:14:00 &#43;0200 CEST<br />
             <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
-            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
+            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John Roos</span><br />
             ----
             <p>Since TempDB is a system database you should not try to move the database with detach/attach or backup/restore. Instead you should move the files with a simple script and after the next restart of the instance the files will be relocated to the new location.</p>
 <p>First check where the files are currently located so that you can easily just copy and paste the name and paths if needed:</p>
@@ -266,7 +265,7 @@ if (!doNotTrack) {
 </span></span></span></code></pre></div><p>Change the name of the file and path to your needs. After you have executed the script you will receive a message saying that the instance needs to be started for the changes to have effect. Restart the instance and verify that the files have been relocated properly.</p>
 
 
-            <p>- Written by John  
+            <p>- Written by John Roos  
             
                 
                 
@@ -285,6 +284,5 @@ if (!doNotTrack) {
 
             </div>
         </div>
-        
     </body>
 </html>

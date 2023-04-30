@@ -55,9 +55,6 @@ if (!doNotTrack) {
 </script>
 
 </head><body>
-        
-        
-        
         <div class="container">
 <input class="explorer-toggle" type="checkbox" id="explorer-toggle">
 <label class="explorer-toggle-label" for="explorer-toggle"><div class="explorer-toggle-label-clickablearea"></div></label>
@@ -75,6 +72,8 @@ if (!doNotTrack) {
                     <ul>
                         <li><span class="menu-item folder open">posts</span>
                             <ul>
+                                
+                                <li ><a href="/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Deploy Azure Static Web App using Bicep and YAML pipeline.md</span></a></li>
                                 
                                 <li ><a href="/posts/get-function-configuration-from-deployed-function-app/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Get function configuration from deployed Function App.md</span></a></li>
                                 
@@ -187,6 +186,10 @@ if (!doNotTrack) {
                 
                 
                     <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/">Deploy Azure Static Web App using Bicep and YAML pipeline.md</a>
+                    </div>
+                
+                    <div class="main-tab">
                         <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/get-function-configuration-from-deployed-function-app/">Get function configuration from deployed Function App.md</a>
                     </div>
                 
@@ -200,10 +203,6 @@ if (!doNotTrack) {
                 
                     <div class="main-tab">
                         <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases.md</a>
-                    </div>
-                
-                    <div class="main-tab">
-                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/create-and-use-azure-table-storage-with-powershell/">Create and use Azure Table storage with PowerShell.md</a>
                     </div>
                 
                 </div>
@@ -233,7 +232,7 @@ if (!doNotTrack) {
             <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Get-Type alternative for $null values</span><br />
             <span class="md-frontmatter">date</span>: 2014-12-20 14:14:00 &#43;0200 &#43;0200<br />
             <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
-            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John</span><br />
+            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John Roos</span><br />
             ----
             <p>Sometimes its useful to get information about object properties in PowerShell. You might be writing a script where you want to extract information from a series of objects and you need to know what data type a property contains. Often this is not a big problem since you can use the GetType function that most objects have.</p>
 <p>Then you run in to the problem that I had recently: You expect a series of objects and you check the types on the properties and suddenly a few of them doesn&rsquo;t have the function GetType for some reason. What I realized was that if a property is Null then a lot of features for that property doesn&rsquo;t work anymore. I did figure out a workaround for this, even if its not very pretty. I thought I share this in case more people stumble on the same issue.</p>
@@ -348,7 +347,7 @@ I would prefer the first option to use the GetType so why not use that one first
 For some reason the custom objects that I have tried this on doesn&rsquo;t work with this workaround. For me it has worked with the objects returned from several built-in cmdlets, so give it a try. It might just work.</p>
 
 
-            <p>- Written by John  
+            <p>- Written by John Roos  
             
                 
                 
@@ -367,6 +366,5 @@ For some reason the custom objects that I have tried this on doesn&rsquo;t work 
 
             </div>
         </div>
-        
     </body>
 </html>

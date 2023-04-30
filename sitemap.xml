@@ -2,6 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://blog.roostech.se/tags/azure-devops/</loc>
+    <lastmod>2023-04-30T08:48:00+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.roostech.se/tags/azure-static-web-app/</loc>
+    <lastmod>2023-04-30T08:48:00+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.roostech.se/tags/bicep/</loc>
+    <lastmod>2023-04-30T08:48:00+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.roostech.se/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/</loc>
+    <lastmod>2023-04-30T08:48:00+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.roostech.se/posts/</loc>
+    <lastmod>2023-04-30T08:48:00+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.roostech.se/tags/powershell/</loc>
+    <lastmod>2023-04-30T08:48:00+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.roostech.se/</loc>
+    <lastmod>2023-04-30T08:48:00+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.roostech.se/tags/</loc>
+    <lastmod>2023-04-30T08:48:00+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.roostech.se/tags/yaml/</loc>
+    <lastmod>2023-04-30T08:48:00+02:00</lastmod>
+  </url><url>
     <loc>https://blog.roostech.se/tags/azure-function-app/</loc>
     <lastmod>2020-12-02T21:30:00+02:00</lastmod>
   </url><url>
@@ -13,21 +40,6 @@
   </url><url>
     <loc>https://blog.roostech.se/tags/kudu/</loc>
     <lastmod>2020-12-02T21:30:00+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.roostech.se/posts/</loc>
-    <lastmod>2020-12-02T21:30:00+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.roostech.se/tags/powershell/</loc>
-    <lastmod>2020-12-02T21:30:00+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.roostech.se/</loc>
-    <lastmod>2020-12-02T21:30:00+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.roostech.se/tags/</loc>
-    <lastmod>2020-12-02T21:30:00+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.roostech.se/tags/azure-devops/</loc>
-    <lastmod>2020-10-29T21:53:00+02:00</lastmod>
   </url><url>
     <loc>https://blog.roostech.se/posts/deploy-azure-function-app-without-downtime/</loc>
     <lastmod>2020-10-29T21:53:00+02:00</lastmod>
