@@ -1,0 +1,349 @@
+ 
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+    
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+
+    <meta name='twitter:card'        content='summary' />
+    <meta name='twitter:site'        content='@johnmroos'/>
+    <meta name='twitter:creator'     content='@johnmroos'/>
+    <meta name='twitter:title'       content='Authentication' />
+    <meta name='twitter:description' content='A blog about PowerShell, automation and technology in general.' />
+    
+    <meta name='twitter:domain'      content='https://blog.roostech.se/'/>
+    
+
+    <title>Authentication</title>
+    <meta name="description" content="A blog about PowerShell, automation and technology in general."/>
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9F2VG64X4H"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9F2VG64X4H', { 'anonymize_ip': false });
+}
+</script>
+
+</head><body>
+        <div class="container">
+<input class="explorer-toggle" type="checkbox" id="explorer-toggle">
+<label class="explorer-toggle-label" for="explorer-toggle"><div class="explorer-toggle-label-clickablearea"></div></label>
+
+<div class="explorer-toggle-label-selection"></div>
+
+<div class="left-menu-button-bar"></div>
+
+<diV class='left-menu'>
+    
+    <ul class="root">
+        <li class="root"><div class="menu-item folder open"><a class="menu-item-site" href="https://blog.roostech.se/">blog.roostech.se (HUGOVSCODE)</a></div>
+            <ul>  
+                <li><span class="menu-item folder open">content</span>
+                    <ul>
+                        <li><span class="menu-item folder open">posts</span>
+                            <ul>
+                                
+                                <li ><a href="/posts/set-up-built-in-authentication-for-azure-static-web-app/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Set up built-in authentication for Azure Static Web App.md</span></a></li>
+                                
+                                <li ><a href="/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Deploy Azure Static Web App using Bicep and YAML pipeline.md</span></a></li>
+                                
+                                <li ><a href="/posts/get-function-configuration-from-deployed-function-app/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Get function configuration from deployed Function App.md</span></a></li>
+                                
+                                <li ><a href="/posts/deploy-azure-function-app-without-downtime/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Deploy Azure Function App without downtime.md</span></a></li>
+                                
+                                <li ><a href="/posts/moving-from-blogger-to-github-pages-with-hugo/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Moving from Blogger to GitHub Pages using Hugo.md</span></a></li>
+                                
+                                <li ><a href="/posts/pester-5-discovery-and-testcases/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Pester 5: Discovery and TestCases.md</span></a></li>
+                                
+                                <li ><a href="/posts/create-and-use-azure-table-storage-with-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Create and use Azure Table storage with PowerShell.md</span></a></li>
+                                
+                                <li ><a href="/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Use Edit-Command to discover the code behind built-in cmdlets.md</span></a></li>
+                                
+                                <li ><a href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Invoke-RestMethod with anti-forgery tokens in header and cookie.md</span></a></li>
+                                
+                                <li ><a href="/posts/introducing-the-inimanager-module/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Introducing the IniManager module.md</span></a></li>
+                                
+                                <li ><a href="/posts/use-powershell-jobs-to-ping-many-from-many-with-log/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Use PowerShell jobs to ping many from many with log.md</span></a></li>
+                                
+                                <li ><a href="/posts/powershell-logo-made-with-css3/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">PowerShell logo made with CSS3.md</span></a></li>
+                                
+                                <li ><a href="/posts/what-is-this-here-string-people-are-talking-about/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">What is this here-string people are talking about?.md</span></a></li>
+                                
+                                <li ><a href="/posts/dynamic-parameters-in-powershell-executes-before-you-know-it/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Dynamic parameters in PowerShell executes before you know it.md</span></a></li>
+                                
+                                <li ><a href="/posts/making-powershell-expressions-easier/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Making PowerShell expressions easier.md</span></a></li>
+                                
+                                <li ><a href="/posts/simple-select-from-database-with-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Simple select from database with PowerShell.md</span></a></li>
+                                
+                                <li ><a href="/posts/how-to-use-splatting-in-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">How to use splatting in PowerShell.md</span></a></li>
+                                
+                                <li ><a href="/posts/get-imdbmovie-using-invoke-webrequest/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Get-IMDBmovie using Invoke-WebRequest.md</span></a></li>
+                                
+                                <li ><a href="/posts/classes-in-powershell-5.0/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Classes in Powershell 5.0.md</span></a></li>
+                                
+                                <li ><a href="/posts/how-to-get-started-with-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">How to get started with Powershell.md</span></a></li>
+                                
+                                <li ><a href="/posts/powershell-script-find-hotfix-status/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Powershell script: Find hotfix status.md</span></a></li>
+                                
+                                <li ><a href="/posts/powershell-script-write-object-to-sql/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Powershell script: Write object to SQL.md</span></a></li>
+                                
+                                <li ><a href="/posts/get-type-alternative-for-null-values/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Get-Type alternative for $null values.md</span></a></li>
+                                
+                                <li ><a href="/posts/compress-files-to-zip-with-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Compress files to Zip with Powershell.md</span></a></li>
+                                
+                                <li ><a href="/posts/enable-real-time-jmx-monitoring-in-cognos/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Enable real time JMX monitoring in Cognos.md</span></a></li>
+                                
+                                <li ><a href="/posts/move-data-or-log-files-for-tempdb-in-sql-server/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Move data or log files for TempDB in SQL Server.md</span></a></li>
+                                
+                                <li ><a href="/posts/resources-for-remotefx-in-windows-server-2012/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Resources for RemoteFX in Windows Server 2012.md</span></a></li>
+                                
+                                <li ><a href="/posts/rdp-8.0-for-windows-7-sp1/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">RDP 8.0 for Windows 7 SP1.md</span></a></li>
+                                
+                                <li ><a href="/posts/improving-remotefx-performance-in-hyper-v/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Improving RemoteFX performance in Hyper-V.md</span></a></li>
+                                
+                                <li ><a href="/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU.md</span></a></li>
+                                
+                                <li ><a href="/posts/sqlps-and-its-limitations/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">SQLPS and its limitations.md</span></a></li>
+                                
+                                <li ><a href="/posts/script-deployment-of-ssis-packages-from-folder/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Script deployment of SSIS packages from folder.md</span></a></li>
+                                
+                                <li ><a href="/posts/dynamic-deploy-of-ssrs-reports-using-rs.exe/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Dynamic deploy of SSRS reports using rs.exe.md</span></a></li>
+                                
+                                <li ><a href="/posts/remove-headers-in-excel-exports-to-fix-column-alignment/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Remove headers in Excel exports to fix column alignment.md</span></a></li>
+                                
+                                <li ><a href="/posts/using-executionlog2-for-statistics-and-monitoring/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Using ExecutionLog2 for statistics and monitoring.md</span></a></li>
+                                
+                            </ul>
+                        </li>
+                        <li><span class="menu-item folder open">pages</span>
+                            <ul>
+                                
+                                <li ><a href="/about/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">About me.md</span></a></li>
+                                
+                                <li ><a href="/chroma/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Chroma.md</span></a></li>
+                                
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><span class="menu-item folder">data</span></li>
+                <li><span class="menu-item folder">layouts</span></li>
+                <li><span class="menu-item folder">resources</span></li>
+                <li><span class="menu-item folder">static</span></li>
+                <li><span class="menu-item folder open">themes</span>
+                    <ul>
+                        <li><span class="menu-item folder open">hugovscode</span>
+                            <ul>
+                                <li><a href="https://github.com/JohnRoos/HugoVSCode/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">.git</span></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>config.toml</li>
+            </ul>
+        </li>
+    </ul>
+  
+
+    
+</diV>
+                <div class ="main-tabs">
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/">Home.md</a> 
+                    </div>
+                
+                    <div class="main-tab current">
+                        <span class="rotate-letter md-icon">&#10144;</span> <i></i> 
+                    </div>
+                
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/set-up-built-in-authentication-for-azure-static-web-app/">Set up built-in authentication for Azure Static Web App.md</a>
+                    </div>
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/">Deploy Azure Static Web App using Bicep and YAML pipeline.md</a>
+                    </div>
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/get-function-configuration-from-deployed-function-app/">Get function configuration from deployed Function App.md</a>
+                    </div>
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/deploy-azure-function-app-without-downtime/">Deploy Azure Function App without downtime.md</a>
+                    </div>
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo.md</a>
+                    </div>
+                
+                </div>
+            
+            
+            <div class='main'>
+    <div class="main-path">
+        <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">Home.md</span>
+    </div>
+    <div class="main-content-toggle">
+
+        <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
+        <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
+
+        <input class="source-toggle" type="checkbox" id="source-toggle">
+        <label class="source-toggle-label" for="source-toggle"></label>
+
+        <div class="main-content">
+            ---<br />
+            <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Home.md</span><br />
+            <span class="md-frontmatter">date</span>: 2020-11-16 00:00:00+02:00<br />
+            <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
+            ----
+            
+            
+                 
+                <h2><a href="/posts/powershell-script-find-hotfix-status/">Powershell script: Find hotfix status</a></h2>        
+                <p>I was browsing around the requests on the Microsoft Script Center the other day and found one request where a user needed a PowerShell script for showing the status of specific hotfixes on multiple machines. I thought it would be a good idea since Get-Hotfix only shows where the hotfix is installed but not directly where its not installed.
+I created a simple small script that would list the patches to check for, along with each server and if its installed or not.</p>
+                 
+                <h2><a href="/posts/powershell-script-write-object-to-sql/">Powershell script: Write object to SQL</a></h2>        
+                <p>A while ago I was playing around with PowerShell, gathering information from a lot of servers and I felt that I needed to have a simple way of storing that information in a database. I could have written my own T-SQL statements for creating the tables and then do the inserts in the powerShell scripts I was playing around with. But that felt like it would just take time so I started to think about a function that would just accept any object and do the magic of creating a table and then inserting anything I piped to it.</p>
+                 
+                <h2><a href="/posts/get-type-alternative-for-null-values/">Get-Type alternative for $null values</a></h2>        
+                <p>Sometimes its useful to get information about object properties in PowerShell. You might be writing a script where you want to extract information from a series of objects and you need to know what data type a property contains. Often this is not a big problem since you can use the GetType function that most objects have.
+Then you run in to the problem that I had recently: You expect a series of objects and you check the types on the properties and suddenly a few of them doesn&rsquo;t have the function GetType for some reason.</p>
+                 
+                <h2><a href="/posts/compress-files-to-zip-with-powershell/">Compress files to Zip with Powershell</a></h2>        
+                <p>I have seen a lot of people writing PowerShell scripts to compress files or folders by using external file compression programs. Often Winrar, 7-Zip or something similar is used since PowerShell does not have any built in cmdlet to do this (not until version 5 at least).
+There is however a pretty simple way of doing this with only PowerShell. This is how.
+# First we add the .Net framework class needed for file compression.</p>
+                 
+                <h2><a href="/posts/enable-real-time-jmx-monitoring-in-cognos/">Enable real time JMX monitoring in Cognos</a></h2>        
+                <p>In Cognos BI its possible to enable JMX to be able to monitor the java engine. What IBM provides is not really what I was looking for. I wanted to be able to use for example VisualVM to see what happens in real time. This is how to enable the regular JMX monitoring in Cognos which comes out of the box with Tomcat.
+Open the bootstrap file which is located in the following path: %installpath%\Bin64\bootstrap_winx64.</p>
+                 
+                <h2><a href="/posts/move-data-or-log-files-for-tempdb-in-sql-server/">Move data or log files for TempDB in SQL Server</a></h2>        
+                <p>Since TempDB is a system database you should not try to move the database with detach/attach or backup/restore. Instead you should move the files with a simple script and after the next restart of the instance the files will be relocated to the new location.
+First check where the files are currently located so that you can easily just copy and paste the name and paths if needed:
+SELECT name, type_desc, physical_name FROM sys.</p>
+                 
+                <h2><a href="/posts/resources-for-remotefx-in-windows-server-2012/">Resources for RemoteFX in Windows Server 2012</a></h2>        
+                <p>While playing around with my lab machine and writing my previous two posts I found that there are not that much information to be found about RemoteFX in Windows Server 2012 so I thought that I would collect some good links on the subject. Most of the information I could find on TechNet is about Windows Server 2008 so some of the links below are from blogs elsewhere. I would also like to note that the focus here is on using RemoteFX for multimedia and using a virtual GPU.</p>
+                 
+                <h2><a href="/posts/rdp-8.0-for-windows-7-sp1/">RDP 8.0 for Windows 7 SP1</a></h2>        
+                <p>A few days ago Microsoft finally announced that they will be releasing Remote Desktop Protocol 8.0 for Windows 7 SP1. Earlier it was not clear if this would be released for Windows 7 or if RDP 8.0 would be exclusive for Windows 8 and Windows Server 2012. RDP 8.0 should give some proper improvements when it comes to hardware accelerated graphics in Hyper-V with the RemoteFX capabilities. Among many improvements there are some new compression algorithms which will lower the bandwidth needed for RDP sessions where some parts of the screen might use a different algorithm compared to other parts, and even mixing UDP and TCP on different parts of the screen depending on what&rsquo;s displayed.</p>
+                 
+                <h2><a href="/posts/improving-remotefx-performance-in-hyper-v/">Improving RemoteFX performance in Hyper-V</a></h2>        
+                <p>As I wrote earlier its possible to run RemoteFX on some of the slowest GPU´s you can buy today (on a regular CPU actually), but you might not get the performance you need to get anywhere. This time I will go through some of the options you have for getting it to work a bit better. Keep in mind that I am writing this with a really poor GPU in mind (yes, the Intel HD 2500 is not good for anything else than browsing).</p>
+                 
+                <h2><a href="/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/">Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU</a></h2>        
+                <p>This is for experimenting with RemoteFX in Hyper-V in a lab environment using Windows Server 2012. I wanted to see what I could do with RemoteFX on a slow GPU. To see how far I could get I started off with the Intel HD 2500, which is built into the Intel Core i5 3550 processor (Ivy Bridge). You can go through these steps with any supported hardware, and you probably get better results if you don&rsquo;t use the HD 2500 as I did.</p>
+            
+
+        </div>
+        <div class="main-content-preview">
+
+            
+            
+                <h2><a href="/posts/powershell-script-find-hotfix-status/">Powershell script: Find hotfix status</a>&nbsp;<span class="h2-postdate">- February 1, 2015</span></h2>
+                <p>I was browsing around the requests on the Microsoft Script Center the other day and found one request where a user needed a PowerShell script for showing the status of specific hotfixes on multiple machines. I thought it would be a good idea since Get-Hotfix only shows where the hotfix is installed but not directly where its not installed.
+I created a simple small script that would list the patches to check for, along with each server and if its installed or not.</p>                        
+            
+                <h2><a href="/posts/powershell-script-write-object-to-sql/">Powershell script: Write object to SQL</a>&nbsp;<span class="h2-postdate">- February 1, 2015</span></h2>
+                <p>A while ago I was playing around with PowerShell, gathering information from a lot of servers and I felt that I needed to have a simple way of storing that information in a database. I could have written my own T-SQL statements for creating the tables and then do the inserts in the powerShell scripts I was playing around with. But that felt like it would just take time so I started to think about a function that would just accept any object and do the magic of creating a table and then inserting anything I piped to it.</p>                        
+            
+                <h2><a href="/posts/get-type-alternative-for-null-values/">Get-Type alternative for $null values</a>&nbsp;<span class="h2-postdate">- December 20, 2014</span></h2>
+                <p>Sometimes its useful to get information about object properties in PowerShell. You might be writing a script where you want to extract information from a series of objects and you need to know what data type a property contains. Often this is not a big problem since you can use the GetType function that most objects have.
+Then you run in to the problem that I had recently: You expect a series of objects and you check the types on the properties and suddenly a few of them doesn&rsquo;t have the function GetType for some reason.</p>                        
+            
+                <h2><a href="/posts/compress-files-to-zip-with-powershell/">Compress files to Zip with Powershell</a>&nbsp;<span class="h2-postdate">- December 15, 2014</span></h2>
+                <p>I have seen a lot of people writing PowerShell scripts to compress files or folders by using external file compression programs. Often Winrar, 7-Zip or something similar is used since PowerShell does not have any built in cmdlet to do this (not until version 5 at least).
+There is however a pretty simple way of doing this with only PowerShell. This is how.
+# First we add the .Net framework class needed for file compression.</p>                        
+            
+                <h2><a href="/posts/enable-real-time-jmx-monitoring-in-cognos/">Enable real time JMX monitoring in Cognos</a>&nbsp;<span class="h2-postdate">- September 30, 2014</span></h2>
+                <p>In Cognos BI its possible to enable JMX to be able to monitor the java engine. What IBM provides is not really what I was looking for. I wanted to be able to use for example VisualVM to see what happens in real time. This is how to enable the regular JMX monitoring in Cognos which comes out of the box with Tomcat.
+Open the bootstrap file which is located in the following path: %installpath%\Bin64\bootstrap_winx64.</p>                        
+            
+                <h2><a href="/posts/move-data-or-log-files-for-tempdb-in-sql-server/">Move data or log files for TempDB in SQL Server</a>&nbsp;<span class="h2-postdate">- September 30, 2014</span></h2>
+                <p>Since TempDB is a system database you should not try to move the database with detach/attach or backup/restore. Instead you should move the files with a simple script and after the next restart of the instance the files will be relocated to the new location.
+First check where the files are currently located so that you can easily just copy and paste the name and paths if needed:
+SELECT name, type_desc, physical_name FROM sys.</p>                        
+            
+                <h2><a href="/posts/resources-for-remotefx-in-windows-server-2012/">Resources for RemoteFX in Windows Server 2012</a>&nbsp;<span class="h2-postdate">- October 26, 2012</span></h2>
+                <p>While playing around with my lab machine and writing my previous two posts I found that there are not that much information to be found about RemoteFX in Windows Server 2012 so I thought that I would collect some good links on the subject. Most of the information I could find on TechNet is about Windows Server 2008 so some of the links below are from blogs elsewhere. I would also like to note that the focus here is on using RemoteFX for multimedia and using a virtual GPU.</p>                        
+            
+                <h2><a href="/posts/rdp-8.0-for-windows-7-sp1/">RDP 8.0 for Windows 7 SP1</a>&nbsp;<span class="h2-postdate">- October 16, 2012</span></h2>
+                <p>A few days ago Microsoft finally announced that they will be releasing Remote Desktop Protocol 8.0 for Windows 7 SP1. Earlier it was not clear if this would be released for Windows 7 or if RDP 8.0 would be exclusive for Windows 8 and Windows Server 2012. RDP 8.0 should give some proper improvements when it comes to hardware accelerated graphics in Hyper-V with the RemoteFX capabilities. Among many improvements there are some new compression algorithms which will lower the bandwidth needed for RDP sessions where some parts of the screen might use a different algorithm compared to other parts, and even mixing UDP and TCP on different parts of the screen depending on what&rsquo;s displayed.</p>                        
+            
+                <h2><a href="/posts/improving-remotefx-performance-in-hyper-v/">Improving RemoteFX performance in Hyper-V</a>&nbsp;<span class="h2-postdate">- September 25, 2012</span></h2>
+                <p>As I wrote earlier its possible to run RemoteFX on some of the slowest GPU´s you can buy today (on a regular CPU actually), but you might not get the performance you need to get anywhere. This time I will go through some of the options you have for getting it to work a bit better. Keep in mind that I am writing this with a really poor GPU in mind (yes, the Intel HD 2500 is not good for anything else than browsing).</p>                        
+            
+                <h2><a href="/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/">Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU</a>&nbsp;<span class="h2-postdate">- August 30, 2012</span></h2>
+                <p>This is for experimenting with RemoteFX in Hyper-V in a lab environment using Windows Server 2012. I wanted to see what I could do with RemoteFX on a slow GPU. To see how far I could get I started off with the Intel HD 2500, which is built into the Intel Core i5 3550 processor (Ivy Bridge). You can go through these steps with any supported hardware, and you probably get better results if you don&rsquo;t use the HD 2500 as I did.</p>                        
+            
+
+            <div class="internal-pagination">
+                
+    <ul class="pagination pagination-default">
+      <li class="page-item">
+        <a href="/tags/authentication/" aria-label="First" class="page-link" role="button"><span aria-hidden="true">&laquo;&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/tags/authentication/page/2/" aria-label="Previous" class="page-link" role="button"><span aria-hidden="true">&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/tags/authentication/" aria-label="Page 1" class="page-link" role="button">1</a>
+      </li>
+      <li class="page-item">
+        <a href="/tags/authentication/page/2/" aria-label="Page 2" class="page-link" role="button">2</a>
+      </li>
+      <li class="page-item active">
+        <a aria-current="page" aria-label="Page 3" class="page-link" role="button">3</a>
+      </li>
+      <li class="page-item">
+        <a href="/tags/authentication/page/4/" aria-label="Page 4" class="page-link" role="button">4</a>
+      </li>
+      <li class="page-item">
+        <a href="/tags/authentication/page/4/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/tags/authentication/page/4/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+      </li>
+    </ul>
+            </div>    
+        </div>
+    </div>
+
+
+            </div>
+        </div>
+    </body>
+</html>

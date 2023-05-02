@@ -6,22 +6,31 @@
     <description>Recent content in Tags on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 30 Apr 2023 08:48:00 +0200</lastBuildDate><atom:link href="https://blog.roostech.se/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 02 May 2023 22:15:00 +0200</lastBuildDate><atom:link href="https://blog.roostech.se/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Azure DevOps</title>
-      <link>https://blog.roostech.se/tags/azure-devops/</link>
-      <pubDate>Sun, 30 Apr 2023 08:48:00 +0200</pubDate>
+      <title>Authentication</title>
+      <link>https://blog.roostech.se/tags/authentication/</link>
+      <pubDate>Tue, 02 May 2023 22:15:00 +0200</pubDate>
       
-      <guid>https://blog.roostech.se/tags/azure-devops/</guid>
+      <guid>https://blog.roostech.se/tags/authentication/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Azure Static Web App</title>
       <link>https://blog.roostech.se/tags/azure-static-web-app/</link>
-      <pubDate>Sun, 30 Apr 2023 08:48:00 +0200</pubDate>
+      <pubDate>Tue, 02 May 2023 22:15:00 +0200</pubDate>
       
       <guid>https://blog.roostech.se/tags/azure-static-web-app/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Azure DevOps</title>
+      <link>https://blog.roostech.se/tags/azure-devops/</link>
+      <pubDate>Sun, 30 Apr 2023 08:48:00 +0200</pubDate>
+      
+      <guid>https://blog.roostech.se/tags/azure-devops/</guid>
       <description></description>
     </item>
     

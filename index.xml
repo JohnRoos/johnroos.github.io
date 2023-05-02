@@ -6,7 +6,16 @@
     <description>Recent content on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 30 Apr 2023 08:48:00 +0200</lastBuildDate><atom:link href="https://blog.roostech.se/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 02 May 2023 22:15:00 +0200</lastBuildDate><atom:link href="https://blog.roostech.se/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Set up built-in authentication for Azure Static Web App</title>
+      <link>https://blog.roostech.se/posts/set-up-built-in-authentication-for-azure-static-web-app/</link>
+      <pubDate>Tue, 02 May 2023 22:15:00 +0200</pubDate>
+      
+      <guid>https://blog.roostech.se/posts/set-up-built-in-authentication-for-azure-static-web-app/</guid>
+      <description>This is the second part in a series covering Azure Static Web Apps. In the previous post I showed how to deploy a static web app. The web app was deployed successfully and open to the public to visit. What if you want to restrict access to the app to just a few users you trust? Azure Static Web Apps offers a couple of solutions without having to write a lot of code.</description>
+    </item>
+    
     <item>
       <title>Deploy Azure Static Web App using Bicep and YAML pipeline</title>
       <link>https://blog.roostech.se/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/</link>

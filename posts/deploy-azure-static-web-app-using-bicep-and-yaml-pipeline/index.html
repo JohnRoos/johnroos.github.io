@@ -3,9 +3,9 @@
 
  
 
-
-
  
+
+
 
  
 
@@ -72,6 +72,8 @@ if (!doNotTrack) {
                     <ul>
                         <li><span class="menu-item folder open">posts</span>
                             <ul>
+                                
+                                <li ><a href="/posts/set-up-built-in-authentication-for-azure-static-web-app/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Set up built-in authentication for Azure Static Web App.md</span></a></li>
                                 
                                 <li class="current"><a href="/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Deploy Azure Static Web App using Bicep and YAML pipeline.md</span></a></li>
                                 
@@ -181,6 +183,10 @@ if (!doNotTrack) {
                     </div>
                 
                 
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/set-up-built-in-authentication-for-azure-static-web-app/">Set up built-in authentication for Azure Static Web App.md</a>
+                    </div>
+                
                     <div class="main-tab current">
                         <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/">Deploy Azure Static Web App using Bicep and YAML pipeline.md</a>
                     </div>
@@ -195,10 +201,6 @@ if (!doNotTrack) {
                 
                     <div class="main-tab">
                         <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo.md</a>
-                    </div>
-                
-                    <div class="main-tab">
-                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases.md</a>
                     </div>
                 
                 </div>
@@ -300,7 +302,7 @@ if (!doNotTrack) {
 <h2 id="deployment-token">Deployment token</h2>
 <p>In the pipeline yaml, there is a variable called &ldquo;AzureStaticWebAppApiToken&rdquo; (which belongs to variable group &ldquo;StaticWebApp&rdquo;). This variable should contain the deployment token for your Static Web App. You can get the token in the portal, by clicking &ldquo;Manage deployment token&rdquo; on the Overview page for your Static Web App.</p>
 <p>When you have copied the deployment token, go back to Azure DevOps and create a variable group called &ldquo;StaticWebApp&rdquo;. In the variable group, add a variable called &ldquo;AzureStaticWebAppApiToken&rdquo;. Paste the deployment token into the Value field.</p>
-<p><img src="/images/variablegroup.png#center" alt="Report Execution Statistics Overview"></p>
+<p><img src="/images/variablegroup.png#center" alt="Variable group"></p>
 <h2 id="verify-deployment">Verify deployment</h2>
 <p>When the pipeline and variable has been saved we are ready to go. During the first run, it might ask you to assign permissions for the pipeline to the variable group. From now on, any time you commit to the main branch a new deploy will start.</p>
 <p>It doesn&rsquo;t have to be harder than that to get a website up and running. In the next post will show how to add authentication to the Static Web App.</p>
@@ -381,7 +383,7 @@ if (!doNotTrack) {
 <h2 id="deployment-token">Deployment token</h2>
 <p>In the pipeline yaml, there is a variable called &ldquo;AzureStaticWebAppApiToken&rdquo; (which belongs to variable group &ldquo;StaticWebApp&rdquo;). This variable should contain the deployment token for your Static Web App. You can get the token in the portal, by clicking &ldquo;Manage deployment token&rdquo; on the Overview page for your Static Web App.</p>
 <p>When you have copied the deployment token, go back to Azure DevOps and create a variable group called &ldquo;StaticWebApp&rdquo;. In the variable group, add a variable called &ldquo;AzureStaticWebAppApiToken&rdquo;. Paste the deployment token into the Value field.</p>
-<p><img src="/images/variablegroup.png#center" alt="Report Execution Statistics Overview"></p>
+<p><img src="/images/variablegroup.png#center" alt="Variable group"></p>
 <h2 id="verify-deployment">Verify deployment</h2>
 <p>When the pipeline and variable has been saved we are ready to go. During the first run, it might ask you to assign permissions for the pipeline to the variable group. From now on, any time you commit to the main branch a new deploy will start.</p>
 <p>It doesn&rsquo;t have to be harder than that to get a website up and running. In the next post will show how to add authentication to the Static Web App.</p>

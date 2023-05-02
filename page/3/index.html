@@ -76,6 +76,8 @@ if (!doNotTrack) {
                         <li><span class="menu-item folder open">posts</span>
                             <ul>
                                 
+                                <li ><a href="/posts/set-up-built-in-authentication-for-azure-static-web-app/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Set up built-in authentication for Azure Static Web App.md</span></a></li>
+                                
                                 <li ><a href="/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Deploy Azure Static Web App using Bicep and YAML pipeline.md</span></a></li>
                                 
                                 <li ><a href="/posts/get-function-configuration-from-deployed-function-app/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Get function configuration from deployed Function App.md</span></a></li>
@@ -185,6 +187,10 @@ if (!doNotTrack) {
                 
                 
                     <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/set-up-built-in-authentication-for-azure-static-web-app/">Set up built-in authentication for Azure Static Web App.md</a>
+                    </div>
+                
+                    <div class="main-tab">
                         <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/">Deploy Azure Static Web App using Bicep and YAML pipeline.md</a>
                     </div>
                 
@@ -198,10 +204,6 @@ if (!doNotTrack) {
                 
                     <div class="main-tab">
                         <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo.md</a>
-                    </div>
-                
-                    <div class="main-tab">
-                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/pester-5-discovery-and-testcases/">Pester 5: Discovery and TestCases.md</a>
                     </div>
                 
                 </div>
@@ -227,6 +229,10 @@ if (!doNotTrack) {
             ----
             
             
+                 
+                <h2><a href="/posts/powershell-script-find-hotfix-status/">Powershell script: Find hotfix status</a></h2>        
+                <p>I was browsing around the requests on the Microsoft Script Center the other day and found one request where a user needed a PowerShell script for showing the status of specific hotfixes on multiple machines. I thought it would be a good idea since Get-Hotfix only shows where the hotfix is installed but not directly where its not installed.
+I created a simple small script that would list the patches to check for, along with each server and if its installed or not.</p>
                  
                 <h2><a href="/posts/powershell-script-write-object-to-sql/">Powershell script: Write object to SQL</a></h2>        
                 <p>A while ago I was playing around with PowerShell, gathering information from a lot of servers and I felt that I needed to have a simple way of storing that information in a database. I could have written my own T-SQL statements for creating the tables and then do the inserts in the powerShell scripts I was playing around with. But that felt like it would just take time so I started to think about a function that would just accept any object and do the magic of creating a table and then inserting anything I piped to it.</p>
@@ -260,15 +266,16 @@ SELECT name, type_desc, physical_name FROM sys.</p>
                  
                 <h2><a href="/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/">Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU</a></h2>        
                 <p>This is for experimenting with RemoteFX in Hyper-V in a lab environment using Windows Server 2012. I wanted to see what I could do with RemoteFX on a slow GPU. To see how far I could get I started off with the Intel HD 2500, which is built into the Intel Core i5 3550 processor (Ivy Bridge). You can go through these steps with any supported hardware, and you probably get better results if you don&rsquo;t use the HD 2500 as I did.</p>
-                 
-                <h2><a href="/posts/sqlps-and-its-limitations/">SQLPS and its limitations</a></h2>        
-                <p>SQL Server PowerShell (SQLPS) enables some new possibilities when it comes to managing your instances, but it also comes with some limitations. These limitations are not always obvious and can sometimes be worked around. To understand the limitations you must first understand that SQLPS is not PowerShell V1, V2 or V3 but rather a mini shell on its own. It was created by Microsoft as a mini shell based on PowerShell V1 so the cmdlets available are based on V1.</p>
             
 
         </div>
         <div class="main-content-preview">
 
             
+            
+                <h2><a href="/posts/powershell-script-find-hotfix-status/">Powershell script: Find hotfix status</a>&nbsp;<span class="h2-postdate">- February 1, 2015</span></h2>
+                <p>I was browsing around the requests on the Microsoft Script Center the other day and found one request where a user needed a PowerShell script for showing the status of specific hotfixes on multiple machines. I thought it would be a good idea since Get-Hotfix only shows where the hotfix is installed but not directly where its not installed.
+I created a simple small script that would list the patches to check for, along with each server and if its installed or not.</p>                        
             
                 <h2><a href="/posts/powershell-script-write-object-to-sql/">Powershell script: Write object to SQL</a>&nbsp;<span class="h2-postdate">- February 1, 2015</span></h2>
                 <p>A while ago I was playing around with PowerShell, gathering information from a lot of servers and I felt that I needed to have a simple way of storing that information in a database. I could have written my own T-SQL statements for creating the tables and then do the inserts in the powerShell scripts I was playing around with. But that felt like it would just take time so I started to think about a function that would just accept any object and do the magic of creating a table and then inserting anything I piped to it.</p>                        
@@ -302,9 +309,6 @@ SELECT name, type_desc, physical_name FROM sys.</p>
             
                 <h2><a href="/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/">Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU</a>&nbsp;<span class="h2-postdate">- August 30, 2012</span></h2>
                 <p>This is for experimenting with RemoteFX in Hyper-V in a lab environment using Windows Server 2012. I wanted to see what I could do with RemoteFX on a slow GPU. To see how far I could get I started off with the Intel HD 2500, which is built into the Intel Core i5 3550 processor (Ivy Bridge). You can go through these steps with any supported hardware, and you probably get better results if you don&rsquo;t use the HD 2500 as I did.</p>                        
-            
-                <h2><a href="/posts/sqlps-and-its-limitations/">SQLPS and its limitations</a>&nbsp;<span class="h2-postdate">- June 15, 2012</span></h2>
-                <p>SQL Server PowerShell (SQLPS) enables some new possibilities when it comes to managing your instances, but it also comes with some limitations. These limitations are not always obvious and can sometimes be worked around. To understand the limitations you must first understand that SQLPS is not PowerShell V1, V2 or V3 but rather a mini shell on its own. It was created by Microsoft as a mini shell based on PowerShell V1 so the cmdlets available are based on V1.</p>                        
             
 
             <div class="internal-pagination">

@@ -1,0 +1,362 @@
+ 
+ 
+
+ 
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+    
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+
+    <meta name='twitter:card'        content='summary' />
+    <meta name='twitter:site'        content='@johnmroos'/>
+    <meta name='twitter:creator'     content='@johnmroos'/>
+    <meta name='twitter:title'       content='Set up built-in authentication for Azure Static Web App' />
+    <meta name='twitter:description' content='This is the second part in a series covering Azure Static Web Apps. In the previous post I showed how to deploy a static web app. The web app was deployed successfully and open to the public to visit. What if you want to restrict access to the app to just a few users you trust? Azure Static Web Apps offers a couple of solutions without having to write a lot of code.' />
+    
+    <meta name='twitter:domain'      content='https://blog.roostech.se/'/>
+    
+
+    <title>Set up built-in authentication for Azure Static Web App</title>
+    <meta name="description" content="This is the second part in a series covering Azure Static Web Apps. In the previous post I showed how to deploy a static web app. The web app was deployed successfully and open to the public to visit. What if you want to restrict access to the app to just a few users you trust? Azure Static Web Apps offers a couple of solutions without having to write a lot of code."/>
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9F2VG64X4H"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9F2VG64X4H', { 'anonymize_ip': false });
+}
+</script>
+
+</head><body>
+        <div class="container">
+<input class="explorer-toggle" type="checkbox" id="explorer-toggle">
+<label class="explorer-toggle-label" for="explorer-toggle"><div class="explorer-toggle-label-clickablearea"></div></label>
+
+<div class="explorer-toggle-label-selection"></div>
+
+<div class="left-menu-button-bar"></div>
+
+<diV class='left-menu'>
+    
+    <ul class="root">
+        <li class="root"><div class="menu-item folder open"><a class="menu-item-site" href="https://blog.roostech.se/">blog.roostech.se (HUGOVSCODE)</a></div>
+            <ul>  
+                <li><span class="menu-item folder open">content</span>
+                    <ul>
+                        <li><span class="menu-item folder open">posts</span>
+                            <ul>
+                                
+                                <li class="current"><a href="/posts/set-up-built-in-authentication-for-azure-static-web-app/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Set up built-in authentication for Azure Static Web App.md</span></a></li>
+                                
+                                <li ><a href="/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Deploy Azure Static Web App using Bicep and YAML pipeline.md</span></a></li>
+                                
+                                <li ><a href="/posts/get-function-configuration-from-deployed-function-app/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Get function configuration from deployed Function App.md</span></a></li>
+                                
+                                <li ><a href="/posts/deploy-azure-function-app-without-downtime/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Deploy Azure Function App without downtime.md</span></a></li>
+                                
+                                <li ><a href="/posts/moving-from-blogger-to-github-pages-with-hugo/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Moving from Blogger to GitHub Pages using Hugo.md</span></a></li>
+                                
+                                <li ><a href="/posts/pester-5-discovery-and-testcases/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Pester 5: Discovery and TestCases.md</span></a></li>
+                                
+                                <li ><a href="/posts/create-and-use-azure-table-storage-with-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Create and use Azure Table storage with PowerShell.md</span></a></li>
+                                
+                                <li ><a href="/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Use Edit-Command to discover the code behind built-in cmdlets.md</span></a></li>
+                                
+                                <li ><a href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Invoke-RestMethod with anti-forgery tokens in header and cookie.md</span></a></li>
+                                
+                                <li ><a href="/posts/introducing-the-inimanager-module/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Introducing the IniManager module.md</span></a></li>
+                                
+                                <li ><a href="/posts/use-powershell-jobs-to-ping-many-from-many-with-log/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Use PowerShell jobs to ping many from many with log.md</span></a></li>
+                                
+                                <li ><a href="/posts/powershell-logo-made-with-css3/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">PowerShell logo made with CSS3.md</span></a></li>
+                                
+                                <li ><a href="/posts/what-is-this-here-string-people-are-talking-about/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">What is this here-string people are talking about?.md</span></a></li>
+                                
+                                <li ><a href="/posts/dynamic-parameters-in-powershell-executes-before-you-know-it/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Dynamic parameters in PowerShell executes before you know it.md</span></a></li>
+                                
+                                <li ><a href="/posts/making-powershell-expressions-easier/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Making PowerShell expressions easier.md</span></a></li>
+                                
+                                <li ><a href="/posts/simple-select-from-database-with-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Simple select from database with PowerShell.md</span></a></li>
+                                
+                                <li ><a href="/posts/how-to-use-splatting-in-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">How to use splatting in PowerShell.md</span></a></li>
+                                
+                                <li ><a href="/posts/get-imdbmovie-using-invoke-webrequest/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Get-IMDBmovie using Invoke-WebRequest.md</span></a></li>
+                                
+                                <li ><a href="/posts/classes-in-powershell-5.0/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Classes in Powershell 5.0.md</span></a></li>
+                                
+                                <li ><a href="/posts/how-to-get-started-with-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">How to get started with Powershell.md</span></a></li>
+                                
+                                <li ><a href="/posts/powershell-script-find-hotfix-status/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Powershell script: Find hotfix status.md</span></a></li>
+                                
+                                <li ><a href="/posts/powershell-script-write-object-to-sql/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Powershell script: Write object to SQL.md</span></a></li>
+                                
+                                <li ><a href="/posts/get-type-alternative-for-null-values/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Get-Type alternative for $null values.md</span></a></li>
+                                
+                                <li ><a href="/posts/compress-files-to-zip-with-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Compress files to Zip with Powershell.md</span></a></li>
+                                
+                                <li ><a href="/posts/enable-real-time-jmx-monitoring-in-cognos/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Enable real time JMX monitoring in Cognos.md</span></a></li>
+                                
+                                <li ><a href="/posts/move-data-or-log-files-for-tempdb-in-sql-server/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Move data or log files for TempDB in SQL Server.md</span></a></li>
+                                
+                                <li ><a href="/posts/resources-for-remotefx-in-windows-server-2012/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Resources for RemoteFX in Windows Server 2012.md</span></a></li>
+                                
+                                <li ><a href="/posts/rdp-8.0-for-windows-7-sp1/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">RDP 8.0 for Windows 7 SP1.md</span></a></li>
+                                
+                                <li ><a href="/posts/improving-remotefx-performance-in-hyper-v/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Improving RemoteFX performance in Hyper-V.md</span></a></li>
+                                
+                                <li ><a href="/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU.md</span></a></li>
+                                
+                                <li ><a href="/posts/sqlps-and-its-limitations/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">SQLPS and its limitations.md</span></a></li>
+                                
+                                <li ><a href="/posts/script-deployment-of-ssis-packages-from-folder/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Script deployment of SSIS packages from folder.md</span></a></li>
+                                
+                                <li ><a href="/posts/dynamic-deploy-of-ssrs-reports-using-rs.exe/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Dynamic deploy of SSRS reports using rs.exe.md</span></a></li>
+                                
+                                <li ><a href="/posts/remove-headers-in-excel-exports-to-fix-column-alignment/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Remove headers in Excel exports to fix column alignment.md</span></a></li>
+                                
+                                <li ><a href="/posts/using-executionlog2-for-statistics-and-monitoring/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Using ExecutionLog2 for statistics and monitoring.md</span></a></li>
+                                
+                            </ul>
+                        </li>
+                        <li><span class="menu-item folder open">pages</span>
+                            <ul>
+                                
+                                <li ><a href="/about/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">About me.md</span></a></li>
+                                
+                                <li ><a href="/chroma/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Chroma.md</span></a></li>
+                                
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><span class="menu-item folder">data</span></li>
+                <li><span class="menu-item folder">layouts</span></li>
+                <li><span class="menu-item folder">resources</span></li>
+                <li><span class="menu-item folder">static</span></li>
+                <li><span class="menu-item folder open">themes</span>
+                    <ul>
+                        <li><span class="menu-item folder open">hugovscode</span>
+                            <ul>
+                                <li><a href="https://github.com/JohnRoos/HugoVSCode/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">.git</span></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>config.toml</li>
+            </ul>
+        </li>
+    </ul>
+  
+
+    
+</diV>
+                <div class ="main-tabs">
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/">Home.md</a> 
+                    </div>
+                
+                
+                    <div class="main-tab current">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/set-up-built-in-authentication-for-azure-static-web-app/">Set up built-in authentication for Azure Static Web App.md</a>
+                    </div>
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/">Deploy Azure Static Web App using Bicep and YAML pipeline.md</a>
+                    </div>
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/get-function-configuration-from-deployed-function-app/">Get function configuration from deployed Function App.md</a>
+                    </div>
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/deploy-azure-function-app-without-downtime/">Deploy Azure Function App without downtime.md</a>
+                    </div>
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo.md</a>
+                    </div>
+                
+                </div>
+            
+            
+            <div class='main'>
+    <div class="main-path">
+        <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Set up built-in authentication for Azure Static Web App.md</span>
+        
+                
+                
+                <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2023-05-02">May 2, 2023</time>)</span>
+            
+    </div>
+    
+    <div class="main-content-toggle">
+
+        
+        <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
+        <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
+
+        <input class="source-toggle" type="checkbox" id="source-toggle">
+        <label class="source-toggle-label" for="source-toggle"></label>
+
+        <div class="main-content">
+            ---<br />
+            <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Set up built-in authentication for Azure Static Web App</span><br />
+            <span class="md-frontmatter">date</span>: 2023-05-02 22:15:00 &#43;0200 CEST<br />
+            <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
+            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John Roos</span><br />
+            ----
+            <p>This is the second part in a series covering Azure Static Web Apps. In the <a href="https://blog.roostech.se/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/">previous post</a> I showed how to deploy a static web app. The web app was deployed successfully and open to the public to visit. What if you want to restrict access to the app to just a few users you trust? Azure Static Web Apps offers a couple of solutions without having to write a lot of code.</p>
+<p>You can add authentication in two ways: <em>built-in authentication</em> and <em>custom authentication</em>. In this post I will focus on the built-in authentication. This is also the only way that works if you are running the free tier. Custom authentication requires the standard tier. I will go through custom authentication in a future post.</p>
+<h2 id="the-baseline">The baseline</h2>
+<p>I will continue on the site I deployed in the previous <a href="https://blog.roostech.se/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/">post</a>. The site contained one html file which was located in the <em>StaticWebApp</em> folder. The deployment pipeline was configured to deploy anything in that folder. I will continue from there.</p>
+<h2 id="configuration-file">Configuration file</h2>
+<p>Its remarkably simple to add built-in authentication to a static web app. In the web app folder (in this case the <em>StaticWebApp</em> folder), add a file called <strong>staticwebapp.config.json</strong> and add the following content:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="c1">// staticwebapp.config.json
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;routes&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;route&#34;</span><span class="p">:</span> <span class="s2">&#34;/*&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;allowedRoles&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;authenticated&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>That’s it. Now let the pipeline will deploy the change and suddenly your site is protected with authentication. However, this configuration does not give the user the option to actually sign in. You could ask users to browse to <em>https://yousite.com/.auth/login/aad</em> and authenticate and then go back to the main site, but that’s not very nice. Instead, we can help the user by redirecting them to the login page when they get the &ldquo;Unauthorized&rdquo; response. We can do this with a response override, like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="c1">// staticwebapp.config.json
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;routes&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;route&#34;</span><span class="p">:</span> <span class="s2">&#34;/*&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;allowedRoles&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;authenticated&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;responseOverrides&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;401&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;statusCode&#34;</span><span class="p">:</span> <span class="mi">302</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;redirect&#34;</span><span class="p">:</span> <span class="s2">&#34;/.auth/login/aad&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Now if new users visits this awesome site without being logged in, they will get redirected to a login page for Azure AD. That looks much better.</p>
+<h2 id="enterprise-application-appears">Enterprise application appears</h2>
+<p>Usually when setting up authentication using Azure AD, you need to do app registrations, configure redirect paths, enable ID tokens and so on. Here it just magically works. Doesn’t that sound a bit fishy? That’s because some things happened in the background that is not entirely obvious.</p>
+<p>Some time between deploying the config file and when the first user tried to log in, a new enterprise application was created in Azure AD. The enterprise application, which is called &ldquo;Azure Static Web Apps&rdquo;, cannot be renamed or removed once its created (it can be disabled).</p>
+<p>The enterprise application is connected to the url <em>https://identity.azurestaticapps.net</em> which is used when a user authenticates to Azure Static Web Apps. Only one enterprise app is created for each tenant, which also means that all static web apps will be affected if the app is disabled, or changed in any other way.</p>
+<p>So, if I want to give users permissions to my site, I just add them in &ldquo;Users and groups&rdquo; on the Enterprise Application? No, that is not what &ldquo;free&rdquo; taste like. For that, we need to look at the invitations system.</p>
+<h2 id="invite-users">Invite users</h2>
+<p>We have authentication configured and now we want to give users permissions to log in to our site. To do this you need to invite users to the site. You can do this in <em><a href="https://learn.microsoft.com/en-us/azure/static-web-apps/authentication-custom#manage-roles">Role management</a></em> on the static web app. You click on the Invite button and fill in the email address and role. In the configuration above we added the built-in &ldquo;authenticated&rdquo; role to the rule, but for some reason you need to add a new role here, even if we are not going to use it in this scenario. When the form is filled in, click <em>Generate</em> and you will get an invite link which you can send to the user.</p>
+<p><img src="/images/InviteForm.png#center" alt="Invitation form"></p>
+<p>In the list of identities, you will not see your pending invitations. The user needs to use the link and login before the list gets populated.</p>
+<h2 id="user-experience">User experience</h2>
+<p>When the user clicks on the invitation link, a login page appears. After login, the user gets presented with a consent page that looks different from other consent pages we usually see:</p>
+<p><img src="/images/Consent.png#center" alt="Consent page"></p>
+<p>This consent page can not be disabled or altered. If you look at the url of the page, you will notice that its the same as we can see on the enterprise app (<em>https://identity.azurestaticapps.net</em>), so things are starting to make sense. One good thing with the consent page is that it mentions how you can purge your user data (by visiting <em>https://identity.azurestaticapps.net/.auth/purge/aad</em>), but I am not sure how many users till write that down when they see it.</p>
+<p>We have now configured authentication and invited our first user.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Configuring built-in authentication requires minimal effort and is easy to use. It might not work for large enterprise projects. But smaller or hobby projects could be very suitable candidates. I haven’t mentioned that you can <a href="https://learn.microsoft.com/en-us/azure/static-web-apps/authentication-custom#manage-roles">invite users</a> to log in with accounts from GitHub or Twitter (Facebook and Google in preview). You can do all kinds of useful things with the <em><a href="https://learn.microsoft.com/en-us/azure/static-web-apps/configuration">staticwebapp.config.json</a></em> file. Developers can deploy <a href="https://learn.microsoft.com/en-us/azure/static-web-apps/preview-environments">preview environments</a> from their pull requests or branches. You can add your own <a href="https://learn.microsoft.com/en-us/azure/static-web-apps/custom-domain">custom domain</a> instead of the auto-generated url. Why not <a href="https://learn.microsoft.com/en-us/azure/static-web-apps/apis-overview">add APIs</a> with a function app? (but that’s not a static web app then, is it?)</p>
+<p>And all of this is for free. I think thats pretty cool.</p>
+
+        </div>
+
+        
+        <div class="main-content-preview">
+            <h1>Set up built-in authentication for Azure Static Web App</h1>
+            
+            <p>This is the second part in a series covering Azure Static Web Apps. In the <a href="https://blog.roostech.se/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/">previous post</a> I showed how to deploy a static web app. The web app was deployed successfully and open to the public to visit. What if you want to restrict access to the app to just a few users you trust? Azure Static Web Apps offers a couple of solutions without having to write a lot of code.</p>
+<p>You can add authentication in two ways: <em>built-in authentication</em> and <em>custom authentication</em>. In this post I will focus on the built-in authentication. This is also the only way that works if you are running the free tier. Custom authentication requires the standard tier. I will go through custom authentication in a future post.</p>
+<h2 id="the-baseline">The baseline</h2>
+<p>I will continue on the site I deployed in the previous <a href="https://blog.roostech.se/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/">post</a>. The site contained one html file which was located in the <em>StaticWebApp</em> folder. The deployment pipeline was configured to deploy anything in that folder. I will continue from there.</p>
+<h2 id="configuration-file">Configuration file</h2>
+<p>Its remarkably simple to add built-in authentication to a static web app. In the web app folder (in this case the <em>StaticWebApp</em> folder), add a file called <strong>staticwebapp.config.json</strong> and add the following content:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="c1">// staticwebapp.config.json
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;routes&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;route&#34;</span><span class="p">:</span> <span class="s2">&#34;/*&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;allowedRoles&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;authenticated&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>That’s it. Now let the pipeline will deploy the change and suddenly your site is protected with authentication. However, this configuration does not give the user the option to actually sign in. You could ask users to browse to <em>https://yousite.com/.auth/login/aad</em> and authenticate and then go back to the main site, but that’s not very nice. Instead, we can help the user by redirecting them to the login page when they get the &ldquo;Unauthorized&rdquo; response. We can do this with a response override, like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="c1">// staticwebapp.config.json
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;routes&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;route&#34;</span><span class="p">:</span> <span class="s2">&#34;/*&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;allowedRoles&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;authenticated&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;responseOverrides&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;401&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;statusCode&#34;</span><span class="p">:</span> <span class="mi">302</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;redirect&#34;</span><span class="p">:</span> <span class="s2">&#34;/.auth/login/aad&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Now if new users visits this awesome site without being logged in, they will get redirected to a login page for Azure AD. That looks much better.</p>
+<h2 id="enterprise-application-appears">Enterprise application appears</h2>
+<p>Usually when setting up authentication using Azure AD, you need to do app registrations, configure redirect paths, enable ID tokens and so on. Here it just magically works. Doesn’t that sound a bit fishy? That’s because some things happened in the background that is not entirely obvious.</p>
+<p>Some time between deploying the config file and when the first user tried to log in, a new enterprise application was created in Azure AD. The enterprise application, which is called &ldquo;Azure Static Web Apps&rdquo;, cannot be renamed or removed once its created (it can be disabled).</p>
+<p>The enterprise application is connected to the url <em>https://identity.azurestaticapps.net</em> which is used when a user authenticates to Azure Static Web Apps. Only one enterprise app is created for each tenant, which also means that all static web apps will be affected if the app is disabled, or changed in any other way.</p>
+<p>So, if I want to give users permissions to my site, I just add them in &ldquo;Users and groups&rdquo; on the Enterprise Application? No, that is not what &ldquo;free&rdquo; taste like. For that, we need to look at the invitations system.</p>
+<h2 id="invite-users">Invite users</h2>
+<p>We have authentication configured and now we want to give users permissions to log in to our site. To do this you need to invite users to the site. You can do this in <em><a href="https://learn.microsoft.com/en-us/azure/static-web-apps/authentication-custom#manage-roles">Role management</a></em> on the static web app. You click on the Invite button and fill in the email address and role. In the configuration above we added the built-in &ldquo;authenticated&rdquo; role to the rule, but for some reason you need to add a new role here, even if we are not going to use it in this scenario. When the form is filled in, click <em>Generate</em> and you will get an invite link which you can send to the user.</p>
+<p><img src="/images/InviteForm.png#center" alt="Invitation form"></p>
+<p>In the list of identities, you will not see your pending invitations. The user needs to use the link and login before the list gets populated.</p>
+<h2 id="user-experience">User experience</h2>
+<p>When the user clicks on the invitation link, a login page appears. After login, the user gets presented with a consent page that looks different from other consent pages we usually see:</p>
+<p><img src="/images/Consent.png#center" alt="Consent page"></p>
+<p>This consent page can not be disabled or altered. If you look at the url of the page, you will notice that its the same as we can see on the enterprise app (<em>https://identity.azurestaticapps.net</em>), so things are starting to make sense. One good thing with the consent page is that it mentions how you can purge your user data (by visiting <em>https://identity.azurestaticapps.net/.auth/purge/aad</em>), but I am not sure how many users till write that down when they see it.</p>
+<p>We have now configured authentication and invited our first user.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Configuring built-in authentication requires minimal effort and is easy to use. It might not work for large enterprise projects. But smaller or hobby projects could be very suitable candidates. I haven’t mentioned that you can <a href="https://learn.microsoft.com/en-us/azure/static-web-apps/authentication-custom#manage-roles">invite users</a> to log in with accounts from GitHub or Twitter (Facebook and Google in preview). You can do all kinds of useful things with the <em><a href="https://learn.microsoft.com/en-us/azure/static-web-apps/configuration">staticwebapp.config.json</a></em> file. Developers can deploy <a href="https://learn.microsoft.com/en-us/azure/static-web-apps/preview-environments">preview environments</a> from their pull requests or branches. You can add your own <a href="https://learn.microsoft.com/en-us/azure/static-web-apps/custom-domain">custom domain</a> instead of the auto-generated url. Why not <a href="https://learn.microsoft.com/en-us/azure/static-web-apps/apis-overview">add APIs</a> with a function app? (but that’s not a static web app then, is it?)</p>
+<p>And all of this is for free. I think thats pretty cool.</p>
+
+
+            <p>- Written by John Roos  
+            
+                
+                
+                on May 2, 2023</p>
+
+            
+                <div class="disqus-section">
+                    
+                </div>
+            
+        </div>
+
+    </div>
+    
+
+
+            </div>
+        </div>
+    </body>
+</html>
