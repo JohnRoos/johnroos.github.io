@@ -1,0 +1,766 @@
+ 
+ 
+
+ 
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+    
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+
+    <meta name='twitter:card'        content='summary' />
+    <meta name='twitter:site'        content='@johnmroos'/>
+    <meta name='twitter:creator'     content='@johnmroos'/>
+    <meta name='twitter:title'       content='Exclusions in Web Application Firewall' />
+    <meta name='twitter:description' content='When enabling Web Application Firewall on an Application Gateway in Azure you will probably run into problems where some legitimate requests are blocked. This post is an attempt to make it easier understand why these requests were blocked and how to ensure they are not blocked in the future. This post assumes that the Web Application Firewall is deployed with the OWASP rule set. I also assume that diagnostic settings has already been configured to make sure we log everything we need.' />
+    
+    <meta name='twitter:domain'      content='https://blog.roostech.se/'/>
+    
+
+    <title>Exclusions in Web Application Firewall</title>
+    <meta name="description" content="When enabling Web Application Firewall on an Application Gateway in Azure you will probably run into problems where some legitimate requests are blocked. This post is an attempt to make it easier understand why these requests were blocked and how to ensure they are not blocked in the future. This post assumes that the Web Application Firewall is deployed with the OWASP rule set. I also assume that diagnostic settings has already been configured to make sure we log everything we need."/>
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9F2VG64X4H"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9F2VG64X4H', { 'anonymize_ip': false });
+}
+</script>
+
+</head><body>
+        <div class="container">
+<input class="explorer-toggle" type="checkbox" id="explorer-toggle">
+<label class="explorer-toggle-label" for="explorer-toggle"><div class="explorer-toggle-label-clickablearea"></div></label>
+
+<div class="explorer-toggle-label-selection"></div>
+
+<div class="left-menu-button-bar"></div>
+
+<diV class='left-menu'>
+    
+    <ul class="root">
+        <li class="root"><div class="menu-item folder open"><a class="menu-item-site" href="https://blog.roostech.se/">blog.roostech.se (HUGOVSCODE)</a></div>
+            <ul>  
+                <li><span class="menu-item folder open">content</span>
+                    <ul>
+                        <li><span class="menu-item folder open">posts</span>
+                            <ul>
+                                
+                                <li class="current"><a href="/posts/exclusions-in-web-application-firewall/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Exclusions in Web Application Firewall.md</span></a></li>
+                                
+                                <li ><a href="/posts/set-up-built-in-authentication-for-azure-static-web-app/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Set up built-in authentication for Azure Static Web App.md</span></a></li>
+                                
+                                <li ><a href="/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Deploy Azure Static Web App using Bicep and YAML pipeline.md</span></a></li>
+                                
+                                <li ><a href="/posts/get-function-configuration-from-deployed-function-app/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Get function configuration from deployed Function App.md</span></a></li>
+                                
+                                <li ><a href="/posts/deploy-azure-function-app-without-downtime/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Deploy Azure Function App without downtime.md</span></a></li>
+                                
+                                <li ><a href="/posts/moving-from-blogger-to-github-pages-with-hugo/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Moving from Blogger to GitHub Pages using Hugo.md</span></a></li>
+                                
+                                <li ><a href="/posts/pester-5-discovery-and-testcases/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Pester 5: Discovery and TestCases.md</span></a></li>
+                                
+                                <li ><a href="/posts/create-and-use-azure-table-storage-with-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Create and use Azure Table storage with PowerShell.md</span></a></li>
+                                
+                                <li ><a href="/posts/use-edit-command-to-discover-the-code-behind-built-in-cmdlets/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Use Edit-Command to discover the code behind built-in cmdlets.md</span></a></li>
+                                
+                                <li ><a href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Invoke-RestMethod with anti-forgery tokens in header and cookie.md</span></a></li>
+                                
+                                <li ><a href="/posts/introducing-the-inimanager-module/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Introducing the IniManager module.md</span></a></li>
+                                
+                                <li ><a href="/posts/use-powershell-jobs-to-ping-many-from-many-with-log/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Use PowerShell jobs to ping many from many with log.md</span></a></li>
+                                
+                                <li ><a href="/posts/powershell-logo-made-with-css3/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">PowerShell logo made with CSS3.md</span></a></li>
+                                
+                                <li ><a href="/posts/what-is-this-here-string-people-are-talking-about/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">What is this here-string people are talking about?.md</span></a></li>
+                                
+                                <li ><a href="/posts/dynamic-parameters-in-powershell-executes-before-you-know-it/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Dynamic parameters in PowerShell executes before you know it.md</span></a></li>
+                                
+                                <li ><a href="/posts/making-powershell-expressions-easier/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Making PowerShell expressions easier.md</span></a></li>
+                                
+                                <li ><a href="/posts/simple-select-from-database-with-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Simple select from database with PowerShell.md</span></a></li>
+                                
+                                <li ><a href="/posts/how-to-use-splatting-in-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">How to use splatting in PowerShell.md</span></a></li>
+                                
+                                <li ><a href="/posts/get-imdbmovie-using-invoke-webrequest/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Get-IMDBmovie using Invoke-WebRequest.md</span></a></li>
+                                
+                                <li ><a href="/posts/classes-in-powershell-5.0/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Classes in Powershell 5.0.md</span></a></li>
+                                
+                                <li ><a href="/posts/how-to-get-started-with-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">How to get started with Powershell.md</span></a></li>
+                                
+                                <li ><a href="/posts/powershell-script-find-hotfix-status/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Powershell script: Find hotfix status.md</span></a></li>
+                                
+                                <li ><a href="/posts/powershell-script-write-object-to-sql/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Powershell script: Write object to SQL.md</span></a></li>
+                                
+                                <li ><a href="/posts/get-type-alternative-for-null-values/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Get-Type alternative for $null values.md</span></a></li>
+                                
+                                <li ><a href="/posts/compress-files-to-zip-with-powershell/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Compress files to Zip with Powershell.md</span></a></li>
+                                
+                                <li ><a href="/posts/enable-real-time-jmx-monitoring-in-cognos/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Enable real time JMX monitoring in Cognos.md</span></a></li>
+                                
+                                <li ><a href="/posts/move-data-or-log-files-for-tempdb-in-sql-server/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Move data or log files for TempDB in SQL Server.md</span></a></li>
+                                
+                                <li ><a href="/posts/resources-for-remotefx-in-windows-server-2012/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Resources for RemoteFX in Windows Server 2012.md</span></a></li>
+                                
+                                <li ><a href="/posts/rdp-8.0-for-windows-7-sp1/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">RDP 8.0 for Windows 7 SP1.md</span></a></li>
+                                
+                                <li ><a href="/posts/improving-remotefx-performance-in-hyper-v/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Improving RemoteFX performance in Hyper-V.md</span></a></li>
+                                
+                                <li ><a href="/posts/configure-remotefx-in-hyper-v-running-windows-server-2012-with-low-end-gpu/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Configure RemoteFX in Hyper-V running Windows Server 2012 with low end GPU.md</span></a></li>
+                                
+                                <li ><a href="/posts/sqlps-and-its-limitations/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">SQLPS and its limitations.md</span></a></li>
+                                
+                                <li ><a href="/posts/script-deployment-of-ssis-packages-from-folder/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Script deployment of SSIS packages from folder.md</span></a></li>
+                                
+                                <li ><a href="/posts/dynamic-deploy-of-ssrs-reports-using-rs.exe/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Dynamic deploy of SSRS reports using rs.exe.md</span></a></li>
+                                
+                                <li ><a href="/posts/remove-headers-in-excel-exports-to-fix-column-alignment/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Remove headers in Excel exports to fix column alignment.md</span></a></li>
+                                
+                                <li ><a href="/posts/using-executionlog2-for-statistics-and-monitoring/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Using ExecutionLog2 for statistics and monitoring.md</span></a></li>
+                                
+                            </ul>
+                        </li>
+                        <li><span class="menu-item folder open">pages</span>
+                            <ul>
+                                
+                                <li ><a href="/about/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">About me.md</span></a></li>
+                                
+                                <li ><a href="/chroma/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Chroma.md</span></a></li>
+                                
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><span class="menu-item folder">data</span></li>
+                <li><span class="menu-item folder">layouts</span></li>
+                <li><span class="menu-item folder">resources</span></li>
+                <li><span class="menu-item folder">static</span></li>
+                <li><span class="menu-item folder open">themes</span>
+                    <ul>
+                        <li><span class="menu-item folder open">hugovscode</span>
+                            <ul>
+                                <li><a href="https://github.com/JohnRoos/HugoVSCode/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">.git</span></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>config.toml</li>
+            </ul>
+        </li>
+    </ul>
+  
+
+    
+</diV>
+                <div class ="main-tabs">
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/">Home.md</a> 
+                    </div>
+                
+                
+                    <div class="main-tab current">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/exclusions-in-web-application-firewall/">Exclusions in Web Application Firewall.md</a>
+                    </div>
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/set-up-built-in-authentication-for-azure-static-web-app/">Set up built-in authentication for Azure Static Web App.md</a>
+                    </div>
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/">Deploy Azure Static Web App using Bicep and YAML pipeline.md</a>
+                    </div>
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/get-function-configuration-from-deployed-function-app/">Get function configuration from deployed Function App.md</a>
+                    </div>
+                
+                    <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/deploy-azure-function-app-without-downtime/">Deploy Azure Function App without downtime.md</a>
+                    </div>
+                
+                </div>
+            
+            
+            <div class='main'>
+    <div class="main-path">
+        <span><a class="path-link" href="https://blog.roostech.se/">blog.roostech.se</a></span><span class="folder">content</span><span class="folder">posts</span><span class="folder">Exclusions in Web Application Firewall.md</span>
+        
+                
+                
+                <span class="postdate-container">&nbsp;(<time class="postdate" datetime="2024-12-13">December 13, 2024</time>)</span>
+            
+    </div>
+    
+    <div class="main-content-toggle">
+
+        
+        <input class="source-preview-split" type="checkbox" id="source-preview-split-toggle">
+        <label class="source-preview-split-label" for="source-preview-split-toggle"></label>
+
+        <input class="source-toggle" type="checkbox" id="source-toggle">
+        <label class="source-toggle-label" for="source-toggle"></label>
+
+        <div class="main-content">
+            ---<br />
+            <span class="md-frontmatter">title</span>: <span class="md-frontmatter-string">Exclusions in Web Application Firewall</span><br />
+            <span class="md-frontmatter">date</span>: 2024-12-13 15:11:00 &#43;0200 &#43;0200<br />
+            <span class="md-frontmatter">draft</span>: <span class="md-frontmatter">false</span><br />
+            <span class="md-frontmatter">author</span>: <span class="md-frontmatter-string">John Roos</span><br />
+            ----
+            <p>When enabling Web Application Firewall on an Application Gateway in Azure you will probably run into problems where some legitimate requests are blocked. This post is an attempt to make it easier understand why these requests were blocked and how to ensure they are not blocked in the future. This post assumes that the Web Application Firewall is deployed with the OWASP rule set. I also assume that diagnostic settings has already been configured to make sure we log everything we need.</p>
+<h2 id="how-the-waf-works-with-rules">How the WAF works with rules</h2>
+<p>First of all we need to briefly touch on how the WAF works with rules and anomaly scores. As of this writing the OWASP rule set contains 186 rules. Each of these rules has an <a href="https://learn.microsoft.com/en-us/azure/web-application-firewall/ag/ag-overview#anomaly-scoring-mode">anomaly score</a>. If a request matches a rule, that request will get a score, based on the severity of the matched rule. If multiple rules are matched the anomaly scores will be added together. After all rules have completed processing the request will have a total score based on all rules matched. If the total score is above the threshold, and the WAF is in prevention mode, the request will be blocked.</p>
+<p>Each rule has a severity which decides its contribution to anomaly score.</p>
+<table>
+<thead>
+<tr>
+<th>Rule severity</th>
+<th>Value contributed to anomaly score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Critical</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Error</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Warning</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Notice</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>The anomaly score threshold is 5, which means that one critical rule is enough to block a request.</p>
+<h2 id="finding-the-requests-in-the-logs">Finding the requests in the logs</h2>
+<p>When a request has been blocked, you should be able to find the request in the <strong>AzureDiagnostics</strong> table. Finding blocked requests is easy:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">AzureDiagnostics 
+</span></span><span class="line"><span class="cl">| where action_s == &#39;Blocked&#39;
+</span></span><span class="line"><span class="cl">| project TimeGenerated, transactionId_g, requestUri_s, Message, clientIp_s, ruleSetType_s, ruleId_s, ruleGroup_s, action_s, details_message_s
+</span></span></code></pre></div><p>Running this statement should produce some results where you can see blocked requests. Here is an example, converted to JSON for visibility.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;TimeGenerated [UTC]&#34;</span><span class="p">:</span> <span class="s2">&#34;12/13/2024, 10:56:13.628 AM&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;transactionId_g&#34;</span><span class="p">:</span> <span class="s2">&#34;6850b97f-19ac-4b49-b949-80e7795b8029&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;requestUri_s&#34;</span><span class="p">:</span> <span class="s2">&#34;/api/customer&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Message&#34;</span><span class="p">:</span> <span class="s2">&#34;Inbound Anomaly Score Exceeded (Total Score: 7)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;clientIp_s&#34;</span><span class="p">:</span> <span class="s2">&#34;35.13.204.26&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ruleSetType_s&#34;</span><span class="p">:</span> <span class="s2">&#34;OWASP CRS&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ruleId_s&#34;</span><span class="p">:</span> <span class="s2">&#34;949110&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ruleGroup_s&#34;</span><span class="p">:</span> <span class="s2">&#34;REQUEST-949-BLOCKING-EVALUATION&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;action_s&#34;</span><span class="p">:</span> <span class="s2">&#34;Blocked&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;details_message_s&#34;</span><span class="p">:</span> <span class="s2">&#34;Greater and Equal to Tx:inbound_anomaly_score_threshold at TX:anomaly_score.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>This request has been blocked by the firewall. However, we do not know why it has been blocked. The results show us that the request contained certain suspicios content which produced an anomaly score higher than the threshold (5). Now we need to figure out what rules caused the block. Thats what the <strong>transactionId_g</strong> is for.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">AzureDiagnostics 
+</span></span><span class="line"><span class="cl">| where transactionId_g == &#39;6850b97f-19ac-4b49-b949-80e7795b8029&#39;
+</span></span><span class="line"><span class="cl">| project TimeGenerated, transactionId_g, requestUri_s, Message, clientIp_s, ruleSetType_s, ruleId_s, ruleGroup_s, action_s, details_message_s, details_data_s
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;TimeGenerated [UTC]&#34;</span><span class="p">:</span> <span class="s2">&#34;12/13/2024, 10:56:13.628 AM&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;transactionId_g&#34;</span><span class="p">:</span> <span class="s2">&#34;6850b97f-19ac-4b49-b949-80e7795b8029&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;requestUri_s&#34;</span><span class="p">:</span> <span class="s2">&#34;/api/customer&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Message&#34;</span><span class="p">:</span> <span class="s2">&#34;Missing User Agent Header&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;clientIp_s&#34;</span><span class="p">:</span> <span class="s2">&#34;35.13.204.26&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ruleSetType_s&#34;</span><span class="p">:</span> <span class="s2">&#34;OWASP CRS&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ruleId_s&#34;</span><span class="p">:</span> <span class="s2">&#34;920320&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ruleGroup_s&#34;</span><span class="p">:</span> <span class="s2">&#34;REQUEST-920-PROTOCOL-ENFORCEMENT&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;action_s&#34;</span><span class="p">:</span> <span class="s2">&#34;Matched&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;details_message_s&#34;</span><span class="p">:</span> <span class="s2">&#34;Equal 0 at REQUEST_HEADERS:user-agent.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;details_data_s&#34;</span><span class="p">:</span> <span class="s2">&#34;{ found within [REQUEST_HEADERS:0]}&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="err">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;TimeGenerated [UTC]&#34;</span><span class="p">:</span> <span class="s2">&#34;12/13/2024, 10:56:13.628 AM&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;transactionId_g&#34;</span><span class="p">:</span> <span class="s2">&#34;6850b97f-19ac-4b49-b949-80e7795b8029&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;requestUri_s&#34;</span><span class="p">:</span> <span class="s2">&#34;/api/customer&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Message&#34;</span><span class="p">:</span> <span class="s2">&#34;SQL Comment Sequence Detected.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;clientIp_s&#34;</span><span class="p">:</span> <span class="s2">&#34;35.13.204.26&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ruleSetType_s&#34;</span><span class="p">:</span> <span class="s2">&#34;OWASP CRS&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ruleId_s&#34;</span><span class="p">:</span> <span class="s2">&#34;942440&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ruleGroup_s&#34;</span><span class="p">:</span> <span class="s2">&#34;REQUEST-942-APPLICATION-ATTACK-SQLI&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;action_s&#34;</span><span class="p">:</span> <span class="s2">&#34;Matched&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;details_message_s&#34;</span><span class="p">:</span> <span class="s2">&#34;Pattern match (?:/\\*!?|\\*/|[&#39;;]--|--[\\s\\r\\n\\v\\f]|--[^-]*?-|[^&amp;-]#.*?[\\s\\r\\n\\v\\f]|;?\\x00) at ARGS.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;details_data_s&#34;</span><span class="p">:</span> <span class="s2">&#34;{/* found within [ARGS:CustomerFolders:/customers/*cust1]}&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="err">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;TimeGenerated [UTC]&#34;</span><span class="p">:</span> <span class="s2">&#34;12/13/2024, 10:56:13.628 AM&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;transactionId_g&#34;</span><span class="p">:</span> <span class="s2">&#34;6850b97f-19ac-4b49-b949-80e7795b8029&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;requestUri_s&#34;</span><span class="p">:</span> <span class="s2">&#34;/api/customer&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Message&#34;</span><span class="p">:</span> <span class="s2">&#34;Inbound Anomaly Score Exceeded (Total Score: 7)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;clientIp_s&#34;</span><span class="p">:</span> <span class="s2">&#34;35.13.204.26&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ruleSetType_s&#34;</span><span class="p">:</span> <span class="s2">&#34;OWASP CRS&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ruleId_s&#34;</span><span class="p">:</span> <span class="s2">&#34;949110&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ruleGroup_s&#34;</span><span class="p">:</span> <span class="s2">&#34;REQUEST-949-BLOCKING-EVALUATION&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;action_s&#34;</span><span class="p">:</span> <span class="s2">&#34;Blocked&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;details_message_s&#34;</span><span class="p">:</span> <span class="s2">&#34;Greater and Equal to Tx:inbound_anomaly_score_threshold at TX:anomaly_score.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>There are three entries in the log for this transaction. The last one is the one we found earlier which is blocking the request. The first two entries shows rules which are <strong>matched</strong>. The first one shows that the request is missing a User Agent Header. This is suspicious behaviour, but should be easy to fix by whoever did the request. Fixing the header might actually be enough for this request to be allowed.</p>
+<p>The second one shows that there is a suspicios string that could be an indication of a SQL Injection attack. The string in this example is &ldquo;/*&rdquo; which is a comment in certain SQL dialects. In the details_data_s column it even shows you where it found it in the request body: <strong>ARGS:CustomerFolders:/customers/*cust1</strong></p>
+<p>So now we know <strong>why</strong> the request was blocked and its time to figure out what we can do with this information. But before we do that, its good to know what severity these rules have.</p>
+<h2 id="rule-definition-and-severity">Rule definition and severity</h2>
+<p>When multiple rules are matched its often good to know the severity of those rules. If the second rule about SQL comments has critical severity it doesnt matter if you add headers to the request to fix the first rule, the request will still be blocked. Sometimes you can get lucky and the severity is shown in the Message column, but often its not. (Please Microsoft, always add the severity to the log)</p>
+<p>Fortunately the OWASP rule set is available on GitHub: <a href="https://github.com/coreruleset/coreruleset">https://github.com/coreruleset/coreruleset</a></p>
+<p>Here you can find the rule definition for the second rule which has rule id <a href="https://github.com/coreruleset/coreruleset/blob/main/rules/REQUEST-942-APPLICATION-ATTACK-SQLI.conf#L492">942440</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># -=[ Detect MySQL in-line comments ]=-</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># MySQL in-line comments can be used to bypass SQLi detection.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Ref: https://dev.mysql.com/doc/refman/8.0/en/comments.html:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># SELECT /*! STRAIGHT_JOIN */ col1 FROM table1,table2 WHERE ...</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># CREATE TABLE t1(a INT, KEY (a)) /*!50110 KEY_BLOCK_SIZE=1024 */;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># SELECT /*+ BKA(t1) */ FROM ... ;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># http://localhost/test.php?id=9999+or+{if+length((/*!5000select+username/*!50000from*/user+where+id=1))&gt;0}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># The minimal string that triggers this regexp is: /*!*/ or /*+*/.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># The rule 942500 is related to 942440 which catches both /*! and */ independently.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Regular expression generated from regex-assembly/942500.ra.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># To update the regular expression run the following shell script</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># (consult https://coreruleset.org/docs/development/regex_assembly/ for details):</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   crs-toolchain regex update 942500</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="n">SecRule</span> <span class="n">REQUEST_COOKIES</span><span class="o">|</span><span class="err">!</span><span class="n">REQUEST_COOKIES</span><span class="p">:</span><span class="o">/</span><span class="n">__utm</span><span class="o">/|</span><span class="n">REQUEST_COOKIES_NAMES</span><span class="o">|</span><span class="n">ARGS_NAMES</span><span class="o">|</span><span class="n">ARGS</span><span class="o">|</span><span class="n">XML</span><span class="p">:</span><span class="o">/*</span> <span class="s2">&#34;@rx (?i)/\*[\s</span><span class="se">\x0b</span><span class="s2">]*?[!\+](?:[\s</span><span class="se">\x0b</span><span class="s2">\(\)\-0-9=A-Z_a-z]+)?\*/&#34;</span> \
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;id:942500,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    phase:2,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    block,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    capture,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    t:none,t:urlDecodeUni,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    msg:&#39;MySQL in-line comment detected&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    logdata:&#39;Matched Data: %</span><span class="si">{TX.0}</span><span class="s2"> found within %</span><span class="si">{MATCHED_VAR_NAME}</span><span class="s2">: %</span><span class="si">{MATCHED_VAR}</span><span class="s2">&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    tag:&#39;application-multi&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    tag:&#39;language-multi&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    tag:&#39;platform-multi&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    tag:&#39;attack-sqli&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    tag:&#39;paranoia-level/1&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    tag:&#39;OWASP_CRS&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    tag:&#39;capec/1000/152/248/66&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    tag:&#39;PCI/6.5.2&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    ver:&#39;OWASP_CRS/4.10.0-dev&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    severity:&#39;CRITICAL&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    multiMatch,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    setvar:&#39;tx.sql_injection_score=+%</span><span class="si">{tx.critical_anomaly_score}</span><span class="s2">&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    setvar:&#39;tx.inbound_anomaly_score_pl1=+%</span><span class="si">{tx.critical_anomaly_score}</span><span class="s2">&#39;&#34;</span>
+</span></span></code></pre></div><p>Notice that severity is set to CRITICAL which, according to the table above, gives an anomaly score of 5 which is the same as the threshold. That means that any request that matches this rule will always be blocked, even if its the only rule matched.</p>
+<p>While we look at the definition of the rule, notice that this rule checks both cookies and arguments (query string and body). That kind of information is really good to have when troubleshooting OWASP rules in general.</p>
+<h2 id="options-to-solve-the-problem">Options to solve the problem</h2>
+<p>So now we know that the SQL comment need to be handled somehow. To allow this kind of request we now have three options.</p>
+<ol>
+<li>Change the request</li>
+</ol>
+<p>This is probably the best approach to look into first. If you can change the behaviour of the request to not look suspicios and learn from that for future requests then you probably have most to gain. This is certainly not viable for every scenario as there might be business logic or technical reasons to why the request need to look like it does.</p>
+<ol start="2">
+<li>Create exclusion matching the request content</li>
+</ol>
+<p>There are plenty of scenarios where you cant change how the request is sent. In those scenarios you can create exclusions. An exclusion is an exception of the rule. When the request looks in a certain way, its fine to skip the rule. This is generally what is recommended when the request cannot be changed.</p>
+<ol start="3">
+<li>Disable the rule</li>
+</ol>
+<p>Disabling a rule should really be the last resort. If there is no other way, go ahead and disable it, but most of the time there is another way.</p>
+<h2 id="create-rule-exclusion">Create rule exclusion</h2>
+<p>When you create a rule exclusion you first need to select which rule the exclusion applies to. Then you select a match variable, operator and selector. I have always found the match variable to be confusing. Here are the options:</p>
+<ul>
+<li>RequestArgKeys</li>
+<li>RequestArgNames</li>
+<li>RequestArgValues</li>
+<li>RequestHeaderKeys</li>
+<li>RequestHeaderNames</li>
+<li>RequestHeaderValues</li>
+<li>RequestCookieKeys</li>
+<li>RequestCookieNames</li>
+<li>RequestCookieValues</li>
+</ul>
+<p>When reading the <a href="https://learn.microsoft.com/en-us/azure/web-application-firewall/ag/application-gateway-waf-configuration?tabs=portal#request-attribute-examples">documentation</a> its sometimes hard to distinguish the differences between Keys, Names and Values. Some of the examples in the documentation does not show a clear difference between these types. The <strong>RequestArg</strong> variables has to do with the request body and query string in the url, so in this case we want to use one of those.</p>
+<p>The request body we are trying to make an exclusion for looks like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;CustomerName&#34;</span><span class="p">:</span> <span class="s2">&#34;Customer1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;CustomerFolders&#34;</span><span class="p">:</span> <span class="s2">&#34;/customers/*cust1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;CustomerCountry&#34;</span><span class="p">:</span> <span class="s2">&#34;SE&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Remember, the request was blocked because the CustomerFolders contained &ldquo;/*&rdquo;. So we need to make an exclusion for this JSON property. If we then try to use RequestArgValues, set the Operator to Equals and then enter the key &ldquo;CustomerFolders&rdquo; from the JSON body. This tells the rules engine to skip the rule if the request contains a JSON body with the property CustomerFolders.</p>
+<p>Here is the bicep code for it:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bicep" data-lang="bicep"><span class="line"><span class="cl"><span class="c1">//...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="py">exclusions</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="py">matchVariable</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;RequestArgValues&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="py">selectorMatchOperator</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;Equals&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="py">selector</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;CustomerFolders&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="py">exclusionManagedRuleSets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="py">ruleSetType</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;OWASP&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="py">ruleSetVersion</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;3.2&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="py">ruleGroups</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="py">ruleGroupName</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;REQUEST-942-APPLICATION-ATTACK-SQLI&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="py">rules</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                        </span><span class="py">ruleId</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;942440&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//...</span><span class="w">
+</span></span></span></code></pre></div><p>This rule would be enough to allow this request through the Web Application Firewall.</p>
+<p>Success!</p>
+<h2 id="nested-json-body">Nested JSON body</h2>
+<p>In the example above we had a flat JSON body. If you have a nested JSON body with child items, you simply &ldquo;dot&rdquo; your way through it. Here is an example body:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;CustomerDetails&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;CustomerName&#34;</span><span class="p">:</span> <span class="s2">&#34;Customer1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;CustomerCountry&#34;</span><span class="p">:</span> <span class="s2">&#34;SE&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;CustomerConfig&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;CustomerFolders&#34;</span><span class="p">:</span> <span class="s2">&#34;/customers/*cust1&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Then if you want to use the selector to point at CustomerFolders which is located in CustomerConfig you simply write it like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bicep" data-lang="bicep"><span class="line"><span class="cl"><span class="c1">//...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="py">exclusions</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="py">matchVariable</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;RequestArgValues&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="py">selectorMatchOperator</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;Equals&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="py">selector</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;CustomerConfig.CustomerFolders&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="py">exclusionManagedRuleSets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="py">ruleSetType</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;OWASP&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="py">ruleSetVersion</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;3.2&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="py">ruleGroups</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="py">ruleGroupName</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;REQUEST-942-APPLICATION-ATTACK-SQLI&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="py">rules</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                        </span><span class="py">ruleId</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;942440&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//...</span><span class="w">
+</span></span></span></code></pre></div><h2 id="more-about-rule-exclusions">More about rule exclusions</h2>
+<p>Here are a few more details that has been helpful to me when working with rule exclusions.</p>
+<h3 id="restricted-to-json">Restricted to JSON</h3>
+<p>It seems like the rule engine only interprets JSON, so if you are using XML for example you are much more restricted when configuring exclusions.</p>
+<h3 id="no-url-filtering">No URL filtering</h3>
+<p>If you create a custom rule you can use URL as a filter for that rule. URL filters are not supported when creating exclusions. This would have been really helpful to further narrow down the scope of the exclusion.</p>
+<h3 id="be-careful-with-custom-rules">Be careful with custom rules</h3>
+<p>You should really think twize before adding a custom rule since the rule processing will change. From the <a href="https://learn.microsoft.com/en-us/azure/web-application-firewall/ag/application-gateway-crs-rulegroups-rules?tabs=drs21#tuning-of-managed-rule-sets">documentation</a>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Custom rules are always applied before rules in the Core Rule Set are evaluated. If a request matches a custom rule, the corresponding rule action is applied. The request is either blocked or passed through to the back-end. No other custom rules or the rules in the Core Rule Set are processed.
+</span></span></code></pre></div><p>Thats it for today. I hope you find this helpful.</p>
+
+        </div>
+
+        
+        <div class="main-content-preview">
+            <h1>Exclusions in Web Application Firewall</h1>
+            
+            <p>When enabling Web Application Firewall on an Application Gateway in Azure you will probably run into problems where some legitimate requests are blocked. This post is an attempt to make it easier understand why these requests were blocked and how to ensure they are not blocked in the future. This post assumes that the Web Application Firewall is deployed with the OWASP rule set. I also assume that diagnostic settings has already been configured to make sure we log everything we need.</p>
+<h2 id="how-the-waf-works-with-rules">How the WAF works with rules</h2>
+<p>First of all we need to briefly touch on how the WAF works with rules and anomaly scores. As of this writing the OWASP rule set contains 186 rules. Each of these rules has an <a href="https://learn.microsoft.com/en-us/azure/web-application-firewall/ag/ag-overview#anomaly-scoring-mode">anomaly score</a>. If a request matches a rule, that request will get a score, based on the severity of the matched rule. If multiple rules are matched the anomaly scores will be added together. After all rules have completed processing the request will have a total score based on all rules matched. If the total score is above the threshold, and the WAF is in prevention mode, the request will be blocked.</p>
+<p>Each rule has a severity which decides its contribution to anomaly score.</p>
+<table>
+<thead>
+<tr>
+<th>Rule severity</th>
+<th>Value contributed to anomaly score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Critical</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Error</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Warning</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Notice</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>The anomaly score threshold is 5, which means that one critical rule is enough to block a request.</p>
+<h2 id="finding-the-requests-in-the-logs">Finding the requests in the logs</h2>
+<p>When a request has been blocked, you should be able to find the request in the <strong>AzureDiagnostics</strong> table. Finding blocked requests is easy:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">AzureDiagnostics 
+</span></span><span class="line"><span class="cl">| where action_s == &#39;Blocked&#39;
+</span></span><span class="line"><span class="cl">| project TimeGenerated, transactionId_g, requestUri_s, Message, clientIp_s, ruleSetType_s, ruleId_s, ruleGroup_s, action_s, details_message_s
+</span></span></code></pre></div><p>Running this statement should produce some results where you can see blocked requests. Here is an example, converted to JSON for visibility.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;TimeGenerated [UTC]&#34;</span><span class="p">:</span> <span class="s2">&#34;12/13/2024, 10:56:13.628 AM&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;transactionId_g&#34;</span><span class="p">:</span> <span class="s2">&#34;6850b97f-19ac-4b49-b949-80e7795b8029&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;requestUri_s&#34;</span><span class="p">:</span> <span class="s2">&#34;/api/customer&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Message&#34;</span><span class="p">:</span> <span class="s2">&#34;Inbound Anomaly Score Exceeded (Total Score: 7)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;clientIp_s&#34;</span><span class="p">:</span> <span class="s2">&#34;35.13.204.26&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ruleSetType_s&#34;</span><span class="p">:</span> <span class="s2">&#34;OWASP CRS&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ruleId_s&#34;</span><span class="p">:</span> <span class="s2">&#34;949110&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ruleGroup_s&#34;</span><span class="p">:</span> <span class="s2">&#34;REQUEST-949-BLOCKING-EVALUATION&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;action_s&#34;</span><span class="p">:</span> <span class="s2">&#34;Blocked&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;details_message_s&#34;</span><span class="p">:</span> <span class="s2">&#34;Greater and Equal to Tx:inbound_anomaly_score_threshold at TX:anomaly_score.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>This request has been blocked by the firewall. However, we do not know why it has been blocked. The results show us that the request contained certain suspicios content which produced an anomaly score higher than the threshold (5). Now we need to figure out what rules caused the block. Thats what the <strong>transactionId_g</strong> is for.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">AzureDiagnostics 
+</span></span><span class="line"><span class="cl">| where transactionId_g == &#39;6850b97f-19ac-4b49-b949-80e7795b8029&#39;
+</span></span><span class="line"><span class="cl">| project TimeGenerated, transactionId_g, requestUri_s, Message, clientIp_s, ruleSetType_s, ruleId_s, ruleGroup_s, action_s, details_message_s, details_data_s
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;TimeGenerated [UTC]&#34;</span><span class="p">:</span> <span class="s2">&#34;12/13/2024, 10:56:13.628 AM&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;transactionId_g&#34;</span><span class="p">:</span> <span class="s2">&#34;6850b97f-19ac-4b49-b949-80e7795b8029&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;requestUri_s&#34;</span><span class="p">:</span> <span class="s2">&#34;/api/customer&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Message&#34;</span><span class="p">:</span> <span class="s2">&#34;Missing User Agent Header&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;clientIp_s&#34;</span><span class="p">:</span> <span class="s2">&#34;35.13.204.26&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ruleSetType_s&#34;</span><span class="p">:</span> <span class="s2">&#34;OWASP CRS&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ruleId_s&#34;</span><span class="p">:</span> <span class="s2">&#34;920320&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ruleGroup_s&#34;</span><span class="p">:</span> <span class="s2">&#34;REQUEST-920-PROTOCOL-ENFORCEMENT&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;action_s&#34;</span><span class="p">:</span> <span class="s2">&#34;Matched&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;details_message_s&#34;</span><span class="p">:</span> <span class="s2">&#34;Equal 0 at REQUEST_HEADERS:user-agent.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;details_data_s&#34;</span><span class="p">:</span> <span class="s2">&#34;{ found within [REQUEST_HEADERS:0]}&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="err">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;TimeGenerated [UTC]&#34;</span><span class="p">:</span> <span class="s2">&#34;12/13/2024, 10:56:13.628 AM&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;transactionId_g&#34;</span><span class="p">:</span> <span class="s2">&#34;6850b97f-19ac-4b49-b949-80e7795b8029&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;requestUri_s&#34;</span><span class="p">:</span> <span class="s2">&#34;/api/customer&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Message&#34;</span><span class="p">:</span> <span class="s2">&#34;SQL Comment Sequence Detected.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;clientIp_s&#34;</span><span class="p">:</span> <span class="s2">&#34;35.13.204.26&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ruleSetType_s&#34;</span><span class="p">:</span> <span class="s2">&#34;OWASP CRS&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ruleId_s&#34;</span><span class="p">:</span> <span class="s2">&#34;942440&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ruleGroup_s&#34;</span><span class="p">:</span> <span class="s2">&#34;REQUEST-942-APPLICATION-ATTACK-SQLI&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;action_s&#34;</span><span class="p">:</span> <span class="s2">&#34;Matched&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;details_message_s&#34;</span><span class="p">:</span> <span class="s2">&#34;Pattern match (?:/\\*!?|\\*/|[&#39;;]--|--[\\s\\r\\n\\v\\f]|--[^-]*?-|[^&amp;-]#.*?[\\s\\r\\n\\v\\f]|;?\\x00) at ARGS.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;details_data_s&#34;</span><span class="p">:</span> <span class="s2">&#34;{/* found within [ARGS:CustomerFolders:/customers/*cust1]}&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="err">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;TimeGenerated [UTC]&#34;</span><span class="p">:</span> <span class="s2">&#34;12/13/2024, 10:56:13.628 AM&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;transactionId_g&#34;</span><span class="p">:</span> <span class="s2">&#34;6850b97f-19ac-4b49-b949-80e7795b8029&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;requestUri_s&#34;</span><span class="p">:</span> <span class="s2">&#34;/api/customer&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Message&#34;</span><span class="p">:</span> <span class="s2">&#34;Inbound Anomaly Score Exceeded (Total Score: 7)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;clientIp_s&#34;</span><span class="p">:</span> <span class="s2">&#34;35.13.204.26&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ruleSetType_s&#34;</span><span class="p">:</span> <span class="s2">&#34;OWASP CRS&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ruleId_s&#34;</span><span class="p">:</span> <span class="s2">&#34;949110&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;ruleGroup_s&#34;</span><span class="p">:</span> <span class="s2">&#34;REQUEST-949-BLOCKING-EVALUATION&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;action_s&#34;</span><span class="p">:</span> <span class="s2">&#34;Blocked&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;details_message_s&#34;</span><span class="p">:</span> <span class="s2">&#34;Greater and Equal to Tx:inbound_anomaly_score_threshold at TX:anomaly_score.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>There are three entries in the log for this transaction. The last one is the one we found earlier which is blocking the request. The first two entries shows rules which are <strong>matched</strong>. The first one shows that the request is missing a User Agent Header. This is suspicious behaviour, but should be easy to fix by whoever did the request. Fixing the header might actually be enough for this request to be allowed.</p>
+<p>The second one shows that there is a suspicios string that could be an indication of a SQL Injection attack. The string in this example is &ldquo;/*&rdquo; which is a comment in certain SQL dialects. In the details_data_s column it even shows you where it found it in the request body: <strong>ARGS:CustomerFolders:/customers/*cust1</strong></p>
+<p>So now we know <strong>why</strong> the request was blocked and its time to figure out what we can do with this information. But before we do that, its good to know what severity these rules have.</p>
+<h2 id="rule-definition-and-severity">Rule definition and severity</h2>
+<p>When multiple rules are matched its often good to know the severity of those rules. If the second rule about SQL comments has critical severity it doesnt matter if you add headers to the request to fix the first rule, the request will still be blocked. Sometimes you can get lucky and the severity is shown in the Message column, but often its not. (Please Microsoft, always add the severity to the log)</p>
+<p>Fortunately the OWASP rule set is available on GitHub: <a href="https://github.com/coreruleset/coreruleset">https://github.com/coreruleset/coreruleset</a></p>
+<p>Here you can find the rule definition for the second rule which has rule id <a href="https://github.com/coreruleset/coreruleset/blob/main/rules/REQUEST-942-APPLICATION-ATTACK-SQLI.conf#L492">942440</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># -=[ Detect MySQL in-line comments ]=-</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># MySQL in-line comments can be used to bypass SQLi detection.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Ref: https://dev.mysql.com/doc/refman/8.0/en/comments.html:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># SELECT /*! STRAIGHT_JOIN */ col1 FROM table1,table2 WHERE ...</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># CREATE TABLE t1(a INT, KEY (a)) /*!50110 KEY_BLOCK_SIZE=1024 */;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># SELECT /*+ BKA(t1) */ FROM ... ;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># http://localhost/test.php?id=9999+or+{if+length((/*!5000select+username/*!50000from*/user+where+id=1))&gt;0}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># The minimal string that triggers this regexp is: /*!*/ or /*+*/.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># The rule 942500 is related to 942440 which catches both /*! and */ independently.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Regular expression generated from regex-assembly/942500.ra.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># To update the regular expression run the following shell script</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># (consult https://coreruleset.org/docs/development/regex_assembly/ for details):</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   crs-toolchain regex update 942500</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="n">SecRule</span> <span class="n">REQUEST_COOKIES</span><span class="o">|</span><span class="err">!</span><span class="n">REQUEST_COOKIES</span><span class="p">:</span><span class="o">/</span><span class="n">__utm</span><span class="o">/|</span><span class="n">REQUEST_COOKIES_NAMES</span><span class="o">|</span><span class="n">ARGS_NAMES</span><span class="o">|</span><span class="n">ARGS</span><span class="o">|</span><span class="n">XML</span><span class="p">:</span><span class="o">/*</span> <span class="s2">&#34;@rx (?i)/\*[\s</span><span class="se">\x0b</span><span class="s2">]*?[!\+](?:[\s</span><span class="se">\x0b</span><span class="s2">\(\)\-0-9=A-Z_a-z]+)?\*/&#34;</span> \
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;id:942500,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    phase:2,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    block,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    capture,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    t:none,t:urlDecodeUni,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    msg:&#39;MySQL in-line comment detected&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    logdata:&#39;Matched Data: %</span><span class="si">{TX.0}</span><span class="s2"> found within %</span><span class="si">{MATCHED_VAR_NAME}</span><span class="s2">: %</span><span class="si">{MATCHED_VAR}</span><span class="s2">&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    tag:&#39;application-multi&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    tag:&#39;language-multi&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    tag:&#39;platform-multi&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    tag:&#39;attack-sqli&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    tag:&#39;paranoia-level/1&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    tag:&#39;OWASP_CRS&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    tag:&#39;capec/1000/152/248/66&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    tag:&#39;PCI/6.5.2&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    ver:&#39;OWASP_CRS/4.10.0-dev&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    severity:&#39;CRITICAL&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    multiMatch,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    setvar:&#39;tx.sql_injection_score=+%</span><span class="si">{tx.critical_anomaly_score}</span><span class="s2">&#39;,</span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">    setvar:&#39;tx.inbound_anomaly_score_pl1=+%</span><span class="si">{tx.critical_anomaly_score}</span><span class="s2">&#39;&#34;</span>
+</span></span></code></pre></div><p>Notice that severity is set to CRITICAL which, according to the table above, gives an anomaly score of 5 which is the same as the threshold. That means that any request that matches this rule will always be blocked, even if its the only rule matched.</p>
+<p>While we look at the definition of the rule, notice that this rule checks both cookies and arguments (query string and body). That kind of information is really good to have when troubleshooting OWASP rules in general.</p>
+<h2 id="options-to-solve-the-problem">Options to solve the problem</h2>
+<p>So now we know that the SQL comment need to be handled somehow. To allow this kind of request we now have three options.</p>
+<ol>
+<li>Change the request</li>
+</ol>
+<p>This is probably the best approach to look into first. If you can change the behaviour of the request to not look suspicios and learn from that for future requests then you probably have most to gain. This is certainly not viable for every scenario as there might be business logic or technical reasons to why the request need to look like it does.</p>
+<ol start="2">
+<li>Create exclusion matching the request content</li>
+</ol>
+<p>There are plenty of scenarios where you cant change how the request is sent. In those scenarios you can create exclusions. An exclusion is an exception of the rule. When the request looks in a certain way, its fine to skip the rule. This is generally what is recommended when the request cannot be changed.</p>
+<ol start="3">
+<li>Disable the rule</li>
+</ol>
+<p>Disabling a rule should really be the last resort. If there is no other way, go ahead and disable it, but most of the time there is another way.</p>
+<h2 id="create-rule-exclusion">Create rule exclusion</h2>
+<p>When you create a rule exclusion you first need to select which rule the exclusion applies to. Then you select a match variable, operator and selector. I have always found the match variable to be confusing. Here are the options:</p>
+<ul>
+<li>RequestArgKeys</li>
+<li>RequestArgNames</li>
+<li>RequestArgValues</li>
+<li>RequestHeaderKeys</li>
+<li>RequestHeaderNames</li>
+<li>RequestHeaderValues</li>
+<li>RequestCookieKeys</li>
+<li>RequestCookieNames</li>
+<li>RequestCookieValues</li>
+</ul>
+<p>When reading the <a href="https://learn.microsoft.com/en-us/azure/web-application-firewall/ag/application-gateway-waf-configuration?tabs=portal#request-attribute-examples">documentation</a> its sometimes hard to distinguish the differences between Keys, Names and Values. Some of the examples in the documentation does not show a clear difference between these types. The <strong>RequestArg</strong> variables has to do with the request body and query string in the url, so in this case we want to use one of those.</p>
+<p>The request body we are trying to make an exclusion for looks like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;CustomerName&#34;</span><span class="p">:</span> <span class="s2">&#34;Customer1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;CustomerFolders&#34;</span><span class="p">:</span> <span class="s2">&#34;/customers/*cust1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;CustomerCountry&#34;</span><span class="p">:</span> <span class="s2">&#34;SE&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Remember, the request was blocked because the CustomerFolders contained &ldquo;/*&rdquo;. So we need to make an exclusion for this JSON property. If we then try to use RequestArgValues, set the Operator to Equals and then enter the key &ldquo;CustomerFolders&rdquo; from the JSON body. This tells the rules engine to skip the rule if the request contains a JSON body with the property CustomerFolders.</p>
+<p>Here is the bicep code for it:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bicep" data-lang="bicep"><span class="line"><span class="cl"><span class="c1">//...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="py">exclusions</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="py">matchVariable</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;RequestArgValues&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="py">selectorMatchOperator</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;Equals&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="py">selector</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;CustomerFolders&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="py">exclusionManagedRuleSets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="py">ruleSetType</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;OWASP&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="py">ruleSetVersion</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;3.2&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="py">ruleGroups</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="py">ruleGroupName</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;REQUEST-942-APPLICATION-ATTACK-SQLI&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="py">rules</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                        </span><span class="py">ruleId</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;942440&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//...</span><span class="w">
+</span></span></span></code></pre></div><p>This rule would be enough to allow this request through the Web Application Firewall.</p>
+<p>Success!</p>
+<h2 id="nested-json-body">Nested JSON body</h2>
+<p>In the example above we had a flat JSON body. If you have a nested JSON body with child items, you simply &ldquo;dot&rdquo; your way through it. Here is an example body:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;CustomerDetails&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;CustomerName&#34;</span><span class="p">:</span> <span class="s2">&#34;Customer1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;CustomerCountry&#34;</span><span class="p">:</span> <span class="s2">&#34;SE&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;CustomerConfig&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;CustomerFolders&#34;</span><span class="p">:</span> <span class="s2">&#34;/customers/*cust1&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Then if you want to use the selector to point at CustomerFolders which is located in CustomerConfig you simply write it like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bicep" data-lang="bicep"><span class="line"><span class="cl"><span class="c1">//...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="py">exclusions</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="py">matchVariable</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;RequestArgValues&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="py">selectorMatchOperator</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;Equals&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="py">selector</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;CustomerConfig.CustomerFolders&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="py">exclusionManagedRuleSets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="py">ruleSetType</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;OWASP&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="py">ruleSetVersion</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;3.2&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="py">ruleGroups</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="py">ruleGroupName</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;REQUEST-942-APPLICATION-ATTACK-SQLI&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="py">rules</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                        </span><span class="py">ruleId</span><span class="p">:</span><span class="w"> </span><span class="si">&#39;942440&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//...</span><span class="w">
+</span></span></span></code></pre></div><h2 id="more-about-rule-exclusions">More about rule exclusions</h2>
+<p>Here are a few more details that has been helpful to me when working with rule exclusions.</p>
+<h3 id="restricted-to-json">Restricted to JSON</h3>
+<p>It seems like the rule engine only interprets JSON, so if you are using XML for example you are much more restricted when configuring exclusions.</p>
+<h3 id="no-url-filtering">No URL filtering</h3>
+<p>If you create a custom rule you can use URL as a filter for that rule. URL filters are not supported when creating exclusions. This would have been really helpful to further narrow down the scope of the exclusion.</p>
+<h3 id="be-careful-with-custom-rules">Be careful with custom rules</h3>
+<p>You should really think twize before adding a custom rule since the rule processing will change. From the <a href="https://learn.microsoft.com/en-us/azure/web-application-firewall/ag/application-gateway-crs-rulegroups-rules?tabs=drs21#tuning-of-managed-rule-sets">documentation</a>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Custom rules are always applied before rules in the Core Rule Set are evaluated. If a request matches a custom rule, the corresponding rule action is applied. The request is either blocked or passed through to the back-end. No other custom rules or the rules in the Core Rule Set are processed.
+</span></span></code></pre></div><p>Thats it for today. I hope you find this helpful.</p>
+
+
+            <p>- Written by John Roos  
+            
+                
+                
+                on December 13, 2024</p>
+
+            
+                <div class="disqus-section">
+                    
+                </div>
+            
+        </div>
+
+    </div>
+    
+
+
+            </div>
+        </div>
+    </body>
+</html>

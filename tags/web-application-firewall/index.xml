@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Web Application Firewall on RoosTech</title>
+    <link>https://blog.roostech.se/tags/web-application-firewall/</link>
+    <description>Recent content in Web Application Firewall on RoosTech</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 13 Dec 2024 15:11:00 +0200</lastBuildDate><atom:link href="https://blog.roostech.se/tags/web-application-firewall/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Exclusions in Web Application Firewall</title>
+      <link>https://blog.roostech.se/posts/exclusions-in-web-application-firewall/</link>
+      <pubDate>Fri, 13 Dec 2024 15:11:00 +0200</pubDate>
+      
+      <guid>https://blog.roostech.se/posts/exclusions-in-web-application-firewall/</guid>
+      <description>When enabling Web Application Firewall on an Application Gateway in Azure you will probably run into problems where some legitimate requests are blocked. This post is an attempt to make it easier understand why these requests were blocked and how to ensure they are not blocked in the future. This post assumes that the Web Application Firewall is deployed with the OWASP rule set. I also assume that diagnostic settings has already been configured to make sure we log everything we need.</description>
+    </item>
+    
+  </channel>
+</rss>

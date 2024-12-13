@@ -2,22 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://blog.roostech.se/tags/application-gateway/</loc>
+    <lastmod>2024-12-13T15:11:00+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.roostech.se/tags/azure/</loc>
+    <lastmod>2024-12-13T15:11:00+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.roostech.se/tags/azure-front-door/</loc>
+    <lastmod>2024-12-13T15:11:00+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.roostech.se/posts/exclusions-in-web-application-firewall/</loc>
+    <lastmod>2024-12-13T15:11:00+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.roostech.se/posts/</loc>
+    <lastmod>2024-12-13T15:11:00+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.roostech.se/</loc>
+    <lastmod>2024-12-13T15:11:00+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.roostech.se/tags/</loc>
+    <lastmod>2024-12-13T15:11:00+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.roostech.se/tags/web-application-firewall/</loc>
+    <lastmod>2024-12-13T15:11:00+02:00</lastmod>
+  </url><url>
     <loc>https://blog.roostech.se/tags/authentication/</loc>
     <lastmod>2023-05-02T22:15:00+02:00</lastmod>
   </url><url>
     <loc>https://blog.roostech.se/tags/azure-static-web-app/</loc>
     <lastmod>2023-05-02T22:15:00+02:00</lastmod>
   </url><url>
-    <loc>https://blog.roostech.se/posts/</loc>
-    <lastmod>2023-05-02T22:15:00+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.roostech.se/</loc>
-    <lastmod>2023-05-02T22:15:00+02:00</lastmod>
-  </url><url>
     <loc>https://blog.roostech.se/posts/set-up-built-in-authentication-for-azure-static-web-app/</loc>
-    <lastmod>2023-05-02T22:15:00+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.roostech.se/tags/</loc>
     <lastmod>2023-05-02T22:15:00+02:00</lastmod>
   </url><url>
     <loc>https://blog.roostech.se/tags/azure-devops/</loc>

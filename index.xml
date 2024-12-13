@@ -6,7 +6,16 @@
     <description>Recent content on RoosTech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 02 May 2023 22:15:00 +0200</lastBuildDate><atom:link href="https://blog.roostech.se/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 13 Dec 2024 15:11:00 +0200</lastBuildDate><atom:link href="https://blog.roostech.se/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Exclusions in Web Application Firewall</title>
+      <link>https://blog.roostech.se/posts/exclusions-in-web-application-firewall/</link>
+      <pubDate>Fri, 13 Dec 2024 15:11:00 +0200</pubDate>
+      
+      <guid>https://blog.roostech.se/posts/exclusions-in-web-application-firewall/</guid>
+      <description>When enabling Web Application Firewall on an Application Gateway in Azure you will probably run into problems where some legitimate requests are blocked. This post is an attempt to make it easier understand why these requests were blocked and how to ensure they are not blocked in the future. This post assumes that the Web Application Firewall is deployed with the OWASP rule set. I also assume that diagnostic settings has already been configured to make sure we log everything we need.</description>
+    </item>
+    
     <item>
       <title>Set up built-in authentication for Azure Static Web App</title>
       <link>https://blog.roostech.se/posts/set-up-built-in-authentication-for-azure-static-web-app/</link>

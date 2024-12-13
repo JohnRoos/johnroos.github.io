@@ -76,6 +76,8 @@ if (!doNotTrack) {
                         <li><span class="menu-item folder open">posts</span>
                             <ul>
                                 
+                                <li ><a href="/posts/exclusions-in-web-application-firewall/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Exclusions in Web Application Firewall.md</span></a></li>
+                                
                                 <li ><a href="/posts/set-up-built-in-authentication-for-azure-static-web-app/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Set up built-in authentication for Azure Static Web App.md</span></a></li>
                                 
                                 <li ><a href="/posts/deploy-azure-static-web-app-using-bicep-and-yaml-pipeline/"><span class="rotate-letter md-icon">&#10144;</span><span class="menu-item">Deploy Azure Static Web App using Bicep and YAML pipeline.md</span></a></li>
@@ -187,6 +189,10 @@ if (!doNotTrack) {
                 
                 
                     <div class="main-tab">
+                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/exclusions-in-web-application-firewall/">Exclusions in Web Application Firewall.md</a>
+                    </div>
+                
+                    <div class="main-tab">
                         <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/set-up-built-in-authentication-for-azure-static-web-app/">Set up built-in authentication for Azure Static Web App.md</a>
                     </div>
                 
@@ -200,10 +206,6 @@ if (!doNotTrack) {
                 
                     <div class="main-tab">
                         <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/deploy-azure-function-app-without-downtime/">Deploy Azure Function App without downtime.md</a>
-                    </div>
-                
-                    <div class="main-tab">
-                        <span class="rotate-letter md-icon">&#10144;</span> <a href="/posts/moving-from-blogger-to-github-pages-with-hugo/">Moving from Blogger to GitHub Pages using Hugo.md</a>
                     </div>
                 
                 </div>
@@ -229,6 +231,9 @@ if (!doNotTrack) {
             ----
             
             
+                 
+                <h2><a href="/posts/exclusions-in-web-application-firewall/">Exclusions in Web Application Firewall</a></h2>        
+                <p>When enabling Web Application Firewall on an Application Gateway in Azure you will probably run into problems where some legitimate requests are blocked. This post is an attempt to make it easier understand why these requests were blocked and how to ensure they are not blocked in the future. This post assumes that the Web Application Firewall is deployed with the OWASP rule set. I also assume that diagnostic settings has already been configured to make sure we log everything we need.</p>
                  
                 <h2><a href="/posts/set-up-built-in-authentication-for-azure-static-web-app/">Set up built-in authentication for Azure Static Web App</a></h2>        
                 <p>This is the second part in a series covering Azure Static Web Apps. In the previous post I showed how to deploy a static web app. The web app was deployed successfully and open to the public to visit. What if you want to restrict access to the app to just a few users you trust? Azure Static Web Apps offers a couple of solutions without having to write a lot of code.</p>
@@ -259,15 +264,15 @@ Create table To create an Azure Table we need to first have a resource group. Le
                 <h2><a href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a></h2>        
                 <p>To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell cmdlet Invoke-RestMethod. I have seen some people suggesting that Invoke-RestMethod does not have support for this, which is not true. It&rsquo;s just a little bit more complicated than expected.
 What&rsquo;s needed is basically a custom header and a cookie.</p>
-                 
-                <h2><a href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a></h2>        
-                <p>Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources to contain as little code as possible I prefer to create cmdlets outside of the resource which I can call from within the resource. In this way I can also use the cmdlets in scripts and the console which is a nice bonus.</p>
             
 
         </div>
         <div class="main-content-preview">
 
             
+            
+                <h2><a href="/posts/exclusions-in-web-application-firewall/">Exclusions in Web Application Firewall</a>&nbsp;<span class="h2-postdate">- December 13, 2024</span></h2>
+                <p>When enabling Web Application Firewall on an Application Gateway in Azure you will probably run into problems where some legitimate requests are blocked. This post is an attempt to make it easier understand why these requests were blocked and how to ensure they are not blocked in the future. This post assumes that the Web Application Firewall is deployed with the OWASP rule set. I also assume that diagnostic settings has already been configured to make sure we log everything we need.</p>                        
             
                 <h2><a href="/posts/set-up-built-in-authentication-for-azure-static-web-app/">Set up built-in authentication for Azure Static Web App</a>&nbsp;<span class="h2-postdate">- May 2, 2023</span></h2>
                 <p>This is the second part in a series covering Azure Static Web Apps. In the previous post I showed how to deploy a static web app. The web app was deployed successfully and open to the public to visit. What if you want to restrict access to the app to just a few users you trust? Azure Static Web Apps offers a couple of solutions without having to write a lot of code.</p>                        
@@ -298,9 +303,6 @@ Create table To create an Azure Table we need to first have a resource group. Le
                 <h2><a href="/posts/invoke-restmethod-with-anti-forgery-tokens-in-header-and-cookie/">Invoke-RestMethod with anti-forgery tokens in header and cookie</a>&nbsp;<span class="h2-postdate">- February 21, 2017</span></h2>
                 <p>To help prevent cross-site scripting attacks some websites uses anti-forgery tokens. If you would like to talk to a REST API which uses this security measure you might run into problems if you are trying to use the PowerShell cmdlet Invoke-RestMethod. I have seen some people suggesting that Invoke-RestMethod does not have support for this, which is not true. It&rsquo;s just a little bit more complicated than expected.
 What&rsquo;s needed is basically a custom header and a cookie.</p>                        
-            
-                <h2><a href="/posts/introducing-the-inimanager-module/">Introducing the IniManager module</a>&nbsp;<span class="h2-postdate">- April 23, 2016</span></h2>
-                <p>Some time ago I wanted to find a DSC resource which would help me in configuring ini files. I did not really find any resource which was dynamic enough for my needs so I ended up writing my own. Since I want my DSC resources to contain as little code as possible I prefer to create cmdlets outside of the resource which I can call from within the resource. In this way I can also use the cmdlets in scripts and the console which is a nice bonus.</p>                        
             
 
             <div class="internal-pagination">
